@@ -4,6 +4,8 @@ services:
   wagtail:
     ports:
       - 8000:8000
+    environment:
+      OV_API_URL: http://localhost:8000
   front:
     ports:
       - 3000:3000

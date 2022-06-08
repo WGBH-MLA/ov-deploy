@@ -17,6 +17,7 @@ An init script is available with the following shortcut commands:
 
 COMMANDS:
 
+  b | build   build the docker images
   c | cmd     run a compose command
   d | dev     start a development server
   h | help    prints this help text

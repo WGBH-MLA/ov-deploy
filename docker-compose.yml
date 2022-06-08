@@ -2,7 +2,8 @@ version: '3.8'
 
 services:
   wagtail:
-    build: .
+    build:
+      context: ./ov_wag
     image: ov
     volumes:
       - ./ov_wag:/app/
@@ -28,6 +29,8 @@ services:
     env_file:
       - .db
   front:
+    build:
+      context: ./ov-frontend
     image: ov-front
     environment:
       OV_API_URL: http://wagtail:8000

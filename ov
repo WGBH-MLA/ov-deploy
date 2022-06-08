@@ -7,6 +7,7 @@ USAGE:\n\n
 
 COMMANDS:\n\n
 
+\t  b | build \t  build the docker images
 \t  c | cmd \t    run a compose command \n
 \t  d | dev \t    start a development server \n
 \t  h | help \t   prints this help text \n
@@ -19,8 +20,13 @@ OV_GID=$(id -g)
 
 COMPOSE_DEV="docker compose -f docker-compose.yml -f dev.yml"
 MANAGE="run wagtail python3 manage.py"
+
 if [ -z $1 ]; then
   echo -e $HELP
+
+elif [ $1 = "build" -o $1 = "b" ]; then
+  shift
+  $COMPOSE_DEV build "$@"
 
 elif [ $1 = "cmd" -o $1 = "c" ]; then
   shift

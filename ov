@@ -10,6 +10,7 @@ COMMANDS:\n\n
 \t  b | build \t  build the docker images
 \t  c | cmd \t    run a compose command \n
 \t  d | dev \t    start a development server \n
+\t  i | init \t   run initialization script \n
 \t  h | help \t   prints this help text \n
 \t  m | manage \t run a wagtail manage.py command \n
 \t  s | shell \t  run a django shell command with the app context
@@ -38,7 +39,7 @@ elif [ $1 = "dev" -o $1 = "d" ]; then
   # docker run -itp 8000:8000 -v $(pwd)/:/app/ ov "$@"
   $COMPOSE_DEV up
 
-elif [ $1 = "init" ]; then
+elif [ $1 = "init" -o $1 = "i" ]; then
   shift
   # initialize submodule
   git submodule init

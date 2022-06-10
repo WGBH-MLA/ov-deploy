@@ -7,12 +7,14 @@ USAGE:\n\n
 
 COMMANDS:\n\n
 
-\t  b | build \t  build the docker images
+\t  b | build \t  build the docker images \n
+\t  backup | dump \t create a backup of the database \n
 \t  c | cmd \t    run a compose command \n
 \t  d | dev \t    start a development server \n
 \t  i | init \t   run initialization script \n
 \t  h | help \t   prints this help text \n
 \t  m | manage \t run a wagtail manage.py command \n
+\t  restore | load\t restore a database backup \n
 \t  s | shell \t  run a django shell command with the app context
 "
 
@@ -59,6 +61,15 @@ elif [ $1 = "shell" -o $1 = "s" ]; then
   shift
   # docker run -it -v $(pwd)/:/app/ ov python3 manage.py shell "$@"
   $COMPOSE_DEV $MANAGE shell "$@"
+elif [ $1 = "dump" -o $1 = "backup" ]; then
+  shift
+  TIMESTAMP=`date +%Y-%m-%d_%H-%M-%S`
+  $COMPOSE_DEV exec -it db pg_dump -Fc -U postgres postgres > db_$TIMESTAMP.sql
+
+elif [ $1 = "load" -o $1 = "restore" ]; then
+  shift
+  # Restore a database from a dump file $1
+  $COMPOSE_DEV exec -iT db pg_restore --verbose --clean --no-acl --no-owner -U postgres -d postgres < $1
 
 else echo -e $HELP
 

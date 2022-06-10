@@ -17,13 +17,15 @@ An init script is available with the following shortcut commands:
 
 COMMANDS:
 
-  b | build   build the docker images
-  c | cmd     run a compose command
-  d | dev     start a development server
-  i | init    run initialization script
-  h | help    prints this help text
-  m | manage  run a wagtail manage.py command
-  s | shell   run a django shell command with the app context
+  b | build        build the docker images
+  backup | dump    create a backup of the database
+  c | cmd          run a compose command
+  d | dev          start a development server
+  i | init         run initialization script
+  h | help         prints this help text
+  m | manage       run a wagtail manage.py command
+  restore | load   restore a database backup
+  s | shell        run a django shell command with the app context
 ```
 ## Initial setup
 After cloning this repository:

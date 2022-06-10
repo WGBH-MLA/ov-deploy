@@ -7,12 +7,14 @@ USAGE:\n\n
 
 COMMANDS:\n\n
 
-\t  b | build \t  build the docker images
+\t  b | build \t  build the docker images \n
+\t  backup | dump \t create a backup of the database \n
 \t  c | cmd \t    run a compose command \n
 \t  d | dev \t    start a development server \n
 \t  i | init \t   run initialization script \n
 \t  h | help \t   prints this help text \n
 \t  m | manage \t run a wagtail manage.py command \n
+\t  restore | load\t restore a database backup \n
 \t  s | shell \t  run a django shell command with the app context
 "
 

@@ -21,7 +21,8 @@ COMMANDS:\n\n
 OV_UID=$(id -u)
 OV_GID=$(id -g)
 
-COMPOSE_DEV="docker compose -f docker-compose.yml -f dev.yml"
+COMPOSE_DEV="docker compose -f ov_wag/docker-compose.yml -f ov_wag/dev.yml"
+FRONTEND="-f front.yml"
 MANAGE="run wagtail python3 manage.py"
 
 if [ -z $1 ]; then
@@ -29,7 +30,7 @@ if [ -z $1 ]; then
 
 elif [ $1 = "build" -o $1 = "b" ]; then
   shift
-  $COMPOSE_DEV build "$@"
+  $COMPOSE_DEV $FRONTEND build "$@"
 
 elif [ $1 = "cmd" -o $1 = "c" ]; then
   shift
@@ -39,7 +40,7 @@ elif [ $1 = "cmd" -o $1 = "c" ]; then
 elif [ $1 = "dev" -o $1 = "d" ]; then
   shift
   # docker run -itp 8000:8000 -v $(pwd)/:/app/ ov "$@"
-  $COMPOSE_DEV up
+  $COMPOSE_DEV $FRONTEND up
 
 elif [ $1 = "init" -o $1 = "i" ]; then
   shift
@@ -61,6 +62,7 @@ elif [ $1 = "shell" -o $1 = "s" ]; then
   shift
   # docker run -it -v $(pwd)/:/app/ ov python3 manage.py shell "$@"
   $COMPOSE_DEV $MANAGE shell "$@"
+
 elif [ $1 = "dump" -o $1 = "backup" ]; then
   shift
   TIMESTAMP=`date +%Y-%m-%d_%H-%M-%S`

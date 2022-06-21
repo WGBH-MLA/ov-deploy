@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  front:
+    build:
+      context: ./ov-frontend
+      target: production
+    image: ov-front
+    environment:
+      OV_API_URL: http://wagtail
+    volumes:
+      - ./ov-frontend:/app
+    ports:
+      - 3000:3000

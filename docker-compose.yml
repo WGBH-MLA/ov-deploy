@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  wagtail:
+    image: ov
+    build:
+      context: ./ov_wag
+      target: production
+
+  wagtail-tests:
+    image: ov-tests
+    build:
+      context: ./ov_wag
+      target: base
+
+  front:
+    image: ov-front
+    build:
+      context: ./ov-frontend
+      target: production
+    environment:
+      OV_API_URL: http://wagtail
+
+  db:
+    image: postgres:14.2-alpine

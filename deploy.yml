@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  wagtail:
+    ports:
+      - 8000:80
+    depends_on:
+      - db
+    environment:
+      OV_DB_HOST: db
+    env_file:
+      - ov_wag/.env
+    volumes:
+      - ./ov_wag:/app
+  front:
+    volumes:
+      - ./ov-frontend:/var/app
+    ports:
+      - 3000:3000
+  db:
+    env_file:
+      - ov_wag/.db
+    volumes:
+      - ./ov_wag/db:/var/lib/postgresql/data
+  wagtail-tests:
+    volumes:
+      - ./ov_wag:/app

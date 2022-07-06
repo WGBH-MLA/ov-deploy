@@ -23,7 +23,7 @@ OV_GID=$(id -g)
 
 COMPOSE="docker compose -f docker-compose.yml -f ov_wag/docker-compose.yml"
 DEPLOY="-f deploy.yml"
-MANAGE="run wagtail python3 manage.py"
+MANAGE="run -it --entrypoint python wagtail manage.py"
 
 if [ -z $1 ]; then
   echo -e $HELP

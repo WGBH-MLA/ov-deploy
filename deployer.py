@@ -17,7 +17,7 @@ class Deployer(BaseModel):
     ov_wag_secrets: str = None
     ov_frontend: str = None
     ov_frontend_env: str = None
-    ov_nginx: str = None
+    ov_nginx: bool = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -83,21 +83,23 @@ class Deployer(BaseModel):
         self.update_ov_frontend_workload()
 
     def deploy_ov_nginx(self):
-        """Deploy the proxy"""
-        pass
+        """Deploy the proxy
+
+        TODO: deploy proxy"""
+        print(f'Deploying ov_nginx: "{self.ov_nginx}"')
 
     def deploy(self):
         """Run the deployment process using the current context"""
         print(f'Starting deployment using context "{self.context}"')
-        if not (self.ov_wag or self.ov_frontend or self.ov_nginx):
-            print(f'Nothing specified for deployment.')
-        else:
-            if self.ov_wag:
-                self.deploy_ov_wag()
-            if self.ov_frontend:
-                self.deploy_ov_frontend()
-            if self.ov_nginx:
-                self.deploy_ov_nginx()
+
+        if not any([self.ov_wag, self.ov_frontend, self.ov_nginx]):
+            raise Exception(f'Nothing specified for deployment.')
+        if self.ov_wag:
+            self.deploy_ov_wag()
+        if self.ov_frontend:
+            self.deploy_ov_frontend()
+        if self.ov_nginx:
+            self.deploy_ov_nginx()
 
         print('Done!')
 

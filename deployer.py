@@ -61,6 +61,9 @@ class Deployer(BaseModel):
         self.push_ov_frontend()
         self.update_ov_frontend_workload()
 
+    def deploy_ov_nginx(self):
+        pass
+
     def deploy(self):
         print(f'Starting deployment using context "{self.context}"')
         if not (self.ov_wag or self.ov_frontend or self.ov_nginx):

@@ -1,6 +1,7 @@
 import os
 from pprint import pp
 
+
 class Deployer:
     def __init__(self, **kwargs):
         # Set attributes from kwargs explicitly
@@ -18,10 +19,14 @@ class Deployer:
         os.system(f'kubectl config use-context {self.context}')
 
     def build_ov_wag(self):
-        os.system(f'docker build https://github.com/WGBH-MLA/ov_wag.git#{self.ov_wag} -t {self.ov_wag_tag}')
+        os.system(
+            f'docker build https://github.com/WGBH-MLA/ov_wag.git#{self.ov_wag} -t {self.ov_wag_tag}'
+        )
 
     def build_ov_frontend(self):
-        os.system(f'docker build https://github.com/WGBH-MLA/ov-frontend.git#{self.ov_frontend} -t {self.ov_frontend_tag}')
+        os.system(
+            f'docker build https://github.com/WGBH-MLA/ov-frontend.git#{self.ov_frontend} -t {self.ov_frontend_tag}'
+        )
 
     def build_nginx(self):
         os.system(f'docker build ov-nginx')
@@ -39,7 +44,9 @@ class Deployer:
         os.system(f'kubectl set image deployment.apps/ov ov={self.ov_wag_tag}')
 
     def update_ov_frontend_workload(self):
-        os.system(f'kubectl set image deployment.apps/ov-frontend ov-frontend={self.ov_frontend_tag}')
+        os.system(
+            f'kubectl set image deployment.apps/ov-frontend ov-frontend={self.ov_frontend_tag}'
+        )
 
     def deploy_ov_wag(self):
         print(f'Deploying ov_wag: "{self.ov_wag}"')

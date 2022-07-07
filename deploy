@@ -2,71 +2,16 @@
 ###
 # Command line tool for managing Open Vault deployments
 ###
-
-from argparse import ArgumentParser, SUPPRESS as NoDefault
-from pprint import pp
 from deployer import Deployer
 
-parser = ArgumentParser(description='Manage Open Vault deployments')
-parser.add_argument(
-    '-c',
-    '--context',
-    required=True,
-    type=str,
-    choices=['openvault', 'openvault-demo'],
-    # TODO: elaborate. This is important and a bit complex.
-    # It requires that your local ~/.kube/config have these two
-    # contexts present and properly configured.
-    help='the kubectl context to use in the deployment',
-)
 
-parser.add_argument(
-    '--ov_wag',
-    type=str,
-    metavar='TAG|COMMIT|BRANCH|HEAD',
-    help='version of the ov_wag headless CMS backend to be deployed',
-)
+if __name__ == '__main__':
+    from cli import cli
 
-parser.add_argument(
-    '--ov-frontend',
-    type=str,
-    metavar='TAG|COMMIT|BRANCH|HEAD',
-    help='version of the ov-frontend website to be deployed',
-)
+    args = cli()
 
-parser.add_argument(
-    '--ov_wag-env',
-    type=str,
-    metavar='PATH',
-    default='./ov_wag/env.yml',
-    help='path to environment file for ov_wag',
-)
+    # Create a new Deployer instance form parsed command line args.
+    deployer = Deployer(**vars(args))
 
-parser.add_argument(
-    '--ov_wag-secrets',
-    type=str,
-    metavar='PATH',
-    default='./ov_wag/secrets.yml',
-    help='path to secrets file for ov_wag',
-)
-
-parser.add_argument(
-    '--ov-frontend-env',
-    type=str,
-    metavar='PATH',
-    default='./ov-frontend/env.yml',
-    help='path to environment file for ov-frontend',
-)
-
-parser.add_argument(
-    '--ov-nginx', action='store_true', help='rebuild and redeploy ov-nginx image'
-)
-
-# Parses the command line args.
-args = parser.parse_args()
-
-# Create a new Deployer instance form parsed command line args.
-deployer = Deployer(**vars(args))
-
-# Run the deployment.
-deployer.deploy()
+    # Run the deployment.
+    deployer.deploy()

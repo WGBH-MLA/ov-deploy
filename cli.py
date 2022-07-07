@@ -17,6 +17,7 @@ def cli():
     )
 
     parser.add_argument(
+        '-b',
         '--ov_wag',
         type=str,
         metavar='TAG|COMMIT|BRANCH|HEAD',
@@ -24,10 +25,18 @@ def cli():
     )
 
     parser.add_argument(
+        '-f',
         '--ov-frontend',
         type=str,
         metavar='TAG|COMMIT|BRANCH|HEAD',
         help='version of the ov-frontend website to be deployed',
+    )
+
+    parser.add_argument(
+        '-p',
+        '--ov-nginx',
+        action='store_true',
+        help='rebuild and redeploy ov-nginx image',
     )
 
     parser.add_argument(
@@ -54,8 +63,5 @@ def cli():
         help='path to environment file for ov-frontend',
     )
 
-    parser.add_argument(
-        '--ov-nginx', action='store_true', help='rebuild and redeploy ov-nginx image'
-    )
     # Parses the command line args.
     return parser.parse_args()

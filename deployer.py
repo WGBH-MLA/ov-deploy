@@ -1,6 +1,9 @@
 import os
 from pprint import pp
 
+OV_WAG_URL = 'https://github.com/WGBH-MLA/ov_wag.git'
+OV_FRONTEND_URL = 'https://github.com/WGBH-MLA/ov-frontend.git'
+
 
 class Deployer:
     def __init__(self, **kwargs):
@@ -19,13 +22,11 @@ class Deployer:
         os.system(f'kubectl config use-context {self.context}')
 
     def build_ov_wag(self):
-        os.system(
-            f'docker build https://github.com/WGBH-MLA/ov_wag.git#{self.ov_wag} -t {self.ov_wag_tag}'
-        )
+        os.system(f'docker build {OV_WAG_URL}#{self.ov_wag} -t {self.ov_wag_tag}')
 
     def build_ov_frontend(self):
         os.system(
-            f'docker build https://github.com/WGBH-MLA/ov-frontend.git#{self.ov_frontend} -t {self.ov_frontend_tag}'
+            f'docker build {OV_FRONTEND_URL}#{self.ov_frontend} -t {self.ov_frontend_tag}'
         )
 
     def build_nginx(self):

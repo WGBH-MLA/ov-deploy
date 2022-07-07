@@ -1,21 +1,21 @@
 import os
-from pprint import pp
+from pydantic import BaseModel
 
 OV_WAG_URL = 'https://github.com/WGBH-MLA/ov_wag.git'
 OV_FRONTEND_URL = 'https://github.com/WGBH-MLA/ov-frontend.git'
 
 
-class Deployer:
+class Deployer(BaseModel):
+    context: str
+    ov_wag: str = None
+    ov_wag_env: str = None
+    ov_wag_secrets: str = None
+    ov_frontend: str = None
+    ov_frontend_env: str = None
+    ov_nginx: str = None
+
     def __init__(self, **kwargs):
-        # Set attributes from kwargs explicitly
-        self.context = kwargs.get('context')
-        self.ov_wag = kwargs.get('ov_wag')
-        self.ov_wag_env = kwargs.get('ov_wag_env')
-        self.ov_wag_secrets = kwargs.get('ov_wag_secrets')
-        self.ov_frontend = kwargs.get('ov_frontend')
-        self.ov_frontend_env = kwargs.get('ov_frontend_env')
-        self.ov_nginx = kwargs.get('ov_nginx')
-        # Switch to the specified kubectl context.
+        super().__init__(**kwargs)
         self.set_current_context()
 
     def set_current_context(self):

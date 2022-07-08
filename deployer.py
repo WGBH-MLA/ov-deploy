@@ -1,4 +1,4 @@
-import os
+from subprocess import run
 from pydantic import BaseModel
 
 OV_WAG_URL = 'https://github.com/WGBH-MLA/ov_wag.git'
@@ -19,52 +19,55 @@ class Deployer(BaseModel):
     ov_frontend_env: str = None
     ov_nginx: bool = None
 
+    def run(self, cmd):
+        run(cmd, shell=True, check=True)
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.set_current_context()
 
     def set_current_context(self):
         """Switch to the specified kubectl context."""
-        os.system(f'kubectl config use-context {self.context}')
+        self.run(f'kubectl config use-context {self.context}')
 
     def build_ov_wag(self):
         """Build the backend ov_wag docker image"""
-        os.system(f'docker build {OV_WAG_URL}#{self.ov_wag} -t {self.ov_wag_tag}')
+        self.run(f'docker build {OV_WAG_URL}#{self.ov_wag} -t {self.ov_wag_tag}')
 
     def build_ov_frontend(self):
         """Build the frontend ov-frontend docker image"""
-        os.system(
+        self.run(
             f'docker build {OV_FRONTEND_URL}#{self.ov_frontend} -t {self.ov_frontend_tag}'
         )
 
     def build_nginx(self):
         """Build the proxy nginx docker image"""
-        os.system(f'docker build ov-nginx')
+        self.run(f'docker build ov-nginx')
 
     def push_ov_wag(self):
         """Push the backend ov_wag docker image to hub.docker.com
 
         Requires the user to be logged in"""
-        os.system(f'docker push {self.ov_wag_tag}')
+        self.run(f'docker push {self.ov_wag_tag}')
 
     def push_ov_frontend(self):
         """Push the frontend ov-frontend docker image to hub.docker.com
 
         Requires the user to be logged in"""
-        os.system(f'docker push {self.ov_frontend_tag}')
+        self.run(f'docker push {self.ov_frontend_tag}')
 
     def push_nginx(self):
         """Push the proxy nginx docker image to hub.docker.com
 
         Requires the user to be logged in"""
-        os.system(f'docker push {self.ov_nginx_tag}')
+        self.run(f'docker push {self.ov_nginx_tag}')
 
     def update_ov_wag_workload(self):
         """Sets the backend pod image to"""
-        os.system(f'kubectl set image deployment.apps/ov ov={self.ov_wag_tag}')
+        self.run(f'kubectl set image deployment.apps/ov ov={self.ov_wag_tag}')
 
     def update_ov_frontend_workload(self):
-        os.system(
+        self.run(
             f'kubectl set image deployment.apps/ov-frontend ov-frontend={self.ov_frontend_tag}'
         )
 

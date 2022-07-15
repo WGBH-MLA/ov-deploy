@@ -4,14 +4,11 @@ on:
     types: [closed]
 jobs:
   release:
-    name: 📦 Draft Release
+    name: 📝 Draft Release
     runs-on: ubuntu-latest
     steps:
-      - name: 📝 Create a release draft for a milestone
-        id: create-release-milestone
-        uses: ecampidoglio/auto-release-milestone@v1
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: 🖨️ Print the URL of the release draft
-        if: steps.create-release-milestone.outputs.release-url != ''
-        run: echo ${{ steps.create-release-draft.outputs.release-url }}
+      - name: 📰 Checkout
+        uses: actions/checkout@v3
+
+      - name: 📦 Create draft release from milestone
+        uses: quaternionmedia/milestones@main

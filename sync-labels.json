@@ -1,0 +1,80 @@
+[
+  {
+    "repositories": [
+      "WGBH-MLA/ov_deploy",
+      "WGBH-MLA/ov_wag",
+      "WGBH-MLA/ov-frontend"
+    ],
+    "labels": [
+      {
+        "previousNames": ["bug"],
+        "name": "bug :bug:",
+        "color": "d73a4a"
+      },
+      {
+        "previousNames": ["CD"],
+        "name": "CD :building_construction:",
+        "description": "Relating to Continuous Deployment",
+        "color": "732487"
+      },
+      {
+        "previousNames": ["CI"],
+        "name": "CI :test_tube:",
+        "description": "Relating to Continuous Integration",
+        "color": "E09B24"
+      },
+      {
+        "previousNames": ["breaking"],
+        "name": "breaking :broken_heart:",
+        "description": "Breaking changes",
+        "color": "BF0212"
+      },
+      {
+        "previousNames": ["documentation"],
+        "name": "documentation :scroll:",
+        "color": "0075ca"
+      },
+      {
+        "previousNames": ["duplicate"],
+        "name": "duplicate :gemini:",
+        "color": "cfd3d7"
+      },
+      {
+        "previousNames": ["enhancement"],
+        "name": "enhancement :heavy_plus_sign:",
+        "color": "a2eeef"
+      },
+      {
+        "previousNames": ["good first issue"],
+        "name": "good first issue :new_moon_with_face:",
+        "color": "7057ff"
+      },
+      {
+        "previousNames": ["help wanted"],
+        "name": "help wanted :information_source:",
+        "color": "008672"
+      },
+      {
+        "previousNames": ["invalid"],
+        "name": "invalid :exclamation:",
+        "color": "e4e669"
+      },
+      {
+        "previousNames": ["maintenance"],
+        "name": "maintenance :wrench:",
+        "description": "Updates and upgrades",
+        "color": "F87431"
+      },
+      {
+        "previousNames": ["question"],
+        "name": "question :grey_question:",
+        "color": "d876e3"
+      },
+      {
+        "previousNames": ["wontfix"],
+        "name": "wontfix :x:",
+        "color": "ffffff"
+      }
+    ]
+  }
+]

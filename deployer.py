@@ -72,6 +72,6 @@ class Deployer(BaseModel):
                 src=f'{OV_FRONT_URL}#{self.ov_frontend}',
             )
         if self.ov_nginx:
-            self._deploy('ov_nginx', self.ov_nginx, src='ov-nginx')
+            self._deploy('ov-nginx', self.ov_nginx, src='ov-nginx')
 
         print('Done!')

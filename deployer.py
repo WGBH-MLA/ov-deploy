@@ -23,7 +23,7 @@ class Deployer(BaseModel):
     ov_wag_secrets: str = None
     ov_frontend: str = None
     ov_frontend_env: str = None
-    ov_nginx: bool = None
+    ov_nginx: str = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

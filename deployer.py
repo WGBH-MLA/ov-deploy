@@ -8,7 +8,25 @@ HUB_ACCOUNT = 'wgbhmla'
 
 
 def run(cmd: str):
+    """Run a shell command, and error on non-zero exit code"""
     sub_run(cmd, shell=True, check=True)
+
+
+def build_image(repo_name, tag, src=''):
+    """Build and tag docker image from a repo#tag"""
+    run(f'docker build {src or repo_name} -t {HUB_ACCOUNT}/{repo_name}:{tag}')
+
+
+def push_image(repo_name, tag):
+    """Push a tagged docker image to hub.docker.com
+
+    Requires the user to be logged in"""
+    run(f'docker push {HUB_ACCOUNT}/{repo_name}:{tag}')
+
+
+def update_workload(pod, tag):
+    """Sets the backend pod image to the proper tag"""
+    run(f'kubectl set image deployment.apps/{pod} {pod}={HUB_ACCOUNT}/{pod}:{tag}')
 
 
 class Deployer(BaseModel):
@@ -33,27 +51,13 @@ class Deployer(BaseModel):
         """Switch to the specified kubectl context."""
         run(f'kubectl config use-context {self.context}')
 
-    def build_image(self, repo_name, tag, src=''):
-        """Build and tag docker image from a repo#tag"""
-        run(f'docker build {src or repo_name} -t {HUB_ACCOUNT}/{repo_name}:{tag}')
-
-    def push_image(self, repo_name, tag):
-        """Push a tagged docker image to hub.docker.com
-
-        Requires the user to be logged in"""
-        run(f'docker push {HUB_ACCOUNT}/{repo_name}:{tag}')
-
-    def update_workload(self, pod, tag):
-        """Sets the backend pod image to the proper tag"""
-        run(f'kubectl set image deployment.apps/{pod} {pod}={HUB_ACCOUNT}/{pod}:{tag}')
-
     def _deploy(self, repo_name, tag, src=''):
         """Deploy helper function
 
         Deploy an individual image from a repo and tag name"""
-        self.build_image(repo_name, tag, src=src)
-        self.push_image(repo_name, tag)
-        self.update_workload(pod=repo_name, tag=tag)
+        build_image(repo_name, tag, src=src)
+        push_image(repo_name, tag)
+        update_workload(pod=repo_name, tag=tag)
 
     def deploy(self):
         """Deploy all

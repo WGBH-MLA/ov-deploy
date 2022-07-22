@@ -35,7 +35,7 @@ class Deployer(BaseModel):
 
     def build_image(self, repo_name, tag, src=''):
         """Build and tag docker image from a repo#tag"""
-        run(f'docker build {src or repo_name}#{tag} -t {HUB_ACCOUNT}/{repo_name}:{tag}')
+        run(f'docker build {src or repo_name} -t {HUB_ACCOUNT}/{repo_name}:{tag}')
 
     def push_image(self, repo_name, tag):
         """Push a tagged docker image to hub.docker.com
@@ -64,10 +64,14 @@ class Deployer(BaseModel):
         if not any([self.ov_wag, self.ov_frontend, self.ov_nginx]):
             raise Exception(f'Nothing specified for deployment.')
         if self.ov_wag:
-            self._deploy('ov_wag', self.ov_wag, src=OV_WAG_URL)
+            self._deploy('ov_wag', self.ov_wag, src=f'{OV_WAG_URL}#{self.ov_wag}')
         if self.ov_frontend:
-            self._deploy('ov-frontend', self.ov_frontend, src=OV_FRONT_URL)
+            self._deploy(
+                'ov-frontend',
+                self.ov_frontend,
+                src=f'{OV_FRONT_URL}#{self.ov_frontend}',
+            )
         if self.ov_nginx:
-            self._deploy('ov_nginx', self.ov_nginx)
+            self._deploy('ov_nginx', self.ov_nginx, src='ov-nginx')
 
         print('Done!')

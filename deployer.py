@@ -8,7 +8,7 @@ HUB_ACCOUNT = 'wgbhmla'
 
 
 def run(cmd: str):
-    sub_run(cmd, shell=True)  # , check=True)
+    sub_run(cmd, shell=True, check=True)
 
 
 class Deployer(BaseModel):

@@ -16,8 +16,29 @@
         "previousTitles": ["v0.2.0"],
         "title": "v0.2.0 Deploy 🌇",
         "state": "open",
-        "description": "# Deploy\n#### *The self-titled album*\n\nIncludes:\n- [ ] deploy documentation\n- [ ] `nginx` image\n- [ ] `utility` image",
+        "description": "# Deploy\n#### *The self-titled album*\n\nIncludes:\n- [ ] deploy documentation\n- [x] `nginx` image\n- [x] `jumpbox` image",
         "due_on": "2022-08-01T23:59:59Z"
+      },
+      {
+        "previousTitles": ["v0.3.0"],
+        "title": "v0.3.0 Collections 🖼️",
+        "state": "open",
+        "description": "# Collections\n- [ ] Special Collections\n- [ ] Other Exhibits\n- [ ] Embed images",
+        "due_on": "2022-09-01T23:59:59Z"
+      },
+      {
+        "previousTitles": ["v0.4.0"],
+        "title": "v0.4.0 Drafts 📝",
+        "state": "open",
+        "description": "# Drafts\n- [ ] Create draft page\n- [ ] View draft page\n- [ ] Publish draft page",
+        "due_on": "2022-09-30T23:59:59Z"
+      },
+      {
+        "previousTitles": ["v0.5.0"],
+        "title": "v0.5.0 Beta 🌁",
+        "state": "open",
+        "description": "# Beta\n- [ ] Content Managers\n- [ ] Db management\n- [ ] Add Exhibit data",
+        "due_on": "2022-10-28T23:59:59Z"
       }
     ]
   }

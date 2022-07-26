@@ -18,10 +18,10 @@ def cli():
 
     parser.add_argument(
         '-b',
-        '--ov_wag',
+        '--ov-wag',
         type=str,
         metavar='TAG|COMMIT|BRANCH|HEAD',
-        help='version of the ov_wag headless CMS backend to be deployed',
+        help='version of the ov-wag headless CMS backend to be deployed',
     )
 
     parser.add_argument(
@@ -40,19 +40,19 @@ def cli():
     )
 
     parser.add_argument(
-        '--ov_wag-env',
+        '--ov-wag-env',
         type=str,
         metavar='PATH',
-        default='./ov_wag/env.yml',
-        help='path to environment file for ov_wag',
+        default='./ov-wag/env.yml',
+        help='path to environment file for ov-wag',
     )
 
     parser.add_argument(
-        '--ov_wag-secrets',
+        '--ov-wag-secrets',
         type=str,
         metavar='PATH',
-        default='./ov_wag/secrets.yml',
-        help='path to secrets file for ov_wag',
+        default='./ov-wag/secrets.yml',
+        help='path to secrets file for ov-wag',
     )
 
     parser.add_argument(

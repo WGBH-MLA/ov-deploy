@@ -1,4 +1,4 @@
-[submodule "ov_wag"]
+[submodule "ov-wag"]
 	path = ov-wag
 	url = git@github.com:WGBH-MLA/ov-wag.git
 [submodule "ov-frontend"]

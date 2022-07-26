@@ -4,13 +4,13 @@ services:
   wagtail:
     image: ov
     build:
-      context: ./ov_wag
+      context: ./ov-wag
       target: production
 
   wagtail-tests:
     image: ov-tests
     build:
-      context: ./ov_wag
+      context: ./ov-wag
       target: base
 
   front:

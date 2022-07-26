@@ -2,7 +2,7 @@
   {
     "repositories": [
       "WGBH-MLA/ov_deploy",
-      "WGBH-MLA/ov_wag",
+      "WGBH-MLA/ov-wag",
       "WGBH-MLA/ov-frontend"
     ],
     "labels": [

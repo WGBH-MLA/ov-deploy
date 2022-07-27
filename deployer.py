@@ -1,8 +1,32 @@
-from subprocess import run
+from subprocess import run as sub_run
 from pydantic import BaseModel
 
-OV_WAG_URL = 'https://github.com/WGBH-MLA/ov-wag.git'
-OV_FRONTEND_URL = 'https://github.com/WGBH-MLA/ov-frontend.git'
+GITHUB_URL = 'https://github.com/WGBH-MLA/'
+OV_WAG_URL = GITHUB_URL + 'ov-wag.git'
+OV_FRONT_URL = GITHUB_URL + 'ov-frontend.git'
+HUB_ACCOUNT = 'wgbhmla'
+
+
+def run(cmd: str):
+    """Run a shell command, and error on non-zero exit code"""
+    sub_run(cmd, shell=True, check=True)
+
+
+def build_image(repo_name, tag, src=''):
+    """Build and tag docker image from a repo#tag"""
+    run(f'docker build {src or repo_name} -t {HUB_ACCOUNT}/{repo_name}:{tag}')
+
+
+def push_image(repo_name, tag):
+    """Push a tagged docker image to hub.docker.com
+
+    Requires the user to be logged in"""
+    run(f'docker push {HUB_ACCOUNT}/{repo_name}:{tag}')
+
+
+def update_workload(pod, tag):
+    """Sets the backend pod image to the proper tag"""
+    run(f'kubectl set image deployment.apps/{pod} {pod}={HUB_ACCOUNT}/{pod}:{tag}')
 
 
 class Deployer(BaseModel):
@@ -17,10 +41,7 @@ class Deployer(BaseModel):
     ov_wag_secrets: str = None
     ov_frontend: str = None
     ov_frontend_env: str = None
-    ov_nginx: bool = None
-
-    def run(self, cmd):
-        run(cmd, shell=True, check=True)
+    ov_nginx: str = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -28,92 +49,33 @@ class Deployer(BaseModel):
 
     def set_current_context(self):
         """Switch to the specified kubectl context."""
-        self.run(f'kubectl config use-context {self.context}')
+        run(f'kubectl config use-context {self.context}')
 
-    def build_ov_wag(self):
-        """Build the backend ov_wag docker image"""
-        self.run(f'docker build {OV_WAG_URL}#{self.ov_wag} -t {self.ov_wag_tag}')
+    def _deploy(self, repo_name, tag, src=''):
+        """Deploy helper function
 
-    def build_ov_frontend(self):
-        """Build the frontend ov-frontend docker image"""
-        self.run(
-            f'docker build {OV_FRONTEND_URL}#{self.ov_frontend} -t {self.ov_frontend_tag}'
-        )
-
-    def build_nginx(self):
-        """Build the proxy nginx docker image"""
-        self.run(f'docker build ov-nginx')
-
-    def push_ov_wag(self):
-        """Push the backend ov_wag docker image to hub.docker.com
-
-        Requires the user to be logged in"""
-        self.run(f'docker push {self.ov_wag_tag}')
-
-    def push_ov_frontend(self):
-        """Push the frontend ov-frontend docker image to hub.docker.com
-
-        Requires the user to be logged in"""
-        self.run(f'docker push {self.ov_frontend_tag}')
-
-    def push_nginx(self):
-        """Push the proxy nginx docker image to hub.docker.com
-
-        Requires the user to be logged in"""
-        self.run(f'docker push {self.ov_nginx_tag}')
-
-    def update_ov_wag_workload(self):
-        """Sets the backend pod image to"""
-        self.run(f'kubectl set image deployment.apps/ov ov={self.ov_wag_tag}')
-
-    def update_ov_frontend_workload(self):
-        self.run(
-            f'kubectl set image deployment.apps/ov-frontend ov-frontend={self.ov_frontend_tag}'
-        )
-
-    def deploy_ov_wag(self):
-        """Deploy the backend"""
-        print(f'Deploying ov-wag: "{self.ov_wag}"')
-        self.build_ov_wag()
-        self.push_ov_wag()
-        self.update_ov_wag_workload()
-
-    def deploy_ov_frontend(self):
-        """Deploy the frontend"""
-        print(f'Deploying ov-frontend: "{self.ov_frontend}"')
-        self.build_ov_frontend()
-        self.push_ov_frontend()
-        self.update_ov_frontend_workload()
-
-    def deploy_ov_nginx(self):
-        """Deploy the proxy
-
-        TODO: deploy proxy"""
-        print(f'Deploying ov_nginx: "{self.ov_nginx}"')
+        Deploy an individual image from a repo and tag name"""
+        build_image(repo_name, tag, src=src)
+        push_image(repo_name, tag)
+        update_workload(pod=repo_name, tag=tag)
 
     def deploy(self):
-        """Run the deployment process using the current context"""
+        """Deploy all
+
+        Run the full deployer process using the current context"""
         print(f'Starting deployment using context "{self.context}"')
 
         if not any([self.ov_wag, self.ov_frontend, self.ov_nginx]):
             raise Exception(f'Nothing specified for deployment.')
         if self.ov_wag:
-            self.deploy_ov_wag()
+            self._deploy('ov-wag', self.ov_wag, src=f'{OV_WAG_URL}#{self.ov_wag}')
         if self.ov_frontend:
-            self.deploy_ov_frontend()
+            self._deploy(
+                'ov-frontend',
+                self.ov_frontend,
+                src=f'{OV_FRONT_URL}#{self.ov_frontend}',
+            )
         if self.ov_nginx:
-            self.deploy_ov_nginx()
+            self._deploy('ov-nginx', self.ov_nginx)
 
         print('Done!')
-
-    @property
-    def ov_wag_tag(self):
-        return f'wgbhmla/ov_wag:{self.ov_wag}'
-
-    @property
-    def ov_frontend_tag(self):
-        return f'wgbhmla/ov-frontend:{self.ov_frontend}'
-
-    @property
-    def ov_nginx_tag(self):
-        return f'wgbhmla/ov-nginx:latest'

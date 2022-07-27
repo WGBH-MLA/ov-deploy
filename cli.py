@@ -35,8 +35,9 @@ def cli():
     parser.add_argument(
         '-p',
         '--ov-nginx',
-        action='store_true',
-        help='rebuild and redeploy ov-nginx image',
+        type=str,
+        metavar='TAG|COMMIT|BRANCH|HEAD',
+        help='version of the ov-nginx proxy to be deployed',
     )
 
     parser.add_argument(

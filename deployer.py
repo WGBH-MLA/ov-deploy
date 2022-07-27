@@ -2,7 +2,7 @@ from subprocess import run as sub_run
 from pydantic import BaseModel
 
 GITHUB_URL = 'https://github.com/WGBH-MLA/'
-OV_WAG_URL = GITHUB_URL + 'ov_wag.git'
+OV_WAG_URL = GITHUB_URL + 'ov-wag.git'
 OV_FRONT_URL = GITHUB_URL + 'ov-frontend.git'
 HUB_ACCOUNT = 'wgbhmla'
 
@@ -68,7 +68,7 @@ class Deployer(BaseModel):
         if not any([self.ov_wag, self.ov_frontend, self.ov_nginx]):
             raise Exception(f'Nothing specified for deployment.')
         if self.ov_wag:
-            self._deploy('ov_wag', self.ov_wag, src=f'{OV_WAG_URL}#{self.ov_wag}')
+            self._deploy('ov-wag', self.ov_wag, src=f'{OV_WAG_URL}#{self.ov_wag}')
         if self.ov_frontend:
             self._deploy(
                 'ov-frontend',

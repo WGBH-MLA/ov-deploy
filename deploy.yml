@@ -9,9 +9,9 @@ services:
     environment:
       OV_DB_HOST: db
     env_file:
-      - ov_wag/.env
+      - ov-wag/.env
     volumes:
-      - ./ov_wag:/app
+      - ./ov-wag:/app
   front:
     volumes:
       - ./ov-frontend:/var/app
@@ -19,9 +19,9 @@ services:
       - 3000:3000
   db:
     env_file:
-      - ov_wag/.db
+      - ov-wag/.db
     volumes:
-      - ./ov_wag/db:/var/lib/postgresql/data
+      - ./ov-wag/db:/var/lib/postgresql/data
   wagtail-tests:
     volumes:
-      - ./ov_wag:/app
+      - ./ov-wag:/app

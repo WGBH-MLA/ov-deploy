@@ -1,7 +1,7 @@
 from subprocess import run
 from pydantic import BaseModel
 
-OV_WAG_URL = 'https://github.com/WGBH-MLA/ov_wag.git'
+OV_WAG_URL = 'https://github.com/WGBH-MLA/ov-wag.git'
 OV_FRONTEND_URL = 'https://github.com/WGBH-MLA/ov-frontend.git'
 
 
@@ -73,7 +73,7 @@ class Deployer(BaseModel):
 
     def deploy_ov_wag(self):
         """Deploy the backend"""
-        print(f'Deploying ov_wag: "{self.ov_wag}"')
+        print(f'Deploying ov-wag: "{self.ov_wag}"')
         self.build_ov_wag()
         self.push_ov_wag()
         self.update_ov_wag_workload()

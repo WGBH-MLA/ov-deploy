@@ -21,7 +21,7 @@ COMMANDS:\n\n
 OV_UID=$(id -u)
 OV_GID=$(id -g)
 
-COMPOSE="docker compose -f docker-compose.yml -f ov_wag/docker-compose.yml"
+COMPOSE="docker compose -f docker-compose.yml -f ov-wag/docker-compose.yml"
 DEPLOY="-f deploy.yml"
 MANAGE="run -it --entrypoint python wagtail manage.py"
 

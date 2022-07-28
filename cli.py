@@ -33,6 +33,14 @@ def cli():
     )
 
     parser.add_argument(
+        '-j',
+        '--jumpbox',
+        type=str,
+        metavar='TAG|COMMIT|BRANCH|HEAD',
+        help='version of the jumpbox to be deployed',
+    )
+
+    parser.add_argument(
         '-p',
         '--ov-nginx',
         type=str,

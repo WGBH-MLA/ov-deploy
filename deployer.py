@@ -42,6 +42,7 @@ class Deployer(BaseModel):
     ov_frontend: str = None
     ov_frontend_env: str = None
     ov_nginx: str = None
+    jumpbox: str = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -65,7 +66,7 @@ class Deployer(BaseModel):
         Run the full deployer process using the current context"""
         print(f'Starting deployment using context "{self.context}"')
 
-        if not any([self.ov_wag, self.ov_frontend, self.ov_nginx]):
+        if not any([self.ov_wag, self.ov_frontend, self.ov_nginx, self.jumpbox]):
             raise Exception(f'Nothing specified for deployment.')
         if self.ov_wag:
             self._deploy('ov-wag', self.ov_wag, src=f'{OV_WAG_URL}#{self.ov_wag}')
@@ -77,5 +78,7 @@ class Deployer(BaseModel):
             )
         if self.ov_nginx:
             self._deploy('ov-nginx', self.ov_nginx)
+        if self.jumpbox:
+            self._deploy('jumpbox', self.jumpbox)
 
         print('Done!')

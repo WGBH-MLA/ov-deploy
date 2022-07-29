@@ -1,0 +1,29 @@
+name: Because / Done when
+description: Create a generic issue using the `Because` / `Done When` format
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+
+        Please be as detailed as possible about this issue.
+  - type: textarea
+    id: because
+    attributes:
+      label: Because
+      description: Briefly describe the context of the issue. A good starting point is the "User Story" format, outlined below.
+      placeholder: Just because!
+      value: |
+        As a [role]
+        When I [action]
+        [result]
+    validations:
+      required: true
+  - type: textarea
+    id: done-when
+    attributes:
+      label: Done when
+      description: Describe the desired end result, or the steps needed to get there.
+      placeholder: "\"When will you make an end?\" \"When I'm finished!\""
+      value: |
+        - [ ]

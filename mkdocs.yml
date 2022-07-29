@@ -1,1 +1,3 @@
 site_name: "Open Valut: Deploy"
+theme:
+  name: material

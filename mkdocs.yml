@@ -1,5 +1,5 @@
-site_name: "Open Vault: Deploy"
-side_description: Open Vault redesign deployment documentation
+site_name: 'Open Vault: Deploy'
+site_description: Open Vault redesign deployment documentation
 site_url: http://localhost:8001
 repo_url: https://github.com/WGBH-MLA/ov-deploy/
 
@@ -24,8 +24,6 @@ markdown_extensions:
 
 theme:
   name: material
-    # logo:
-    # favicon:
   palette:
     - media: "(prefers-color-scheme: dark)" #
       scheme: slate
@@ -38,16 +36,18 @@ theme:
         icon: material/toggle-switch-off-outline
         name: Switch to dark mode
   features:
-    - navigation.instant
-    - navigation.tracking
-    - navigation.tabs
-    - navigation.tabs.sticky
-    - navigation.sections
-    - navigation.expand
-    - navigation.indexes
-    - toc.integrate
-    - navigation.top
-    - content.code.annotate
+    - content.code.annotate # Enable code annotations for a specific block
+    - header.autohide # Hide header when scrolling
+    - navigation.instant # Load requests with XHR without reloading page
+    - navigation.sections # Top level sections rendered as group in sidebar
+    - navigation.tabs # Top level sections rendered as navbar
+    - navigation.tabs.sticky # Tabs visible on scroll
+    - navigation.top # Back to top button
+    - navigation.tracking # Adds url#anchor to address bar
+    - navigation.expand # Expand all collapsed sections by default
+    - toc.integrate # Nav bar is always rendered on the left
+    - search.highlight # Highlight occurances in result when searching for a term
+    - search.suggest # Suggest results in search
 
 extra:
   social:

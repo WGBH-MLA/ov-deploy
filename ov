@@ -44,7 +44,7 @@ elif [ $1 = "dev" -o $1 = "d" ]; then
 
 elif [ $1 = "docs" ]; then
   shift
-  docker run --rm -it -p 8001:8001 -v ${PWD}:/docs squidfunk/mkdocs-material serve -a 0.0.0.0:8001
+  docker run --rm -it -p 8001:8001 -v ${PWD}:/docs docs serve -a 0.0.0.0:8001
 
 elif [ $1 = "init" -o $1 = "i" ]; then
   shift

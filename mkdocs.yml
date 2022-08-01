@@ -59,7 +59,9 @@ plugins:
 
 extra:
   social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/WGBH-MLA/ov-deploy/
-    - icon: fontawesome/regular/newspaper
+    - name: Open Valut - Demo
+      icon: fontawesome/solid/vault
       link: http://ovfrontend.k8s.wgbhdigital.org/
+    - name: GitHub repository
+      icon: fontawesome/brands/github
+      link: https://github.com/WGBH-MLA/ov-deploy/

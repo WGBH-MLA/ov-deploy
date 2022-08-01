@@ -1,17 +1,9 @@
-# Welcome to MkDocs
+# Open Vault: Deploy
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+Deployment documentation for the Open Vault project
 
-## Commands
+## Links
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
-
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+- Site: http://ovfrontend.k8s.wgbhdigital.org/
+- Documentation: https://wgbh-mla.github.io/ov-deploy/
+- Github: https://github.com/WGBH-MLA/ov-deploy

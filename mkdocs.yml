@@ -51,6 +51,12 @@ theme:
     - search.highlight # Highlight occurances in result when searching for a term
     - search.suggest # Suggest results in search
 
+plugins:
+  - search
+  - git-revision-date-localized:
+      type: timeago
+      enable_creation_date: true
+
 extra:
   social:
     - icon: fontawesome/brands/github

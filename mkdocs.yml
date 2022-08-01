@@ -1,3 +1,57 @@
-site_name: "Open Valut: Deploy"
+site_name: "Open Vault: Deploy"
+side_description: Open Vault redesign deployment documentation
+site_url: http://localhost:8001
+repo_url: https://github.com/WGBH-MLA/ov-deploy/
+
+
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - def_list
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - md_in_html
+  - tables
+
 theme:
   name: material
+    # logo:
+    # favicon:
+  palette:
+    - media: "(prefers-color-scheme: dark)" #
+      scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)" #
+      scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.indexes
+    - toc.integrate
+    - navigation.top
+    - content.code.annotate
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/WGBH-MLA/ov-deploy/
+    - icon: fontawesome/regular/newspaper
+      link: http://ovfrontend.k8s.wgbhdigital.org/

@@ -25,13 +25,15 @@ markdown_extensions:
 theme:
   name: material
   palette:
-    - media: "(prefers-color-scheme: dark)" #
+    - media: '(prefers-color-scheme: dark)'
+      primary: purple
       scheme: slate
       toggle:
         icon: material/toggle-switch
         name: Switch to light mode
-    - media: "(prefers-color-scheme: light)" #
+    - media: '(prefers-color-scheme: light)'
       scheme: default
+      primary: purple
       toggle:
         icon: material/toggle-switch-off-outline
         name: Switch to dark mode

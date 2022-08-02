@@ -5,6 +5,7 @@ repo_url: https://github.com/WGBH-MLA/ov-deploy/
 
 nav:
   - Home: index.md
+  - Stack: stack.md
   - Deploy: deploy.md
   - Manual: manual.md
   - CLI: cli.md

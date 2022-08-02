@@ -19,7 +19,7 @@ demo: `ov-demo`
 
 #### ov (backend)
 
-- image: `wgbhmla/ov_wag`
+- image: `wgbhmla/ov-wag`
 - config:
   - `ov_wag.config`
 - secrets:
@@ -65,7 +65,7 @@ Starting from a known `ov_deploy` commit or branch:
 
 #### Scenario #2: Custom code
 
-In `ov_wag` and `ov-frontend`, checkout (or manually edit) the code in each repository.
+In `ov-wag` and `ov-frontend`, checkout (or manually edit) the code in each repository.
 
 ### 1. Build images
 

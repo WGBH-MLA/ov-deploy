@@ -3,6 +3,12 @@ site_description: Open Vault redesign deployment documentation
 site_url: http://localhost:8001
 repo_url: https://github.com/WGBH-MLA/ov-deploy/
 
+nav:
+  - Home: index.md
+  - Deploy: deploy.md
+  - Manual: manual.md
+  - CLI: cli.md
+
 markdown_extensions:
   - admonition
   - def_list

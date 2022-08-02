@@ -1,6 +1,6 @@
-# CLI
+# Development
 
-Command line scripts for deployment
+For deploying on a single machine with `docker compose`
 
 ## ./ov
 
@@ -76,8 +76,12 @@ git submodule update
 
 ## Development Environment
 
-Run the development environment:
+Run the development environment, with `docker compose`:
 
 ```bash
 ./ov dev
+```
+Or, simply:
+```bash
+./ov d
 ```

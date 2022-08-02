@@ -43,14 +43,12 @@ theme:
   logo: assets/ovlogo.png
   palette:
     - media: '(prefers-color-scheme: dark)'
-      primary: purple
       scheme: slate
       toggle:
         icon: material/toggle-switch
         name: Switch to light mode
     - media: '(prefers-color-scheme: light)'
       scheme: default
-      primary: purple
       toggle:
         icon: material/toggle-switch-off-outline
         name: Switch to dark mode
@@ -82,3 +80,6 @@ extra:
     - name: GitHub repository
       icon: fontawesome/brands/github
       link: https://github.com/WGBH-MLA/ov-deploy/
+
+extra_css:
+  - style/gbh.css

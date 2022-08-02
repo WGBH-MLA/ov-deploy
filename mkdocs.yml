@@ -41,7 +41,7 @@ markdown_extensions:
 theme:
   name: material
   logo: assets/ov-logo.png
-  favicon: assets/ov-favicon.ico
+  favicon: assets/ov-favicon.png
 
   palette:
     - media: '(prefers-color-scheme: dark)'

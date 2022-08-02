@@ -1,6 +1,6 @@
 site_name: 'Open Vault: Deploy'
 site_description: Open Vault redesign deployment documentation
-site_url: http://localhost:8001
+site_url: https://wgbh-mla.github.io/ov-deploy/deploy/
 repo_url: https://github.com/WGBH-MLA/ov-deploy/
 
 nav:
@@ -76,7 +76,7 @@ plugins:
 
 extra:
   social:
-    - name: Open Valut - Demo
+    - name: Open Vault - Demo
       icon: fontawesome/solid/vault
       link: http://ovfrontend.k8s.wgbhdigital.org/
     - name: GitHub repository

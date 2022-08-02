@@ -6,9 +6,9 @@ repo_url: https://github.com/WGBH-MLA/ov-deploy/
 nav:
   - Home: index.md
   - Stack: stack.md
+  - Develop: dev.md
   - Deploy: deploy.md
   - Manual: manual.md
-  - Develop: dev.md
 
 markdown_extensions:
   - admonition

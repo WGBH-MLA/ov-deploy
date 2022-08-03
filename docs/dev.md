@@ -1,19 +1,25 @@
 # Development
 
-For deploying on a single machine with `docker compose`
+This page describes how to run the development environment on a machine with `docker compose`.
+
+???+ admonition "docker compose"
+
+    The following instructions rely on `docker` and `docker compose` to build and run the containers.
+
+    Running the services outside of docker is possible, but not supported in this context.
 
 ## ./ov
 
-Open Vault init script
+The `ov` file is the primary Open Vault command line script. This contains a number of pre-built commands to do basic operations
 
-## Requirements
+### Requirements
 
 - `docker`
 - `docker compose`
 
-## Usage
+### Commands
 
-### `./ov COMMAND [args]`
+`./ov COMMAND [args]`
 
 ```bash
 COMMANDS:
@@ -30,7 +36,21 @@ COMMANDS:
   s | shell        run a django shell command with the app context
 ```
 
-## Development Environment
+#### build
+
+Build the docker images locally.
+
+#### backup
+
+Create a database backup.
+
+#### cmd
+
+Run a `docker compose` command.
+
+#### dev
+
+Run Development Environment
 
 Run the development environment, with `docker compose`:
 
@@ -43,3 +63,53 @@ Or, simply:
 ```bash
 ./ov d
 ```
+
+#### deploy
+
+Shortcut for `./deploy [command]`.
+
+See [Deploy](/deploy) for detailed usage.
+
+#### docs
+
+Build and run the documentation server, with live change reloading.
+
+#### init
+
+Initialize a development environment.
+
+See [Setup](/setup) for detailed instructions.
+
+#### manage
+
+Run a `manage.py` command in the docker context.
+
+#### restore
+
+Restore the database with a backup.
+
+## Examples
+
+The following are some useful examples of development commands that might be run:
+
+### Migrate database
+
+Generating the migration files can be accomplished with:
+
+```bash
+./ov m makemigrations
+```
+
+To Run the database migrations:
+
+```bash
+./ov m migrate
+```
+
+### Show the logs
+
+Show the docker compose logs
+`./ov c logs`
+
+Show logs for just the frontend
+`./ov c logs ov-frontend`

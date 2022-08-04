@@ -38,7 +38,10 @@ markdown_extensions:
       custom_checkbox: true
   - pymdownx.tilde
   - tables
-  - toc
+  - toc:
+      permalink: true
+      toc_depth: 4
+
 
 theme:
   name: material

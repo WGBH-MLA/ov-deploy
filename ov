@@ -54,13 +54,15 @@ elif [ $1 = "docs" ]; then
 elif [ $1 = "init" -o $1 = "i" ]; then
   shift
   # initialize submodule
-  git submodule init
+  git submodule init &&
   # checkout current version
-  git submodule update
+  git submodule update &&
   # build docker files
-  ./ov build
-  # Insatll npm requirements
-  ./ov c run -it front npm install
+  ./ov build &&
+  # install npm requirements
+  ./ov c run -it front npm install &&
+
+  echo "Open Vault initialized successfully!"
 
 elif [ $1 = "manage" -o $1 = "m" ]; then
   shift

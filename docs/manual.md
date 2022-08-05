@@ -68,6 +68,26 @@ _TODO: enumerate the minimum steps required to get Kubernetes setup up in Ranche
 1. Enter environment variables. **_TODO: elaborate on how._**
 1. Enter secrets. **_TODO: elaborate on how._**
 
+### Automatic deployment
+The `./deploy` helper script is designed to automate the process of deploying known versions of parts or the whole stack. For any given pod, it will:
+
+- Build the docker images
+- Push the images to docker hub
+- Set the version tag of each deployed image
+#### Usage
+The script can be called with several arguments:
+
+1. Setup kubectl context
+: `-c context`
+: !!! note "TODO: kubectl context"
+        Describe setup for kubectl context
+1. Set pod(s) version as cli args
+: Backend: `-b VERSION`
+: Frontend: `-f VERSION`
+: Proxy: `-p VERSION`
+1. Run command
+: Verify in console logs that job has completed successfully, or returned an error.
+
 ### Manual Deployment
 
 In the event that an automated deployment fails you can do a step-by-step deployment to help debug problems.
@@ -80,7 +100,7 @@ In the event that an automated deployment fails you can do a step-by-step deploy
      export OV_WAG_VERSION=[tag|branch|commit]
      export OV_FRONTEND_VERSION=[tag|branch|commit]
      ```
-After [checking out the code](/setup#0-checkout-code):
+After [setting up the repository](/setup#0-checkout-code):
 
 #### Build images
 
@@ -121,14 +141,25 @@ docker push wgbhmla/ov-frontend:$OV_FRONTEND_VERSION
 
 #### Update Kubernetes workloads
 There several ways of updating the kubrenetes workflow:
-- Rancher web interface
 - `kubectl` commands
+- Rancher web interface
 
 !!! abstract
     The `./deploy` script is designed to execute the necessary `kubectl` commands from an authorized device. It
 
+    [See usage details in the steps above](#automatic-deployment)
 
-##### Using the Rancher web interface
+#### Using `kubectl`
+1. Set the context
+``` bash title="Set the kubectl context"
+kubectl config use-context openvault
+```
+1. Set the app image deployment tag
+```bash title="set backend version to v0.2.0"
+kubectl set image deployment.apps/ov-wag ov-wag=wgbhmla/ov-wag:v0.2.0
+```
+
+#### Using the Rancher web interface
 : !!! note "TODO: needs more affirming feedback"
         Go through steps to ensure consistency
 

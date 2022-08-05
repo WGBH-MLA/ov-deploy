@@ -82,6 +82,8 @@ In the event that an automated deployment fails you can do a step-by-step deploy
      ```
 After [checking out the code](/setup#0-checkout-code):
 
+#### Build images
+
 1. Set the `ov-wag` submodule to the tag, branch, or commit that you want to deploy.
 ``` bash title="Checkout backend"
 cd ov-wag
@@ -103,7 +105,7 @@ docker build -t wgbhmla/ov-frontend:$OV_FRONTEND_VERSION --target production ./o
 ```
 : !!! note "TODO: change build from 'production' to 'deployment'?"
     This would require a change to Dockerfile in ov-wag repo, but would be less confusing since the image may end up in either Production or Demo environments.
-
+#### Push images
 1. Login to docker hub
 ``` bash title="docker login"
 docker login --username wgbhmla
@@ -112,34 +114,36 @@ docker login --username wgbhmla
 1. Push newly built images to Docker Hub
 ``` bash title="push images"
 docker push wgbhmla/ov-wag:$OV_WAG_VERSION
-docker push wgbhmla/ov-wag:$OV_WAG_VERSION
+docker push wgbhmla/ov-frontend:$OV_FRONTEND_VERSION
 ```
 : !!! auth "Passwords"
         The password for Docker Hub user `wgbhmla` is in [passwordstate](https://lph.wgbh.org/).
 
-1. Update Kubernetes workloads
+#### Update Kubernetes workloads
+There several ways of updating the kubrenetes workflow:
+- Rancher web interface
+- `kubectl` commands
 
-   1. Using the Rancher web interface
+!!! abstract
+    The `./deploy` script is designed to execute the necessary `kubectl` commands from an authorized device. It
 
-      _TODO: needs more affirming feedback._
 
-      1. Log in to GBH VPN using Cicso AnyConnect.
-      1. Go to https://rancherext.wgbh.org/login and click "Log In with Azure ID".
-      1. From the leftmost item in the top menu, select the "MLA" project, which is indicated as being in the cluster named "digital-eks-dev".
-      1. Beneath the top menu are several tabs: "Workloads", "Load Balancing", "Service Discovery", and "Volumes". Select "Workloads" if it is not already selected.
-      1. Locate the row identifying the "ov" workload under the table heading that says "Namespace: openvault".
-      1. Go to https://rancherext.wgbh.org
-      1. In the top menu, click on the "digital-eks-dev", then click the "MLA" project name.
-      1.
+##### Using the Rancher web interface
+: !!! note "TODO: needs more affirming feedback"
+        Go through steps to ensure consistency
 
-   1. From the command line using `kubectl`
+  1. Log in to GBH VPN using Cicso AnyConnect.
+  1. Go to https://rancherext.wgbh.org/login and click "Log In with Azure ID".
+  1. From the leftmost item in the top menu, select the "MLA" project, which is indicated as being in the cluster named "digital-eks-dev".
+  1. Beneath the top menu are several tabs: "Workloads", "Load Balancing", "Service Discovery", and "Volumes". Select "Workloads" if it is not already selected.
+  1. Locate the row identifying the "ov" workload under the table heading that says "Namespace: openvault".
+  1. Go to https://rancherext.wgbh.org
+  1. In the top menu, click on the "digital-eks-dev", then click the "MLA" project name.
 
-      _TBD_
-
-   1. Locate the workoad
-   1. Click the "Re-deploy"
-      1. _TODO: add where to check logs, get feedback on success/fail_
-      1. _TODO: add details about "image pull policy" and make sure it's set correctly -- i think to 'always pull' or something_
+ 1. Locate the workload
+ 1. Click the "Re-deploy"
+    1. _TODO: add where to check logs, get feedback on success/fail_
+    1. _TODO: add details about "image pull policy" and make sure it's set correctly -- i think to 'always pull' or something_
 
 ## TARGET WORKFLOW!
 

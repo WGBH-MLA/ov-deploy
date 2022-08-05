@@ -36,57 +36,73 @@ COMMANDS:
   s | shell        run a django shell command with the app context
 ```
 
-#### build
+#### `b` | `build`
 
 Build the docker images locally.
 
-#### backup
+!!! abstract "build a single image"
 
-Create a database backup.
+    Additional docker arguments can be passed to this command.
 
-#### cmd
+    For example, to build only a single image:
 
-Run a `docker compose` command.
+    ```bash title="Build frontend"
+    ./ov b front
+    ```
 
-#### dev
+#### `backup` | `dump`
+
+Create a database dump file with the timestamp as the filename.
+
+#### `c` | `cmd`
+
+Run a `docker compose` command with the base config files in place.
+
+#### `d` | `dev`
 
 Run Development Environment
 
-Run the development environment, with `docker compose`:
+Run the development environment, with `docker compose`, and follow container logs.
 
-```bash
-./ov dev
-```
+!!! abstract "Compose arguments"
 
-Or, simply:
+    Additional compose arguments can be passed. For example, to rebuild the containers before running:
 
-```bash
-./ov d
-```
+    ```bash
+    ./ov d --build
+    ```
 
-#### deploy
+#### `deploy`
 
 Shortcut for `./deploy [command]`.
 
 See [Deploy](/deploy) for detailed usage.
 
-#### docs
+#### `docs`
 
 Build and run the documentation server, with live change reloading.
 
-#### init
+#### `i` | `init`
 
 Initialize a development environment.
 
 See [Setup](/setup) for detailed instructions.
 
-#### manage
+#### `m` | `manage`
 
 Run a `manage.py` command in the docker context.
 
-#### restore
+#### `restore`
 
 Restore the database with a backup.
+
+```bash title="restore db"
+./ov restore db_backup.sql
+```
+
+#### `s` | `shell`
+
+Enter into a python django shell interpreter, with the application context loaded.
 
 ## Examples
 

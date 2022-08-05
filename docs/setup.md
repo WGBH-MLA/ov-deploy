@@ -1,22 +1,40 @@
 # Initial setup
 
-## 0. (Prereq) Clone repository:
-- Clone the source code from github:
-``` bash
+## 0. Checkout code
+
+Clone the source code from github:
+
+```bash
 git clone https://github.com/WGBH-MLA/ov-deploy.git
 ```
-- Change into the new `ov-deploy` directory
-``` bash
+
+Change into the new `ov-deploy` directory
+
+```bash
 cd ov-deploy
 ```
-- Initilize and update the submodules
-``` bash
+
+Initilize and update the submodules
+
+```bash
 git submodule init && git submodule update
 ```
+
+???+ abstract "Checkout code"
+
+    If running a version other than the `main` branch, you will need to checkout the code first, and update the git submodules.
+
+    Usually this will be a tag or a branch. For example, if checking out `v0.2.0`:
+
+    ```bash
+    git checkout v0.2.0
+    git submodule update
+    ```
 
 ## 1. Create the database secrets file
 
 In `ov-wag`, create a file called `.db` with the following contents:
+
 ```bash title="ov-wag/.db"
 POSTGRES_PASSWORD="YOUR POSTGRESS PASSWORD HERE"
 ```

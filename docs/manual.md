@@ -1,14 +1,18 @@
-### On your local machine, you will need:
+## Requirements
 
-* Docker tools
-  - `docker`
-  - `docker-compose`
-  - `kubectl`
-* Access to the GBH VPN
-* Authorization to push docker images to `wgbhmla` Dockerhub account.
+On your local machine, you will need:
+
+- `docker`
+- `kubectl`
+
+!!! auth "Authorization"
+
+      In addition to the software requirements, in order to manage the deployment stack, you will need:
+
+      - Access to the GBH VPN
+      - Authorization to push docker images to `wgbhmla` Dockerhub account.
 
 _TODO: Add doc on how to verify that you have all these dependencies, and if not, how to get them._
-
 
 ## Deployment
 

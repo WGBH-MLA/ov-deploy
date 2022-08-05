@@ -90,3 +90,4 @@ extra:
 
 extra_css:
   - style/gbh.css
+  - style/auth.css

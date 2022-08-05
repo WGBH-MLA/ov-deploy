@@ -72,57 +72,50 @@ _TODO: enumerate the minimum steps required to get Kubernetes setup up in Ranche
 
 In the event that an automated deployment fails you can do a step-by-step deployment to help debug problems.
 
-1. Get the latest code from this repository.
 
-   ```
-   # skip this line if you've already cloned the repository
-   git clone git@github.com:WGBH-MLA/ov_deploy.git
-   cd ov_deploy
-   git checkout main
-   git pull
-   ```
+!!! abstract "OV_*_VERSION"
+    The versions of `ov-wag` and `ov-frontend` repositories will be used in several of the following commands, so the following commands are documented with the `$OV_WAG_VERSION` and `$OV_FRONTEND_VERSION` variables. You can set these in your session by using `export`
 
-1. The versions of `ov-wag` and `ov-frontend` repositories will be used in several of the following commands, so to avoid typos, you can export the versions to environment variables, and use those environment variables in subsequent commands.
-
-   ```
-   export $ov-wag_VERSION=[tag|branch|commit]
-   export $OV_FRONTEND_VERSION=[tag|branch|commit]
-   ```
+     ``` bash title="Export OV_*_VERSION"
+     export OV_WAG_VERSION=[tag|branch|commit]
+     export OV_FRONTEND_VERSION=[tag|branch|commit]
+     ```
+After [checking out the code](/setup#0-checkout-code):
 
 1. Set the `ov-wag` submodule to the tag, branch, or commit that you want to deploy.
-
-   ```
-   cd ov-wag
-   git checkout $ov-wag_VERSION
-   cd ..
-   ```
+``` bash title="Checkout backend"
+cd ov-wag
+git checkout $OV_WAG_VERSION
+cd ..
+```
 
 1. Set the `ov-frontend` submodule to the tag, branch, or commit that you want to deploy.
-
-   ```
-   cd ov-frontend
-   git checkout $OV_FRONTEND_VERSION
-   cd ..
-   ```
+```bash title="Checkout frontend"
+cd ov-frontend
+git checkout $OV_FRONTEND_VERSION
+cd ..
+```
 
 1. Build Docker images.
-   _TODO: change build from 'production' to 'deployment'? This would require a change to Dockerfile in ov-wag repo, but would be less confusing since the image may end up in either Production or Demo environments._
+``` bash title="Build docker images"
+docker build -t wgbhmla/ov-wag:$OV_WAG_VERSION --target production ./ov-wag
+docker build -t wgbhmla/ov-frontend:$OV_FRONTEND_VERSION --target production ./ov-frontend
+```
+: !!! note "TODO: change build from 'production' to 'deployment'?"
+    This would require a change to Dockerfile in ov-wag repo, but would be less confusing since the image may end up in either Production or Demo environments.
 
-   _TODO: Build ov-nginx image._
-
-   ```
-   docker build -t wgbhmla/ov-wag:$ov-wag_VERSION --target production ./ov-wag
-   docker build -t wgbhmla/ov-frontend:$OV_FRONTEND_VERSION --target production ./ov-frontend
-   ```
+1. Login to docker hub
+``` bash title="docker login"
+docker login --username wgbhmla
+```
 
 1. Push newly built images to Docker Hub
-
-   ```
-   # The password for Docker Hub user wgbhmla is in Passwordstate.
-   docker login --username wgbhmla
-   docker push wgbhmla/ov-wag:$ov-wag_VERSION
-   docker push wgbhmla/ov-wag:$ov-wag_VERSION
-   ```
+``` bash title="push images"
+docker push wgbhmla/ov-wag:$OV_WAG_VERSION
+docker push wgbhmla/ov-wag:$OV_WAG_VERSION
+```
+: !!! auth "Passwords"
+        The password for Docker Hub user `wgbhmla` is in [passwordstate](https://lph.wgbh.org/).
 
 1. Update Kubernetes workloads
 

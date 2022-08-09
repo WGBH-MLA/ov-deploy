@@ -12,7 +12,9 @@ On your local machine, you will need:
       - Authorization to push docker images to `wgbhmla` Dockerhub account.
       - Access to the GBH VPN
 
-##### _TODO: Add doc on how to verify that you have all these dependencies, and if not, how to get them._
+!!! todo "TODO: Verify dependencies"
+
+    Add doc on how to verify that you have all these dependencies, and if not, how to get them._
 
 ## Concepts
 
@@ -56,7 +58,9 @@ Generally speaking, the deployment process consists of the following tasks:
 
 If we are deploying for the first time, we need to configure Kubernetes to be able to receive deployments. If this has already been done, you can skip this section.
 
-_TODO: enumerate the minimum steps required to get Kubernetes setup up in Rancher to handle deployments._
+!!! todo "TODO: Enumerate kube steps"
+
+    Enumerate the minimum steps required to get Kubernetes setup up in Rancher to handle deployments.
 
 1. Log into VPN.
 1. Go to https://rancherext.wgbh.org/login, and click "Login with Azure ID".
@@ -83,7 +87,7 @@ The script can be called with several arguments:
 1.  Setup kubectl context
     : `-c context`
 
-    !!! note "TODO: kubectl context"
+    !!! todo "TODO: kubectl context"
 
         Describe setup for kubectl context
 
@@ -135,7 +139,7 @@ After [setting up the repository](/setup#0-checkout-code):
     docker build -t wgbhmla/ov-frontend:$OV_FRONTEND_VERSION --target production ./ov-frontend
     ```
 
-!!! note "TODO: change build from 'production' to 'deployment'?"
+!!! todo "TODO: change build from 'production' to 'deployment'?"
 
     This would require a change to Dockerfile in ov-wag repo, but would be less confusing since the image may end up in either Production or Demo environments.
 
@@ -187,7 +191,7 @@ There several ways of updating the kubrenetes workflow:
 
 #### Using the Rancher web interface
 
-!!! note "TODO: needs more affirming feedback"
+!!! todo "TODO: needs more affirming feedback"
 
     Go through steps to ensure consistency
 

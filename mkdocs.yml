@@ -42,7 +42,6 @@ markdown_extensions:
       permalink: true
       toc_depth: 4
 
-
 theme:
   name: material
   logo: assets/ov-logo.png
@@ -91,3 +90,4 @@ extra:
 extra_css:
   - style/gbh.css
   - style/auth.css
+  - style/todo.css

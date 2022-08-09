@@ -69,112 +69,141 @@ _TODO: enumerate the minimum steps required to get Kubernetes setup up in Ranche
 1. Enter secrets. **_TODO: elaborate on how._**
 
 ### Automatic deployment
+
 The `./deploy` helper script is designed to automate the process of deploying known versions of parts or the whole stack. For any given pod, it will:
 
 - Build the docker images
 - Push the images to docker hub
 - Set the version tag of each deployed image
+
 #### Usage
+
 The script can be called with several arguments:
 
-1. Setup kubectl context
-: `-c context`
-: !!! note "TODO: kubectl context"
+1.  Setup kubectl context
+    : `-c context`
+
+    !!! note "TODO: kubectl context"
+
         Describe setup for kubectl context
-1. Set pod(s) version as cli args
-: Backend: `-b VERSION`
-: Frontend: `-f VERSION`
-: Proxy: `-p VERSION`
-1. Run command
-: Verify in console logs that job has completed successfully, or returned an error.
+
+1.  Set pod(s) version as cli args
+    : Backend: `-b VERSION`
+    : Frontend: `-f VERSION`
+    : Proxy: `-p VERSION`
+
+1.  Run command
+    : Verify in console logs that job has completed successfully, or returned an error.
 
 ### Manual Deployment
 
 In the event that an automated deployment fails you can do a step-by-step deployment to help debug problems.
 
+!!! abstract "OV\_\*\_VERSION"
 
-!!! abstract "OV_*_VERSION"
     The versions of `ov-wag` and `ov-frontend` repositories will be used in several of the following commands, so the following commands are documented with the `$OV_WAG_VERSION` and `$OV_FRONTEND_VERSION` variables. You can set these in your session by using `export`
 
      ``` bash title="Export OV_*_VERSION"
      export OV_WAG_VERSION=[tag|branch|commit]
      export OV_FRONTEND_VERSION=[tag|branch|commit]
      ```
+
 After [setting up the repository](/setup#0-checkout-code):
 
 #### Build images
 
-1. Set the `ov-wag` submodule to the tag, branch, or commit that you want to deploy.
-``` bash title="Checkout backend"
-cd ov-wag
-git checkout $OV_WAG_VERSION
-cd ..
-```
+1.  Set the `ov-wag` submodule to the tag, branch, or commit that you want to deploy.
 
-1. Set the `ov-frontend` submodule to the tag, branch, or commit that you want to deploy.
-```bash title="Checkout frontend"
-cd ov-frontend
-git checkout $OV_FRONTEND_VERSION
-cd ..
-```
+    ```bash title="Checkout backend"
+    cd ov-wag
+    git checkout \$OV_WAG_VERSION
+    cd ..
+    ```
 
-1. Build Docker images.
-``` bash title="Build docker images"
-docker build -t wgbhmla/ov-wag:$OV_WAG_VERSION --target production ./ov-wag
-docker build -t wgbhmla/ov-frontend:$OV_FRONTEND_VERSION --target production ./ov-frontend
-```
-: !!! note "TODO: change build from 'production' to 'deployment'?"
+1.  Set the `ov-frontend` submodule to the tag, branch, or commit that you want to deploy.
+
+    ```bash title="Checkout frontend"
+    cd ov-frontend
+    git checkout $OV_FRONTEND_VERSION
+    cd ..
+    ```
+
+1.  Build Docker images.
+
+    ```bash title="Build docker images"
+    docker build -t wgbhmla/ov-wag:$OV_WAG_VERSION --target production ./ov-wag
+    docker build -t wgbhmla/ov-frontend:$OV_FRONTEND_VERSION --target production ./ov-frontend
+    ```
+
+!!! note "TODO: change build from 'production' to 'deployment'?"
+
     This would require a change to Dockerfile in ov-wag repo, but would be less confusing since the image may end up in either Production or Demo environments.
-#### Push images
-1. Login to docker hub
-``` bash title="docker login"
-docker login --username wgbhmla
-```
 
-1. Push newly built images to Docker Hub
-``` bash title="push images"
-docker push wgbhmla/ov-wag:$OV_WAG_VERSION
-docker push wgbhmla/ov-frontend:$OV_FRONTEND_VERSION
-```
-: !!! auth "Passwords"
-        The password for Docker Hub user `wgbhmla` is in [passwordstate](https://lph.wgbh.org/).
+#### Push images
+
+1.  Login to docker hub
+
+    ```bash title="docker login"
+    docker login --username wgbhmla
+    ```
+
+1.  Push newly built images to Docker Hub
+
+    ```bash title="push images"
+    docker push wgbhmla/ov-wag:$OV_WAG_VERSION
+    docker push wgbhmla/ov-frontend:$OV_FRONTEND_VERSION
+    ```
+
+!!! auth "Passwords"
+
+    The password for Docker Hub user `wgbhmla` is in [passwordstate](https://lph.wgbh.org/).
 
 #### Update Kubernetes workloads
+
 There several ways of updating the kubrenetes workflow:
+
 - `kubectl` commands
 - Rancher web interface
 
-!!! abstract
+!!! abstract "`./deploy`"
+
     The `./deploy` script is designed to execute the necessary `kubectl` commands from an authorized device. It
 
-    [See usage details in the steps above](#automatic-deployment)
+    See usage details in [Deploy](#automatic-deployment)
 
 #### Using `kubectl`
-1. Set the context
-``` bash title="Set the kubectl context"
-kubectl config use-context openvault
-```
-1. Set the app image deployment tag
-```bash title="set backend version to v0.2.0"
-kubectl set image deployment.apps/ov-wag ov-wag=wgbhmla/ov-wag:v0.2.0
-```
+
+1.  Set the context
+
+    ```bash title="Set the kubectl context"
+    kubectl config use-context openvault
+    ```
+
+1.  Set the app image deployment tag
+
+    ```bash title="set backend version to v0.2.0"
+    kubectl set image deployment.apps/ov-wag ov-wag=wgbhmla/ov-wag:v0.2.0
+    ```
 
 #### Using the Rancher web interface
-: !!! note "TODO: needs more affirming feedback"
-        Go through steps to ensure consistency
 
-  1. Log in to GBH VPN using Cicso AnyConnect.
-  1. Go to https://rancherext.wgbh.org/login and click "Log In with Azure ID".
-  1. From the leftmost item in the top menu, select the "MLA" project, which is indicated as being in the cluster named "digital-eks-dev".
-  1. Beneath the top menu are several tabs: "Workloads", "Load Balancing", "Service Discovery", and "Volumes". Select "Workloads" if it is not already selected.
-  1. Locate the row identifying the "ov" workload under the table heading that says "Namespace: openvault".
-  1. Go to https://rancherext.wgbh.org
-  1. In the top menu, click on the "digital-eks-dev", then click the "MLA" project name.
+!!! note "TODO: needs more affirming feedback"
 
- 1. Locate the workload
- 1. Click the "Re-deploy"
-    1. _TODO: add where to check logs, get feedback on success/fail_
-    1. _TODO: add details about "image pull policy" and make sure it's set correctly -- i think to 'always pull' or something_
+    Go through steps to ensure consistency
+
+1. Log in to GBH VPN using Cicso AnyConnect.
+1. Go to https://rancherext.wgbh.org/login and click "Log In with Azure ID".
+1. From the leftmost item in the top menu, select the "MLA" project, which is indicated as being in the cluster named "digital-eks-dev".
+1. Beneath the top menu are several tabs: "Workloads", "Load Balancing", "Service Discovery", and "Volumes". Select "Workloads" if it is not already selected.
+1. Locate the row identifying the "ov" workload under the table heading that says "Namespace: openvault".
+1. Go to https://rancherext.wgbh.org
+1. In the top menu, click on the "digital-eks-dev", then click the "MLA" project name.
+
+1. Locate the workload
+1. Click the "Re-deploy"
+
+1. _TODO: add where to check logs, get feedback on success/fail_
+1. _TODO: add details about "image pull policy" and make sure it's set correctly -- i think to 'always pull' or something_
 
 ## TARGET WORKFLOW!
 

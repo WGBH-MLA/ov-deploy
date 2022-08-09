@@ -85,6 +85,7 @@ The `./deploy` helper script is designed to automate the process of deploying kn
 The script can be called with several arguments:
 
 1.  Setup kubectl context
+
     : `-c context`
 
     !!! todo "TODO: kubectl context"
@@ -92,11 +93,13 @@ The script can be called with several arguments:
         Describe setup for kubectl context
 
 1.  Set pod(s) version as cli args
+
     : Backend: `-b VERSION`
     : Frontend: `-f VERSION`
     : Proxy: `-p VERSION`
 
 1.  Run command
+
     : Verify in console logs that job has completed successfully, or returned an error.
 
 ### Manual Deployment
@@ -139,7 +142,7 @@ After [setting up the repository](/setup#0-checkout-code):
     docker build -t wgbhmla/ov-frontend:$OV_FRONTEND_VERSION --target production ./ov-frontend
     ```
 
-!!! todo "TODO: change build from 'production' to 'deployment'?"
+!!! todo "TODO: change build from `production` to `deployment`?"
 
     This would require a change to Dockerfile in ov-wag repo, but would be less confusing since the image may end up in either Production or Demo environments.
 

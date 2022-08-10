@@ -454,95 +454,6 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#setup-a-new-stack" class="md-nav__link">
-    Setup a new stack
-  </a>
-  
-    <nav class="md-nav" aria-label="Setup a new stack">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-create-namespace-in-rancher" class="md-nav__link">
-    1. Create namespace in Rancher
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-create-pods" class="md-nav__link">
-    2. Create pods
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Create pods">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#db" class="md-nav__link">
-    db
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ov-backend" class="md-nav__link">
-    ov (backend)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ov-frontend" class="md-nav__link">
-    ov-frontend
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ov-nginx" class="md-nav__link">
-    ov-nginx
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#jumpbox-optional-utility-kit" class="md-nav__link">
-    jumpbox (optional utility kit)
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#redeploy" class="md-nav__link">
-    Redeploy
-  </a>
-  
-    <nav class="md-nav" aria-label="Redeploy">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#0-check-out-code" class="md-nav__link">
-    0. Check out code
-  </a>
-  
-    <nav class="md-nav" aria-label="0. Check out code">
-      <ul class="md-nav__list">
-        
           <li class="md-nav__item">
   <a href="#scenario-1-redeploy-an-ov_deploy-commit" class="md-nav__link">
     Scenario #1: Redeploy an ov_deploy commit
@@ -555,12 +466,8 @@
     Scenario #2: Custom code
   </a>
   
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
+    <nav class="md-nav" aria-label="Scenario #2: Custom code">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#1-build-images" class="md-nav__link">
@@ -580,6 +487,11 @@
   <a href="#3-redeploy-pods" class="md-nav__link">
     3. Redeploy pods
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -660,6 +572,10 @@
 <h2 id="general">General<a class="headerlink" href="#general" title="Permanent link">&para;</a></h2>
 <p>Deployments are run in Kubernetes on AWS. The workloads consist of <code>pods</code> (Docker containers) which run prebuilt images from Dockerhub.</p>
 <p>These images are built from the <code>Dockerfile</code>s of the <code>ov-frontend</code> and <code>ov-wag</code> repositories, and from the <code>Dockerfile</code> in the <code>ov-nginx</code> and <code>ov-jumpbox</code> subdirectories.</p>
+<div class="admonition abstract">
+<p class="admonition-title">Setup</p>
+<p>If you haven't set up a production environment, follow the steps in <a href="/setup#production">Setup</a> first.</p>
+</div>
 <h3 id="deployment-process">Deployment Process<a class="headerlink" href="#deployment-process" title="Permanent link">&para;</a></h3>
 <p>Generally speaking, the deployment process consists of the following tasks:</p>
 <ul>
@@ -668,58 +584,14 @@
 <li><strong>Push</strong> the Docker images to Dockerhub.</li>
 <li><strong>Update</strong> the workloads in Kubernetes to use the updated Docker images.</li>
 </ul>
-<h2 id="setup-a-new-stack">Setup a new stack<a class="headerlink" href="#setup-a-new-stack" title="Permanent link">&para;</a></h2>
-<p>To deploy a new stack:</p>
-<h3 id="1-create-namespace-in-rancher">1. Create namespace in Rancher<a class="headerlink" href="#1-create-namespace-in-rancher" title="Permanent link">&para;</a></h3>
-<p>Production: <code>openvault</code>
-demo: <code>ov-demo</code></p>
-<h3 id="2-create-pods">2. Create pods<a class="headerlink" href="#2-create-pods" title="Permanent link">&para;</a></h3>
-<h4 id="db">db<a class="headerlink" href="#db" title="Permanent link">&para;</a></h4>
-<ul>
-<li>image: <code>postgres:14.2-alpine</code></li>
-<li>secrets:</li>
-<li><code>POSTGRES_PASSWORD</code></li>
-</ul>
-<h4 id="ov-backend">ov (backend)<a class="headerlink" href="#ov-backend" title="Permanent link">&para;</a></h4>
-<ul>
-<li>image: <code>wgbhmla/ov-wag</code></li>
-<li>config:</li>
-<li><code>ov_wag.config</code></li>
-<li>secrets:</li>
-<li><code>OV_DB_PASSWORD</code></li>
-</ul>
-<h4 id="ov-frontend">ov-frontend<a class="headerlink" href="#ov-frontend" title="Permanent link">&para;</a></h4>
-<ul>
-<li>image: <code>wgbhmla/ov-frontend</code></li>
-<li>config:</li>
-<li><code>ov-frontend.config</code></li>
-</ul>
-<h4 id="ov-nginx">ov-nginx<a class="headerlink" href="#ov-nginx" title="Permanent link">&para;</a></h4>
-<ul>
-<li>image: <code>foggbh/ov-nginx</code></li>
-<li>configured with <code>nginx.conf</code></li>
-<li>proxy pass to <code>http://ov-frontend:3000</code></li>
-<li>ports:</li>
-<li><code>80/http</code></li>
-<li>ingress:</li>
-<li>hostname: <code>[url]</code></li>
-</ul>
-<h4 id="jumpbox-optional-utility-kit">jumpbox (optional utility kit)<a class="headerlink" href="#jumpbox-optional-utility-kit" title="Permanent link">&para;</a></h4>
-<ul>
-<li>image: ?</li>
-</ul>
-<h2 id="redeploy">Redeploy<a class="headerlink" href="#redeploy" title="Permanent link">&para;</a></h2>
-<p>Redeployment steps for demo or production</p>
-<h3 id="0-check-out-code">0. Check out code<a class="headerlink" href="#0-check-out-code" title="Permanent link">&para;</a></h3>
-<p>Set up the code to represent the state of the application you wish to redeploy.</p>
-<h4 id="scenario-1-redeploy-an-ov_deploy-commit">Scenario #1: Redeploy an <code>ov_deploy</code> commit<a class="headerlink" href="#scenario-1-redeploy-an-ov_deploy-commit" title="Permanent link">&para;</a></h4>
+<h3 id="scenario-1-redeploy-an-ov_deploy-commit">Scenario #1: Redeploy an <code>ov_deploy</code> commit<a class="headerlink" href="#scenario-1-redeploy-an-ov_deploy-commit" title="Permanent link">&para;</a></h3>
 <p>These steps assume some <code>ov_deploy</code> commit should be pushed to some deployment environment, either <code>production</code> or <code>demo</code>.</p>
 <p>Starting from a known <code>ov_deploy</code> commit or branch:</p>
 <p><code>git checkout [commit or branch]</code></p>
 <p><code>git submodule update</code></p>
-<h4 id="scenario-2-custom-code">Scenario #2: Custom code<a class="headerlink" href="#scenario-2-custom-code" title="Permanent link">&para;</a></h4>
+<h3 id="scenario-2-custom-code">Scenario #2: Custom code<a class="headerlink" href="#scenario-2-custom-code" title="Permanent link">&para;</a></h3>
 <p>In <code>ov-wag</code> and <code>ov-frontend</code>, checkout (or manually edit) the code in each repository.</p>
-<h3 id="1-build-images">1. Build images<a class="headerlink" href="#1-build-images" title="Permanent link">&para;</a></h3>
+<h4 id="1-build-images">1. Build images<a class="headerlink" href="#1-build-images" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Build all images:</li>
 </ul>
@@ -729,10 +601,10 @@ demo: <code>ov-demo</code></p>
 </ul>
 <p><code>./ov build [image name]</code></p>
 <p><strong><em>Note:</em></strong> Other custom commands can be passed into the</p>
-<h3 id="2-push-to-docker-hub">2. Push to docker hub<a class="headerlink" href="#2-push-to-docker-hub" title="Permanent link">&para;</a></h3>
+<h4 id="2-push-to-docker-hub">2. Push to docker hub<a class="headerlink" href="#2-push-to-docker-hub" title="Permanent link">&para;</a></h4>
 <p>(tag the image?)</p>
 <p><code>docker push [tag name]</code></p>
-<h3 id="3-redeploy-pods">3. Redeploy pods<a class="headerlink" href="#3-redeploy-pods" title="Permanent link">&para;</a></h3>
+<h4 id="3-redeploy-pods">3. Redeploy pods<a class="headerlink" href="#3-redeploy-pods" title="Permanent link">&para;</a></h4>
 <p>Redeploy the pod(s)</p>
 <ul>
 <li>Rancher</li>
@@ -792,7 +664,7 @@ demo: <code>ov-demo</code></p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-10T20:10:12+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-10</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-10T21:08:30+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-10</span>
       
         <br>
         Created:

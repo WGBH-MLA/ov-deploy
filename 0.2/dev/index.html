@@ -433,8 +433,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#requirements" class="md-nav__link">
-    Requirements
+  <a href="#usage" class="md-nav__link">
+    Usage
   </a>
   
 </li>
@@ -612,21 +612,19 @@
 
 <h1 id="development">Development<a class="headerlink" href="#development" title="Permanent link">&para;</a></h1>
 <p>This page describes how to run the development environment on a machine with <code>docker compose</code>.</p>
-<details class="admonition" open="open">
-<summary>docker compose</summary>
-<p>The following instructions rely on <code>docker</code> and <code>docker compose</code> to build and run the containers.</p>
+<details class="abstract" open="open">
+<summary>Requirements</summary>
+<ul>
+<li><a href="https://docs.docker.com/get-docker/">docker</a></li>
+<li><a href="https://docs.docker.com/compose/install/">docker compose</a></li>
+</ul>
 <p>Running the services outside of docker is possible, but not supported in this context.</p>
 </details>
 <h2 id="ov">./ov<a class="headerlink" href="#ov" title="Permanent link">&para;</a></h2>
 <p>The <code>ov</code> file is the primary Open Vault command line script. This contains a number of pre-built commands to do basic operations</p>
-<h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
-<ul>
-<li><code>docker</code></li>
-<li><code>docker compose</code></li>
-</ul>
-<h3 id="commands">Commands<a class="headerlink" href="#commands" title="Permanent link">&para;</a></h3>
+<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
 <p><code>./ov COMMAND [args]</code></p>
-<div class="highlight"><pre><span></span><code>COMMANDS:
+<div class="highlight"><span class="filename">./ov --help</span><pre><span></span><code>COMMANDS:
 
   b <span class="p">|</span> build        build the docker images
   backup <span class="p">|</span> dump    create a backup of the database
@@ -639,6 +637,7 @@
   restore <span class="p">|</span> load   restore a database backup
   s <span class="p">|</span> shell        run a django shell <span class="nb">command</span> with the app context
 </code></pre></div>
+<h3 id="commands">Commands<a class="headerlink" href="#commands" title="Permanent link">&para;</a></h3>
 <h4 id="b-build"><code>b</code> | <code>build</code><a class="headerlink" href="#b-build" title="Permanent link">&para;</a></h4>
 <dl>
 <dd>Build the docker images locally.</dd>
@@ -717,7 +716,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-10T20:10:12+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-10</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-10T21:08:30+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-10</span>
       
         <br>
         Created:

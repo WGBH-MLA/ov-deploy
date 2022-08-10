@@ -17,7 +17,17 @@ jobs:
           python-version: 3.x
 
       - name: 🚧 Install dependencies
-        run: pip install mkdocs-material mkdocs-git-revision-date-localized-plugin
+        run: pip install mkdocs-material mkdocs-git-revision-date-localized-plugin mike
+
+      - name: 🤖 Configure git user
+        uses: oleksiyrudenko/gha-git-credentials@v2.1
+        with:
+          global: true
+          name: wgbh-bot
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🧵 Set version string
+        run: echo VERSION_TITLE=$(mike list | grep latest) >> $GITHUB_ENV
 
       - name: 🏗️ Deploy
-        run: mkdocs gh-deploy --force
+        run: mike deploy --push --update-aliases ${VERSION_TITLE%\[latest\]} latest

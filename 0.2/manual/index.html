@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#requirements" class="md-skip">
+        <a href="#manual-deployment" class="md-skip">
           Skip to content
         </a>
       
@@ -427,6 +427,8 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           Manual
@@ -443,6 +445,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -458,62 +462,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#concepts" class="md-nav__link">
-    Concepts
-  </a>
-  
-    <nav class="md-nav" aria-label="Concepts">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#production" class="md-nav__link">
-    Production
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#demo-staging" class="md-nav__link">
-    Demo / Staging
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pod" class="md-nav__link">
-    Pod
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#namespace" class="md-nav__link">
-    Namespace
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#deployment" class="md-nav__link">
-    Deployment
-  </a>
-  
-    <nav class="md-nav" aria-label="Deployment">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#setting-up-kubernetes-in-rancher" class="md-nav__link">
     Setting up Kubernetes in Rancher
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#automatic-deployment" class="md-nav__link">
     Automatic deployment
   </a>
@@ -532,9 +487,9 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#manual-deployment" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#manual-deployment_1" class="md-nav__link">
     Manual Deployment
   </a>
   
@@ -560,7 +515,8 @@
     Update Kubernetes workloads
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Update Kubernetes workloads">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#using-kubectl" class="md-nav__link">
@@ -619,8 +575,7 @@
 
 
 
-  <h1>Manual</h1>
-
+<h1 id="manual-deployment">Manual deployment<a class="headerlink" href="#manual-deployment" title="Permanent link">&para;</a></h1>
 <h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
 <p>On your local machine, you will need:</p>
 <ul>
@@ -639,46 +594,7 @@
 <p class="admonition-title">TODO: Verify dependencies</p>
 <p>Add doc on how to verify that you have all these dependencies, and if not, how to get them._</p>
 </div>
-<h2 id="concepts">Concepts<a class="headerlink" href="#concepts" title="Permanent link">&para;</a></h2>
-<p>The following are some definitions for some of the terms used below:</p>
-<h3 id="production">Production<a class="headerlink" href="#production" title="Permanent link">&para;</a></h3>
-<dl>
-<dd>The fully deployed stack, publicly available to all clients</dd>
-</dl>
-<h3 id="demo-staging">Demo / Staging<a class="headerlink" href="#demo-staging" title="Permanent link">&para;</a></h3>
-<dl>
-<dd>A separate production stack, used to test changes and maintain a live working backup.</dd>
-<dd>This will be available on a different domain than the production stack</dd>
-</dl>
-<h3 id="pod">Pod<a class="headerlink" href="#pod" title="Permanent link">&para;</a></h3>
-<dl>
-<dd>A single instance of a running docker image.</dd>
-</dl>
-<h3 id="namespace">Namespace<a class="headerlink" href="#namespace" title="Permanent link">&para;</a></h3>
-<dl>
-<dd>The name of the kubrenetes context to deploy.</dd>
-<dd>Currently, this must be one of:</dd>
-<dd>
-<ul>
-<li><code>openvault</code></li>
-</ul>
-</dd>
-<dd>
-<ul>
-<li><code>ov-demo</code></li>
-</ul>
-</dd>
-</dl>
-<h2 id="deployment">Deployment<a class="headerlink" href="#deployment" title="Permanent link">&para;</a></h2>
-<p>"Production" and "Demo" deployments are in Kubernetes on AWS. The workloads consist of "pods", which are Docker containers, and those containers are run using Docker images that we've pushed to Dockerhub. These docker images come from the Dockerfiles of the <code>ov-frontend</code> and <code>ov-wag</code> repositories.</p>
-<p>Generally speaking, the deployment process consists of the following tasks:</p>
-<ul>
-<li>Checkout the desired versions of <code>ov-frontend</code> and <code>ov-wag</code> source code.</li>
-<li>Build Docker images from the Dockerfiles within the specific versions of <code>ov-frontend</code> and <code>ov-wag</code>.</li>
-<li>Push the Docker images to Dockerhub.</li>
-<li>Update the workloads in Kubernetes to use the updated Docker images.</li>
-</ul>
-<h3 id="setting-up-kubernetes-in-rancher">Setting up Kubernetes in Rancher<a class="headerlink" href="#setting-up-kubernetes-in-rancher" title="Permanent link">&para;</a></h3>
+<h2 id="setting-up-kubernetes-in-rancher">Setting up Kubernetes in Rancher<a class="headerlink" href="#setting-up-kubernetes-in-rancher" title="Permanent link">&para;</a></h2>
 <p>If we are deploying for the first time, we need to configure Kubernetes to be able to receive deployments. If this has already been done, you can skip this section.</p>
 <div class="admonition todo">
 <p class="admonition-title">TODO: Enumerate kube steps</p>
@@ -695,14 +611,14 @@
 <li>Enter environment variables. <strong><em>TODO: elaborate on how.</em></strong></li>
 <li>Enter secrets. <strong><em>TODO: elaborate on how.</em></strong></li>
 </ol>
-<h3 id="automatic-deployment">Automatic deployment<a class="headerlink" href="#automatic-deployment" title="Permanent link">&para;</a></h3>
+<h2 id="automatic-deployment">Automatic deployment<a class="headerlink" href="#automatic-deployment" title="Permanent link">&para;</a></h2>
 <p>The <code>./deploy</code> helper script is designed to automate the process of deploying known versions of parts or the whole stack. For any given pod, it will:</p>
 <ul>
 <li>Build the docker images</li>
 <li>Push the images to docker hub</li>
 <li>Set the version tag of each deployed image</li>
 </ul>
-<h4 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h4>
+<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
 <p>The script can be called with several arguments:</p>
 <ol>
 <li>
@@ -740,7 +656,7 @@
 </dl>
 </li>
 </ol>
-<h3 id="manual-deployment">Manual Deployment<a class="headerlink" href="#manual-deployment" title="Permanent link">&para;</a></h3>
+<h2 id="manual-deployment_1">Manual Deployment<a class="headerlink" href="#manual-deployment_1" title="Permanent link">&para;</a></h2>
 <p>In the event that an automated deployment fails you can do a step-by-step deployment to help debug problems.</p>
 <div class="admonition abstract">
 <p class="admonition-title">OV_*_VERSION</p>
@@ -750,7 +666,7 @@
 </code></pre></div>
 </div>
 <p>After <a href="/setup#0-checkout-code">setting up the repository</a>:</p>
-<h4 id="build-images">Build images<a class="headerlink" href="#build-images" title="Permanent link">&para;</a></h4>
+<h3 id="build-images">Build images<a class="headerlink" href="#build-images" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
 <p>Set the <code>ov-wag</code> submodule to the tag, branch, or commit that you want to deploy.</p>
@@ -777,7 +693,7 @@ docker build -t wgbhmla/ov-frontend:<span class="nv">$OV_FRONTEND_VERSION</span>
 <p class="admonition-title">TODO: change build from <code>production</code> to <code>deployment</code>?</p>
 <p>This would require a change to Dockerfile in ov-wag repo, but would be less confusing since the image may end up in either Production or Demo environments.</p>
 </div>
-<h4 id="push-images">Push images<a class="headerlink" href="#push-images" title="Permanent link">&para;</a></h4>
+<h3 id="push-images">Push images<a class="headerlink" href="#push-images" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
 <p>Login to docker hub</p>
@@ -795,7 +711,7 @@ docker push wgbhmla/ov-frontend:<span class="nv">$OV_FRONTEND_VERSION</span>
 <p class="admonition-title">Passwords</p>
 <p>The password for Docker Hub user <code>wgbhmla</code> is in <a href="https://lph.wgbh.org/">passwordstate</a>.</p>
 </div>
-<h4 id="update-kubernetes-workloads">Update Kubernetes workloads<a class="headerlink" href="#update-kubernetes-workloads" title="Permanent link">&para;</a></h4>
+<h3 id="update-kubernetes-workloads">Update Kubernetes workloads<a class="headerlink" href="#update-kubernetes-workloads" title="Permanent link">&para;</a></h3>
 <p>There several ways of updating the kubrenetes workflow:</p>
 <ul>
 <li><code>kubectl</code> commands</li>
@@ -873,7 +789,7 @@ git ch -b test-new-versions-of-front-and-back-ends
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-09T18:33:20+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-09</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-10T19:01:36+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-10</span>
       
         <br>
         Created:

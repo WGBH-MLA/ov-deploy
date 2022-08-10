@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#deployment-steps" class="md-skip">
+        <a href="#deployment" class="md-skip">
           Skip to content
         </a>
       
@@ -440,11 +440,31 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#init" class="md-nav__link">
-    init
+  <a href="#general" class="md-nav__link">
+    General
   </a>
   
-    <nav class="md-nav" aria-label="init">
+    <nav class="md-nav" aria-label="General">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deployment-process" class="md-nav__link">
+    Deployment Process
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-a-new-stack" class="md-nav__link">
+    Deploy a new stack
+  </a>
+  
+    <nav class="md-nav" aria-label="Deploy a new stack">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -609,8 +629,19 @@
 
 
 
-<h1 id="deployment-steps">Deployment steps<a class="headerlink" href="#deployment-steps" title="Permanent link">&para;</a></h1>
-<h2 id="init">init<a class="headerlink" href="#init" title="Permanent link">&para;</a></h2>
+<h1 id="deployment">Deployment<a class="headerlink" href="#deployment" title="Permanent link">&para;</a></h1>
+<h2 id="general">General<a class="headerlink" href="#general" title="Permanent link">&para;</a></h2>
+<p>Deployments are run in Kubernetes on AWS. The workloads consist of <code>pods</code> (Docker containers) which run prebuilt images from Dockerhub.</p>
+<p>These images are built from the <code>Dockerfile</code>s of the <code>ov-frontend</code> and <code>ov-wag</code> repositories, and from the <code>Dockerfile</code> in the <code>ov-nginx</code> and <code>ov-jumpbox</code> subdirectories.</p>
+<h3 id="deployment-process">Deployment Process<a class="headerlink" href="#deployment-process" title="Permanent link">&para;</a></h3>
+<p>Generally speaking, the deployment process consists of the following tasks:</p>
+<ul>
+<li><strong>Checkout</strong> the desired versions of the image(s) to be built.</li>
+<li><strong>Build</strong> Docker images from the <code>Dockerfile</code>s for each microservice.</li>
+<li><strong>Push</strong> the Docker images to Dockerhub.</li>
+<li><strong>Update</strong> the workloads in Kubernetes to use the updated Docker images.</li>
+</ul>
+<h2 id="deploy-a-new-stack">Deploy a new stack<a class="headerlink" href="#deploy-a-new-stack" title="Permanent link">&para;</a></h2>
 <p>To deploy a new stack:</p>
 <h3 id="1-create-namespace-in-rancher">1. Create namespace in Rancher<a class="headerlink" href="#1-create-namespace-in-rancher" title="Permanent link">&para;</a></h3>
 <p>Production: <code>openvault</code>
@@ -686,7 +717,7 @@ demo: <code>ov-demo</code></p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-02T21:34:44+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-02</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-10T19:01:36+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-10</span>
       
         <br>
         Created:

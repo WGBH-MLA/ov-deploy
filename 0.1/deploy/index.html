@@ -10,14 +10,14 @@
       
       
       
-        <link rel="canonical" href="https://wgbh-mla.github.io/ov-deploy/deploy/0.1/deploy/">
+        <link rel="canonical" href="http://localhost:8001/0.1/deploy/">
       
-      <link rel="icon" href="../assets/ov-favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
     
     
       
-        <title>Deploy - Open Vault: Deploy</title>
+        <title>Deployment steps - Open Vault: Deploy</title>
       
     
     
@@ -42,12 +42,6 @@
     
       <link rel="stylesheet" href="../css/timeago.css">
     
-      <link rel="stylesheet" href="../style/gbh.css">
-    
-      <link rel="stylesheet" href="../style/auth.css">
-    
-      <link rel="stylesheet" href="../style/todo.css">
-    
     <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -64,7 +58,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent="">
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="">
   
     
     
@@ -94,7 +88,8 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href=".." title="Open Vault: Deploy" class="md-header__button md-logo" aria-label="Open Vault: Deploy" data-md-component="logo">
       
-  <img src="../assets/ov-logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -110,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Deploy
+              Deployment steps
             
           </span>
         </div>
@@ -121,7 +116,7 @@
         
           
           
-          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
           
             <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
@@ -130,7 +125,7 @@
         
           
           
-          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="purple" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
           
             <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
@@ -204,7 +199,7 @@
 
   <li class="md-tabs__item">
     <a href=".." class="md-tabs__link">
-      Home
+      Open Vault: Deploy
     </a>
   </li>
 
@@ -215,32 +210,8 @@
 
 
   <li class="md-tabs__item">
-    <a href="../stack/" class="md-tabs__link">
-      Stack
-    </a>
-  </li>
-
-      
-        
-  
-  
-
-
-  <li class="md-tabs__item">
-    <a href="../setup/" class="md-tabs__link">
-      Setup
-    </a>
-  </li>
-
-      
-        
-  
-  
-
-
-  <li class="md-tabs__item">
-    <a href="../dev/" class="md-tabs__link">
-      Develop
+    <a href="../cli/" class="md-tabs__link">
+      CLI
     </a>
   </li>
 
@@ -254,7 +225,7 @@
 
   <li class="md-tabs__item">
     <a href="./" class="md-tabs__link md-tabs__link--active">
-      Deploy
+      Deployment steps
     </a>
   </li>
 
@@ -302,7 +273,8 @@
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="Open Vault: Deploy" class="md-nav__button md-logo" aria-label="Open Vault: Deploy" data-md-component="logo">
       
-  <img src="../assets/ov-logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
     </a>
     Open Vault: Deploy
@@ -331,7 +303,7 @@
   
     <li class="md-nav__item">
       <a href=".." class="md-nav__link">
-        Home
+        Open Vault: Deploy
       </a>
     </li>
   
@@ -345,38 +317,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../stack/" class="md-nav__link">
-        Stack
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../setup/" class="md-nav__link">
-        Setup
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../dev/" class="md-nav__link">
-        Develop
+      <a href="../cli/" class="md-nav__link">
+        CLI
       </a>
     </li>
   
@@ -400,12 +342,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Deploy
+          Deployment steps
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Deploy
+        Deployment steps
       </a>
       
         
@@ -593,34 +535,34 @@
 
 
 
-<h1 id="deployment-steps">Deployment steps<a class="headerlink" href="#deployment-steps" title="Permanent link">&para;</a></h1>
-<h2 id="init">init<a class="headerlink" href="#init" title="Permanent link">&para;</a></h2>
+<h1 id="deployment-steps">Deployment steps</h1>
+<h2 id="init">init</h2>
 <p>To deploy a new stack:</p>
-<h3 id="1-create-namespace-in-rancher">1. Create namespace in Rancher<a class="headerlink" href="#1-create-namespace-in-rancher" title="Permanent link">&para;</a></h3>
+<h3 id="1-create-namespace-in-rancher">1. Create namespace in Rancher</h3>
 <p>Production: <code>openvault</code>
 demo: <code>ov-demo</code></p>
-<h3 id="2-create-pods">2. Create pods<a class="headerlink" href="#2-create-pods" title="Permanent link">&para;</a></h3>
-<h4 id="db">db<a class="headerlink" href="#db" title="Permanent link">&para;</a></h4>
+<h3 id="2-create-pods">2. Create pods</h3>
+<h4 id="db">db</h4>
 <ul>
 <li>image: <code>postgres:14.2-alpine</code></li>
 <li>secrets:</li>
 <li><code>POSTGRES_PASSWORD</code></li>
 </ul>
-<h4 id="ov-backend">ov (backend)<a class="headerlink" href="#ov-backend" title="Permanent link">&para;</a></h4>
+<h4 id="ov-backend">ov (backend)</h4>
 <ul>
-<li>image: <code>wgbhmla/ov-wag</code></li>
+<li>image: <code>wgbhmla/ov_wag</code></li>
 <li>config:</li>
 <li><code>ov_wag.config</code></li>
 <li>secrets:</li>
 <li><code>OV_DB_PASSWORD</code></li>
 </ul>
-<h4 id="ov-frontend">ov-frontend<a class="headerlink" href="#ov-frontend" title="Permanent link">&para;</a></h4>
+<h4 id="ov-frontend">ov-frontend</h4>
 <ul>
 <li>image: <code>wgbhmla/ov-frontend</code></li>
 <li>config:</li>
 <li><code>ov-frontend.config</code></li>
 </ul>
-<h4 id="ov-nginx">ov-nginx<a class="headerlink" href="#ov-nginx" title="Permanent link">&para;</a></h4>
+<h4 id="ov-nginx">ov-nginx</h4>
 <ul>
 <li>image: <code>foggbh/ov-nginx</code></li>
 <li>configured with <code>nginx.conf</code></li>
@@ -630,22 +572,22 @@ demo: <code>ov-demo</code></p>
 <li>ingress:</li>
 <li>hostname: <code>[url]</code></li>
 </ul>
-<h4 id="jumpbox-optional-utility-kit">jumpbox (optional utility kit)<a class="headerlink" href="#jumpbox-optional-utility-kit" title="Permanent link">&para;</a></h4>
+<h4 id="jumpbox-optional-utility-kit">jumpbox (optional utility kit)</h4>
 <ul>
 <li>image: ?</li>
 </ul>
-<h2 id="redeploy">Redeploy<a class="headerlink" href="#redeploy" title="Permanent link">&para;</a></h2>
+<h2 id="redeploy">Redeploy</h2>
 <p>Redeployment steps for demo or production</p>
-<h3 id="0-check-out-code">0. Check out code<a class="headerlink" href="#0-check-out-code" title="Permanent link">&para;</a></h3>
+<h3 id="0-check-out-code">0. Check out code</h3>
 <p>Set up the code to represent the state of the application you wish to redeploy.</p>
-<h4 id="scenario-1-redeploy-an-ov_deploy-commit">Scenario #1: Redeploy an <code>ov_deploy</code> commit<a class="headerlink" href="#scenario-1-redeploy-an-ov_deploy-commit" title="Permanent link">&para;</a></h4>
+<h4 id="scenario-1-redeploy-an-ov_deploy-commit">Scenario #1: Redeploy an <code>ov_deploy</code> commit</h4>
 <p>These steps assume some <code>ov_deploy</code> commit should be pushed to some deployment environment, either <code>production</code> or <code>demo</code>.</p>
 <p>Starting from a known <code>ov_deploy</code> commit or branch:</p>
 <p><code>git checkout [commit or branch]</code></p>
 <p><code>git submodule update</code></p>
-<h4 id="scenario-2-custom-code">Scenario #2: Custom code<a class="headerlink" href="#scenario-2-custom-code" title="Permanent link">&para;</a></h4>
-<p>In <code>ov-wag</code> and <code>ov-frontend</code>, checkout (or manually edit) the code in each repository.</p>
-<h3 id="1-build-images">1. Build images<a class="headerlink" href="#1-build-images" title="Permanent link">&para;</a></h3>
+<h4 id="scenario-2-custom-code">Scenario #2: Custom code</h4>
+<p>In <code>ov_wag</code> and <code>ov-frontend</code>, checkout (or manually edit) the code in each repository.</p>
+<h3 id="1-build-images">1. Build images</h3>
 <ul>
 <li>Build all images:</li>
 </ul>
@@ -655,10 +597,10 @@ demo: <code>ov-demo</code></p>
 </ul>
 <p><code>./ov build [image name]</code></p>
 <p><strong><em>Note:</em></strong> Other custom commands can be passed into the</p>
-<h3 id="2-push-to-docker-hub">2. Push to docker hub<a class="headerlink" href="#2-push-to-docker-hub" title="Permanent link">&para;</a></h3>
+<h3 id="2-push-to-docker-hub">2. Push to docker hub</h3>
 <p>(tag the image?)</p>
 <p><code>docker push [tag name]</code></p>
-<h3 id="3-redeploy-pods">3. Redeploy pods<a class="headerlink" href="#3-redeploy-pods" title="Permanent link">&para;</a></h3>
+<h3 id="3-redeploy-pods">3. Redeploy pods</h3>
 <p>Redeploy the pod(s)</p>
 <ul>
 <li>Rancher</li>
@@ -670,7 +612,7 @@ demo: <code>ov-demo</code></p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-02T21:34:44+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-02</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-07-29T18:09:38+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-07-29</span>
       
         <br>
         Created:
@@ -699,7 +641,7 @@ demo: <code>ov-demo</code></p>
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../dev/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Develop" rel="prev">
+        <a href="../cli/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CLI" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -708,7 +650,7 @@ demo: <code>ov-demo</code></p>
               <span class="md-footer__direction">
                 Previous
               </span>
-              Develop
+              CLI
             </div>
           </div>
         </a>
@@ -747,7 +689,7 @@ demo: <code>ov-demo</code></p>
   
     
     
-    <a href="http://ovfrontend.k8s.wgbhdigital.org/" target="_blank" rel="noopener" title="Open Vault - Demo" class="md-social__link">
+    <a href="http://ovfrontend.k8s.wgbhdigital.org/" target="_blank" rel="noopener" title="Open Valut - Demo" class="md-social__link">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M144 240c0-44.2 35.8-80 80-80s80 35.8 80 80-35.8 80-80 80-80-35.8-80-80zM512 0c35.3 0 64 28.65 64 64v352c0 35.3-28.7 64-64 64h-16l-16 32h-64l-16-32H176l-16 32H96l-16-32H64c-35.35 0-64-28.7-64-64V64C0 28.65 28.65 0 64 0h448zM224 400c88.4 0 160-71.6 160-160S312.4 80 224 80 64 151.6 64 240s71.6 160 160 160zm256-178.7c18.6-6.6 32-24.4 32-45.3 0-26.5-21.5-48-48-48s-48 21.5-48 48c0 20.9 13.4 38.7 32 45.3V336c0 8.8 7.2 16 16 16s16-7.2 16-16V221.3z"/></svg>
     </a>
   

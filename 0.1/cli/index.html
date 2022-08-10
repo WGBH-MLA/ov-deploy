@@ -10,14 +10,14 @@
       
       
       
-        <link rel="canonical" href="https://wgbh-mla.github.io/ov-deploy/deploy/0.1/setup/">
+        <link rel="canonical" href="http://localhost:8001/0.1/cli/">
       
-      <link rel="icon" href="../assets/ov-favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
     
     
       
-        <title>Setup - Open Vault: Deploy</title>
+        <title>CLI - Open Vault: Deploy</title>
       
     
     
@@ -42,12 +42,6 @@
     
       <link rel="stylesheet" href="../css/timeago.css">
     
-      <link rel="stylesheet" href="../style/gbh.css">
-    
-      <link rel="stylesheet" href="../style/auth.css">
-    
-      <link rel="stylesheet" href="../style/todo.css">
-    
     <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -64,7 +58,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent="">
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="">
   
     
     
@@ -76,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#initial-setup" class="md-skip">
+        <a href="#cli" class="md-skip">
           Skip to content
         </a>
       
@@ -94,7 +88,8 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href=".." title="Open Vault: Deploy" class="md-header__button md-logo" aria-label="Open Vault: Deploy" data-md-component="logo">
       
-  <img src="../assets/ov-logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -110,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Setup
+              CLI
             
           </span>
         </div>
@@ -121,7 +116,7 @@
         
           
           
-          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
           
             <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
@@ -130,7 +125,7 @@
         
           
           
-          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="purple" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
           
             <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
@@ -204,19 +199,7 @@
 
   <li class="md-tabs__item">
     <a href=".." class="md-tabs__link">
-      Home
-    </a>
-  </li>
-
-      
-        
-  
-  
-
-
-  <li class="md-tabs__item">
-    <a href="../stack/" class="md-tabs__link">
-      Stack
+      Open Vault: Deploy
     </a>
   </li>
 
@@ -230,19 +213,7 @@
 
   <li class="md-tabs__item">
     <a href="./" class="md-tabs__link md-tabs__link--active">
-      Setup
-    </a>
-  </li>
-
-      
-        
-  
-  
-
-
-  <li class="md-tabs__item">
-    <a href="../dev/" class="md-tabs__link">
-      Develop
+      CLI
     </a>
   </li>
 
@@ -254,7 +225,7 @@
 
   <li class="md-tabs__item">
     <a href="../deploy/" class="md-tabs__link">
-      Deploy
+      Deployment steps
     </a>
   </li>
 
@@ -302,7 +273,8 @@
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="Open Vault: Deploy" class="md-nav__button md-logo" aria-label="Open Vault: Deploy" data-md-component="logo">
       
-  <img src="../assets/ov-logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
     </a>
     Open Vault: Deploy
@@ -331,22 +303,7 @@
   
     <li class="md-nav__item">
       <a href=".." class="md-nav__link">
-        Home
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../stack/" class="md-nav__link">
-        Stack
+        Open Vault: Deploy
       </a>
     </li>
   
@@ -370,12 +327,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Setup
+          CLI
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Setup
+        CLI
       </a>
       
         
@@ -394,29 +351,49 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#0-checkout-code" class="md-nav__link">
-    0. Checkout code
+  <a href="#ov" class="md-nav__link">
+    ./ov
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-create-the-database-secrets-file" class="md-nav__link">
-    1. Create the database secrets file
+  <a href="#requirements" class="md-nav__link">
+    Requirements
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-create-the-backend-secrets-file" class="md-nav__link">
-    2. Create the backend secrets file
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ov-command-args" class="md-nav__link">
+    ./ov COMMAND [args]
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initial-setup" class="md-nav__link">
+    Initial setup
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-run-initialization-script" class="md-nav__link">
-    3. Run initialization script
+  <a href="#development-environment" class="md-nav__link">
+    Development Environment
   </a>
   
 </li>
@@ -437,23 +414,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../dev/" class="md-nav__link">
-        Develop
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../deploy/" class="md-nav__link">
-        Deploy
+        Deployment steps
       </a>
     </li>
   
@@ -486,83 +448,84 @@
             <article class="md-content__inner md-typeset">
               
                 
-  <a href="https://github.com/WGBH-MLA/ov-deploy/edit/master/docs/setup.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/WGBH-MLA/ov-deploy/edit/master/docs/cli.md" title="Edit this page" class="md-content__button md-icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
 
-<h1 id="initial-setup">Initial setup<a class="headerlink" href="#initial-setup" title="Permanent link">&para;</a></h1>
-<h2 id="0-checkout-code">0. Checkout code<a class="headerlink" href="#0-checkout-code" title="Permanent link">&para;</a></h2>
-<p>Clone the source code from github:</p>
-<div class="highlight"><pre><span></span><code>git clone https://github.com/WGBH-MLA/ov-deploy.git
+<h1 id="cli">CLI</h1>
+<p>Command line scripts for deployment</p>
+<h2 id="ov">./ov</h2>
+<p>Open Vault init script</p>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li><code>docker</code></li>
+<li><code>docker compose</code></li>
+</ul>
+<h2 id="usage">Usage</h2>
+<h3 id="ov-command-args"><code>./ov COMMAND [args]</code></h3>
+<div class="highlight"><pre><span></span><code>COMMANDS:
+
+  b <span class="p">|</span> build        build the docker images
+  backup <span class="p">|</span> dump    create a backup of the database
+  c <span class="p">|</span> cmd          run a compose <span class="nb">command</span>
+  d <span class="p">|</span> dev          start a development server
+  i <span class="p">|</span> init         run initialization script
+  h <span class="p">|</span> <span class="nb">help</span>         prints this <span class="nb">help</span> text
+  m <span class="p">|</span> manage       run a wagtail manage.py <span class="nb">command</span>
+  restore <span class="p">|</span> load   restore a database backup
+  s <span class="p">|</span> shell        run a django shell <span class="nb">command</span> with the app context
 </code></pre></div>
-<p>Change into the new <code>ov-deploy</code> directory</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span> ov-deploy
+<h2 id="initial-setup">Initial setup</h2>
+<p>After cloning this repository:</p>
+<ol>
+<li>Create the database <code>.db</code> secrets file</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nv">POSTGRES_PASSWORD</span><span class="o">=</span><span class="s2">&quot;YOUR POSTGRESS PASSWORD HERE&quot;</span>
 </code></pre></div>
-<p>Initilize and update the submodules</p>
-<div class="highlight"><pre><span></span><code>git submodule init <span class="o">&amp;&amp;</span> git submodule update
+<p>If you need to generate a password:</p>
+<div class="highlight"><pre><span></span><code>openssl rand -base64 <span class="m">16</span>
 </code></pre></div>
-<details class="abstract" open="open">
-<summary>Checkout code</summary>
-<p>If running a version other than the <code>main</code> branch, you will need to checkout the code first, and update the git submodules.</p>
-<p>Usually this will be a tag or a branch. For example, if checking out <code>v0.2.0</code>:</p>
-<div class="highlight"><pre><span></span><code>git checkout v0.2.0
-git submodule update
-</code></pre></div>
-</details>
-<h2 id="1-create-the-database-secrets-file">1. Create the database secrets file<a class="headerlink" href="#1-create-the-database-secrets-file" title="Permanent link">&para;</a></h2>
-<p>In <code>ov-wag</code>, create a file called <code>.db</code> with the following contents:</p>
-<div class="highlight"><span class="filename">ov-wag/.db</span><pre><span></span><code><span class="nv">POSTGRES_PASSWORD</span><span class="o">=</span><span class="s2">&quot;YOUR POSTGRESS PASSWORD HERE&quot;</span>
-</code></pre></div>
-<details class="note">
-<summary>Generating a password</summary>
-<p>This command will generate a new password config file and save it to <code>ov-wag/.db</code></p>
-<h5 id="warning-this-will-overwrite-any-existing-password-stored-in-the-db-file"><strong><img alt="⚠" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/26a0.svg" title=":warning:" /> WARNING:</strong> This will overwrite any existing password stored in the <code>.db</code> file! <strong><img alt="⚠" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/26a0.svg" title=":warning:" /></strong><a class="headerlink" href="#warning-this-will-overwrite-any-existing-password-stored-in-the-db-file" title="Permanent link">&para;</a></h5>
-<p>Run this command from the top level <code>ov-deploy/</code> directory.
-<div class="highlight"><pre><span></span><code><span class="nb">echo</span> <span class="s2">&quot;POSTGRES_PASSWORD=</span><span class="k">$(</span>openssl rand -base64 <span class="m">24</span><span class="k">)</span><span class="s2">&quot;</span> &gt; ov-wag/.db
-</code></pre></div></p>
-</details>
-<h2 id="2-create-the-backend-secrets-file">2. Create the backend secrets file<a class="headerlink" href="#2-create-the-backend-secrets-file" title="Permanent link">&para;</a></h2>
-<p>In <code>ov-wag</code>, create a file called <code>.env</code> with the following contents:</p>
-<div class="highlight"><span class="filename">ov-wag/.env</span><pre><span></span><code><span class="nv">OV_DB_ENGINE</span><span class="o">=</span>django.db.backends.postgresql
+<ol>
+<li>Create the backend <code>.env</code> secrets file</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nv">OV_DB_ENGINE</span><span class="o">=</span>django.db.backends.postgresql
 <span class="nv">OV_DB_PORT</span><span class="o">=</span><span class="m">5432</span>
 <span class="nv">OV_DB_NAME</span><span class="o">=</span>postgres
 <span class="nv">OV_DB_USER</span><span class="o">=</span>postgres
 <span class="nv">OV_DB_PASSWORD</span><span class="o">=</span><span class="s2">&quot;YOUR POSTGRESS PASSWORD HERE&quot;</span>
 </code></pre></div>
-<h2 id="3-run-initialization-script">3. Run initialization script<a class="headerlink" href="#3-run-initialization-script" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Run initialization script</li>
+</ol>
 <div class="highlight"><pre><span></span><code>./ov init
 </code></pre></div>
-<details class="abstract" open="open">
-<summary><code>./ov init</code> script</summary>
-<p>This is the equivalent of running:</p>
-<div class="highlight"><pre><span></span><code>git submodule init <span class="c1"># (1)</span>
-
-git submodule update <span class="c1"># (2)</span>
-
-./ov build <span class="c1"># (3)</span>
-
-./ov c run -it front npm install <span class="c1"># (4)</span>
+<p>This is the equivelent of running:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># initialize submodule</span>
+git submodule init
+<span class="c1"># checkout current version</span>
+git submodule update
+<span class="c1"># build docker files</span>
+./ov build
+<span class="c1"># Insatll npm requirements</span>
+./ov c run -it front npm install
 </code></pre></div>
-<ol>
-<li>initialize submodule</li>
-<li>checkout current version</li>
-<li>build docker files</li>
-<li>install npm requirements</li>
-</ol>
-</details>
+<h2 id="development-environment">Development Environment</h2>
+<p>Run the development environment:</p>
+<div class="highlight"><pre><span></span><code>./ov dev
+</code></pre></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-05T15:06:41+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-05</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-01T20:00:53+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-01</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-03T18:11:45+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-03</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-05-31T19:10:40+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-05-31</span>
       
     
   </small>
@@ -587,7 +550,7 @@ git submodule update <span class="c1"># (2)</span>
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../stack/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Stack" rel="prev">
+        <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Open Vault: Deploy" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -596,20 +559,20 @@ git submodule update <span class="c1"># (2)</span>
               <span class="md-footer__direction">
                 Previous
               </span>
-              Stack
+              Open Vault: Deploy
             </div>
           </div>
         </a>
       
       
         
-        <a href="../dev/" class="md-footer__link md-footer__link--next" aria-label="Next: Develop" rel="next">
+        <a href="../deploy/" class="md-footer__link md-footer__link--next" aria-label="Next: Deployment steps" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Develop
+              Deployment steps
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -635,7 +598,7 @@ git submodule update <span class="c1"># (2)</span>
   
     
     
-    <a href="http://ovfrontend.k8s.wgbhdigital.org/" target="_blank" rel="noopener" title="Open Vault - Demo" class="md-social__link">
+    <a href="http://ovfrontend.k8s.wgbhdigital.org/" target="_blank" rel="noopener" title="Open Valut - Demo" class="md-social__link">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M144 240c0-44.2 35.8-80 80-80s80 35.8 80 80-35.8 80-80 80-80-35.8-80-80zM512 0c35.3 0 64 28.65 64 64v352c0 35.3-28.7 64-64 64h-16l-16 32h-64l-16-32H176l-16 32H96l-16-32H64c-35.35 0-64-28.7-64-64V64C0 28.65 28.65 0 64 0h448zM224 400c88.4 0 160-71.6 160-160S312.4 80 224 80 64 151.6 64 240s71.6 160 160 160zm256-178.7c18.6-6.6 32-24.4 32-45.3 0-26.5-21.5-48-48-48s-48 21.5-48 48c0 20.9 13.4 38.7 32 45.3V336c0 8.8 7.2 16 16 16s16-7.2 16-16V221.3z"/></svg>
     </a>
   

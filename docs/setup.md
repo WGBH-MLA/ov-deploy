@@ -1,8 +1,8 @@
-# setup
+# Setup
 
 ## Development
 
-The following steps describe the setup process for local development. For production setup, see [Deploy](/deploy)
+The following steps describe the setup process for local development. For production setup, see [Production](#production)
 
 ### 0. Checkout code
 
@@ -93,7 +93,8 @@ OV_DB_PASSWORD="YOUR POSTGRESS PASSWORD HERE"
 
 ## Production
 
-If we are deploying for the first time, we need to configure Kubernetes to be able to receive deployments. If this has already been done, you can skip this section.
+If deploying for the first time, Kubernetes must be configured to receive deployments. If this has already been done, you can skip this section.
+
 !!! auth "Login"
 
     1. Login to VPN
@@ -104,11 +105,11 @@ If we are deploying for the first time, we need to configure Kubernetes to be ab
 
 !!! todo "TODO: elaborate"
 
-### Create workload
+### Create workloads
 
 For each workload:
 
-1.  Click `Deploy`
+1.  From the Workloads tab of the project, Click `Deploy`
 1.  Enter the name of the service
 
     !!! note "Service name"
@@ -123,14 +124,18 @@ For each workload:
 
     Create a new config map with the necessary environment variables.
 
-    Click `Add From Source` and set `type: Config Map`
+    `Resources > Config > Add Config Map`
 
-    ```bash title="ov-wag/.env"
+    ```bash title="ov-wag-config"
     OV_DB_ENGINE=django.db.backends.postgresql
     OV_DB_PORT=5432
     OV_DB_NAME=postgres
     OV_DB_USER=postgres
     ```
+
+    Click `Add From Source` and set `type: Config Map`
+
+    Select the name of the config map
 
 1.  Enter secrets
 
@@ -138,7 +143,7 @@ For each workload:
 
     Click `Add From Source` and set `type: Secret`
 
-    ```bash title="ov-wag.secrets"
+    ```bash title="ov-wag-secret"
     OV_DB_PASSWORD=p@ssW0rd!
     ```
 
@@ -155,36 +160,36 @@ The following services are needed to run the stack:
 - image: `postgres:14.2-alpine`
 - secrets:
 
-```bash title="db secrets"
-POSTGRESS_PASSWORD=p@ssW0rd!
-```
+      ```bash title="db secrets"
+      POSTGRESS_PASSWORD=p@ssW0rd!
+      ```
 
 #### ov-wag (backend)
 
 - image: `wgbhmla/ov-wag`
 - config:
 
-```bash title="ov-wag environment"
-OV_DB_ENGINE=django.db.backends.postgresql
-OV_DB_PORT=5432
-OV_DB_NAME=postgres
-OV_DB_USER=postgres
-```
+      ```bash title="ov-wag environment"
+      OV_DB_ENGINE=django.db.backends.postgresql
+      OV_DB_PORT=5432
+      OV_DB_NAME=postgres
+      OV_DB_USER=postgres
+      ```
 
 - secrets:
 
-```bash title="ov-wag.secrets"
-OV_DB_PASSWORD=p@ssW0rd!
-```
+      ```bash title="ov-wag.secrets"
+      OV_DB_PASSWORD=p@ssW0rd!
+      ```
 
 #### ov-frontend
 
 - image: `wgbhmla/ov-frontend`
 - config:
 
-```bash title="ov-frontend environment"
-OV_API_URL=ov-wag
-```
+      ```bash title="ov-frontend environment"
+      OV_API_URL=ov-wag
+      ```
 
 #### ov-nginx
 
@@ -201,6 +206,6 @@ OV_API_URL=ov-wag
 
       - hostname: `[public url]`
 
-#### jumpbox (optional utility kit)
+#### jumpbox
 
 - image: `wgbhmla/jumpbox`

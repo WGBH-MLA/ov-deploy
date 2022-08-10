@@ -1,5 +1,7 @@
 # Manual deployment
 
+In the event that an automated deployment fails you can do a step-by-step deployment to help debug problems.
+
 ## Requirements
 
 On your local machine, you will need:
@@ -18,10 +20,6 @@ On your local machine, you will need:
 
     Add doc on how to verify that you have all these dependencies, and if not, how to get them._
 
-## Manual Deployment
-
-In the event that an automated deployment fails you can do a step-by-step deployment to help debug problems.
-
 !!! abstract "OV\_\*\_VERSION"
 
     The versions of `ov-wag` and `ov-frontend` repositories will be used in several of the following commands, so the following commands are documented with the `$OV_WAG_VERSION` and `$OV_FRONTEND_VERSION` variables. You can set these in your session by using `export`
@@ -32,6 +30,8 @@ In the event that an automated deployment fails you can do a step-by-step deploy
      ```
 
 After [setting up the repository](/setup#0-checkout-code):
+
+## Steps
 
 ### Build images
 
@@ -114,21 +114,28 @@ There several ways of updating the kubrenetes workflow:
 
     Go through steps to ensure consistency
 
-1. Log in to GBH VPN using Cicso AnyConnect.
-1. Go to https://rancherext.wgbh.org/login and click "Log In with Azure ID".
-1. From the leftmost item in the top menu, select the "MLA" project, which is indicated as being in the cluster named "digital-eks-dev".
-1. Beneath the top menu are several tabs: "Workloads", "Load Balancing", "Service Discovery", and "Volumes". Select "Workloads" if it is not already selected.
-1. Locate the row identifying the "ov" workload under the table heading that says "Namespace: openvault".
-1. Go to https://rancherext.wgbh.org
-1. In the top menu, click on the "digital-eks-dev", then click the "MLA" project name.
+!!! auth "Login"
 
-1. Locate the workload
-1. Click the "Re-deploy"
+    1. Login to VPN
+    1. [Login to Rancher](https://rancherext.wgbh.org/login) ("Log in with Azure ID")
+    1. [Go to MLA project](https://rancherext.wgbh.org/p/c-7qk7g:p-lpkts/workloads)
 
-1. _TODO: add where to check logs, get feedback on success/fail_
-1. _TODO: add details about "image pull policy" and make sure it's set correctly -- i think to 'always pull' or something_
+1.  Select the `Workloads` tab, if it is not already selected.
 
-## TARGET WORKFLOW!
+    - Other tabs are: `Load Balancing`, `Service Discovery`, and `Volumes`.
+
+1.  Locate "Namespace: openvault"
+1.  Click on the row identifying the `ov-wag` workload
+1.  Edit the `Docker Image` value to the desired `image:tag` combination
+1.  Click `Save`
+
+!!! todo "TODO: add where to check logs, get feedback on success/fail"
+
+!!! todo "TODO: image pull policy"
+
+    add details about "image pull policy" and make sure it's set correctly -- i think to 'always pull' or something
+
+## Example workflow
 
 ```
 git clone git@github.com:WGBH-MLA/ov_deploy.git
@@ -143,12 +150,18 @@ git ch -b test-new-versions-of-front-and-back-ends
   --ov-wag-env=./ov-wag/env.yml \
   --ov-wag-secrets=./ov-wag/secrets.yml \
   --ov-frontend-env=./ov-frontend/env.yml \
-# qa testing ensues
-# it works hooray!
-# Now, do we branch/pr/merge
-# manual deploy for now until continuous-deploy?
-# Do we first deploy to prod to ensure it's working so that we can
-# do a quick rollback without involving continuous deployment in case of
-# error?
-# Or, do we not check in anything? Deploy to prod, check it out, and we're # done.
 ```
+
+!!! todo "TODO: clean manual script"
+
+    qa testing ensues
+
+    it works hooray!
+
+    Now, do we branch/pr/merge
+
+    manual deploy for now until continuous-deploy?
+
+    Do we first deploy to prod to ensure it's working so that we can do a quick rollback without involving continuous deployment in case of error?
+
+    Or, do we not check in anything? Deploy to prod, check it out, and we're done.

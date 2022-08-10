@@ -83,7 +83,7 @@ image: ov-nginx:v0.1.0
 
 ### `jumpbox`
 
-Utility kit, based on [ubuntu](https://ubuntu.com/) with command line helpers such as:
+Optional utility kit, based on [ubuntu](https://ubuntu.com/) with command line helpers such as:
 
 - `curl`
 - `postgres`

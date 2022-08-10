@@ -1,4 +1,4 @@
-# Stack
+# About the Stack
 
 Open Vault is deployed as a number of seperate services, built into `docker` images.
 
@@ -12,7 +12,40 @@ Open Vault is deployed as a number of seperate services, built into `docker` ima
 
     All documentation here will describe deployment through `docker` and `kubernetes`.
 
-## Images
+## Concepts
+
+The following are some definitions for some of the terms used below:
+
+### Production
+
+: The fully deployed stack, publicly available to all clients
+
+### Demo / Staging
+
+: A separate production stack, used to test changes and maintain a live working backup.
+
+: This will be available on a different domain than the production stack
+
+### Image
+
+: A docker container containing all the code needed to run a single service.
+
+### Pod
+
+: A single instance of a running docker image.
+
+### Namespace
+
+: The name of the kubrenetes context.
+
+!!! note "Valid namespaces"
+
+    Currently, this must be one of:
+
+    - `openvault`
+    - `ov-demo`
+
+## Services
 
 These are the pre-built docker images to deploy various microservices:
 
@@ -58,7 +91,7 @@ Utility kit, based on [ubuntu](https://ubuntu.com/) with command line helpers su
 
 ## Call sequence
 
-When a new request comes in:
+The following diagram describes the call sequence for incoming requests:
 
 ```mermaid
 sequenceDiagram

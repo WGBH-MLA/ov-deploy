@@ -1,6 +1,21 @@
-# Deployment steps
+# Deployment
 
-## init
+## General
+
+Deployments are run in Kubernetes on AWS. The workloads consist of `pods` (Docker containers) which run prebuilt images from Dockerhub.
+
+These images are built from the `Dockerfile`s of the `ov-frontend` and `ov-wag` repositories, and from the `Dockerfile` in the `ov-nginx` and `ov-jumpbox` subdirectories.
+
+### Deployment Process
+
+Generally speaking, the deployment process consists of the following tasks:
+
+- **Checkout** the desired versions of the image(s) to be built.
+- **Build** Docker images from the `Dockerfile`s for each microservice.
+- **Push** the Docker images to Dockerhub.
+- **Update** the workloads in Kubernetes to use the updated Docker images.
+
+## Deploy a new stack
 
 To deploy a new stack:
 

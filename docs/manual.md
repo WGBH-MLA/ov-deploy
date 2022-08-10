@@ -1,3 +1,5 @@
+# Manual deployment
+
 ## Requirements
 
 On your local machine, you will need:
@@ -16,45 +18,7 @@ On your local machine, you will need:
 
     Add doc on how to verify that you have all these dependencies, and if not, how to get them._
 
-## Concepts
-
-The following are some definitions for some of the terms used below:
-
-### Production
-
-: The fully deployed stack, publicly available to all clients
-
-### Demo / Staging
-
-: A separate production stack, used to test changes and maintain a live working backup.
-
-: This will be available on a different domain than the production stack
-
-### Pod
-
-: A single instance of a running docker image.
-
-### Namespace
-
-: The name of the kubrenetes context to deploy.
-
-: Currently, this must be one of:
-
-: - `openvault`
-: - `ov-demo`
-
-## Deployment
-
-"Production" and "Demo" deployments are in Kubernetes on AWS. The workloads consist of "pods", which are Docker containers, and those containers are run using Docker images that we've pushed to Dockerhub. These docker images come from the Dockerfiles of the `ov-frontend` and `ov-wag` repositories.
-
-Generally speaking, the deployment process consists of the following tasks:
-
-- Checkout the desired versions of `ov-frontend` and `ov-wag` source code.
-- Build Docker images from the Dockerfiles within the specific versions of `ov-frontend` and `ov-wag`.
-- Push the Docker images to Dockerhub.
-- Update the workloads in Kubernetes to use the updated Docker images.
-
-### Setting up Kubernetes in Rancher
+## Setting up Kubernetes in Rancher
 
 If we are deploying for the first time, we need to configure Kubernetes to be able to receive deployments. If this has already been done, you can skip this section.
 
@@ -72,7 +36,7 @@ If we are deploying for the first time, we need to configure Kubernetes to be ab
 1. Enter environment variables. **_TODO: elaborate on how._**
 1. Enter secrets. **_TODO: elaborate on how._**
 
-### Automatic deployment
+## Automatic deployment
 
 The `./deploy` helper script is designed to automate the process of deploying known versions of parts or the whole stack. For any given pod, it will:
 
@@ -80,7 +44,7 @@ The `./deploy` helper script is designed to automate the process of deploying kn
 - Push the images to docker hub
 - Set the version tag of each deployed image
 
-#### Usage
+### Usage
 
 The script can be called with several arguments:
 
@@ -102,7 +66,7 @@ The script can be called with several arguments:
 
     : Verify in console logs that job has completed successfully, or returned an error.
 
-### Manual Deployment
+## Manual Deployment
 
 In the event that an automated deployment fails you can do a step-by-step deployment to help debug problems.
 
@@ -117,7 +81,7 @@ In the event that an automated deployment fails you can do a step-by-step deploy
 
 After [setting up the repository](/setup#0-checkout-code):
 
-#### Build images
+### Build images
 
 1.  Set the `ov-wag` submodule to the tag, branch, or commit that you want to deploy.
 
@@ -146,7 +110,7 @@ After [setting up the repository](/setup#0-checkout-code):
 
     This would require a change to Dockerfile in ov-wag repo, but would be less confusing since the image may end up in either Production or Demo environments.
 
-#### Push images
+### Push images
 
 1.  Login to docker hub
 
@@ -165,7 +129,7 @@ After [setting up the repository](/setup#0-checkout-code):
 
     The password for Docker Hub user `wgbhmla` is in [passwordstate](https://lph.wgbh.org/).
 
-#### Update Kubernetes workloads
+### Update Kubernetes workloads
 
 There several ways of updating the kubrenetes workflow:
 

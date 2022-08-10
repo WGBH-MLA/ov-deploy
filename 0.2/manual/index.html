@@ -462,11 +462,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#manual-deployment_1" class="md-nav__link">
-    Manual Deployment
+  <a href="#steps" class="md-nav__link">
+    Steps
   </a>
   
-    <nav class="md-nav" aria-label="Manual Deployment">
+    <nav class="md-nav" aria-label="Steps">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -516,8 +516,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#target-workflow" class="md-nav__link">
-    TARGET WORKFLOW!
+  <a href="#example-workflow" class="md-nav__link">
+    Example workflow
   </a>
   
 </li>
@@ -549,6 +549,7 @@
 
 
 <h1 id="manual-deployment">Manual deployment<a class="headerlink" href="#manual-deployment" title="Permanent link">&para;</a></h1>
+<p>In the event that an automated deployment fails you can do a step-by-step deployment to help debug problems.</p>
 <h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
 <p>On your local machine, you will need:</p>
 <ul>
@@ -567,8 +568,6 @@
 <p class="admonition-title">TODO: Verify dependencies</p>
 <p>Add doc on how to verify that you have all these dependencies, and if not, how to get them._</p>
 </div>
-<h2 id="manual-deployment_1">Manual Deployment<a class="headerlink" href="#manual-deployment_1" title="Permanent link">&para;</a></h2>
-<p>In the event that an automated deployment fails you can do a step-by-step deployment to help debug problems.</p>
 <div class="admonition abstract">
 <p class="admonition-title">OV_*_VERSION</p>
 <p>The versions of <code>ov-wag</code> and <code>ov-frontend</code> repositories will be used in several of the following commands, so the following commands are documented with the <code>$OV_WAG_VERSION</code> and <code>$OV_FRONTEND_VERSION</code> variables. You can set these in your session by using <code>export</code></p>
@@ -577,6 +576,7 @@
 </code></pre></div>
 </div>
 <p>After <a href="/setup#0-checkout-code">setting up the repository</a>:</p>
+<h2 id="steps">Steps<a class="headerlink" href="#steps" title="Permanent link">&para;</a></h2>
 <h3 id="build-images">Build images<a class="headerlink" href="#build-images" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
@@ -651,28 +651,36 @@ docker push wgbhmla/ov-frontend:<span class="nv">$OV_FRONTEND_VERSION</span>
 <p class="admonition-title">TODO: needs more affirming feedback</p>
 <p>Go through steps to ensure consistency</p>
 </div>
+<div class="admonition auth">
+<p class="admonition-title">Login</p>
 <ol>
-<li>Log in to GBH VPN using Cicso AnyConnect.</li>
-<li>Go to https://rancherext.wgbh.org/login and click "Log In with Azure ID".</li>
-<li>From the leftmost item in the top menu, select the "MLA" project, which is indicated as being in the cluster named "digital-eks-dev".</li>
-<li>Beneath the top menu are several tabs: "Workloads", "Load Balancing", "Service Discovery", and "Volumes". Select "Workloads" if it is not already selected.</li>
-<li>Locate the row identifying the "ov" workload under the table heading that says "Namespace: openvault".</li>
-<li>Go to https://rancherext.wgbh.org</li>
-<li>
-<p>In the top menu, click on the "digital-eks-dev", then click the "MLA" project name.</p>
-</li>
-<li>
-<p>Locate the workload</p>
-</li>
-<li>
-<p>Click the "Re-deploy"</p>
-</li>
-<li>
-<p><em>TODO: add where to check logs, get feedback on success/fail</em></p>
-</li>
-<li><em>TODO: add details about "image pull policy" and make sure it's set correctly -- i think to 'always pull' or something</em></li>
+<li>Login to VPN</li>
+<li><a href="https://rancherext.wgbh.org/login">Login to Rancher</a> ("Log in with Azure ID")</li>
+<li><a href="https://rancherext.wgbh.org/p/c-7qk7g:p-lpkts/workloads">Go to MLA project</a></li>
 </ol>
-<h2 id="target-workflow">TARGET WORKFLOW!<a class="headerlink" href="#target-workflow" title="Permanent link">&para;</a></h2>
+</div>
+<ol>
+<li>
+<p>Select the <code>Workloads</code> tab, if it is not already selected.</p>
+<ul>
+<li>Other tabs are: <code>Load Balancing</code>, <code>Service Discovery</code>, and <code>Volumes</code>.</li>
+</ul>
+</li>
+<li>
+<p>Locate "Namespace: openvault"</p>
+</li>
+<li>Click on the row identifying the <code>ov-wag</code> workload</li>
+<li>Edit the <code>Docker Image</code> value to the desired <code>image:tag</code> combination</li>
+<li>Click <code>Save</code></li>
+</ol>
+<div class="admonition todo">
+<p class="admonition-title">TODO: add where to check logs, get feedback on success/fail</p>
+</div>
+<div class="admonition todo">
+<p class="admonition-title">TODO: image pull policy</p>
+<p>add details about "image pull policy" and make sure it's set correctly -- i think to 'always pull' or something</p>
+</div>
+<h2 id="example-workflow">Example workflow<a class="headerlink" href="#example-workflow" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>git clone git@github.com:WGBH-MLA/ov_deploy.git
 cd ov_deploy
 git ch -b test-new-versions-of-front-and-back-ends
@@ -685,22 +693,23 @@ git ch -b test-new-versions-of-front-and-back-ends
   --ov-wag-env=./ov-wag/env.yml \
   --ov-wag-secrets=./ov-wag/secrets.yml \
   --ov-frontend-env=./ov-frontend/env.yml \
-# qa testing ensues
-# it works hooray!
-# Now, do we branch/pr/merge
-# manual deploy for now until continuous-deploy?
-# Do we first deploy to prod to ensure it&#39;s working so that we can
-# do a quick rollback without involving continuous deployment in case of
-# error?
-# Or, do we not check in anything? Deploy to prod, check it out, and we&#39;re # done.
 </code></pre></div>
+<div class="admonition todo">
+<p class="admonition-title">TODO: clean manual script</p>
+<p>qa testing ensues</p>
+<p>it works hooray!</p>
+<p>Now, do we branch/pr/merge</p>
+<p>manual deploy for now until continuous-deploy?</p>
+<p>Do we first deploy to prod to ensure it's working so that we can do a quick rollback without involving continuous deployment in case of error?</p>
+<p>Or, do we not check in anything? Deploy to prod, check it out, and we're done.</p>
+</div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-10T21:08:30+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-10</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-10T21:50:14+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-10</span>
       
         <br>
         Created:

@@ -466,8 +466,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#create-workload" class="md-nav__link">
-    Create workload
+  <a href="#create-workloads" class="md-nav__link">
+    Create workloads
   </a>
   
 </li>
@@ -509,8 +509,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#jumpbox-optional-utility-kit" class="md-nav__link">
-    jumpbox (optional utility kit)
+  <a href="#jumpbox" class="md-nav__link">
+    jumpbox
   </a>
   
 </li>
@@ -596,9 +596,9 @@
 
 
 
-<h1 id="setup">setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h1>
+<h1 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h1>
 <h2 id="development">Development<a class="headerlink" href="#development" title="Permanent link">&para;</a></h2>
-<p>The following steps describe the setup process for local development. For production setup, see <a href="/deploy">Deploy</a></p>
+<p>The following steps describe the setup process for local development. For production setup, see <a href="#production">Production</a></p>
 <h3 id="0-checkout-code">0. Checkout code<a class="headerlink" href="#0-checkout-code" title="Permanent link">&para;</a></h3>
 <p>Clone the source code from github:</p>
 <div class="highlight"><pre><span></span><code>git clone https://github.com/WGBH-MLA/ov-deploy.git
@@ -659,7 +659,7 @@ git submodule update <span class="c1"># (2)</span>
 </ol>
 </details>
 <h2 id="production">Production<a class="headerlink" href="#production" title="Permanent link">&para;</a></h2>
-<p>If we are deploying for the first time, we need to configure Kubernetes to be able to receive deployments. If this has already been done, you can skip this section.</p>
+<p>If deploying for the first time, Kubernetes must be configured to receive deployments. If this has already been done, you can skip this section.</p>
 <div class="admonition auth">
 <p class="admonition-title">Login</p>
 <ol>
@@ -672,10 +672,10 @@ git submodule update <span class="c1"># (2)</span>
 <div class="admonition todo">
 <p class="admonition-title">TODO: elaborate</p>
 </div>
-<h3 id="create-workload">Create workload<a class="headerlink" href="#create-workload" title="Permanent link">&para;</a></h3>
+<h3 id="create-workloads">Create workloads<a class="headerlink" href="#create-workloads" title="Permanent link">&para;</a></h3>
 <p>For each workload:</p>
 <ol>
-<li>Click <code>Deploy</code></li>
+<li>From the Workloads tab of the project, Click <code>Deploy</code></li>
 <li>
 <p>Enter the name of the service</p>
 <div class="admonition note">
@@ -692,18 +692,20 @@ git submodule update <span class="c1"># (2)</span>
 <li>
 <p>Set environment variables</p>
 <p>Create a new config map with the necessary environment variables.</p>
-<p>Click <code>Add From Source</code> and set <code>type: Config Map</code></p>
-<div class="highlight"><span class="filename">ov-wag/.env</span><pre><span></span><code><span class="nv">OV_DB_ENGINE</span><span class="o">=</span>django.db.backends.postgresql
+<p><code>Resources &gt; Config &gt; Add Config Map</code></p>
+<div class="highlight"><span class="filename">ov-wag-config</span><pre><span></span><code><span class="nv">OV_DB_ENGINE</span><span class="o">=</span>django.db.backends.postgresql
 <span class="nv">OV_DB_PORT</span><span class="o">=</span><span class="m">5432</span>
 <span class="nv">OV_DB_NAME</span><span class="o">=</span>postgres
 <span class="nv">OV_DB_USER</span><span class="o">=</span>postgres
 </code></pre></div>
+<p>Click <code>Add From Source</code> and set <code>type: Config Map</code></p>
+<p>Select the name of the config map</p>
 </li>
 <li>
 <p>Enter secrets</p>
 <p>Add a new secret with any secrets that need to be available.</p>
 <p>Click <code>Add From Source</code> and set <code>type: Secret</code></p>
-<div class="highlight"><span class="filename">ov-wag.secrets</span><pre><span></span><code><span class="nv">OV_DB_PASSWORD</span><span class="o">=</span>p@ssW0rd!
+<div class="highlight"><span class="filename">ov-wag-secret</span><pre><span></span><code><span class="nv">OV_DB_PASSWORD</span><span class="o">=</span>p@ssW0rd!
 </code></pre></div>
 </li>
 </ol>
@@ -716,32 +718,38 @@ git submodule update <span class="c1"># (2)</span>
 <h4 id="db">db<a class="headerlink" href="#db" title="Permanent link">&para;</a></h4>
 <ul>
 <li>image: <code>postgres:14.2-alpine</code></li>
-<li>secrets:</li>
-</ul>
+<li>
+<p>secrets:</p>
 <div class="highlight"><span class="filename">db secrets</span><pre><span></span><code><span class="nv">POSTGRESS_PASSWORD</span><span class="o">=</span>p@ssW0rd!
 </code></pre></div>
+</li>
+</ul>
 <h4 id="ov-wag-backend">ov-wag (backend)<a class="headerlink" href="#ov-wag-backend" title="Permanent link">&para;</a></h4>
 <ul>
 <li>image: <code>wgbhmla/ov-wag</code></li>
-<li>config:</li>
-</ul>
+<li>
+<p>config:</p>
 <div class="highlight"><span class="filename">ov-wag environment</span><pre><span></span><code><span class="nv">OV_DB_ENGINE</span><span class="o">=</span>django.db.backends.postgresql
 <span class="nv">OV_DB_PORT</span><span class="o">=</span><span class="m">5432</span>
 <span class="nv">OV_DB_NAME</span><span class="o">=</span>postgres
 <span class="nv">OV_DB_USER</span><span class="o">=</span>postgres
 </code></pre></div>
-<ul>
-<li>secrets:</li>
-</ul>
+</li>
+<li>
+<p>secrets:</p>
 <div class="highlight"><span class="filename">ov-wag.secrets</span><pre><span></span><code><span class="nv">OV_DB_PASSWORD</span><span class="o">=</span>p@ssW0rd!
 </code></pre></div>
+</li>
+</ul>
 <h4 id="ov-frontend">ov-frontend<a class="headerlink" href="#ov-frontend" title="Permanent link">&para;</a></h4>
 <ul>
 <li>image: <code>wgbhmla/ov-frontend</code></li>
-<li>config:</li>
-</ul>
+<li>
+<p>config:</p>
 <div class="highlight"><span class="filename">ov-frontend environment</span><pre><span></span><code><span class="nv">OV_API_URL</span><span class="o">=</span>ov-wag
 </code></pre></div>
+</li>
+</ul>
 <h4 id="ov-nginx">ov-nginx<a class="headerlink" href="#ov-nginx" title="Permanent link">&para;</a></h4>
 <ul>
 <li>
@@ -764,7 +772,7 @@ git submodule update <span class="c1"># (2)</span>
 </ul>
 </li>
 </ul>
-<h4 id="jumpbox-optional-utility-kit">jumpbox (optional utility kit)<a class="headerlink" href="#jumpbox-optional-utility-kit" title="Permanent link">&para;</a></h4>
+<h4 id="jumpbox">jumpbox<a class="headerlink" href="#jumpbox" title="Permanent link">&para;</a></h4>
 <ul>
 <li>image: <code>wgbhmla/jumpbox</code></li>
 </ul>
@@ -774,7 +782,7 @@ git submodule update <span class="c1"># (2)</span>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-10T21:08:30+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-10</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-10T21:50:14+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-10</span>
       
         <br>
         Created:

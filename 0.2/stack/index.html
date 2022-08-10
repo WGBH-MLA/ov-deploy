@@ -10,6 +10,8 @@
       
       
       
+        <link rel="canonical" href="https://wgbh-mla.github.io/ov-deploy/deploy/0.2/stack/">
+      
       <link rel="icon" href="../assets/ov-favicon.png">
       <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
     
@@ -74,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#about-the-stack" class="md-skip">
+        <a href="#stack" class="md-skip">
           Skip to content
         </a>
       
@@ -393,47 +395,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#concepts" class="md-nav__link">
-    Concepts
-  </a>
-  
-    <nav class="md-nav" aria-label="Concepts">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#production" class="md-nav__link">
-    Production
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#demo-staging" class="md-nav__link">
-    Demo / Staging
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pod" class="md-nav__link">
-    Pod
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#namespace" class="md-nav__link">
-    Namespace
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#images" class="md-nav__link">
     Images
   </a>
@@ -574,7 +535,7 @@
 
 
 
-<h1 id="about-the-stack">About the Stack<a class="headerlink" href="#about-the-stack" title="Permanent link">&para;</a></h1>
+<h1 id="stack">Stack<a class="headerlink" href="#stack" title="Permanent link">&para;</a></h1>
 <p>Open Vault is deployed as a number of seperate services, built into <code>docker</code> images.</p>
 <p><a href="/dev">Development</a> is done with <code>docker compose</code></p>
 <p><a href="/deploy">Deployment</a> is orchestrated through <code>kubernetes</code>, using <code>Rancher</code>.</p>
@@ -583,36 +544,6 @@
 <p>While it is possible to run all services combined on a single physical or virtual instance, it is <strong>strongly</strong> recommended to run as a series of micro-services, which can be versioned and scaled independently.</p>
 <p>All documentation here will describe deployment through <code>docker</code> and <code>kubernetes</code>.</p>
 </details>
-<h2 id="concepts">Concepts<a class="headerlink" href="#concepts" title="Permanent link">&para;</a></h2>
-<p>The following are some definitions for some of the terms used below:</p>
-<h3 id="production">Production<a class="headerlink" href="#production" title="Permanent link">&para;</a></h3>
-<dl>
-<dd>The fully deployed stack, publicly available to all clients</dd>
-</dl>
-<h3 id="demo-staging">Demo / Staging<a class="headerlink" href="#demo-staging" title="Permanent link">&para;</a></h3>
-<dl>
-<dd>A separate production stack, used to test changes and maintain a live working backup.</dd>
-<dd>This will be available on a different domain than the production stack</dd>
-</dl>
-<h3 id="pod">Pod<a class="headerlink" href="#pod" title="Permanent link">&para;</a></h3>
-<dl>
-<dd>A single instance of a running docker image.</dd>
-</dl>
-<h3 id="namespace">Namespace<a class="headerlink" href="#namespace" title="Permanent link">&para;</a></h3>
-<dl>
-<dd>The name of the kubrenetes context to deploy.</dd>
-<dd>Currently, this must be one of:</dd>
-<dd>
-<ul>
-<li><code>openvault</code></li>
-</ul>
-</dd>
-<dd>
-<ul>
-<li><code>ov-demo</code></li>
-</ul>
-</dd>
-</dl>
 <h2 id="images">Images<a class="headerlink" href="#images" title="Permanent link">&para;</a></h2>
 <p>These are the pre-built docker images to deploy various microservices:</p>
 <h3 id="ov-frontend"><code>ov-frontend</code><a class="headerlink" href="#ov-frontend" title="Permanent link">&para;</a></h3>
@@ -639,7 +570,7 @@
 <li><code>python</code></li>
 </ul>
 <h2 id="call-sequence">Call sequence<a class="headerlink" href="#call-sequence" title="Permanent link">&para;</a></h2>
-<p>The following diagram describes the call sequence for incoming requests:</p>
+<p>When a new request comes in:</p>
 <pre class="mermaid"><code>sequenceDiagram
 Client -&gt;&gt; Proxy: requests page
 Proxy --&gt;&gt; Frontend: nginx proxies request

@@ -10,6 +10,8 @@
       
       
       
+        <link rel="canonical" href="https://wgbh-mla.github.io/ov-deploy/deploy/0.2/deploy/">
+      
       <link rel="icon" href="../assets/ov-favicon.png">
       <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
     
@@ -74,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#deployment" class="md-skip">
+        <a href="#deployment-steps" class="md-skip">
           Skip to content
         </a>
       
@@ -438,31 +440,11 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#general" class="md-nav__link">
-    General
+  <a href="#init" class="md-nav__link">
+    init
   </a>
   
-    <nav class="md-nav" aria-label="General">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#deployment-process" class="md-nav__link">
-    Deployment Process
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#deploy-a-new-stack" class="md-nav__link">
-    Deploy a new stack
-  </a>
-  
-    <nav class="md-nav" aria-label="Deploy a new stack">
+    <nav class="md-nav" aria-label="init">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -627,19 +609,8 @@
 
 
 
-<h1 id="deployment">Deployment<a class="headerlink" href="#deployment" title="Permanent link">&para;</a></h1>
-<h2 id="general">General<a class="headerlink" href="#general" title="Permanent link">&para;</a></h2>
-<p>Deployments are run in Kubernetes on AWS. The workloads consist of <code>pods</code> (Docker containers) which run prebuilt images from Dockerhub.</p>
-<p>These images are built from the <code>Dockerfile</code>s of the <code>ov-frontend</code> and <code>ov-wag</code> repositories, and from the <code>Dockerfile</code> in the <code>ov-nginx</code> and <code>ov-jumpbox</code> subdirectories.</p>
-<h3 id="deployment-process">Deployment Process<a class="headerlink" href="#deployment-process" title="Permanent link">&para;</a></h3>
-<p>Generally speaking, the deployment process consists of the following tasks:</p>
-<ul>
-<li><strong>Checkout</strong> the desired versions of the image(s) to be built.</li>
-<li><strong>Build</strong> Docker images from the <code>Dockerfile</code>s for each microservice.</li>
-<li><strong>Push</strong> the Docker images to Dockerhub.</li>
-<li><strong>Update</strong> the workloads in Kubernetes to use the updated Docker images.</li>
-</ul>
-<h2 id="deploy-a-new-stack">Deploy a new stack<a class="headerlink" href="#deploy-a-new-stack" title="Permanent link">&para;</a></h2>
+<h1 id="deployment-steps">Deployment steps<a class="headerlink" href="#deployment-steps" title="Permanent link">&para;</a></h1>
+<h2 id="init">init<a class="headerlink" href="#init" title="Permanent link">&para;</a></h2>
 <p>To deploy a new stack:</p>
 <h3 id="1-create-namespace-in-rancher">1. Create namespace in Rancher<a class="headerlink" href="#1-create-namespace-in-rancher" title="Permanent link">&para;</a></h3>
 <p>Production: <code>openvault</code>

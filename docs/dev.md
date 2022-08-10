@@ -38,7 +38,7 @@ COMMANDS:
 
 #### `b` | `build`
 
-Build the docker images locally.
+: Build the docker images locally.
 
 !!! abstract "build a single image"
 
@@ -52,17 +52,17 @@ Build the docker images locally.
 
 #### `backup` | `dump`
 
-Create a database dump file with the timestamp as the filename.
+: Create a database dump file with the timestamp as the filename.
 
 #### `c` | `cmd`
 
-Run a `docker compose` command with the base config files in place.
+: Run a `docker compose` command with the base config files in place.
 
 #### `d` | `dev`
 
-Run Development Environment
+: Run Development Environment
 
-Run the development environment, with `docker compose`, and follow container logs.
+: Run the development environment, with `docker compose`, and follow container logs.
 
 !!! abstract "Compose arguments"
 
@@ -74,27 +74,27 @@ Run the development environment, with `docker compose`, and follow container log
 
 #### `deploy`
 
-Shortcut for `./deploy [command]`.
+: Shortcut for `./deploy [command]`.
 
-See [Deploy](/deploy) for detailed usage.
+: See [Deploy](/deploy) for detailed usage.
 
 #### `docs`
 
-Build and run the documentation server, with live change reloading.
+: Build and run the documentation server, with live change reloading.
 
 #### `i` | `init`
 
-Initialize a development environment.
+: Initialize a development environment.
 
-See [Setup](/setup) for detailed instructions.
+: See [Setup](/setup) for detailed instructions.
 
 #### `m` | `manage`
 
-Run a `manage.py` command in the docker context.
+: Run a `manage.py` command in the docker context.
 
 #### `restore`
 
-Restore the database with a backup.
+: Restore the database with a backup.
 
 ```bash title="restore db"
 ./ov restore db_backup.sql
@@ -102,7 +102,7 @@ Restore the database with a backup.
 
 #### `s` | `shell`
 
-Enter into a python django shell interpreter, with the application context loaded.
+: Enter into a python django shell interpreter, with the application context loaded.
 
 ## Examples
 

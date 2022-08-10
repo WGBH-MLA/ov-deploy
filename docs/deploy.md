@@ -15,7 +15,7 @@ Generally speaking, the deployment process consists of the following tasks:
 - **Push** the Docker images to Dockerhub.
 - **Update** the workloads in Kubernetes to use the updated Docker images.
 
-## Deploy a new stack
+## Setup a new stack
 
 To deploy a new stack:
 
@@ -106,3 +106,39 @@ Redeploy the pod(s)
 
 - Rancher
 - kubectl
+
+## `./deploy`
+
+The `./deploy` helper script is designed to automate the process of deploying known versions of parts or the whole stack. For any given pod, it will:
+
+- Build the docker images
+- Push the images to docker hub
+- Set the version tag of each deployed image
+
+### Usage
+
+The script can be called with several arguments:
+
+1.  Setup kubectl context
+
+    : `-c context`
+
+    !!! todo "TODO: kubectl context"
+
+        Describe setup for kubectl context
+
+1.  Set pod(s) version as cli args
+
+    : Backend: `-b VERSION`
+    : Frontend: `-f VERSION`
+    : Proxy: `-p VERSION`
+
+1.  Run command
+
+    : Verify in console logs that job has completed successfully, or returned an error.
+
+### Example
+
+```bash title="Deploy v0.1.0 of backend and frontend"
+./deploy -c openvault -b v0.1.0 -f v0.1.0
+```

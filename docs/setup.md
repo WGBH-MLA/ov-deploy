@@ -1,5 +1,7 @@
 # Initial setup
 
+The following steps describe the setup process for local development. For production setup, see [Deploy](/deploy)
+
 ## 0. Checkout code
 
 Clone the source code from github:

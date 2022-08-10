@@ -4,8 +4,8 @@
 
 On your local machine, you will need:
 
-- `docker`
-- `kubectl`
+- [docker](https://docs.docker.com/get-docker/)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/)
 
 !!! auth "Authorization"
 
@@ -21,50 +21,42 @@ On your local machine, you will need:
 ## Setting up Kubernetes in Rancher
 
 If we are deploying for the first time, we need to configure Kubernetes to be able to receive deployments. If this has already been done, you can skip this section.
+!!! auth "Login"
+
+    1. Login to VPN
+    1. [Login to Rancher](https://rancherext.wgbh.org/login) ("Log in with Azure ID")
+    1. [Go to MLA project](https://rancherext.wgbh.org/p/c-7qk7g:p-lpkts/workloads)
+
+### Create namespace
+
+!!! todo "TODO: elaborate"
+
+### Create workload
+
+For each workload:
+
+1.  Click `Deploy`
+1.  Enter the name of the service
+
+    !!! note "Service name"
+
+        If using the automatic `deploy` script, the name of the service must exactly match the name of the docker hub image
+
+1.  Enter the Docker image: `[DOCKERHUB ACCOUNT NAME]/[DOCKER IMAGE NAME]:[TAG]`
+
+    - For example: `wgbhmla/ov-wag:latest`
+
+1.  Enter environment variables. **_TODO: elaborate on how._**
+
+    ```bash title=ov-wag.secrets
+
+    ```
+
+1.  Enter secrets. **_TODO: elaborate on how._**
 
 !!! todo "TODO: Enumerate kube steps"
 
     Enumerate the minimum steps required to get Kubernetes setup up in Rancher to handle deployments.
-
-1. Log into VPN.
-1. Go to https://rancherext.wgbh.org/login, and click "Login with Azure ID".
-1. Go to MLA project (TODO: elaborate)
-1. Create namespacde (TODO: elaborate)
-1. Click "Deploy Workload"
-1. Enter "ov" for Name field
-1. Docker image: "[DOCKERHUB ACCOUNT NAME]/ov:latest"
-1. Enter environment variables. **_TODO: elaborate on how._**
-1. Enter secrets. **_TODO: elaborate on how._**
-
-## Automatic deployment
-
-The `./deploy` helper script is designed to automate the process of deploying known versions of parts or the whole stack. For any given pod, it will:
-
-- Build the docker images
-- Push the images to docker hub
-- Set the version tag of each deployed image
-
-### Usage
-
-The script can be called with several arguments:
-
-1.  Setup kubectl context
-
-    : `-c context`
-
-    !!! todo "TODO: kubectl context"
-
-        Describe setup for kubectl context
-
-1.  Set pod(s) version as cli args
-
-    : Backend: `-b VERSION`
-    : Frontend: `-f VERSION`
-    : Proxy: `-p VERSION`
-
-1.  Run command
-
-    : Verify in console logs that job has completed successfully, or returned an error.
 
 ## Manual Deployment
 

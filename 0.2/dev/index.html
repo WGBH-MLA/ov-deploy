@@ -640,7 +640,9 @@
   s <span class="p">|</span> shell        run a django shell <span class="nb">command</span> with the app context
 </code></pre></div>
 <h4 id="b-build"><code>b</code> | <code>build</code><a class="headerlink" href="#b-build" title="Permanent link">&para;</a></h4>
-<p>Build the docker images locally.</p>
+<dl>
+<dd>Build the docker images locally.</dd>
+</dl>
 <div class="admonition abstract">
 <p class="admonition-title">build a single image</p>
 <p>Additional docker arguments can be passed to this command.</p>
@@ -649,12 +651,18 @@
 </code></pre></div>
 </div>
 <h4 id="backup-dump"><code>backup</code> | <code>dump</code><a class="headerlink" href="#backup-dump" title="Permanent link">&para;</a></h4>
-<p>Create a database dump file with the timestamp as the filename.</p>
+<dl>
+<dd>Create a database dump file with the timestamp as the filename.</dd>
+</dl>
 <h4 id="c-cmd"><code>c</code> | <code>cmd</code><a class="headerlink" href="#c-cmd" title="Permanent link">&para;</a></h4>
-<p>Run a <code>docker compose</code> command with the base config files in place.</p>
+<dl>
+<dd>Run a <code>docker compose</code> command with the base config files in place.</dd>
+</dl>
 <h4 id="d-dev"><code>d</code> | <code>dev</code><a class="headerlink" href="#d-dev" title="Permanent link">&para;</a></h4>
-<p>Run Development Environment</p>
-<p>Run the development environment, with <code>docker compose</code>, and follow container logs.</p>
+<dl>
+<dd>Run Development Environment</dd>
+<dd>Run the development environment, with <code>docker compose</code>, and follow container logs.</dd>
+</dl>
 <div class="admonition abstract">
 <p class="admonition-title">Compose arguments</p>
 <p>Additional compose arguments can be passed. For example, to rebuild the containers before running:</p>
@@ -662,21 +670,33 @@
 </code></pre></div>
 </div>
 <h4 id="deploy"><code>deploy</code><a class="headerlink" href="#deploy" title="Permanent link">&para;</a></h4>
-<p>Shortcut for <code>./deploy [command]</code>.</p>
-<p>See <a href="/deploy">Deploy</a> for detailed usage.</p>
+<dl>
+<dd>Shortcut for <code>./deploy [command]</code>.</dd>
+<dd>See <a href="/deploy">Deploy</a> for detailed usage.</dd>
+</dl>
 <h4 id="docs"><code>docs</code><a class="headerlink" href="#docs" title="Permanent link">&para;</a></h4>
-<p>Build and run the documentation server, with live change reloading.</p>
+<dl>
+<dd>Build and run the documentation server, with live change reloading.</dd>
+</dl>
 <h4 id="i-init"><code>i</code> | <code>init</code><a class="headerlink" href="#i-init" title="Permanent link">&para;</a></h4>
-<p>Initialize a development environment.</p>
-<p>See <a href="/setup">Setup</a> for detailed instructions.</p>
+<dl>
+<dd>Initialize a development environment.</dd>
+<dd>See <a href="/setup">Setup</a> for detailed instructions.</dd>
+</dl>
 <h4 id="m-manage"><code>m</code> | <code>manage</code><a class="headerlink" href="#m-manage" title="Permanent link">&para;</a></h4>
-<p>Run a <code>manage.py</code> command in the docker context.</p>
+<dl>
+<dd>Run a <code>manage.py</code> command in the docker context.</dd>
+</dl>
 <h4 id="restore"><code>restore</code><a class="headerlink" href="#restore" title="Permanent link">&para;</a></h4>
-<p>Restore the database with a backup.</p>
+<dl>
+<dd>Restore the database with a backup.</dd>
+</dl>
 <div class="highlight"><span class="filename">restore db</span><pre><span></span><code>./ov restore db_backup.sql
 </code></pre></div>
 <h4 id="s-shell"><code>s</code> | <code>shell</code><a class="headerlink" href="#s-shell" title="Permanent link">&para;</a></h4>
-<p>Enter into a python django shell interpreter, with the application context loaded.</p>
+<dl>
+<dd>Enter into a python django shell interpreter, with the application context loaded.</dd>
+</dl>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p>The following are some useful examples of development commands that might be run:</p>
 <h3 id="migrate-database">Migrate database<a class="headerlink" href="#migrate-database" title="Permanent link">&para;</a></h3>
@@ -697,7 +717,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-05T16:09:24+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-05</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-10T20:10:12+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-10</span>
       
         <br>
         Created:

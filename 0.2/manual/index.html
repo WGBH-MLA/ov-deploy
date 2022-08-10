@@ -466,19 +466,19 @@
     Setting up Kubernetes in Rancher
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#automatic-deployment" class="md-nav__link">
-    Automatic deployment
-  </a>
-  
-    <nav class="md-nav" aria-label="Automatic deployment">
+    <nav class="md-nav" aria-label="Setting up Kubernetes in Rancher">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
-    Usage
+  <a href="#create-namespace" class="md-nav__link">
+    Create namespace
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-workload" class="md-nav__link">
+    Create workload
   </a>
   
 </li>
@@ -579,8 +579,8 @@
 <h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
 <p>On your local machine, you will need:</p>
 <ul>
-<li><code>docker</code></li>
-<li><code>kubectl</code></li>
+<li><a href="https://docs.docker.com/get-docker/">docker</a></li>
+<li><a href="https://kubernetes.io/docs/tasks/tools/">kubectl</a></li>
 </ul>
 <div class="admonition auth">
 <p class="admonition-title">Authorization</p>
@@ -596,66 +596,48 @@
 </div>
 <h2 id="setting-up-kubernetes-in-rancher">Setting up Kubernetes in Rancher<a class="headerlink" href="#setting-up-kubernetes-in-rancher" title="Permanent link">&para;</a></h2>
 <p>If we are deploying for the first time, we need to configure Kubernetes to be able to receive deployments. If this has already been done, you can skip this section.</p>
+<div class="admonition auth">
+<p class="admonition-title">Login</p>
+<ol>
+<li>Login to VPN</li>
+<li><a href="https://rancherext.wgbh.org/login">Login to Rancher</a> ("Log in with Azure ID")</li>
+<li><a href="https://rancherext.wgbh.org/p/c-7qk7g:p-lpkts/workloads">Go to MLA project</a></li>
+</ol>
+</div>
+<h3 id="create-namespace">Create namespace<a class="headerlink" href="#create-namespace" title="Permanent link">&para;</a></h3>
+<div class="admonition todo">
+<p class="admonition-title">TODO: elaborate</p>
+</div>
+<h3 id="create-workload">Create workload<a class="headerlink" href="#create-workload" title="Permanent link">&para;</a></h3>
+<p>For each workload:</p>
+<ol>
+<li>Click <code>Deploy</code></li>
+<li>
+<p>Enter the name of the service</p>
+<div class="admonition note">
+<p class="admonition-title">Service name</p>
+<p>If using the automatic <code>deploy</code> script, the name of the service must exactly match the name of the docker hub image</p>
+</div>
+</li>
+<li>
+<p>Enter the Docker image: <code>[DOCKERHUB ACCOUNT NAME]/[DOCKER IMAGE NAME]:[TAG]</code></p>
+<ul>
+<li>For example: <code>wgbhmla/ov-wag:latest</code></li>
+</ul>
+</li>
+<li>
+<p>Enter environment variables. <strong><em>TODO: elaborate on how.</em></strong></p>
+<p>```bash title=ov-wag.secrets</p>
+<p>```</p>
+</li>
+<li>
+<p>Enter secrets. <strong><em>TODO: elaborate on how.</em></strong></p>
+</li>
+</ol>
 <div class="admonition todo">
 <p class="admonition-title">TODO: Enumerate kube steps</p>
 <p>Enumerate the minimum steps required to get Kubernetes setup up in Rancher to handle deployments.</p>
 </div>
-<ol>
-<li>Log into VPN.</li>
-<li>Go to https://rancherext.wgbh.org/login, and click "Login with Azure ID".</li>
-<li>Go to MLA project (TODO: elaborate)</li>
-<li>Create namespacde (TODO: elaborate)</li>
-<li>Click "Deploy Workload"</li>
-<li>Enter "ov" for Name field</li>
-<li>Docker image: "[DOCKERHUB ACCOUNT NAME]/ov:latest"</li>
-<li>Enter environment variables. <strong><em>TODO: elaborate on how.</em></strong></li>
-<li>Enter secrets. <strong><em>TODO: elaborate on how.</em></strong></li>
-</ol>
-<h2 id="automatic-deployment">Automatic deployment<a class="headerlink" href="#automatic-deployment" title="Permanent link">&para;</a></h2>
-<p>The <code>./deploy</code> helper script is designed to automate the process of deploying known versions of parts or the whole stack. For any given pod, it will:</p>
-<ul>
-<li>Build the docker images</li>
-<li>Push the images to docker hub</li>
-<li>Set the version tag of each deployed image</li>
-</ul>
-<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
-<p>The script can be called with several arguments:</p>
-<ol>
-<li>
-<dl>
-<dt>Setup kubectl context</dt>
-<dd>
-<p><code>-c context</code></p>
-</dd>
-</dl>
-<div class="admonition todo">
-<p class="admonition-title">TODO: kubectl context</p>
-<p>Describe setup for kubectl context</p>
-</div>
-</li>
-<li>
-<dl>
-<dt>Set pod(s) version as cli args</dt>
-<dd>
-<p>Backend: <code>-b VERSION</code></p>
-</dd>
-<dd>
-<p>Frontend: <code>-f VERSION</code></p>
-</dd>
-<dd>
-<p>Proxy: <code>-p VERSION</code></p>
-</dd>
-</dl>
-</li>
-<li>
-<dl>
-<dt>Run command</dt>
-<dd>
-<p>Verify in console logs that job has completed successfully, or returned an error.</p>
-</dd>
-</dl>
-</li>
-</ol>
 <h2 id="manual-deployment_1">Manual Deployment<a class="headerlink" href="#manual-deployment_1" title="Permanent link">&para;</a></h2>
 <p>In the event that an automated deployment fails you can do a step-by-step deployment to help debug problems.</p>
 <div class="admonition abstract">
@@ -789,7 +771,7 @@ git ch -b test-new-versions-of-front-and-back-ends
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-10T19:01:36+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-10</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-10T20:10:12+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-10</span>
       
         <br>
         Created:

@@ -460,11 +460,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#deploy-a-new-stack" class="md-nav__link">
-    Deploy a new stack
+  <a href="#setup-a-new-stack" class="md-nav__link">
+    Setup a new stack
   </a>
   
-    <nav class="md-nav" aria-label="Deploy a new stack">
+    <nav class="md-nav" aria-label="Setup a new stack">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -588,6 +588,33 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#deploy" class="md-nav__link">
+    ./deploy
+  </a>
+  
+    <nav class="md-nav" aria-label="./deploy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -641,7 +668,7 @@
 <li><strong>Push</strong> the Docker images to Dockerhub.</li>
 <li><strong>Update</strong> the workloads in Kubernetes to use the updated Docker images.</li>
 </ul>
-<h2 id="deploy-a-new-stack">Deploy a new stack<a class="headerlink" href="#deploy-a-new-stack" title="Permanent link">&para;</a></h2>
+<h2 id="setup-a-new-stack">Setup a new stack<a class="headerlink" href="#setup-a-new-stack" title="Permanent link">&para;</a></h2>
 <p>To deploy a new stack:</p>
 <h3 id="1-create-namespace-in-rancher">1. Create namespace in Rancher<a class="headerlink" href="#1-create-namespace-in-rancher" title="Permanent link">&para;</a></h3>
 <p>Production: <code>openvault</code>
@@ -711,13 +738,61 @@ demo: <code>ov-demo</code></p>
 <li>Rancher</li>
 <li>kubectl</li>
 </ul>
+<h2 id="deploy"><code>./deploy</code><a class="headerlink" href="#deploy" title="Permanent link">&para;</a></h2>
+<p>The <code>./deploy</code> helper script is designed to automate the process of deploying known versions of parts or the whole stack. For any given pod, it will:</p>
+<ul>
+<li>Build the docker images</li>
+<li>Push the images to docker hub</li>
+<li>Set the version tag of each deployed image</li>
+</ul>
+<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
+<p>The script can be called with several arguments:</p>
+<ol>
+<li>
+<dl>
+<dt>Setup kubectl context</dt>
+<dd>
+<p><code>-c context</code></p>
+</dd>
+</dl>
+<div class="admonition todo">
+<p class="admonition-title">TODO: kubectl context</p>
+<p>Describe setup for kubectl context</p>
+</div>
+</li>
+<li>
+<dl>
+<dt>Set pod(s) version as cli args</dt>
+<dd>
+<p>Backend: <code>-b VERSION</code></p>
+</dd>
+<dd>
+<p>Frontend: <code>-f VERSION</code></p>
+</dd>
+<dd>
+<p>Proxy: <code>-p VERSION</code></p>
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Run command</dt>
+<dd>
+<p>Verify in console logs that job has completed successfully, or returned an error.</p>
+</dd>
+</dl>
+</li>
+</ol>
+<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
+<div class="highlight"><span class="filename">Deploy v0.1.0 of backend and frontend</span><pre><span></span><code>./deploy -c openvault -b v0.1.0 -f v0.1.0
+</code></pre></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-10T19:01:36+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-10</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-10T20:10:12+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-10</span>
       
         <br>
         Created:

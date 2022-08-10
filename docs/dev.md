@@ -2,9 +2,10 @@
 
 This page describes how to run the development environment on a machine with `docker compose`.
 
-???+ admonition "docker compose"
+???+ abstract "Requirements"
 
-    The following instructions rely on `docker` and `docker compose` to build and run the containers.
+    - [docker](https://docs.docker.com/get-docker/)
+    - [docker compose](https://docs.docker.com/compose/install/)
 
     Running the services outside of docker is possible, but not supported in this context.
 
@@ -12,16 +13,11 @@ This page describes how to run the development environment on a machine with `do
 
 The `ov` file is the primary Open Vault command line script. This contains a number of pre-built commands to do basic operations
 
-### Requirements
-
-- `docker`
-- `docker compose`
-
-### Commands
+### Usage
 
 `./ov COMMAND [args]`
 
-```bash
+```bash title="./ov --help"
 COMMANDS:
 
   b | build        build the docker images
@@ -35,6 +31,8 @@ COMMANDS:
   restore | load   restore a database backup
   s | shell        run a django shell command with the app context
 ```
+
+### Commands
 
 #### `b` | `build`
 

@@ -18,46 +18,6 @@ On your local machine, you will need:
 
     Add doc on how to verify that you have all these dependencies, and if not, how to get them._
 
-## Setting up Kubernetes in Rancher
-
-If we are deploying for the first time, we need to configure Kubernetes to be able to receive deployments. If this has already been done, you can skip this section.
-!!! auth "Login"
-
-    1. Login to VPN
-    1. [Login to Rancher](https://rancherext.wgbh.org/login) ("Log in with Azure ID")
-    1. [Go to MLA project](https://rancherext.wgbh.org/p/c-7qk7g:p-lpkts/workloads)
-
-### Create namespace
-
-!!! todo "TODO: elaborate"
-
-### Create workload
-
-For each workload:
-
-1.  Click `Deploy`
-1.  Enter the name of the service
-
-    !!! note "Service name"
-
-        If using the automatic `deploy` script, the name of the service must exactly match the name of the docker hub image
-
-1.  Enter the Docker image: `[DOCKERHUB ACCOUNT NAME]/[DOCKER IMAGE NAME]:[TAG]`
-
-    - For example: `wgbhmla/ov-wag:latest`
-
-1.  Enter environment variables. **_TODO: elaborate on how._**
-
-    ```bash title=ov-wag.secrets
-
-    ```
-
-1.  Enter secrets. **_TODO: elaborate on how._**
-
-!!! todo "TODO: Enumerate kube steps"
-
-    Enumerate the minimum steps required to get Kubernetes setup up in Rancher to handle deployments.
-
 ## Manual Deployment
 
 In the event that an automated deployment fails you can do a step-by-step deployment to help debug problems.

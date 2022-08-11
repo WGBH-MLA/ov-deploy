@@ -6,10 +6,10 @@ The following steps describe the setup process for local development. For produc
 
 ### 0. Checkout code
 
-Clone the source code from github:
+Clone the source code from github, including submodules:
 
 ```bash
-git clone https://github.com/WGBH-MLA/ov-deploy.git
+git clone --recurse-submodules https://github.com/WGBH-MLA/ov-deploy.git
 ```
 
 Change into the new `ov-deploy` directory
@@ -18,11 +18,13 @@ Change into the new `ov-deploy` directory
 cd ov-deploy
 ```
 
-Initilize and update the submodules
+???+ abstract "Initialize and update submodules"
 
-```bash
-git submodule init && git submodule update
-```
+    If the repository was cloned without the submodules, they will need to be initialized first.
+    ```bash
+    git submodule init
+    git submodule update
+    ```
 
 ???+ abstract "Checkout code"
 
@@ -40,7 +42,7 @@ git submodule init && git submodule update
 In `ov-wag`, create a file called `.db` with the following contents:
 
 ```bash title="ov-wag/.db"
-POSTGRES_PASSWORD="YOUR POSTGRESS PASSWORD HERE"
+POSTGRES_PASSWORD="YOUR POSTGRES PASSWORD HERE"
 ```
 
 ??? note "Generating a password"
@@ -62,7 +64,7 @@ OV_DB_ENGINE=django.db.backends.postgresql
 OV_DB_PORT=5432
 OV_DB_NAME=postgres
 OV_DB_USER=postgres
-OV_DB_PASSWORD="YOUR POSTGRESS PASSWORD HERE"
+OV_DB_PASSWORD="YOUR POSTGRES PASSWORD HERE"
 ```
 
 ### 3. Run initialization script
@@ -161,7 +163,7 @@ The following services are needed to run the stack:
 - secrets:
 
       ```bash title="db secrets"
-      POSTGRESS_PASSWORD=p@ssW0rd!
+      POSTGRES_PASSWORD=p@ssW0rd!
       ```
 
 #### ov-wag (backend)

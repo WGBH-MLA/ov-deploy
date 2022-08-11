@@ -12,4 +12,4 @@ Deployment documentation for the Open Vault project
 
 ## Credits
 
-Developed by the [Media Libray Archive](https://www.wgbh.org/foundation/what-we-do/media-library-and-archives) at [WGBH Boston](https://wgbh.org)
+Developed by the [Media Library and Archives](https://www.wgbh.org/foundation/what-we-do/media-library-and-archives) at [WGBH Boston](https://wgbh.org)

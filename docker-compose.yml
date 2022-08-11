@@ -17,7 +17,7 @@ services:
     image: ov-front
     build:
       context: ./ov-frontend
-      target: production
+      target: dev
     environment:
       OV_API_URL: http://wagtail
 

@@ -600,15 +600,19 @@
 <h2 id="development">Development<a class="headerlink" href="#development" title="Permanent link">&para;</a></h2>
 <p>The following steps describe the setup process for local development. For production setup, see <a href="#production">Production</a></p>
 <h3 id="0-checkout-code">0. Checkout code<a class="headerlink" href="#0-checkout-code" title="Permanent link">&para;</a></h3>
-<p>Clone the source code from github:</p>
-<div class="highlight"><pre><span></span><code>git clone https://github.com/WGBH-MLA/ov-deploy.git
+<p>Clone the source code from github, including submodules:</p>
+<div class="highlight"><pre><span></span><code>git clone --recurse-submodules https://github.com/WGBH-MLA/ov-deploy.git
 </code></pre></div>
 <p>Change into the new <code>ov-deploy</code> directory</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span> ov-deploy
 </code></pre></div>
-<p>Initilize and update the submodules</p>
-<div class="highlight"><pre><span></span><code>git submodule init <span class="o">&amp;&amp;</span> git submodule update
-</code></pre></div>
+<details class="abstract" open="open">
+<summary>Initialize and update submodules</summary>
+<p>If the repository was cloned without the submodules, they will need to be initialized first.
+<div class="highlight"><pre><span></span><code>git submodule init
+git submodule update
+</code></pre></div></p>
+</details>
 <details class="abstract" open="open">
 <summary>Checkout code</summary>
 <p>If running a version other than the <code>main</code> branch, you will need to checkout the code first, and update the git submodules.</p>
@@ -619,7 +623,7 @@ git submodule update
 </details>
 <h3 id="1-create-the-database-secrets-file">1. Create the database secrets file<a class="headerlink" href="#1-create-the-database-secrets-file" title="Permanent link">&para;</a></h3>
 <p>In <code>ov-wag</code>, create a file called <code>.db</code> with the following contents:</p>
-<div class="highlight"><span class="filename">ov-wag/.db</span><pre><span></span><code><span class="nv">POSTGRES_PASSWORD</span><span class="o">=</span><span class="s2">&quot;YOUR POSTGRESS PASSWORD HERE&quot;</span>
+<div class="highlight"><span class="filename">ov-wag/.db</span><pre><span></span><code><span class="nv">POSTGRES_PASSWORD</span><span class="o">=</span><span class="s2">&quot;YOUR POSTGRES PASSWORD HERE&quot;</span>
 </code></pre></div>
 <details class="note">
 <summary>Generating a password</summary>
@@ -635,7 +639,7 @@ git submodule update
 <span class="nv">OV_DB_PORT</span><span class="o">=</span><span class="m">5432</span>
 <span class="nv">OV_DB_NAME</span><span class="o">=</span>postgres
 <span class="nv">OV_DB_USER</span><span class="o">=</span>postgres
-<span class="nv">OV_DB_PASSWORD</span><span class="o">=</span><span class="s2">&quot;YOUR POSTGRESS PASSWORD HERE&quot;</span>
+<span class="nv">OV_DB_PASSWORD</span><span class="o">=</span><span class="s2">&quot;YOUR POSTGRES PASSWORD HERE&quot;</span>
 </code></pre></div>
 <h3 id="3-run-initialization-script">3. Run initialization script<a class="headerlink" href="#3-run-initialization-script" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>./ov init
@@ -720,7 +724,7 @@ git submodule update <span class="c1"># (2)</span>
 <li>image: <code>postgres:14.2-alpine</code></li>
 <li>
 <p>secrets:</p>
-<div class="highlight"><span class="filename">db secrets</span><pre><span></span><code><span class="nv">POSTGRESS_PASSWORD</span><span class="o">=</span>p@ssW0rd!
+<div class="highlight"><span class="filename">db secrets</span><pre><span></span><code><span class="nv">POSTGRES_PASSWORD</span><span class="o">=</span>p@ssW0rd!
 </code></pre></div>
 </li>
 </ul>
@@ -782,7 +786,7 @@ git submodule update <span class="c1"># (2)</span>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-10T21:50:14+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-10</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-11T15:16:33+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-11</span>
       
         <br>
         Created:

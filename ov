@@ -53,10 +53,6 @@ elif [ $1 = "docs" ]; then
 
 elif [ $1 = "init" -o $1 = "i" ]; then
   shift
-  # initialize submodule
-  git submodule init &&
-  # checkout current version
-  git submodule update &&
   # build docker files
   ./ov build &&
   # install npm requirements

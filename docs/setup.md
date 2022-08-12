@@ -79,19 +79,13 @@ OV_DB_PASSWORD="YOUR POSTGRES PASSWORD HERE"
 
     ```bash
 
-    git submodule init # (1)
+    ./ov build # (1)
 
-    git submodule update # (2)
-
-    ./ov build # (3)
-
-    ./ov c run -it front npm install # (4)
+    ./ov c run -it front npm install # (2)
     ```
 
-    1. initialize submodule
-    2. checkout current version
-    3. build docker files
-    4. install npm requirements
+    1. build docker files
+    1. install npm requirements
 
 ## Production
 

@@ -1,6 +1,6 @@
 # About the Stack
 
-Open Vault is deployed as a number of seperate services, built into `docker` images.
+Open Vault is deployed as a number of separate services, built into `docker` images.
 
 [Development](/dev) is done with `docker compose`
 

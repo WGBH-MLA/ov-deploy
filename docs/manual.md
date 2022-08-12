@@ -83,7 +83,7 @@ After [setting up the repository](/setup#0-checkout-code):
 
 ### Update Kubernetes workloads
 
-There several ways of updating the kubrenetes workflow:
+There several ways of updating the Kubernetes workflow:
 
 - `kubectl` commands
 - Rancher web interface

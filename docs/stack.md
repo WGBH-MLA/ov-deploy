@@ -36,7 +36,7 @@ The following are some definitions for some of the terms used below:
 
 ### Namespace
 
-: The name of the kubrenetes context.
+: The name of the Kubernetes context.
 
 !!! note "Valid namespaces"
 

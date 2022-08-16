@@ -39,7 +39,7 @@ After [setting up the repository](/setup#0-checkout-code):
 
     ```bash title="Checkout backend"
     cd ov-wag
-    git checkout \$OV_WAG_VERSION
+    git checkout $OV_WAG_VERSION
     cd ..
     ```
 

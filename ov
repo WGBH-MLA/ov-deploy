@@ -11,6 +11,7 @@ COMMANDS:\n\n
 \t  backup | dump \t create a backup of the database \n
 \t  c | cmd \t    run a compose command \n
 \t  d | dev \t    start a development server \n
+\t  deploy \t     run a deploy command
 \t  i | init \t   run initialization script \n
 \t  h | help \t   prints this help text \n
 \t  m | manage \t run a wagtail manage.py command \n
@@ -42,16 +43,22 @@ elif [ $1 = "dev" -o $1 = "d" ]; then
   # docker run -itp 8000:8000 -v $(pwd)/:/app/ ov "$@"
   $COMPOSE $DEPLOY up
 
+elif [ $1 = "deploy" ]; then
+  shift
+  ./deploy "$@"
+
+elif [ $1 = "docs" ]; then
+  shift
+  docker run --rm -it -p 8001:8001 -v ${PWD}:/docs wgbhmla/ov-docs serve -a 0.0.0.0:8001
+
 elif [ $1 = "init" -o $1 = "i" ]; then
   shift
-  # initialize submodule
-  git submodule init
-  # checkout current version
-  git submodule update
   # build docker files
-  ./ov build
-  # Insatll npm requirements
-  ./ov c run -it front npm install
+  ./ov build &&
+  # install npm requirements
+  ./ov c run -it front npm install &&
+
+  echo "Open Vault initialized successfully!"
 
 elif [ $1 = "manage" -o $1 = "m" ]; then
   shift

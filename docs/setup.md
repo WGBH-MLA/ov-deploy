@@ -118,30 +118,19 @@ For each workload:
 
 1.  Set environment variables
 
-    Create a new config map with the necessary environment variables.
+    Create a new config map and set the values from the config files below.
 
-    `Resources > Config > Add Config Map`
+    Under `Environment Variables` Click `Add From Source` and set `type: Config Map`
 
-    ```bash title="ov-wag-config"
-    OV_DB_ENGINE=django.db.backends.postgresql
-    OV_DB_PORT=5432
-    OV_DB_NAME=postgres
-    OV_DB_USER=postgres
-    ```
+    Set the name of the config map and save the settings.
 
-    Click `Add From Source` and set `type: Config Map`
-
-    Select the name of the config map
+    Restart any container using that config.
 
 1.  Enter secrets
 
     Add a new secret with any secrets that need to be available.
 
     Click `Add From Source` and set `type: Secret`
-
-    ```bash title="ov-wag-secret"
-    OV_DB_PASSWORD=p@ssW0rd!
-    ```
 
 !!! todo "TODO: Enumerate kube steps"
 
@@ -165,16 +154,22 @@ The following services are needed to run the stack:
 - image: `wgbhmla/ov-wag`
 - config:
 
-      ```bash title="ov-wag environment"
+      ```bash title="ov-wag-config"
+      DJANGO_SETTINGS_MODULE=ov_wag.settings.production
+
       OV_DB_ENGINE=django.db.backends.postgresql
+      OV_DB_HOST=db
       OV_DB_PORT=5432
       OV_DB_NAME=postgres
       OV_DB_USER=postgres
+
+      OV_ALLOWED_HOSTS=ov-wag
+      OV_TRUSTED_ORIGINS=http://ov-admin.k8s.wgbhdigital.org/
       ```
 
 - secrets:
 
-      ```bash title="ov-wag.secrets"
+      ```bash title="ov-wag-secrets"
       OV_DB_PASSWORD=p@ssW0rd!
       ```
 
@@ -191,16 +186,27 @@ The following services are needed to run the stack:
 
 - image: `wgbhmla/ov-nginx`
 
-      - preconfigured with `nginx.conf`
+      preconfigured with `nginx.conf`
+      - ov-admin: proxy pass to `http://ov-wag`
       - proxy pass to `http://ov-frontend:3000`
 
 - endpoints:
 
-      - `80/http`
+      - `443/http`
 
 - Load Balancing:
 
-      - hostname: `[public url]`
+      - `ov-admin`
+        - Hostname: `http://ov-admin.k8s.wgbhdigital.org`
+        - Path: `/`
+        - Target: `ov-nginx`
+        - Port: 80
+
+      - `ov-front`
+        - Hostname: `http://ovfrontend.k8s.wgbhdigital.org`
+        - Path: `/`
+        - Target: `ov-nginx`
+        - Port: 80
 
 #### jumpbox
 

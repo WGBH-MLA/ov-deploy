@@ -1,0 +1,96 @@
+site_name: 'Open Vault: Deploy'
+site_description: Open Vault redesign deployment documentation
+site_url: https://wgbh-mla.github.io/ov-deploy/deploy/
+repo_url: https://github.com/WGBH-MLA/ov-deploy/
+
+nav:
+  - Home: index.md
+  - Stack: stack.md
+  - Setup: setup.md
+  - Develop: dev.md
+  - Deploy: deploy.md
+  - Manual: manual.md
+
+markdown_extensions:
+  - admonition
+  - def_list
+  - footnotes
+  - md_in_html
+  - meta
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 4
+
+theme:
+  name: material
+  logo: assets/ov-logo.png
+  favicon: assets/ov-favicon.png
+
+  palette:
+    - media: '(prefers-color-scheme: dark)'
+      scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+    - media: '(prefers-color-scheme: light)'
+      scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+  features:
+    - content.code.annotate # Enable code annotations for a specific block
+    - header.autohide # Hide header when scrolling
+    - navigation.instant # Load requests with XHR without reloading page
+    - navigation.sections # Top level sections rendered as group in sidebar
+    - navigation.tabs # Top level sections rendered as navbar
+    - navigation.tabs.sticky # Tabs visible on scroll
+    - navigation.top # Back to top button
+    - navigation.tracking # Adds url#anchor to address bar
+    - navigation.expand # Expand all collapsed sections by default
+    - toc.integrate # Nav bar is always rendered on the left
+    - search.highlight # Highlight occurances in result when searching for a term
+    - search.suggest # Suggest results in search
+  custom_dir: docs/overrides
+
+plugins:
+  - search
+  - git-revision-date-localized:
+      type: timeago
+      enable_creation_date: true
+
+extra:
+  social:
+    - name: Open Vault - Demo
+      icon: fontawesome/solid/vault
+      link: http://ovfrontend.k8s.wgbhdigital.org/
+    - name: GitHub repository
+      icon: fontawesome/brands/github
+      link: https://github.com/WGBH-MLA/ov-deploy/
+  version:
+    provider: mike
+
+extra_css:
+  - style/gbh.css
+  - style/auth.css
+  - style/todo.css

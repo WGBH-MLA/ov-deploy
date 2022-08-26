@@ -103,7 +103,7 @@ If deploying for the first time, Kubernetes must be configured to receive deploy
 
 ### Create workloads
 
-For each workload:
+#### For each workload:
 
 1.  From the Workloads tab of the project, Click `Deploy`
 1.  Enter the name of the service
@@ -124,9 +124,13 @@ For each workload:
 
     Set the name of the config map and save the settings.
 
-    Restart any container using that config.
+    Restart any running container using that config.
 
-1.  Enter secrets
+1.  Mount volumes
+
+    If needed, create an external volume under the `Volumes` tab and mount it to the specified location.
+
+1.  Add secrets
 
     Add a new secret with any secrets that need to be available.
 
@@ -143,6 +147,12 @@ The following services are needed to run the stack:
 #### db
 
 - image: `postgres:14.2-alpine`
+
+- volumes:
+
+      - `ov-db`: `/var/lib/postgresql/data`
+        - `Read-Only=False`
+
 - secrets:
 
       ```bash title="db secrets"
@@ -191,15 +201,18 @@ The following services are needed to run the stack:
 
 - image: `wgbhmla/ov-nginx`
 
-        - preconfigured with `nginx.conf`
+      - preconfigured with `nginx.conf`
 
-        - Admin: [ov-admin.k8s.wgbhdigital.org](https://ov-admin.k8s.wgbhdigital.org/)
-            - proxy pass to `http://ov-wag`
+  - Admin site: [ov-admin.k8s.wgbhdigital.org](https://ov-admin.k8s.wgbhdigital.org/)
 
-        - `/static` served from `/static/` mounted volume
-        - `/media` served from `/media/` mounted volume
+    - proxy pass to `http://ov-wag`
 
-        - proxy pass to `http://ov-frontend:3000`
+  - `/static` served from `/static/` mounted volume
+  - `/media` served from `/media/` mounted volume
+
+  - Frontend: [ovfrontend.k8s.wgbhdigital.org](http://ovfrontend.k8s.wgbhdigital.org/)
+
+    - proxy pass to `http://ov-frontend:3000`
 
 !!! todo "external `/media` host"
 

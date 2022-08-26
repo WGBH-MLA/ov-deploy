@@ -152,6 +152,11 @@ The following services are needed to run the stack:
 #### ov-wag (backend)
 
 - image: `wgbhmla/ov-wag`
+- volumes:
+
+      - `ov-static`: `/app/static/`: `rw`
+      - `ov-media`: `/app/media/`: `rw`
+
 - config:
 
       ```bash title="ov-wag-config"
@@ -186,13 +191,29 @@ The following services are needed to run the stack:
 
 - image: `wgbhmla/ov-nginx`
 
-      preconfigured with `nginx.conf`
-      - ov-admin: proxy pass to `http://ov-wag`
-      - proxy pass to `http://ov-frontend:3000`
+        - preconfigured with `nginx.conf`
+
+        - Admin: [ov-admin.k8s.wgbhdigital.org](https://ov-admin.k8s.wgbhdigital.org/)
+            - proxy pass to `http://ov-wag`
+
+        - `/static` served from `/static/` mounted volume
+        - `/media` served from `/media/` mounted volume
+
+        - proxy pass to `http://ov-frontend:3000`
+
+!!! todo "external `/media` host"
+
+    We will  need to change this configuration when we switch to using an s3 bucket, or other external media host.
+
+- volumes:
+
+      - `ov-static`: `/static/`: `r`
+      - `ov-media`: `/media/`: `r`
 
 - endpoints:
 
       - `443/http`
+      - Secured with SSL cert from IT certbot
 
 - Load Balancing:
 

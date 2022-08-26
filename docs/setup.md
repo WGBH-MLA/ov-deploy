@@ -103,7 +103,7 @@ If deploying for the first time, Kubernetes must be configured to receive deploy
 
 ### Create workloads
 
-For each workload:
+#### For each workload:
 
 1.  From the Workloads tab of the project, Click `Deploy`
 1.  Enter the name of the service
@@ -118,30 +118,23 @@ For each workload:
 
 1.  Set environment variables
 
-    Create a new config map with the necessary environment variables.
+    Create a new config map and set the values from the config files below.
 
-    `Resources > Config > Add Config Map`
+    Under `Environment Variables` Click `Add From Source` and set `type: Config Map`
 
-    ```bash title="ov-wag-config"
-    OV_DB_ENGINE=django.db.backends.postgresql
-    OV_DB_PORT=5432
-    OV_DB_NAME=postgres
-    OV_DB_USER=postgres
-    ```
+    Set the name of the config map and save the settings.
 
-    Click `Add From Source` and set `type: Config Map`
+    Restart any running container using that config.
 
-    Select the name of the config map
+1.  Mount volumes
 
-1.  Enter secrets
+    If needed, create an external volume under the `Volumes` tab and mount it to the specified location.
+
+1.  Add secrets
 
     Add a new secret with any secrets that need to be available.
 
     Click `Add From Source` and set `type: Secret`
-
-    ```bash title="ov-wag-secret"
-    OV_DB_PASSWORD=p@ssW0rd!
-    ```
 
 !!! todo "TODO: Enumerate kube steps"
 
@@ -154,6 +147,12 @@ The following services are needed to run the stack:
 #### db
 
 - image: `postgres:14.2-alpine`
+
+- volumes:
+
+      - `ov-db`: `/var/lib/postgresql/data`
+        - `Read-Only=False`
+
 - secrets:
 
       ```bash title="db secrets"
@@ -163,18 +162,29 @@ The following services are needed to run the stack:
 #### ov-wag (backend)
 
 - image: `wgbhmla/ov-wag`
+- volumes:
+
+      - `ov-static`: `/app/static/`: `rw`
+      - `ov-media`: `/app/media/`: `rw`
+
 - config:
 
-      ```bash title="ov-wag environment"
+      ```bash title="ov-wag-config"
+      DJANGO_SETTINGS_MODULE=ov_wag.settings.production
+
       OV_DB_ENGINE=django.db.backends.postgresql
+      OV_DB_HOST=db
       OV_DB_PORT=5432
       OV_DB_NAME=postgres
       OV_DB_USER=postgres
+
+      OV_ALLOWED_HOSTS=ov-wag
+      OV_TRUSTED_ORIGINS=http://ov-admin.k8s.wgbhdigital.org/
       ```
 
 - secrets:
 
-      ```bash title="ov-wag.secrets"
+      ```bash title="ov-wag-secrets"
       OV_DB_PASSWORD=p@ssW0rd!
       ```
 
@@ -192,15 +202,45 @@ The following services are needed to run the stack:
 - image: `wgbhmla/ov-nginx`
 
       - preconfigured with `nginx.conf`
-      - proxy pass to `http://ov-frontend:3000`
+
+  - Admin site: [ov-admin.k8s.wgbhdigital.org](https://ov-admin.k8s.wgbhdigital.org/)
+
+    - proxy pass to `http://ov-wag`
+
+  - `/static` served from `/static/` mounted volume
+  - `/media` served from `/media/` mounted volume
+
+  - Frontend: [ovfrontend.k8s.wgbhdigital.org](http://ovfrontend.k8s.wgbhdigital.org/)
+
+    - proxy pass to `http://ov-frontend:3000`
+
+!!! todo "external `/media` host"
+
+    We will  need to change this configuration when we switch to using an s3 bucket, or other external media host.
+
+- volumes:
+
+      - `ov-static`: `/static/`: `r`
+      - `ov-media`: `/media/`: `r`
 
 - endpoints:
 
-      - `80/http`
+      - `443/http`
+      - Secured with SSL cert from IT certbot
 
 - Load Balancing:
 
-      - hostname: `[public url]`
+      - `ov-admin`
+        - Hostname: `http://ov-admin.k8s.wgbhdigital.org`
+        - Path: `/`
+        - Target: `ov-nginx`
+        - Port: 80
+
+      - `ov-front`
+        - Hostname: `http://ovfrontend.k8s.wgbhdigital.org`
+        - Path: `/`
+        - Target: `ov-nginx`
+        - Port: 80
 
 #### jumpbox
 

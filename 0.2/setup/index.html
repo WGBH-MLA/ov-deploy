@@ -470,6 +470,19 @@
     Create workloads
   </a>
   
+    <nav class="md-nav" aria-label="Create workloads">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-each-workload" class="md-nav__link">
+    For each workload:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -671,7 +684,7 @@ git submodule update
 <p class="admonition-title">TODO: elaborate</p>
 </div>
 <h3 id="create-workloads">Create workloads<a class="headerlink" href="#create-workloads" title="Permanent link">&para;</a></h3>
-<p>For each workload:</p>
+<h4 id="for-each-workload">For each workload:<a class="headerlink" href="#for-each-workload" title="Permanent link">&para;</a></h4>
 <ol>
 <li>From the Workloads tab of the project, Click <code>Deploy</code></li>
 <li>
@@ -689,22 +702,19 @@ git submodule update
 </li>
 <li>
 <p>Set environment variables</p>
-<p>Create a new config map with the necessary environment variables.</p>
-<p><code>Resources &gt; Config &gt; Add Config Map</code></p>
-<div class="highlight"><span class="filename">ov-wag-config</span><pre><span></span><code><span class="nv">OV_DB_ENGINE</span><span class="o">=</span>django.db.backends.postgresql
-<span class="nv">OV_DB_PORT</span><span class="o">=</span><span class="m">5432</span>
-<span class="nv">OV_DB_NAME</span><span class="o">=</span>postgres
-<span class="nv">OV_DB_USER</span><span class="o">=</span>postgres
-</code></pre></div>
-<p>Click <code>Add From Source</code> and set <code>type: Config Map</code></p>
-<p>Select the name of the config map</p>
+<p>Create a new config map and set the values from the config files below.</p>
+<p>Under <code>Environment Variables</code> Click <code>Add From Source</code> and set <code>type: Config Map</code></p>
+<p>Set the name of the config map and save the settings.</p>
+<p>Restart any running container using that config.</p>
 </li>
 <li>
-<p>Enter secrets</p>
+<p>Mount volumes</p>
+<p>If needed, create an external volume under the <code>Volumes</code> tab and mount it to the specified location.</p>
+</li>
+<li>
+<p>Add secrets</p>
 <p>Add a new secret with any secrets that need to be available.</p>
 <p>Click <code>Add From Source</code> and set <code>type: Secret</code></p>
-<div class="highlight"><span class="filename">ov-wag-secret</span><pre><span></span><code><span class="nv">OV_DB_PASSWORD</span><span class="o">=</span>p@ssW0rd!
-</code></pre></div>
 </li>
 </ol>
 <div class="admonition todo">
@@ -715,7 +725,18 @@ git submodule update
 <p>The following services are needed to run the stack:</p>
 <h4 id="db">db<a class="headerlink" href="#db" title="Permanent link">&para;</a></h4>
 <ul>
-<li>image: <code>postgres:14.2-alpine</code></li>
+<li>
+<p>image: <code>postgres:14.2-alpine</code></p>
+</li>
+<li>
+<p>volumes:</p>
+<ul>
+<li><code>ov-db</code>: <code>/var/lib/postgresql/data</code><ul>
+<li><code>Read-Only=False</code></li>
+</ul>
+</li>
+</ul>
+</li>
 <li>
 <p>secrets:</p>
 <div class="highlight"><span class="filename">db secrets</span><pre><span></span><code><span class="nv">POSTGRES_PASSWORD</span><span class="o">=</span>p@ssW0rd!
@@ -726,16 +747,29 @@ git submodule update
 <ul>
 <li>image: <code>wgbhmla/ov-wag</code></li>
 <li>
+<p>volumes:</p>
+<ul>
+<li><code>ov-static</code>: <code>/app/static/</code>: <code>rw</code></li>
+<li><code>ov-media</code>: <code>/app/media/</code>: <code>rw</code></li>
+</ul>
+</li>
+<li>
 <p>config:</p>
-<div class="highlight"><span class="filename">ov-wag environment</span><pre><span></span><code><span class="nv">OV_DB_ENGINE</span><span class="o">=</span>django.db.backends.postgresql
+<div class="highlight"><span class="filename">ov-wag-config</span><pre><span></span><code><span class="nv">DJANGO_SETTINGS_MODULE</span><span class="o">=</span>ov_wag.settings.production
+
+<span class="nv">OV_DB_ENGINE</span><span class="o">=</span>django.db.backends.postgresql
+<span class="nv">OV_DB_HOST</span><span class="o">=</span>db
 <span class="nv">OV_DB_PORT</span><span class="o">=</span><span class="m">5432</span>
 <span class="nv">OV_DB_NAME</span><span class="o">=</span>postgres
 <span class="nv">OV_DB_USER</span><span class="o">=</span>postgres
+
+<span class="nv">OV_ALLOWED_HOSTS</span><span class="o">=</span>ov-wag
+<span class="nv">OV_TRUSTED_ORIGINS</span><span class="o">=</span>http://ov-admin.k8s.wgbhdigital.org/
 </code></pre></div>
 </li>
 <li>
 <p>secrets:</p>
-<div class="highlight"><span class="filename">ov-wag.secrets</span><pre><span></span><code><span class="nv">OV_DB_PASSWORD</span><span class="o">=</span>p@ssW0rd!
+<div class="highlight"><span class="filename">ov-wag-secrets</span><pre><span></span><code><span class="nv">OV_DB_PASSWORD</span><span class="o">=</span>p@ssW0rd!
 </code></pre></div>
 </li>
 </ul>
@@ -754,19 +788,67 @@ git submodule update
 <p>image: <code>wgbhmla/ov-nginx</code></p>
 <ul>
 <li>preconfigured with <code>nginx.conf</code></li>
+</ul>
+</li>
+<li>
+<p>Admin site: <a href="https://ov-admin.k8s.wgbhdigital.org/">ov-admin.k8s.wgbhdigital.org</a></p>
+<ul>
+<li>proxy pass to <code>http://ov-wag</code></li>
+</ul>
+</li>
+<li>
+<p><code>/static</code> served from <code>/static/</code> mounted volume</p>
+</li>
+<li>
+<p><code>/media</code> served from <code>/media/</code> mounted volume</p>
+</li>
+<li>
+<p>Frontend: <a href="http://ovfrontend.k8s.wgbhdigital.org/">ovfrontend.k8s.wgbhdigital.org</a></p>
+<ul>
 <li>proxy pass to <code>http://ov-frontend:3000</code></li>
+</ul>
+</li>
+</ul>
+<div class="admonition todo">
+<p class="admonition-title">external <code>/media</code> host</p>
+<p>We will  need to change this configuration when we switch to using an s3 bucket, or other external media host.</p>
+</div>
+<ul>
+<li>
+<p>volumes:</p>
+<ul>
+<li><code>ov-static</code>: <code>/static/</code>: <code>r</code></li>
+<li><code>ov-media</code>: <code>/media/</code>: <code>r</code></li>
 </ul>
 </li>
 <li>
 <p>endpoints:</p>
 <ul>
-<li><code>80/http</code></li>
+<li><code>443/http</code></li>
+<li>Secured with SSL cert from IT certbot</li>
 </ul>
 </li>
 <li>
 <p>Load Balancing:</p>
 <ul>
-<li>hostname: <code>[public url]</code></li>
+<li>
+<p><code>ov-admin</code></p>
+<ul>
+<li>Hostname: <code>http://ov-admin.k8s.wgbhdigital.org</code></li>
+<li>Path: <code>/</code></li>
+<li>Target: <code>ov-nginx</code></li>
+<li>Port: 80</li>
+</ul>
+</li>
+<li>
+<p><code>ov-front</code></p>
+<ul>
+<li>Hostname: <code>http://ovfrontend.k8s.wgbhdigital.org</code></li>
+<li>Path: <code>/</code></li>
+<li>Target: <code>ov-nginx</code></li>
+<li>Port: 80</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -780,7 +862,7 @@ git submodule update
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-24T19:14:09+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-24</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-26T17:57:27+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-26</span>
       
         <br>
         Created:

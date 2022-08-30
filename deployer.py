@@ -36,6 +36,7 @@ class Deployer(BaseModel):
     """
 
     context: str
+    db: str = None
     ov_wag: str = None
     ov_wag_env: str = None
     ov_wag_secrets: str = None

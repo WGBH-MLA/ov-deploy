@@ -7,73 +7,76 @@
     ],
     "labels": [
       {
-        "previousNames": ["bug"],
-        "name": "bug :bug:",
+        "previousNames": ["bug", "bug :bug:"],
+        "name": "bug 🐛",
         "color": "d73a4a"
       },
       {
-        "previousNames": ["CD"],
-        "name": "CD :building_construction:",
+        "previousNames": ["CD", "CD :building_construction:"],
+        "name": "CD 🏗️",
         "description": "Relating to Continuous Deployment",
         "color": "732487"
       },
       {
-        "previousNames": ["CI"],
-        "name": "CI :test_tube:",
+        "previousNames": ["CI", "CI :test_tube:"],
+        "name": "CI 🦾",
         "description": "Relating to Continuous Integration",
         "color": "E09B24"
       },
       {
-        "previousNames": ["breaking"],
-        "name": "breaking :broken_heart:",
+        "previousNames": ["breaking", "breaking :broken_heart:"],
+        "name": "breaking 💔",
         "description": "Breaking changes",
         "color": "BF0212"
       },
       {
-        "previousNames": ["documentation"],
-        "name": "documentation :scroll:",
+        "previousNames": ["documentation", "documentation :scroll:"],
+        "name": "documentation 📜",
         "color": "0075ca"
       },
       {
-        "previousNames": ["duplicate"],
-        "name": "duplicate :gemini:",
+        "previousNames": ["duplicate", "duplicate :gemini:"],
+        "name": "duplicate ♊",
         "color": "cfd3d7"
       },
       {
-        "previousNames": ["enhancement"],
-        "name": "enhancement :heavy_plus_sign:",
+        "previousNames": ["enhancement", "enhancement :heavy_plus_sign:"],
+        "name": "enhancement ➕",
         "color": "a2eeef"
       },
       {
-        "previousNames": ["good first issue"],
-        "name": "good first issue :new_moon_with_face:",
+        "previousNames": [
+          "good first issue",
+          "good first issue :new_moon_with_face:"
+        ],
+        "name": "good first issue 🌚",
         "color": "7057ff"
       },
       {
-        "previousNames": ["help wanted"],
-        "name": "help wanted :information_source:",
+        "previousNames": ["help wanted", "help wanted :information_source:"],
+        "name": "help wanted ℹ️",
         "color": "008672"
       },
       {
-        "previousNames": ["invalid"],
-        "name": "invalid :exclamation:",
+        "previousNames": ["invalid", "invalid :exclamation:"],
+        "name": "invalid ❗",
         "color": "e4e669"
       },
       {
-        "previousNames": ["maintenance"],
-        "name": "maintenance :wrench:",
+        "previousNames": ["maintenance", "maintenance :wrench:"],
+        "name": "maintenance 🔧",
         "description": "Updates and upgrades",
         "color": "F87431"
       },
       {
-        "previousNames": ["question"],
-        "name": "question :grey_question:",
+        "previousNames": ["question", "question :grey_question:"],
+        "name": "question ❔",
         "color": "d876e3"
       },
       {
-        "previousNames": ["wontfix"],
-        "name": "wontfix :x:",
-        "color": "ffffff"
+        "previousNames": ["wontfix", "wontfix :x:"],
+        "name": "wontfix ✖️",
+        "color": "000000"
       }
     ]
   }

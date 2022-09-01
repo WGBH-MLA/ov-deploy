@@ -15,16 +15,22 @@
       {
         "previousTitles": ["v0.2.0"],
         "title": "v0.2.0 Deploy 🌇",
-        "state": "open",
-        "description": "# Deploy\n#### *The self-titled album*\n\nIncludes:\n- [ ] deploy documentation\n- [x] `nginx` image\n- [x] `jumpbox` image",
+        "description": "# Deploy\n#### *The self-titled album*\n\nIncludes:\n- [x] deploy documentation\n- [x] `nginx` image\n- [x] `jumpbox` image",
         "due_on": "2022-08-01T23:59:59Z"
+      },
+      {
+        "previousTitles": ["v0.2.1"],
+        "title": "v0.2.1 Upgrade 🔨",
+        "state": "open",
+        "description": "# Upgrade\nUpgrades to back, front, and deploy\n- [x] Upgrade to Wagtail 4.0\n- [x] Upgrade to Remix 1.7\n- [x] Upgrade to Postgres 14.5\n- [x] Add deploy db\n- [x] Upgrade github labels",
+        "due_on": "2022-09-02T23:59:59Z"
       },
       {
         "previousTitles": ["v0.3.0"],
         "title": "v0.3.0 Collections 🖼️",
         "state": "open",
         "description": "# Collections\n- [ ] Special Collections\n- [ ] Other Exhibits\n- [ ] Embed images",
-        "due_on": "2022-09-01T23:59:59Z"
+        "due_on": "2022-09-16T23:59:59Z"
       },
       {
         "previousTitles": ["v0.4.0"],

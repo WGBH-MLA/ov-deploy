@@ -24,6 +24,18 @@
         "color": "E09B24"
       },
       {
+        "previousNames": ["production"],
+        "name": "production 🎭",
+        "description": "Relating to the production deployment",
+        "color": "772b8d"
+      },
+      {
+        "previousNames": ["test"],
+        "name": "test 🧪",
+        "description": "Tests and testing",
+        "color": "38C5D6"
+      },
+      {
         "previousNames": ["breaking", "breaking :broken_heart:"],
         "name": "breaking 💔",
         "description": "Breaking changes",

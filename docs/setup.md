@@ -178,8 +178,10 @@ The following services are needed to run the stack:
       OV_DB_NAME=postgres
       OV_DB_USER=postgres
 
+      OV_BASE_URL=http://ovfrontend.k8s.wgbhdigital.org
+      OV_ADMIN_BASE_URL=http://ov-admin.k8s.wgbhdigital.org
+      OV_TRUSTED_ORIGINS=http://ov-admin.k8s.wgbhdigital.org
       OV_ALLOWED_HOSTS=ov-wag
-      OV_TRUSTED_ORIGINS=http://ov-admin.k8s.wgbhdigital.org/
       ```
 
 - secrets:

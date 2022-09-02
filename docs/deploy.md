@@ -83,6 +83,8 @@ The script can be called with several arguments:
     : Backend: `-b VERSION`
     : Frontend: `-f VERSION`
     : Proxy: `-p VERSION`
+    : Jumpbox: `-j VERSION`
+    : db: `-d VERSION`
 
 1.  Run command
 

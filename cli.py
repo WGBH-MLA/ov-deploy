@@ -25,6 +25,14 @@ def cli():
     )
 
     parser.add_argument(
+        '-d',
+        '--db',
+        type=str,
+        metavar='TAG',
+        help='version of the database to be deployed',
+    )
+
+    parser.add_argument(
         '-f',
         '--ov-frontend',
         type=str,

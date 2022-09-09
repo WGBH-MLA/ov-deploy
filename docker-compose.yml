@@ -22,4 +22,4 @@ services:
       OV_API_URL: http://wagtail
 
   db:
-    image: postgres:14.2-alpine
+    image: postgres:14.5-alpine

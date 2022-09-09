@@ -36,6 +36,7 @@ class Deployer(BaseModel):
     """
 
     context: str
+    db: str = None
     ov_wag: str = None
     ov_wag_env: str = None
     ov_wag_secrets: str = None
@@ -66,7 +67,9 @@ class Deployer(BaseModel):
         Run the full deployer process using the current context"""
         print(f'Starting deployment using context "{self.context}"')
 
-        if not any([self.ov_wag, self.ov_frontend, self.ov_nginx, self.jumpbox]):
+        if not any(
+            [self.ov_wag, self.ov_frontend, self.ov_nginx, self.jumpbox, self.db]
+        ):
             raise Exception(f'Nothing specified for deployment.')
         if self.ov_wag:
             self._deploy('ov-wag', self.ov_wag, src=f'{OV_WAG_URL}#{self.ov_wag}')
@@ -80,5 +83,7 @@ class Deployer(BaseModel):
             self._deploy('ov-nginx', self.ov_nginx)
         if self.jumpbox:
             self._deploy('jumpbox', self.jumpbox)
+        if self.db:
+            run(f'kubectl set image deployment.apps/db db=postgres:{self.db}')
 
         print('Done!')

@@ -11,7 +11,7 @@ services:
     image: ov-tests
     build:
       context: ./ov-wag
-      target: base
+      target: test
 
   front:
     image: ov-front

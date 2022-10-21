@@ -8,8 +8,11 @@ HUB_ACCOUNT = 'wgbhmla'
 
 
 def run(cmd: str):
-    """Run a shell command, and error on non-zero exit code"""
-    sub_run(cmd, shell=True, check=True)
+    """Run a shell command
+    - Error on non-zero exit code
+    - Return output (if any) as decoded string
+    """
+    return sub_run(cmd, shell=True, capture_output=True, check=False).stdout.decode()
 
 
 def build_image(repo_name, tag, src=''):

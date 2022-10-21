@@ -30,6 +30,10 @@ def cli(context: str, **kwargs):
 @cli.command()
 def backup():
     click.echo('backing up!')
+    pod = get_pod_name('db')
+    run(
+        f'kubectl exec -it { pod } -- /usr/local/bin/pg_dump -Fc -U postgres postgres > db_$(date +%Y-%m-%d_%H-%M-%S).sql'
+    )
 
 
 if __name__ == '__main__':

@@ -12,7 +12,7 @@ def run(cmd: str):
     - Error on non-zero exit code
     - Return output (if any) as decoded string
     """
-    return sub_run(cmd, shell=True, capture_output=True, check=False).stdout.decode()
+    return sub_run(cmd, shell=True, capture_output=True, check=True).stdout.decode()
 
 
 def build_image(repo_name, tag, src=''):

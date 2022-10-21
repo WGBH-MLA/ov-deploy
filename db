@@ -2,15 +2,19 @@
 ###
 # Command line tool for managing Open Vault database
 ###
-from ast import alias
-from deployer import KubeContext, run
 import click
+from deployer import run
 
 
 def get_pod_name(workload: str):
-    return run(
-        f'kubectl get pods -l workload.user.cattle.io/workloadselector="deployment-openvault-{ workload }" -o name'
-    ).split('\n')[0]
+    """Return the name of the first pod running"""
+    return (
+        run(
+            f'kubectl get pods -l workload.user.cattle.io/workloadselector="deployment-openvault-{ workload }" -o name'
+        )
+        .strip()
+        .split('\n')[0]
+    )
 
 
 @click.group()
@@ -21,14 +25,18 @@ def get_pod_name(workload: str):
     help='the kubectl context to use',
     type=click.Choice(['openvault', 'openvault-demo']),
 )
-def cli(context: str, **kwargs):
-    # db = KubeContext(**kwargs)
+def cli(context: str):
+    """Database CLI
+
+    Management of Open Vault production databases
+    """
     run(f'kubectl config use-context { context }')
     click.echo(f'context set to { context }')
 
 
 @cli.command()
 def backup():
+    """Backup the database to a local file"""
     click.echo('backing up!')
     pod = get_pod_name('db')
     run(
@@ -43,6 +51,7 @@ def backup():
     type=click.File('rb'),
 )
 def restore(filename: str):
+    """Restore the database from a local SQL backup file"""
     click.echo(f'restoring database to { filename }')
     pod = get_pod_name('db')
     run(

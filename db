@@ -36,5 +36,19 @@ def backup():
     )
 
 
+@cli.command()
+@click.argument(
+    'filename',
+    required=True,
+    type=click.File('rb'),
+)
+def restore(filename: str):
+    click.echo(f'restoring database to { filename }')
+    pod = get_pod_name('db')
+    run(
+        f'kubectl exec -it { pod } -- /usr/local/bin/pg_restore --verbose --clean --no-acl --no-owner -U postgres -d postgres < { filename }'
+    )
+
+
 if __name__ == '__main__':
     cli()

@@ -29,21 +29,10 @@ def update_workload(pod, tag):
     run(f'kubectl set image deployment.apps/{pod} {pod}={HUB_ACCOUNT}/{pod}:{tag}')
 
 
-class Deployer(BaseModel):
-    """Deployer class
-
-    Used for openvault deployment configuration
-    """
+class KubeContext(BaseModel):
+    """Sets the kubectl context before performing operations"""
 
     context: str
-    db: str = None
-    ov_wag: str = None
-    ov_wag_env: str = None
-    ov_wag_secrets: str = None
-    ov_frontend: str = None
-    ov_frontend_env: str = None
-    ov_nginx: str = None
-    jumpbox: str = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -52,6 +41,22 @@ class Deployer(BaseModel):
     def set_current_context(self):
         """Switch to the specified kubectl context."""
         run(f'kubectl config use-context {self.context}')
+
+
+class Deployer(KubeContext):
+    """Deployer class
+
+    Used for openvault deployment configuration
+    """
+
+    db: str = None
+    ov_wag: str = None
+    ov_wag_env: str = None
+    ov_wag_secrets: str = None
+    ov_frontend: str = None
+    ov_frontend_env: str = None
+    ov_nginx: str = None
+    jumpbox: str = None
 
     def _deploy(self, repo_name, tag, src=''):
         """Deploy helper function

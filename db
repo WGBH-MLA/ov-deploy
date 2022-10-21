@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+###
+# Command line tool for managing Open Vault database
+###
+from ast import alias
+from deployer import KubeContext, run
+import click
+
+
+def get_pod_name(workload: str):
+    return run(
+        f'kubectl get pods -l workload.user.cattle.io/workloadselector="deployment-openvault-{ workload }" -o name'
+    ).split('\n')[0]
+
+
+@click.group()
+@click.option(
+    '--context',
+    '-c',
+    required=True,
+    help='the kubectl context to use',
+    type=click.Choice(['openvault', 'openvault-demo']),
+)
+def cli(context: str, **kwargs):
+    # db = KubeContext(**kwargs)
+    run(f'kubectl config use-context { context }')
+    click.echo(f'context set to { context }')
+
+
+@cli.command()
+def backup():
+    click.echo('backing up!')
+
+
+if __name__ == '__main__':
+    cli()

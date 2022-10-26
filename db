@@ -6,6 +6,17 @@ import click
 from deployer import run
 
 
+def get_pod_name(workload: str):
+    """Return the name of the first pod running in the workload"""
+    return (
+        run(
+            f'kubectl get pods -l workload.user.cattle.io/workloadselector="deployment-openvault-{ workload }" -o name'
+        )
+        .strip()
+        .split('\n')[0]
+    )
+
+
 @click.group()
 @click.option(
     '--context',
@@ -21,19 +32,6 @@ def cli(context: str):
     """
     run(f'kubectl config use-context { context }')
     click.echo(f'context set to { context }')
-
-
-@cli.command()
-@click.argument('workload', required=True)
-def get_pod_name(workload: str):
-    """Return the name of the first pod running in the workload"""
-    return (
-        run(
-            f'kubectl get pods -l workload.user.cattle.io/workloadselector="deployment-openvault-{ workload }" -o name'
-        )
-        .strip()
-        .split('\n')[0]
-    )
 
 
 @cli.command()

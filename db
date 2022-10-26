@@ -4,6 +4,7 @@
 ###
 import click
 from deployer import run
+from datetime import datetime
 
 
 def get_pod_name(workload: str):
@@ -37,25 +38,28 @@ def cli(context: str):
 @cli.command()
 def backup():
     """Backup the database to a local file"""
-    click.echo('backing up!')
-    pod = get_pod_name('db')
+    pod = get_pod_name('db').replace('pod/', '', 1)
+    now = datetime.now().isoformat().replace(':', '.')
+    filename = f'db_{ now }.sql'
+    click.echo(f'backing up database to { filename }')
     run(
-        f'kubectl exec -it { pod } -- /usr/local/bin/pg_dump -Fc -U postgres postgres > db_$(date +%Y-%m-%d_%H-%M-%S).sql'
+        f'kubectl exec -it { pod } -- bash -c "pg_dump -Fc -U postgres postgres > { filename }"'
     )
+    run(f'kubectl cp {pod}:{ filename } { filename }')
 
 
 @cli.command()
 @click.argument(
     'filename',
     required=True,
-    type=click.File('rb'),
+    type=click.File('r'),
 )
 def restore(filename: str):
     """Restore the database from a local SQL backup file"""
-    click.echo(f'restoring database to { filename }')
+    click.echo(f'restoring database to { filename.name }')
     pod = get_pod_name('db')
     run(
-        f'kubectl exec -it { pod } -- /usr/local/bin/pg_restore --verbose --clean --no-acl --no-owner -U postgres -d postgres < { filename }'
+        f'cat { filename.name } | kubectl exec -it { pod } -- bash -c "pg_restore --verbose --clean --no-acl --no-owner -U postgres -d postgres"'
     )
 
 

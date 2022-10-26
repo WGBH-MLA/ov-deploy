@@ -7,11 +7,11 @@ from deployer import run
 from datetime import datetime
 
 
-def get_pod_name(workload: str):
+def get_pod_name(context: str, workload: str):
     """Return the name of the first pod running in the workload"""
     return (
         run(
-            f'kubectl get pods -l workload.user.cattle.io/workloadselector="deployment-openvault-{ workload }" -o name'
+            f'kubectl get pods -l workload.user.cattle.io/workloadselector="deployment-{ context }-{ workload }" -o name'
         )
         .strip()
         .split('\n')[0]
@@ -36,9 +36,11 @@ def cli(context: str):
 
 
 @cli.command()
-def backup():
+@click.pass_context
+def backup(ctx):
     """Backup the database to a local file"""
-    pod = get_pod_name('db').replace('pod/', '', 1)
+    namespace = ctx.parent.params.get('context')
+    pod = get_pod_name(namespace, 'db').replace('pod/', '', 1)
     now = datetime.now().isoformat().replace(':', '.')
     filename = f'db_{ now }.sql'
     click.echo(f'backing up database to { filename }')
@@ -54,10 +56,12 @@ def backup():
     required=True,
     type=click.File('r'),
 )
-def restore(filename: str):
+@click.pass_context
+def restore(ctx, filename: str):
     """Restore the database from a local SQL backup file"""
+    namespace = ctx.parent.params.get('context')
     click.echo(f'restoring database to { filename.name }')
-    pod = get_pod_name('db')
+    pod = get_pod_name(namespace, 'db')
     run(
         f'cat { filename.name } | kubectl exec -it { pod } -- bash -c "pg_restore --verbose --clean --no-acl --no-owner -U postgres -d postgres"'
     )

@@ -9,6 +9,7 @@ nav:
   - Setup: setup.md
   - Develop: dev.md
   - Deploy: deploy.md
+  - Database: db.md
   - Manual: manual.md
 
 markdown_extensions:

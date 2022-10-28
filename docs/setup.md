@@ -65,6 +65,9 @@ OV_DB_PORT=5432
 OV_DB_NAME=postgres
 OV_DB_USER=postgres
 OV_DB_PASSWORD="YOUR POSTGRES PASSWORD HERE"
+
+OV_BASE_URL=http://localhost:3000
+OV_ADMIN_BASE_URL=http://localhost:8000
 ```
 
 ### 3. Run initialization script

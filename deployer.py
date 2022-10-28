@@ -1,18 +1,10 @@
-from subprocess import run as sub_run
 from pydantic import BaseModel
+from utils import run
 
 GITHUB_URL = 'https://github.com/WGBH-MLA/'
 OV_WAG_URL = GITHUB_URL + 'ov-wag.git'
 OV_FRONT_URL = GITHUB_URL + 'ov-frontend.git'
 HUB_ACCOUNT = 'wgbhmla'
-
-
-def run(cmd: str):
-    """Run a shell command
-    - Error on non-zero exit code
-    - Return output (if any) as decoded string
-    """
-    return sub_run(cmd, shell=True, capture_output=True, check=True).stdout.decode()
 
 
 def build_image(repo_name, tag, src=''):

@@ -3,19 +3,8 @@
 # Command line tool for managing Open Vault database
 ###
 import click
-from deployer import run
+from utils import run, get_pod_name
 from datetime import datetime
-
-
-def get_pod_name(context: str, workload: str):
-    """Return the name of the first pod running in the workload"""
-    return (
-        run(
-            f'kubectl get pods -l workload.user.cattle.io/workloadselector="deployment-{ context }-{ workload }" -o name'
-        )
-        .strip()
-        .split('\n')[0]
-    )
 
 
 @click.group()

@@ -2,9 +2,9 @@
 
 Open Vault is deployed as a number of separate services, built into `docker` images.
 
-[Development](/dev) is done with `docker compose`
+[Development](../dev) is done with `docker compose`
 
-[Deployment](/deploy) is orchestrated through `kubernetes`, using `Rancher`.
+[Deployment](../deploy) is orchestrated through `kubernetes`, using `Rancher`.
 
 ???+ abstract "Microservices vs macro application"
 

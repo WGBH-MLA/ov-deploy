@@ -91,11 +91,36 @@ OV_DB_PASSWORD="YOUR POSTGRES PASSWORD HERE"
 
 If deploying for the first time, Kubernetes must be configured to receive deployments. If this has already been done, you can skip this section.
 
-!!! auth "Login"
+!!! auth "Rancher Login"
 
     1. Login to VPN
     1. [Login to Rancher](https://rancherext.wgbh.org/login) ("Log in with Azure ID")
     1. [Go to MLA project](https://rancherext.wgbh.org/p/c-7qk7g:p-lpkts/workloads)
+
+??? kube "Setting up kubectl context"
+
+    To facilitate easy context switching between production and demo instances, the deployment tools define the kubectl context as follows:
+
+    ```yml title="~/.kube/config"
+    apiVersion: v1
+    clusters:
+    - cluster:
+        server: [RANCHER SERVER URL]
+    name: digital-eks-dev
+    contexts:
+    - context:
+        cluster: digital-eks-dev
+        namespace: openvault
+        user: digital-eks-dev
+    name: openvault
+    current-context: openvault
+    kind: Config
+    preferences: {}
+    users:
+    - name: digital-eks-dev
+    user:
+        token: [TOKEN]
+    ```
 
 ### Create namespace
 

@@ -1,3 +1,9 @@
+# Database
+
+Data is stored in a PostGreSQL database, with a single worker node running in kubernetes. This page describes the backup and restore process of data management.
+
+See [setup/#db](../setup/#db) for more details about creating and configuring the database.
+
 ## `./db`
 
 Some basic database maintenance commands can be performed with the `./db` tool.

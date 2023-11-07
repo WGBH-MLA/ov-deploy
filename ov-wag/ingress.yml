@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ov-wag-ingress
+
+spec:
+  rules:
+    - host: ov-wag.wgbh-mla.org
+      http:
+        paths:
+          - path: /admin,/static
+            pathType: Prefix
+            backend:
+              service:
+                name: ov-wag
+                port:
+                  number: 80
+
+  tls:
+    - hosts:
+        - admin.ov.wgbh-mla.org
+      secretName: ov-wag-tls

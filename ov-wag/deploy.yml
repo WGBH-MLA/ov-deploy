@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  labels:
+    app: ov-wag
+  name: ov-wag
+
+spec:
+  selector:
+    matchLabels:
+      app: ov-wag
+
+  template:
+    metadata:
+      labels:
+        app: ov-wag
+
+    spec:
+      containers:
+        - image: ghcr.io/wgbh-mla/ov-wag:main
+          imagePullPolicy: Always
+          name: ov-wag
+          command:
+            [
+              'gunicorn',
+              'ov_wag.wsgi:application',
+              '-b',
+              '0.0.0.0:8000',
+              '--workers',
+              '4',
+              '--forwarded-allow-ips',
+              '*',
+              '--access-logfile',
+              '-',
+              '--error-logfile',
+              '-',
+              '--timeout',
+              '60',
+            ]
+          resources:
+            limits:
+              cpu: '1'
+              memory: '2Gi'
+            requests:
+              cpu: '100m'
+              memory: '100Mi'
+          envFrom:
+            - configMapRef:
+                name: ov-wag-config
+            - secretRef:
+                name: ov-wag-secret

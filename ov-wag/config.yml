@@ -8,5 +8,4 @@ data:
   OV_DB_USER: postgres
   OV_DB_NAME: ov
   OV_ALLOWED_HOSTS: '*'
-  OV_TRUSTED_ORIGINS: 'https://admin.ov.wgbh-mla.org'
-  
+  OV_TRUSTED_ORIGINS: https://admin.ov.wgbh-mla.org

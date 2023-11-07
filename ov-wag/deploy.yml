@@ -18,7 +18,8 @@ spec:
 
     spec:
       containers:
-        - imagePullPolicy: Always
+        - image: ghcr.io/wgbh-mla/chowda:pr-101
+          imagePullPolicy: Always
           name: ov-wag
           command:
             [

@@ -18,7 +18,7 @@ spec:
 
     spec:
       containers:
-        - image: ghcr.io/wgbh-mla/chowda:pr-101
+        - image: ghcr.io/wgbh-mla/ov-wag:pr-101
           imagePullPolicy: Always
           name: ov-wag
           command:

@@ -1,0 +1,35 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ov-wag-ingressroute
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`admin.ov.wgbh-mla.org`) && PathPrefix(`/static`) || PathPrefix(`/admin`)
+      services:
+        - kind: Service
+          name: ov-wag
+          port: 80
+    - kind: Rule
+      match: Host(`admin.ov.wgbh-mla.org`) && !PathPrefix(`/admin`) && !PathPrefix(`/static`)
+      middlewares:
+        - name: add-admin-prefix
+      services:
+        - kind: Service
+          name: ov-wag
+          port: 80
+  tls:
+    secretName: ov-wag-tls
+    domains:
+      - main: admin.ov.wgbh-mla.org
+---
+# Add prefix /admin
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: add-admin-prefix
+spec:
+  addPrefix:
+    prefix: /admin

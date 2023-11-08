@@ -21,30 +21,13 @@ spec:
         - image: ghcr.io/wgbh-mla/ov-wag:pr-101
           imagePullPolicy: Always
           name: ov-wag
-          command:
-            [
-              'gunicorn',
-              'ov_wag.wsgi:application',
-              '-b',
-              '0.0.0.0:8000',
-              '--workers',
-              '4',
-              '--forwarded-allow-ips',
-              '*',
-              '--access-logfile',
-              '-',
-              '--error-logfile',
-              '-',
-              '--timeout',
-              '60',
-            ]
           resources:
             limits:
               cpu: '1'
-              memory: '2Gi'
+              memory: 2Gi
             requests:
-              cpu: '100m'
-              memory: '100Mi'
+              cpu: 100m
+              memory: 100Mi
           envFrom:
             - configMapRef:
                 name: ov-wag-config

@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: ov-frontend-config
 data:
-  BASE_URL: https://ov.wgbh-mla.org
+  OV_API_URL: http://ov-wag

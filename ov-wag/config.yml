@@ -9,4 +9,7 @@ data:
   OV_DB_USER: postgres
   OV_DB_NAME: ov
   OV_ALLOWED_HOSTS: '*'
-  OV_TRUSTED_ORIGINS: https://admin.ov.wgbh-mla.org
+  OV_TRUSTED_ORIGINS: https://admin.ov.wgbh-mla.org,http://localhost:8000
+  OV_DEBUG: 'true'
+  OV_CSRF_COOKIE_SECURE: 'false'
+  OV_ADMIN_BASE_URL: https://admin.ov.wgbh-mla.org

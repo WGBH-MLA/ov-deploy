@@ -5,10 +5,17 @@ metadata:
 
 spec:
   rules:
-    - host: ov-wag.wgbh-mla.org
+    - host: admin.ov.wgbh-mla.org
       http:
         paths:
-          - path: /admin,/static
+          - path: /admin
+            pathType: Prefix
+            backend:
+              service:
+                name: ov-wag
+                port:
+                  number: 80
+          - path: /static
             pathType: Prefix
             backend:
               service:

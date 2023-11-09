@@ -13,7 +13,7 @@ spec:
         app: postgres
     spec:
       securityContext:
-        runAsUser: 1000
+        runAsUser: 0
       containers:
         - name: postgres
           image: postgres:16
@@ -29,10 +29,10 @@ spec:
           resources:
             limits:
               cpu: '2'
-              memory: '2Gi'
+              memory: 2Gi
             requests:
-              cpu: '100m'
-              memory: '100Mi'
+              cpu: 100m
+              memory: 100Mi
       volumes:
         - name: postgredb
           persistentVolumeClaim:

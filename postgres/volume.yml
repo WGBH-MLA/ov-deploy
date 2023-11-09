@@ -1,13 +1,13 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: postgres-efs-claim # Sets name of PVC
+  name: postgres-efs-claim
   labels:
     app: postgres
 spec:
   storageClassName: efs-sc
   accessModes:
-    - ReadWriteMany # Sets read and write access
+    - ReadWriteMany
   resources:
     requests:
-      storage: 1Gi # Sets volume size
+      storage: 1Gi

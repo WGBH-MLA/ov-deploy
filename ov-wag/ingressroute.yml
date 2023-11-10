@@ -7,7 +7,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`admin.ov.wgbh-mla.org`) && PathPrefix(`/static`) || PathPrefix(`/admin`)
+      match: Host(`admin.ov.wgbh-mla.org`) && PathPrefix(`/static`) || Host(`admin.ov.wgbh-mla.org`) && PathPrefix(`/admin`)
       services:
         - kind: Service
           name: ov-wag

@@ -1,7 +1,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: postgres-efs-claim
+  name: postgres-ov-efs-claim
   labels:
     app: postgres
 spec:

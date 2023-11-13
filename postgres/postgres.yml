@@ -13,10 +13,10 @@ spec:
         app: postgres
     spec:
       securityContext:
-        runAsUser: 0
+        runAsUser: 1000
       containers:
         - name: postgres
-          image: postgres:16
+          image: postgres:16-alpine
           imagePullPolicy: Always
           ports:
             - containerPort: 5432
@@ -24,8 +24,10 @@ spec:
             - secretRef:
                 name: postgres-secret
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data
+            - mountPath: /var/lib/psql/data
+              subPath: ov
               name: postgredb
+              
           resources:
             limits:
               cpu: '2'
@@ -33,7 +35,8 @@ spec:
             requests:
               cpu: 100m
               memory: 100Mi
+
       volumes:
         - name: postgredb
           persistentVolumeClaim:
-            claimName: postgres-efs-claim
+            claimName: postgres-ov-efs-claim

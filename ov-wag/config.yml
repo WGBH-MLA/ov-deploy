@@ -13,4 +13,6 @@ data:
   OV_DEBUG: 'true'
   OV_CSRF_COOKIE_SECURE: 'false'
   OV_ADMIN_BASE_URL: https://admin.ov.wgbh-mla.org
+  OV_BASE_URL: https://ov.wgbh-mla.org
+  OV_PREVIEW_URL: https://ov.wgbh-mla.org/preview
   AWS_STORAGE_BUCKET_NAME: media.openvault.wgbh.org

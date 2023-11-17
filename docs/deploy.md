@@ -19,6 +19,8 @@ Generally speaking, the deployment process consists of the following tasks:
 - **Push** the Docker images to Dockerhub.
 - **Update** the workloads in Kubernetes to use the updated Docker images.
 
+The [./deploy](#deploy) script is the simplest way to create and deploy an image, and should work in most cases.
+
 ### Scenario #1: Redeploy an `ov_deploy` commit
 
 These steps assume some `ov_deploy` commit should be pushed to some deployment environment, either `production` or `demo`.
@@ -70,21 +72,27 @@ The `./deploy` helper script is designed to automate the process of deploying kn
 
 The script can be called with several arguments:
 
-1.  Setup kubectl context
+1.  Required options:
 
     : `-c context`
 
-    !!! todo "TODO: kubectl context"
+    !!! kube "TODO: kubectl context"
 
-        Describe setup for kubectl context
+        To setup the kubectl context, see the [production setup documentation](../setup#production)
 
-1.  Set pod(s) version as cli args
+1.  Optional deployments:
 
     : Backend: `-b VERSION`
     : Frontend: `-f VERSION`
     : Proxy: `-p VERSION`
     : Jumpbox: `-j VERSION`
     : db: `-d VERSION`
+
+    Where each `VERSION` is one of:
+
+    - a git tag
+    - a git branch
+    - a git commit
 
 1.  Run command
 

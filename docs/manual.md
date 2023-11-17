@@ -29,7 +29,7 @@ On your local machine, you will need:
      export OV_FRONTEND_VERSION=[tag|branch|commit]
      ```
 
-After [setting up the repository](/setup#0-checkout-code):
+After [setting up the repository](../setup#0-checkout-code):
 
 ## Steps
 

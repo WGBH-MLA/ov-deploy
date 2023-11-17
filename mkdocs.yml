@@ -1,6 +1,6 @@
 site_name: 'Open Vault: Deploy'
 site_description: Open Vault redesign deployment documentation
-site_url: https://wgbh-mla.github.io/ov-deploy/deploy/
+site_url: https://wgbh-mla.github.io/ov-deploy/
 repo_url: https://github.com/WGBH-MLA/ov-deploy/
 
 nav:
@@ -9,6 +9,7 @@ nav:
   - Setup: setup.md
   - Develop: dev.md
   - Deploy: deploy.md
+  - Database: db.md
   - Manual: manual.md
 
 markdown_extensions:
@@ -94,3 +95,4 @@ extra_css:
   - style/gbh.css
   - style/auth.css
   - style/todo.css
+  - style/kube.css

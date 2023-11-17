@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://wgbh-mla.github.io/ov-deploy/deploy/0.3/setup/">
+        <link rel="canonical" href="https://wgbh-mla.github.io/ov-deploy/0.3/setup/">
       
       
         <link rel="prev" href="../stack/">
@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../assets/ov-favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.8">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.9">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.4b4a2bd9.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.78cf6014.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
@@ -57,6 +57,8 @@
       <link rel="stylesheet" href="../style/auth.css">
     
       <link rel="stylesheet" href="../style/todo.css">
+    
+      <link rel="stylesheet" href="../style/kube.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -325,6 +327,23 @@
   
   
     <li class="md-tabs__item">
+      <a href="../db/" class="md-tabs__link">
+        
+  
+    
+  
+  Database
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../manual/" class="md-tabs__link">
         
   
@@ -480,7 +499,9 @@
       
         <li class="md-nav__item">
   <a href="#development" class="md-nav__link">
-    Development
+    <span class="md-ellipsis">
+      Development
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Development">
@@ -488,28 +509,36 @@
         
           <li class="md-nav__item">
   <a href="#0-checkout-code" class="md-nav__link">
-    0. Checkout code
+    <span class="md-ellipsis">
+      0. Checkout code
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#1-create-the-database-secrets-file" class="md-nav__link">
-    1. Create the database secrets file
+    <span class="md-ellipsis">
+      1. Create the database secrets file
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#2-create-the-backend-secrets-file" class="md-nav__link">
-    2. Create the backend secrets file
+    <span class="md-ellipsis">
+      2. Create the backend secrets file
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#3-run-initialization-script" class="md-nav__link">
-    3. Run initialization script
+    <span class="md-ellipsis">
+      3. Run initialization script
+    </span>
   </a>
   
 </li>
@@ -521,7 +550,9 @@
       
         <li class="md-nav__item">
   <a href="#production" class="md-nav__link">
-    Production
+    <span class="md-ellipsis">
+      Production
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Production">
@@ -529,14 +560,18 @@
         
           <li class="md-nav__item">
   <a href="#create-namespace" class="md-nav__link">
-    Create namespace
+    <span class="md-ellipsis">
+      Create namespace
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#create-workloads" class="md-nav__link">
-    Create workloads
+    <span class="md-ellipsis">
+      Create workloads
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Create workloads">
@@ -544,7 +579,9 @@
         
           <li class="md-nav__item">
   <a href="#for-each-workload" class="md-nav__link">
-    For each workload:
+    <span class="md-ellipsis">
+      For each workload:
+    </span>
   </a>
   
 </li>
@@ -556,7 +593,9 @@
         
           <li class="md-nav__item">
   <a href="#workloads" class="md-nav__link">
-    Workloads
+    <span class="md-ellipsis">
+      Workloads
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Workloads">
@@ -564,35 +603,45 @@
         
           <li class="md-nav__item">
   <a href="#db" class="md-nav__link">
-    db
+    <span class="md-ellipsis">
+      db
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#ov-wag-backend" class="md-nav__link">
-    ov-wag (backend)
+    <span class="md-ellipsis">
+      ov-wag (backend)
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#ov-frontend" class="md-nav__link">
-    ov-frontend
+    <span class="md-ellipsis">
+      ov-frontend
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#ov-nginx" class="md-nav__link">
-    ov-nginx
+    <span class="md-ellipsis">
+      ov-nginx
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#jumpbox" class="md-nav__link">
-    jumpbox
+    <span class="md-ellipsis">
+      jumpbox
+    </span>
   </a>
   
 </li>
@@ -645,6 +694,25 @@
   
   <span class="md-ellipsis">
     Deploy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../db/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database
   </span>
   
 
@@ -734,6 +802,9 @@ git<span class="w"> </span>submodule<span class="w"> </span>update
 <span class="nv">OV_DB_NAME</span><span class="o">=</span>postgres
 <span class="nv">OV_DB_USER</span><span class="o">=</span>postgres
 <span class="nv">OV_DB_PASSWORD</span><span class="o">=</span><span class="s2">&quot;YOUR POSTGRES PASSWORD HERE&quot;</span>
+
+<span class="nv">OV_BASE_URL</span><span class="o">=</span>http://localhost:3000
+<span class="nv">OV_ADMIN_BASE_URL</span><span class="o">=</span>http://localhost:8000
 </code></pre></div>
 <h3 id="3-run-initialization-script">3. Run initialization script<a class="headerlink" href="#3-run-initialization-script" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>./ov<span class="w"> </span>init
@@ -753,13 +824,36 @@ git<span class="w"> </span>submodule<span class="w"> </span>update
 <h2 id="production">Production<a class="headerlink" href="#production" title="Permanent link">&para;</a></h2>
 <p>If deploying for the first time, Kubernetes must be configured to receive deployments. If this has already been done, you can skip this section.</p>
 <div class="admonition auth">
-<p class="admonition-title">Login</p>
+<p class="admonition-title">Rancher Login</p>
 <ol>
 <li>Login to VPN</li>
 <li><a href="https://rancherext.wgbh.org/login">Login to Rancher</a> ("Log in with Azure ID")</li>
 <li><a href="https://rancherext.wgbh.org/p/c-7qk7g:p-lpkts/workloads">Go to MLA project</a></li>
 </ol>
 </div>
+<details class="kube">
+<summary>Setting up kubectl context</summary>
+<p>To facilitate easy context switching between production and demo instances, the deployment tools define the kubectl context as follows:</p>
+<div class="highlight"><span class="filename">~/.kube/config</span><pre><span></span><code>apiVersion: v1
+clusters:
+- cluster:
+    server: [RANCHER SERVER URL]
+name: digital-eks-dev
+contexts:
+- context:
+    cluster: digital-eks-dev
+    namespace: openvault
+    user: digital-eks-dev
+name: openvault
+current-context: openvault
+kind: Config
+preferences: {}
+users:
+- name: digital-eks-dev
+user:
+    token: [TOKEN]
+</code></pre></div>
+</details>
 <h3 id="create-namespace">Create namespace<a class="headerlink" href="#create-namespace" title="Permanent link">&para;</a></h3>
 <div class="admonition todo">
 <p class="admonition-title">TODO: elaborate</p>
@@ -945,7 +1039,7 @@ git<span class="w"> </span>submodule<span class="w"> </span>update
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-09-09T15:15:31+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-09-09</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-17T20:58:47+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-17</span>
       
         <br>
         Created:
@@ -1021,7 +1115,7 @@ git<span class="w"> </span>submodule<span class="w"> </span>update
     <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate", "header.autohide", "navigation.instant", "navigation.sections", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "navigation.expand", "toc.integrate", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.81fa17fe.min.js"></script>
+      <script src="../assets/javascripts/bundle.6c14ae12.min.js"></script>
       
         <script src="../js/timeago.min.js"></script>
       

@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://wgbh-mla.github.io/ov-deploy/deploy/0.3/dev/">
+        <link rel="canonical" href="https://wgbh-mla.github.io/ov-deploy/0.3/dev/">
       
       
         <link rel="prev" href="../setup/">
@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../assets/ov-favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.8">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.9">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.4b4a2bd9.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.78cf6014.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
@@ -57,6 +57,8 @@
       <link rel="stylesheet" href="../style/auth.css">
     
       <link rel="stylesheet" href="../style/todo.css">
+    
+      <link rel="stylesheet" href="../style/kube.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -325,6 +327,23 @@
   
   
     <li class="md-tabs__item">
+      <a href="../db/" class="md-tabs__link">
+        
+  
+    
+  
+  Database
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../manual/" class="md-tabs__link">
         
   
@@ -499,7 +518,9 @@
       
         <li class="md-nav__item">
   <a href="#ov" class="md-nav__link">
-    ./ov
+    <span class="md-ellipsis">
+      ./ov
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="./ov">
@@ -507,14 +528,18 @@
         
           <li class="md-nav__item">
   <a href="#usage" class="md-nav__link">
-    Usage
+    <span class="md-ellipsis">
+      Usage
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#commands" class="md-nav__link">
-    Commands
+    <span class="md-ellipsis">
+      Commands
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Commands">
@@ -522,70 +547,90 @@
         
           <li class="md-nav__item">
   <a href="#b-build" class="md-nav__link">
-    b | build
+    <span class="md-ellipsis">
+      b | build
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#backup-dump" class="md-nav__link">
-    backup | dump
+    <span class="md-ellipsis">
+      backup | dump
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#c-cmd" class="md-nav__link">
-    c | cmd
+    <span class="md-ellipsis">
+      c | cmd
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#d-dev" class="md-nav__link">
-    d | dev
+    <span class="md-ellipsis">
+      d | dev
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#deploy" class="md-nav__link">
-    deploy
+    <span class="md-ellipsis">
+      deploy
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#docs" class="md-nav__link">
-    docs
+    <span class="md-ellipsis">
+      docs
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#i-init" class="md-nav__link">
-    i | init
+    <span class="md-ellipsis">
+      i | init
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#m-manage" class="md-nav__link">
-    m | manage
+    <span class="md-ellipsis">
+      m | manage
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#restore" class="md-nav__link">
-    restore
+    <span class="md-ellipsis">
+      restore
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#s-shell" class="md-nav__link">
-    s | shell
+    <span class="md-ellipsis">
+      s | shell
+    </span>
   </a>
   
 </li>
@@ -602,7 +647,9 @@
       
         <li class="md-nav__item">
   <a href="#examples" class="md-nav__link">
-    Examples
+    <span class="md-ellipsis">
+      Examples
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Examples">
@@ -610,14 +657,18 @@
         
           <li class="md-nav__item">
   <a href="#migrate-database" class="md-nav__link">
-    Migrate database
+    <span class="md-ellipsis">
+      Migrate database
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#show-the-logs" class="md-nav__link">
-    Show the logs
+    <span class="md-ellipsis">
+      Show the logs
+    </span>
   </a>
   
 </li>
@@ -646,6 +697,25 @@
   
   <span class="md-ellipsis">
     Deploy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../db/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database
   </span>
   
 
@@ -752,7 +822,7 @@
 <h4 id="deploy"><code>deploy</code><a class="headerlink" href="#deploy" title="Permanent link">&para;</a></h4>
 <dl>
 <dd>Shortcut for <code>./deploy [command]</code>.</dd>
-<dd>See <a href="/deploy">Deploy</a> for detailed usage.</dd>
+<dd>See <a href="../deploy">Deploy</a> for detailed usage.</dd>
 </dl>
 <h4 id="docs"><code>docs</code><a class="headerlink" href="#docs" title="Permanent link">&para;</a></h4>
 <dl>
@@ -761,7 +831,7 @@
 <h4 id="i-init"><code>i</code> | <code>init</code><a class="headerlink" href="#i-init" title="Permanent link">&para;</a></h4>
 <dl>
 <dd>Initialize a development environment.</dd>
-<dd>See <a href="/setup">Setup</a> for detailed instructions.</dd>
+<dd>See <a href="../setup">Setup</a> for detailed instructions.</dd>
 </dl>
 <h4 id="m-manage"><code>m</code> | <code>manage</code><a class="headerlink" href="#m-manage" title="Permanent link">&para;</a></h4>
 <dl>
@@ -797,7 +867,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-24T19:14:09+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-24</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-17T20:58:47+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-17</span>
       
         <br>
         Created:
@@ -873,7 +943,7 @@
     <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate", "header.autohide", "navigation.instant", "navigation.sections", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "navigation.expand", "toc.integrate", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.81fa17fe.min.js"></script>
+      <script src="../assets/javascripts/bundle.6c14ae12.min.js"></script>
       
         <script src="../js/timeago.min.js"></script>
       

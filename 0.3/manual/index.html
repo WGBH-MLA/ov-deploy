@@ -10,15 +10,15 @@
       
       
       
-        <link rel="canonical" href="https://wgbh-mla.github.io/ov-deploy/deploy/0.3/manual/">
+        <link rel="canonical" href="https://wgbh-mla.github.io/ov-deploy/0.3/manual/">
       
       
-        <link rel="prev" href="../deploy/">
+        <link rel="prev" href="../db/">
       
       
       
       <link rel="icon" href="../assets/ov-favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.8">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.9">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.4b4a2bd9.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.78cf6014.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
@@ -55,6 +55,8 @@
       <link rel="stylesheet" href="../style/auth.css">
     
       <link rel="stylesheet" href="../style/todo.css">
+    
+      <link rel="stylesheet" href="../style/kube.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -319,6 +321,23 @@
         
   
   
+  
+    <li class="md-tabs__item">
+      <a href="../db/" class="md-tabs__link">
+        
+  
+    
+  
+  Database
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
     
   
   
@@ -486,6 +505,25 @@
       
   
   
+  
+    <li class="md-nav__item">
+      <a href="../db/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -535,14 +573,18 @@
       
         <li class="md-nav__item">
   <a href="#requirements" class="md-nav__link">
-    Requirements
+    <span class="md-ellipsis">
+      Requirements
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#steps" class="md-nav__link">
-    Steps
+    <span class="md-ellipsis">
+      Steps
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Steps">
@@ -550,21 +592,27 @@
         
           <li class="md-nav__item">
   <a href="#build-images" class="md-nav__link">
-    Build images
+    <span class="md-ellipsis">
+      Build images
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#push-images" class="md-nav__link">
-    Push images
+    <span class="md-ellipsis">
+      Push images
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#update-kubernetes-workloads" class="md-nav__link">
-    Update Kubernetes workloads
+    <span class="md-ellipsis">
+      Update Kubernetes workloads
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Update Kubernetes workloads">
@@ -572,14 +620,18 @@
         
           <li class="md-nav__item">
   <a href="#using-kubectl" class="md-nav__link">
-    Using kubectl
+    <span class="md-ellipsis">
+      Using kubectl
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#using-the-rancher-web-interface" class="md-nav__link">
-    Using the Rancher web interface
+    <span class="md-ellipsis">
+      Using the Rancher web interface
+    </span>
   </a>
   
 </li>
@@ -596,7 +648,9 @@
       
         <li class="md-nav__item">
   <a href="#example-workflow" class="md-nav__link">
-    Example workflow
+    <span class="md-ellipsis">
+      Example workflow
+    </span>
   </a>
   
 </li>
@@ -654,7 +708,7 @@
 <span class="nb">export</span><span class="w"> </span><span class="nv">OV_FRONTEND_VERSION</span><span class="o">=[</span>tag<span class="p">|</span>branch<span class="p">|</span>commit<span class="o">]</span>
 </code></pre></div>
 </div>
-<p>After <a href="/setup#0-checkout-code">setting up the repository</a>:</p>
+<p>After <a href="../setup#0-checkout-code">setting up the repository</a>:</p>
 <h2 id="steps">Steps<a class="headerlink" href="#steps" title="Permanent link">&para;</a></h2>
 <h3 id="build-images">Build images<a class="headerlink" href="#build-images" title="Permanent link">&para;</a></h3>
 <ol>
@@ -788,7 +842,7 @@ git ch -b test-new-versions-of-front-and-back-ends
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-08-24T19:14:09+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-08-24</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-17T20:58:47+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-17</span>
       
         <br>
         Created:
@@ -864,7 +918,7 @@ git ch -b test-new-versions-of-front-and-back-ends
     <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate", "header.autohide", "navigation.instant", "navigation.sections", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "navigation.expand", "toc.integrate", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.81fa17fe.min.js"></script>
+      <script src="../assets/javascripts/bundle.6c14ae12.min.js"></script>
       
         <script src="../js/timeago.min.js"></script>
       

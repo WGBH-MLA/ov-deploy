@@ -6,12 +6,12 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://wgbh-mla.github.io/ov-deploy/0.3/db/</loc>
+         <loc>https://wgbh-mla.github.io/ov-deploy/0.3/deploy/</loc>
          <lastmod>2023-11-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://wgbh-mla.github.io/ov-deploy/0.3/deploy/</loc>
+         <loc>https://wgbh-mla.github.io/ov-deploy/0.3/manage/</loc>
          <lastmod>2023-11-20</lastmod>
          <changefreq>daily</changefreq>
     </url>

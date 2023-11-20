@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://wgbh-mla.github.io/ov-deploy/0.3/db/">
+        <link rel="canonical" href="https://wgbh-mla.github.io/ov-deploy/0.3/manage/">
       
       
         <link rel="prev" href="../deploy/">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Database - Open Vault: Deploy</title>
+        <title>Manage - Open Vault: Deploy</title>
       
     
     
@@ -89,7 +89,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#database-maintenance" class="md-skip">
+        <a href="#management-and-maintenance" class="md-skip">
           Skip to content
         </a>
       
@@ -140,7 +140,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Database
+              Manage
             
           </span>
         </div>
@@ -315,7 +315,7 @@
   
     
   
-  Database
+  Manage
 
       </a>
     </li>
@@ -469,7 +469,7 @@
           
   
   <span class="md-ellipsis">
-    Database
+    Manage
   </span>
   
 
@@ -480,7 +480,7 @@
         
   
   <span class="md-ellipsis">
-    Database
+    Manage
   </span>
   
 
@@ -502,6 +502,58 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backend
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Backend">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#update-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update image
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scale-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scale deployment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#backup" class="md-nav__link">
     <span class="md-ellipsis">
       Backup
@@ -509,8 +561,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#restore" class="md-nav__link">
     <span class="md-ellipsis">
       Restore
@@ -518,13 +570,18 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#migrate" class="md-nav__link">
     <span class="md-ellipsis">
       Migrate
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -554,15 +611,41 @@
   
 
 
-<h1 id="database-maintenance">Database Maintenance<a class="headerlink" href="#database-maintenance" title="Permanent link">&para;</a></h1>
+<h1 id="management-and-maintenance">Management and Maintenance<a class="headerlink" href="#management-and-maintenance" title="Permanent link">&para;</a></h1>
+<h2 id="backend">Backend<a class="headerlink" href="#backend" title="Permanent link">&para;</a></h2>
+<p>Some common management tasks are described below.</p>
+<h3 id="update-image">Update image<a class="headerlink" href="#update-image" title="Permanent link">&para;</a></h3>
+<p>Deployment images can be changed simply by changing the image tag in the deployment configuration.</p>
+<p>Images are built from each PR to <code>main</code>, as well as pushes to <code>main</code>. To deploy a specific PR, simply change the image tag to the PR number.</p>
+<div class="highlight"><span class="filename">Change backend image to PR#123</span><pre><span></span><code>      image: ghcr.io/wgbh-mla/ov-wag:pr-123
+</code></pre></div>
+<p>To use the latest production image, change the image tag to <code>main</code>.</p>
+<div class="highlight"><span class="filename">Change backend image to main</span><pre><span></span><code>      image: ghcr.io/wgbh-mla/ov-wag:main
+</code></pre></div>
+<div class="admonition kube">
+<p class="admonition-title">Change image using <code>kubectl</code></p>
+<p>This can also be done directly with <code>kubectl</code>:</p>
+<div class="highlight"><span class="filename">set backend version to PR#123</span><pre><span></span><code>kubectl<span class="w"> </span><span class="nb">set</span><span class="w"> </span>image<span class="w"> </span>deployment.apps/ov-wag<span class="w"> </span>ov-wag<span class="o">=</span>ghcr.io/wgbh-mla/ov-wag:pr-123
+</code></pre></div>
+</div>
+<h3 id="scale-deployment">Scale deployment<a class="headerlink" href="#scale-deployment" title="Permanent link">&para;</a></h3>
+<p>To scale a deployment, simply change the <code>replicas</code> value in the deployment configuration.</p>
+<div class="highlight"><span class="filename">Scale backend to 3 replicas</span><pre><span></span><code>  replicas: 3
+</code></pre></div>
+<h3 id="update-configuration">Update configuration<a class="headerlink" href="#update-configuration" title="Permanent link">&para;</a></h3>
+<p>To update the configuration of a deployment, simply change the value in the deployment configuration.</p>
+<div class="highlight"><span class="filename">Change backend configuration</span><pre><span></span><code>        - name: OV_DB_PASSWORD
+          value: NEW POSTGRES PASSWORD HERE
+</code></pre></div>
+<h2 id="database">Database<a class="headerlink" href="#database" title="Permanent link">&para;</a></h2>
 <p>Data is stored in a PostGreSQL database, hosted in AWS RDS. This page describes common maintenance tasks for the database.</p>
 <p>For more details about creating and configuring the database, see <a href="../setup/#db">setup#db</a>.</p>
-<h2 id="backup">Backup<a class="headerlink" href="#backup" title="Permanent link">&para;</a></h2>
+<h3 id="backup">Backup<a class="headerlink" href="#backup" title="Permanent link">&para;</a></h3>
 <p>Backups are created automatically by AWS RDS. To create a manual backup, use the AWS console.</p>
-<h2 id="restore">Restore<a class="headerlink" href="#restore" title="Permanent link">&para;</a></h2>
+<h3 id="restore">Restore<a class="headerlink" href="#restore" title="Permanent link">&para;</a></h3>
 <p>Restore the database by creating a new RDS instance from a backup instance in the AWS console. </p>
 <p>Then, update the <code>OV_DB_HOST</code> environment variable in the backend deployment to point to the new database instance.</p>
-<h2 id="migrate">Migrate<a class="headerlink" href="#migrate" title="Permanent link">&para;</a></h2>
+<h3 id="migrate">Migrate<a class="headerlink" href="#migrate" title="Permanent link">&para;</a></h3>
 <p>If the Wagtail models have changed, the database must be migrated to reflect the changes. This can be done by running the following command:</p>
 <div class="highlight"><pre><span></span><code>ov<span class="w"> </span>migrate
 </code></pre></div>
@@ -572,11 +655,11 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-20T21:18:37+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-20</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-20T21:49:57+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-20</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-17T20:58:47+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-17</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-20T21:49:57+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-20</span>
       
     
   </small>

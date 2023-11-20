@@ -16,7 +16,7 @@
         <link rel="prev" href="../setup/">
       
       
-        <link rel="next" href="../db/">
+        <link rel="next" href="../manage/">
       
       
       <link rel="icon" href="../assets/ov-favicon.png">
@@ -312,12 +312,12 @@
   
   
     <li class="md-tabs__item">
-      <a href="../db/" class="md-tabs__link">
+      <a href="../manage/" class="md-tabs__link">
         
   
     
   
-  Database
+  Manage
 
       </a>
     </li>
@@ -601,48 +601,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#management" class="md-nav__link">
-    <span class="md-ellipsis">
-      Management
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Management">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#update-image" class="md-nav__link">
-    <span class="md-ellipsis">
-      Update image
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scale-deployment" class="md-nav__link">
-    <span class="md-ellipsis">
-      Scale deployment
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#update-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Update configuration
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -657,11 +615,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../db/" class="md-nav__link">
+      <a href="../manage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Database
+    Manage
   </span>
   
 
@@ -732,38 +690,13 @@ Repo_Url: https://github.com/WGBH-MLA/ov-frontend
 Path: ov-frontend
 Branch: main
 </code></pre></div>
-<h2 id="management">Management<a class="headerlink" href="#management" title="Permanent link">&para;</a></h2>
-<p>Some common management tasks are described below.</p>
-<h3 id="update-image">Update image<a class="headerlink" href="#update-image" title="Permanent link">&para;</a></h3>
-<p>Deployment images can be changed simply by changing the image tag in the deployment configuration.</p>
-<p>Images are built from each PR to <code>main</code>, as well as pushes to <code>main</code>. To deploy a specific PR, simply change the image tag to the PR number.</p>
-<div class="highlight"><span class="filename">Change backend image to PR#123</span><pre><span></span><code>      image: ghcr.io/wgbh-mla/ov-wag:pr-123
-</code></pre></div>
-<p>To use the latest production image, change the image tag to <code>main</code>.</p>
-<div class="highlight"><span class="filename">Change backend image to main</span><pre><span></span><code>      image: ghcr.io/wgbh-mla/ov-wag:main
-</code></pre></div>
-<div class="admonition kube">
-<p class="admonition-title">Change image using <code>kubectl</code></p>
-<p>This can also be done directly with <code>kubectl</code>:</p>
-<div class="highlight"><span class="filename">set backend version to PR#123</span><pre><span></span><code>kubectl<span class="w"> </span><span class="nb">set</span><span class="w"> </span>image<span class="w"> </span>deployment.apps/ov-wag<span class="w"> </span>ov-wag<span class="o">=</span>ghcr.io/wgbh-mla/ov-wag:pr-123
-</code></pre></div>
-</div>
-<h3 id="scale-deployment">Scale deployment<a class="headerlink" href="#scale-deployment" title="Permanent link">&para;</a></h3>
-<p>To scale a deployment, simply change the <code>replicas</code> value in the deployment configuration.</p>
-<div class="highlight"><span class="filename">Scale backend to 3 replicas</span><pre><span></span><code>  replicas: 3
-</code></pre></div>
-<h3 id="update-configuration">Update configuration<a class="headerlink" href="#update-configuration" title="Permanent link">&para;</a></h3>
-<p>To update the configuration of a deployment, simply change the value in the deployment configuration.</p>
-<div class="highlight"><span class="filename">Change backend configuration</span><pre><span></span><code>        - name: OV_DB_PASSWORD
-          value: NEW POSTGRES PASSWORD HERE
-</code></pre></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-20T21:18:37+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-20</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-20T21:49:57+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-20</span>
       
         <br>
         Created:

@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../assets/ov-favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.9">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.10">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.78cf6014.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.fad675c6.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
@@ -709,11 +709,11 @@
 
 <h1 id="deployment">Deployment<a class="headerlink" href="#deployment" title="Permanent link">&para;</a></h1>
 <h2 id="general">General<a class="headerlink" href="#general" title="Permanent link">&para;</a></h2>
-<p>Deployments are run in Kubernetes on AWS. The workloads consist of <code>pods</code> (Docker containers) which run prebuilt images from Dockerhub.</p>
-<p>These images are built from the <code>Dockerfile</code>s of the <code>ov-frontend</code> and <code>ov-wag</code> repositories, and from the <code>Dockerfile</code> in the <code>ov-nginx</code> and <code>ov-jumpbox</code> subdirectories.</p>
+<p>Deployments are run in Kubernetes on AWS. The workloads consist of <code>pods</code> (Docker containers) which runs images automatically built from GitHub Actions</p>
+<p>These images are built from the <code>Dockerfile</code>s of the <code>ov-frontend</code> and <code>ov-wag</code> repositories.</p>
 <div class="admonition abstract">
 <p class="admonition-title">Setup</p>
-<p>If you haven't set up a production environment, follow the steps in <a href="/setup#production">Setup</a> first.</p>
+<p>If you haven't set up a production environment, follow the steps in <a href="../setup/#production">Setup</a> first.</p>
 </div>
 <h3 id="deployment-process">Deployment Process<a class="headerlink" href="#deployment-process" title="Permanent link">&para;</a></h3>
 <p>Generally speaking, the deployment process consists of the following tasks:</p>
@@ -769,7 +769,7 @@
 </dl>
 <div class="admonition kube">
 <p class="admonition-title">TODO: kubectl context</p>
-<p>To setup the kubectl context, see the <a href="../setup#production">production setup documentation</a></p>
+<p>To setup the kubectl context, see the <a href="../setup/#production">production setup documentation</a></p>
 </div>
 </li>
 <li>
@@ -816,7 +816,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-17T20:58:47+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-17</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-20T16:33:40+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-20</span>
       
         <br>
         Created:

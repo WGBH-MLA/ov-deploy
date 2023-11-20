@@ -8,7 +8,7 @@ nav:
   - Stack: stack.md
   - Setup: setup.md
   - Deploy: deploy.md
-  - Database: db.md
+  - Manage: manage.md
 
 markdown_extensions:
   - admonition

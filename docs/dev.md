@@ -74,7 +74,7 @@ COMMANDS:
 
 : Shortcut for `./deploy [command]`.
 
-: See [Deploy](../deploy) for detailed usage.
+: See [Deploy](deploy.md) for detailed usage.
 
 #### `docs`
 
@@ -84,7 +84,7 @@ COMMANDS:
 
 : Initialize a development environment.
 
-: See [Setup](../setup) for detailed instructions.
+: See [Setup](setup.md) for detailed instructions.
 
 #### `m` | `manage`
 

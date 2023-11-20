@@ -2,13 +2,13 @@
 
 ## General
 
-Deployments are run in Kubernetes on AWS. The workloads consist of `pods` (Docker containers) which run prebuilt images from Dockerhub.
+Deployments are run in Kubernetes on AWS. The workloads consist of `pods` (Docker containers) which runs images automatically built from GitHub Actions
 
-These images are built from the `Dockerfile`s of the `ov-frontend` and `ov-wag` repositories, and from the `Dockerfile` in the `ov-nginx` and `ov-jumpbox` subdirectories.
+These images are built from the `Dockerfile`s of the `ov-frontend` and `ov-wag` repositories.
 
 !!! abstract "Setup"
 
-    If you haven't set up a production environment, follow the steps in [Setup](/setup#production) first.
+    If you haven't set up a production environment, follow the steps in [Setup](setup.md#production) first.
 
 ### Deployment Process
 
@@ -78,7 +78,7 @@ The script can be called with several arguments:
 
     !!! kube "TODO: kubectl context"
 
-        To setup the kubectl context, see the [production setup documentation](../setup#production)
+        To setup the kubectl context, see the [production setup documentation](setup.md#production)
 
 1.  Optional deployments:
 

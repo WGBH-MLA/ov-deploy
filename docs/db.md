@@ -2,7 +2,7 @@
 
 Data is stored in a PostGreSQL database, with a single worker node running in kubernetes. This page describes the backup and restore process of data management.
 
-See [setup/#db](../setup/#db) for more details about creating and configuring the database.
+See [setup/#db](setup.md#db) for more details about creating and configuring the database.
 
 ## `./db`
 
@@ -21,7 +21,7 @@ Must be one of:
 
 !!! kube "Setting up kubectl context"
 
-    The following commands assume a properly configured kubectl context. See [production setup](../setup#production) for details.
+    The following commands assume a properly configured kubectl context. See [production setup](setup.md#production) for details.
 
 ### Commands
 

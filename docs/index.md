@@ -7,7 +7,7 @@ Deployment documentation for the Open Vault project
 ## Links
 
 - Site: [https://ov.wgbh-mla.org/](https://ov.wgbh-mla.org/)
-- Admin: [https://admin.ov.wgbh-mla.org/admin/](https://admin.ov.wgbh-mla.org/admin/)
+- Admin: [https://admin.ov.wgbh-mla.org/](https://admin.ov.wgbh-mla.org/)
 - Documentation: [wgbh-mla.github.io/ov-deploy](https://wgbh-mla.github.io/ov-deploy/)
 - Github: [github.com/WGBH-MLA/ov-deploy](https://github.com/WGBH-MLA/ov-deploy)
 

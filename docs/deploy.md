@@ -2,104 +2,104 @@
 
 ## General
 
-Deployments are run in Kubernetes on AWS. The workloads consist of `pods` (Docker containers) which runs images automatically built from GitHub Actions
+Production deployments are run in a Kubernetes cluster, using images built by our CI/CD pipeline. The deployment is managed by [Argo-CD](https://argoproj.github.io/argo-cd/), which is configured to watch the `main` branch of the `ov-deploy` repository for changes.
 
-These images are built from the `Dockerfile`s of the `ov-frontend` and `ov-wag` repositories.
+When a change is detected, Argo-CD will pull the latest configuration from the repository, and apply it to the cluster.
 
-!!! abstract "Setup"
+!!! kube "Setup"
 
     If you haven't set up a production environment, follow the steps in [Setup](setup.md#production) first.
 
-### Deployment Process
+### Resources
+Each component of the stack is deployed as a set of Kubernetes resources. They consist of:
 
-Generally speaking, the deployment process consists of the following tasks:
+#### Deployment
+A deployment is a set of pods, which are the actual running containers. The deployment manages the pods, and ensures that the desired number of pods are running at all times.
 
-- **Checkout** the desired versions of the image(s) to be built.
-- **Build** Docker images from the `Dockerfile`s for each microservice.
-- **Push** the Docker images to Dockerhub.
-- **Update** the workloads in Kubernetes to use the updated Docker images.
+#### Service
+A service is a network endpoint that can be accessed by other pods. It is used to expose a deployment as a named endpoint, which can be accessed by other pods in the cluster.
 
-The [./deploy](#deploy) script is the simplest way to create and deploy an image, and should work in most cases.
+#### Ingress
+An ingress is a network endpoint that can be accessed by external clients. It is used to expose a service as a named endpoint, which can be accessed by clients outside the cluster.
 
-### Scenario #1: Redeploy an `ov_deploy` commit
+!!! kube "Traefik"
+    We use [Traefik](https://traefik.io/solutions/kubernetes-ingress/) as our ingress controller, which is configured to route incoming requests to the appropriate service. It also handles SSL termination, and redirects HTTP requests to HTTPS.
 
-These steps assume some `ov_deploy` commit should be pushed to some deployment environment, either `production` or `demo`.
+#### ConfigMap
+A config map is a set of key-value pairs that can be accessed by pods. It is used to store configuration values that are needed by the pods.
 
-Starting from a known `ov_deploy` commit or branch:
+#### Secret
+A secret is a secure set of key-value pairs that can be accessed by pods. It is used to store sensitive configuration values that are needed by the pods.
 
-`git checkout [commit or branch]`
+## Deployments
 
-`git submodule update`
+Using Argo-CD, create the following deployments:
 
-### Scenario #2: Custom code
+### Backend
+Using Argo-CD, deploy the backend to the cluster
 
-In `ov-wag` and `ov-frontend`, checkout (or manually edit) the code in each repository.
+```yml
+Namespce: ov
+Repo_Url: https://github.com/WGBH-MLA/ov-deploy
+Path: ov-wag
+Branch: main
+```
 
-#### 1. Build images
+### Initial Migration
 
-- Build all images:
+With a new database and user configured, SSH into the `ov-wag` pod and run the initial migration:
 
-  `./ov build`
+```bash
+ov m migrate
+```
 
-- Build single image:
+### Frontend
+Using Argo-CD, deploy the backend to the cluster
 
-  `./ov build [image name]`
+```yml
+Namespce: ov
+Repo_Url: https://github.com/WGBH-MLA/ov-frontend
+Path: ov-frontend
+Branch: main
+```
 
-**_Note:_** Other custom commands can be passed into the
+## Management
+Some common management tasks are described below.
 
-#### 2. Push to docker hub
+### Update image
+Deployment images can be changed simply by changing the image tag in the deployment configuration.
 
-(tag the image?)
+Images are built from each PR to `main`, as well as pushes to `main`. To deploy a specific PR, simply change the image tag to the PR number.
 
-`docker push [tag name]`
+```yml title="Change backend image to PR#123"
+      image: ghcr.io/wgbh-mla/ov-wag:pr-123
+```
 
-#### 3. Redeploy pods
+To use the latest production image, change the image tag to `main`.
 
-Redeploy the pod(s)
+```yml title="Change backend image to main"
+      image: ghcr.io/wgbh-mla/ov-wag:main
+```
 
-- Rancher
-- kubectl
+!!! kube "Change image using `kubectl`"
+    This can also be done directly with `kubectl`:
 
-## `./deploy`
 
-The `./deploy` helper script is designed to automate the process of deploying known versions of parts or the whole stack. For any given pod, it will:
+    ```bash title="set backend version to PR#123"
+    kubectl set image deployment.apps/ov-wag ov-wag=ghcr.io/wgbh-mla/ov-wag:pr-123
+    ```
 
-- Build the docker images
-- Push the images to docker hub
-- Set the version tag of each deployed image
+### Scale deployment
+To scale a deployment, simply change the `replicas` value in the deployment configuration.
 
-### Usage
+```yml title="Scale backend to 3 replicas"
+  replicas: 3
+```
 
-The script can be called with several arguments:
+### Update configuration
+To update the configuration of a deployment, simply change the value in the deployment configuration.
 
-1.  Required options:
-
-    : `-c context`
-
-    !!! kube "TODO: kubectl context"
-
-        To setup the kubectl context, see the [production setup documentation](setup.md#production)
-
-1.  Optional deployments:
-
-    : Backend: `-b VERSION`
-    : Frontend: `-f VERSION`
-    : Proxy: `-p VERSION`
-    : Jumpbox: `-j VERSION`
-    : db: `-d VERSION`
-
-    Where each `VERSION` is one of:
-
-    - a git tag
-    - a git branch
-    - a git commit
-
-1.  Run command
-
-    : Verify in console logs that job has completed successfully, or returned an error.
-
-### Example
-
-```bash title="Deploy v0.1.0 of backend and frontend"
-./deploy -c openvault -b v0.1.0 -f v0.1.0
+```yml title="Change backend configuration"
+        - name: OV_DB_PASSWORD
+          value: NEW POSTGRES PASSWORD HERE
 ```

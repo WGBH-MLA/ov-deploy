@@ -7,10 +7,8 @@ nav:
   - Home: index.md
   - Stack: stack.md
   - Setup: setup.md
-  - Develop: dev.md
   - Deploy: deploy.md
   - Database: db.md
-  - Manual: manual.md
 
 markdown_extensions:
   - admonition
@@ -97,3 +95,4 @@ extra_css:
   - style/auth.css
   - style/todo.css
   - style/kube.css
+  - style/traefik.css

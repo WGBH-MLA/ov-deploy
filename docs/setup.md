@@ -1,277 +1,62 @@
 # Setup
 
-## Development
+## Prerequisites
+These instructions assume you have the following:
 
-The following steps describe the setup process for local development. For production setup, see [Production](#production)
+- A working Kubernetes cluster
+- `kubectl`, configured to connect to your cluster
+- Argo-CD installed and configured
+- Traefik installed and configured as an ingress controller
+- A running PostgreSQL database
 
-### 0. Checkout code
-
-Clone the source code from github, including submodules:
+## Namespaces
+### Create namespace
+Create a new namespace called `ov`:
 
 ```bash
-git clone --recurse-submodules https://github.com/WGBH-MLA/ov-deploy.git
+kubectl create namespace ov
 ```
 
-Change into the new `ov-deploy` directory
-
+Set the current context to the new namespace:
 ```bash
-cd ov-deploy
+kubectl config set-context --current --namespace=ov
+
+# Verify the current context
+kubectl config view --minify | grep namespace:
 ```
 
-???+ abstract "Initialize and update submodules"
+## Database
+Create a new database called `ov` and a new user called `postgres` and a secure password.
 
-    If the repository was cloned without the submodules, they will need to be initialized first.
-    ```bash
-    git submodule init
-    git submodule update
-    ```
-
-???+ abstract "Checkout code"
-
-    If running a version other than the `main` branch, you will need to checkout the code first, and update the git submodules.
-
-    Usually this will be a tag or a branch. For example, if checking out `v0.2.0`:
-
-    ```bash
-    git checkout v0.2.0
-    git submodule update
-    ```
-
-### 1. Create the database secrets file
-
-In `ov-wag`, create a file called `.db` with the following contents:
-
-```bash title="ov-wag/.db"
+```bash title="Database configuration"
+POSTGRES_USER=postgres
 POSTGRES_PASSWORD="YOUR POSTGRES PASSWORD HERE"
+POSTGRES_DB=ov
 ```
 
 ??? note "Generating a password"
 
-    This command will generate a new password config file and save it to `ov-wag/.db`
-
-    ##### **:warning: WARNING:** This will overwrite any existing password stored in the `.db` file! **:warning:**
-    Run this command from the top level `ov-deploy/` directory.
-    ```bash
-    echo "POSTGRES_PASSWORD=$(openssl rand -base64 24)" > ov-wag/.db
-    ```
-
-### 2. Create the backend secrets file
-
-In `ov-wag`, create a file called `.env` with the following contents:
-
-```bash title="ov-wag/.env"
-OV_DB_ENGINE=django.db.backends.postgresql
-OV_DB_PORT=5432
-OV_DB_NAME=postgres
-OV_DB_USER=postgres
-OV_DB_PASSWORD="YOUR POSTGRES PASSWORD HERE"
-
-OV_BASE_URL=http://localhost:3000
-OV_ADMIN_BASE_URL=http://localhost:8000
-```
-
-### 3. Run initialization script
-
-```bash
-./ov init
-```
-
-???+ abstract "`./ov init` script"
-
-    This is the equivalent of running:
+    This command will generate a new secure password:
 
     ```bash
-
-    ./ov build # (1)
-
-    ./ov c run -it front npm install # (2)
+    openssl rand -base64 24
     ```
 
-    1. build docker files
-    1. install npm requirements
-
-## Production
-
-If deploying for the first time, Kubernetes must be configured to receive deployments. If this has already been done, you can skip this section.
-
-!!! auth "Rancher Login"
-
-    1. Login to VPN
-    1. [Login to Rancher](https://rancherext.wgbh.org/login) ("Log in with Azure ID")
-    1. [Go to MLA project](https://rancherext.wgbh.org/p/c-7qk7g:p-lpkts/workloads)
-
-??? kube "Setting up kubectl context"
-
-    To facilitate easy context switching between production and demo instances, the deployment tools define the kubectl context as follows:
-
-    ```yml title="~/.kube/config"
-    apiVersion: v1
-    clusters:
-    - cluster:
-        server: [RANCHER SERVER URL]
-    name: digital-eks-dev
-    contexts:
-    - context:
-        cluster: digital-eks-dev
-        namespace: openvault
-        user: digital-eks-dev
-    name: openvault
-    current-context: openvault
-    kind: Config
-    preferences: {}
-    users:
-    - name: digital-eks-dev
-    user:
-        token: [TOKEN]
-    ```
-
-### Create namespace
-
-!!! todo "TODO: elaborate"
-
-### Create workloads
-
-#### For each workload:
-
-1.  From the Workloads tab of the project, Click `Deploy`
-1.  Enter the name of the service
-
-    !!! note "Service name"
-
-        If using the automatic `deploy` script, the name of the service must exactly match the name of the docker hub image
-
-1.  Set the Docker image to: `[DOCKERHUB ACCOUNT NAME]/[DOCKER IMAGE NAME]:[TAG]`
-
-    - For example: `wgbhmla/ov-wag:latest`
-
-1.  Set environment variables
-
-    Create a new config map and set the values from the config files below.
-
-    Under `Environment Variables` Click `Add From Source` and set `type: Config Map`
-
-    Set the name of the config map and save the settings.
-
-    Restart any running container using that config.
-
-1.  Mount volumes
-
-    If needed, create an external volume under the `Volumes` tab and mount it to the specified location.
-
-1.  Add secrets
-
-    Add a new secret with any secrets that need to be available.
-
-    Click `Add From Source` and set `type: Secret`
-
-!!! todo "TODO: Enumerate kube steps"
-
-    Enumerate the minimum steps required to get Kubernetes setup up in Rancher to handle deployments.
-
-### Workloads
-
-The following services are needed to run the stack:
-
-#### db
-
-- image: `postgres:14.2-alpine`
-
-- volumes:
-
-      - `ov-db`: `/var/lib/postgresql/data`
-        - `Read-Only=False`
-
-- secrets:
-
-      ```bash title="db secrets"
-      POSTGRES_PASSWORD=p@ssW0rd!
-      ```
-
-#### ov-wag (backend)
-
-- image: `wgbhmla/ov-wag`
-- volumes:
-
-      - `ov-static`: `/app/static/`: `rw`
-      - `ov-media`: `/app/media/`: `rw`
-
-- config:
-
-      ```bash title="ov-wag-config"
-      DJANGO_SETTINGS_MODULE=ov_wag.settings.production
-
-      OV_DB_ENGINE=django.db.backends.postgresql
-      OV_DB_HOST=db
-      OV_DB_PORT=5432
-      OV_DB_NAME=postgres
-      OV_DB_USER=postgres
-
-      OV_BASE_URL=http://ovfrontend.k8s.wgbhdigital.org
-      OV_ADMIN_BASE_URL=http://ov-admin.k8s.wgbhdigital.org
-      OV_TRUSTED_ORIGINS=http://ov-admin.k8s.wgbhdigital.org
-      OV_ALLOWED_HOSTS=ov-wag
-      ```
-
-- secrets:
-
-      ```bash title="ov-wag-secrets"
-      OV_DB_PASSWORD=p@ssW0rd!
-      ```
-
-#### ov-frontend
-
-- image: `wgbhmla/ov-frontend`
-- config:
-
-      ```bash title="ov-frontend environment"
-      OV_API_URL=ov-wag
-      ```
-
-#### ov-nginx
-
-- image: `wgbhmla/ov-nginx`
-
-      - preconfigured with `nginx.conf`
-
-  - Admin site: [ov-admin.k8s.wgbhdigital.org](https://ov-admin.k8s.wgbhdigital.org/)
-
-    - proxy pass to `http://ov-wag`
-
-  - `/static` served from `/static/` mounted volume
-  - `/media` served from `/media/` mounted volume
-
-  - Frontend: [ovfrontend.k8s.wgbhdigital.org](http://ovfrontend.k8s.wgbhdigital.org/)
-
-    - proxy pass to `http://ov-frontend:3000`
-
-!!! todo "external `/media` host"
-
-    We will  need to change this configuration when we switch to using an s3 bucket, or other external media host.
-
-- volumes:
-
-      - `ov-static`: `/static/`: `r`
-      - `ov-media`: `/media/`: `r`
-
-- endpoints:
-
-      - `443/http`
-      - Secured with SSL cert from IT certbot
-
-- Load Balancing:
-
-      - `ov-admin`
-        - Hostname: `http://ov-admin.k8s.wgbhdigital.org`
-        - Path: `/`
-        - Target: `ov-nginx`
-        - Port: 80
-
-      - `ov-front`
-        - Hostname: `http://ovfrontend.k8s.wgbhdigital.org`
-        - Path: `/`
-        - Target: `ov-nginx`
-        - Port: 80
-
-#### jumpbox
-
-- image: `wgbhmla/jumpbox`
+    Increace the final number to increase the length and strength of the password.
+
+## Secrets
+
+### Create the Backend secrets file
+
+```bash title="ov-wag/secret.yaml"
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ov-wag-secret
+  namespace: ov
+stringData:
+  OV_DB_PASSWORD: YOUR POSTGRES PASSWORD HERE
+  OV_SECRET_KEY: RanDOmSeCrEtKeY_fOr_sESsion_cOOkies
+  AWS_ACCESS_KEY_ID : # AWS IAM user access key
+  AWS_SECRET_ACCESS_KEY: # AWS IAM user secret key
+```

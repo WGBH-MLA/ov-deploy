@@ -16,16 +16,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://wgbh-mla.github.io/ov-deploy/0.3/dev/</loc>
-         <lastmod>2023-11-20</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://wgbh-mla.github.io/ov-deploy/0.3/manual/</loc>
-         <lastmod>2023-11-20</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://wgbh-mla.github.io/ov-deploy/0.3/setup/</loc>
          <lastmod>2023-11-20</lastmod>
          <changefreq>daily</changefreq>

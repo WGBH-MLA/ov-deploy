@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://wgbh-mla.github.io/ov-deploy/0.3/deploy/">
       
       
-        <link rel="prev" href="../dev/">
+        <link rel="prev" href="../setup/">
       
       
         <link rel="next" href="../db/">
@@ -59,6 +59,8 @@
       <link rel="stylesheet" href="../style/todo.css">
     
       <link rel="stylesheet" href="../style/kube.css">
+    
+      <link rel="stylesheet" href="../style/traefik.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -289,23 +291,6 @@
         
   
   
-  
-    <li class="md-tabs__item">
-      <a href="../dev/" class="md-tabs__link">
-        
-  
-    
-  
-  Develop
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
     
   
   
@@ -333,23 +318,6 @@
     
   
   Database
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../manual/" class="md-tabs__link">
-        
-  
-    
-  
-  Manual
 
       </a>
     </li>
@@ -469,25 +437,6 @@
       
   
   
-  
-    <li class="md-nav__item">
-      <a href="../dev/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Develop
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -546,55 +495,55 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#deployment-process" class="md-nav__link">
+  <a href="#resources" class="md-nav__link">
     <span class="md-ellipsis">
-      Deployment Process
+      Resources
     </span>
   </a>
   
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scenario-1-redeploy-an-ov_deploy-commit" class="md-nav__link">
-    <span class="md-ellipsis">
-      Scenario #1: Redeploy an ov_deploy commit
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scenario-2-custom-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      Scenario #2: Custom code
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Scenario #2: Custom code">
+    <nav class="md-nav" aria-label="Resources">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-build-images" class="md-nav__link">
+  <a href="#deployment_1" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Build images
+      Deployment
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-push-to-docker-hub" class="md-nav__link">
+  <a href="#service" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Push to docker hub
+      Service
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-redeploy-pods" class="md-nav__link">
+  <a href="#ingress" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Redeploy pods
+      Ingress
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      ConfigMap
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secret" class="md-nav__link">
+    <span class="md-ellipsis">
+      Secret
     </span>
   </a>
   
@@ -611,28 +560,79 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#deploy" class="md-nav__link">
+  <a href="#deployments" class="md-nav__link">
     <span class="md-ellipsis">
-      ./deploy
+      Deployments
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="./deploy">
+    <nav class="md-nav" aria-label="Deployments">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
+  <a href="#backend" class="md-nav__link">
     <span class="md-ellipsis">
-      Usage
+      Backend
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
+  <a href="#initial-migration" class="md-nav__link">
     <span class="md-ellipsis">
-      Example
+      Initial Migration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frontend
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#update-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update image
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scale-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scale deployment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update configuration
     </span>
   </a>
   
@@ -670,25 +670,6 @@
   
 
     
-      
-      
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../manual/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Manual
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
   </ul>
 </nav>
                   </div>
@@ -709,106 +690,72 @@
 
 <h1 id="deployment">Deployment<a class="headerlink" href="#deployment" title="Permanent link">&para;</a></h1>
 <h2 id="general">General<a class="headerlink" href="#general" title="Permanent link">&para;</a></h2>
-<p>Deployments are run in Kubernetes on AWS. The workloads consist of <code>pods</code> (Docker containers) which runs images automatically built from GitHub Actions</p>
-<p>These images are built from the <code>Dockerfile</code>s of the <code>ov-frontend</code> and <code>ov-wag</code> repositories.</p>
-<div class="admonition abstract">
+<p>Production deployments are run in a Kubernetes cluster, using images built by our CI/CD pipeline. The deployment is managed by <a href="https://argoproj.github.io/argo-cd/">Argo-CD</a>, which is configured to watch the <code>main</code> branch of the <code>ov-deploy</code> repository for changes.</p>
+<p>When a change is detected, Argo-CD will pull the latest configuration from the repository, and apply it to the cluster.</p>
+<div class="admonition kube">
 <p class="admonition-title">Setup</p>
 <p>If you haven't set up a production environment, follow the steps in <a href="../setup/#production">Setup</a> first.</p>
 </div>
-<h3 id="deployment-process">Deployment Process<a class="headerlink" href="#deployment-process" title="Permanent link">&para;</a></h3>
-<p>Generally speaking, the deployment process consists of the following tasks:</p>
-<ul>
-<li><strong>Checkout</strong> the desired versions of the image(s) to be built.</li>
-<li><strong>Build</strong> Docker images from the <code>Dockerfile</code>s for each microservice.</li>
-<li><strong>Push</strong> the Docker images to Dockerhub.</li>
-<li><strong>Update</strong> the workloads in Kubernetes to use the updated Docker images.</li>
-</ul>
-<p>The <a href="#deploy">./deploy</a> script is the simplest way to create and deploy an image, and should work in most cases.</p>
-<h3 id="scenario-1-redeploy-an-ov_deploy-commit">Scenario #1: Redeploy an <code>ov_deploy</code> commit<a class="headerlink" href="#scenario-1-redeploy-an-ov_deploy-commit" title="Permanent link">&para;</a></h3>
-<p>These steps assume some <code>ov_deploy</code> commit should be pushed to some deployment environment, either <code>production</code> or <code>demo</code>.</p>
-<p>Starting from a known <code>ov_deploy</code> commit or branch:</p>
-<p><code>git checkout [commit or branch]</code></p>
-<p><code>git submodule update</code></p>
-<h3 id="scenario-2-custom-code">Scenario #2: Custom code<a class="headerlink" href="#scenario-2-custom-code" title="Permanent link">&para;</a></h3>
-<p>In <code>ov-wag</code> and <code>ov-frontend</code>, checkout (or manually edit) the code in each repository.</p>
-<h4 id="1-build-images">1. Build images<a class="headerlink" href="#1-build-images" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Build all images:</li>
-</ul>
-<p><code>./ov build</code></p>
-<ul>
-<li>Build single image:</li>
-</ul>
-<p><code>./ov build [image name]</code></p>
-<p><strong><em>Note:</em></strong> Other custom commands can be passed into the</p>
-<h4 id="2-push-to-docker-hub">2. Push to docker hub<a class="headerlink" href="#2-push-to-docker-hub" title="Permanent link">&para;</a></h4>
-<p>(tag the image?)</p>
-<p><code>docker push [tag name]</code></p>
-<h4 id="3-redeploy-pods">3. Redeploy pods<a class="headerlink" href="#3-redeploy-pods" title="Permanent link">&para;</a></h4>
-<p>Redeploy the pod(s)</p>
-<ul>
-<li>Rancher</li>
-<li>kubectl</li>
-</ul>
-<h2 id="deploy"><code>./deploy</code><a class="headerlink" href="#deploy" title="Permanent link">&para;</a></h2>
-<p>The <code>./deploy</code> helper script is designed to automate the process of deploying known versions of parts or the whole stack. For any given pod, it will:</p>
-<ul>
-<li>Build the docker images</li>
-<li>Push the images to docker hub</li>
-<li>Set the version tag of each deployed image</li>
-</ul>
-<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
-<p>The script can be called with several arguments:</p>
-<ol>
-<li>
-<dl>
-<dt>Required options:</dt>
-<dd>
-<p><code>-c context</code></p>
-</dd>
-</dl>
+<h3 id="resources">Resources<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h3>
+<p>Each component of the stack is deployed as a set of Kubernetes resources. They consist of:</p>
+<h4 id="deployment_1">Deployment<a class="headerlink" href="#deployment_1" title="Permanent link">&para;</a></h4>
+<p>A deployment is a set of pods, which are the actual running containers. The deployment manages the pods, and ensures that the desired number of pods are running at all times.</p>
+<h4 id="service">Service<a class="headerlink" href="#service" title="Permanent link">&para;</a></h4>
+<p>A service is a network endpoint that can be accessed by other pods. It is used to expose a deployment as a named endpoint, which can be accessed by other pods in the cluster.</p>
+<h4 id="ingress">Ingress<a class="headerlink" href="#ingress" title="Permanent link">&para;</a></h4>
+<p>An ingress is a network endpoint that can be accessed by external clients. It is used to expose a service as a named endpoint, which can be accessed by clients outside the cluster.</p>
 <div class="admonition kube">
-<p class="admonition-title">TODO: kubectl context</p>
-<p>To setup the kubectl context, see the <a href="../setup/#production">production setup documentation</a></p>
+<p class="admonition-title">Traefik</p>
+<p>We use <a href="https://traefik.io/solutions/kubernetes-ingress/">Traefik</a> as our ingress controller, which is configured to route incoming requests to the appropriate service. It also handles SSL termination, and redirects HTTP requests to HTTPS.</p>
 </div>
-</li>
-<li>
-<dl>
-<dt>Optional deployments:</dt>
-<dd>
-<p>Backend: <code>-b VERSION</code></p>
-</dd>
-<dd>
-<p>Frontend: <code>-f VERSION</code></p>
-</dd>
-<dd>
-<p>Proxy: <code>-p VERSION</code></p>
-</dd>
-<dd>
-<p>Jumpbox: <code>-j VERSION</code></p>
-</dd>
-<dd>
-<p>db: <code>-d VERSION</code></p>
-</dd>
-</dl>
-<p>Where each <code>VERSION</code> is one of:</p>
-<ul>
-<li>a git tag</li>
-<li>a git branch</li>
-<li>a git commit</li>
-</ul>
-</li>
-<li>
-<dl>
-<dt>Run command</dt>
-<dd>
-<p>Verify in console logs that job has completed successfully, or returned an error.</p>
-</dd>
-</dl>
-</li>
-</ol>
-<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
-<div class="highlight"><span class="filename">Deploy v0.1.0 of backend and frontend</span><pre><span></span><code>./deploy<span class="w"> </span>-c<span class="w"> </span>openvault<span class="w"> </span>-b<span class="w"> </span>v0.1.0<span class="w"> </span>-f<span class="w"> </span>v0.1.0
+<h4 id="configmap">ConfigMap<a class="headerlink" href="#configmap" title="Permanent link">&para;</a></h4>
+<p>A config map is a set of key-value pairs that can be accessed by pods. It is used to store configuration values that are needed by the pods.</p>
+<h4 id="secret">Secret<a class="headerlink" href="#secret" title="Permanent link">&para;</a></h4>
+<p>A secret is a secure set of key-value pairs that can be accessed by pods. It is used to store sensitive configuration values that are needed by the pods.</p>
+<h2 id="deployments">Deployments<a class="headerlink" href="#deployments" title="Permanent link">&para;</a></h2>
+<p>Using Argo-CD, create the following deployments:</p>
+<h3 id="backend">Backend<a class="headerlink" href="#backend" title="Permanent link">&para;</a></h3>
+<p>Using Argo-CD, deploy the backend to the cluster</p>
+<div class="highlight"><pre><span></span><code>Namespce: ov
+Repo_Url: https://github.com/WGBH-MLA/ov-deploy
+Path: ov-wag
+Branch: main
+</code></pre></div>
+<h3 id="initial-migration">Initial Migration<a class="headerlink" href="#initial-migration" title="Permanent link">&para;</a></h3>
+<p>With a new database and user configured, SSH into the <code>ov-wag</code> pod and run the initial migration:</p>
+<div class="highlight"><pre><span></span><code>ov<span class="w"> </span>m<span class="w"> </span>migrate
+</code></pre></div>
+<h3 id="frontend">Frontend<a class="headerlink" href="#frontend" title="Permanent link">&para;</a></h3>
+<p>Using Argo-CD, deploy the backend to the cluster</p>
+<div class="highlight"><pre><span></span><code>Namespce: ov
+Repo_Url: https://github.com/WGBH-MLA/ov-frontend
+Path: ov-frontend
+Branch: main
+</code></pre></div>
+<h2 id="management">Management<a class="headerlink" href="#management" title="Permanent link">&para;</a></h2>
+<p>Some common management tasks are described below.</p>
+<h3 id="update-image">Update image<a class="headerlink" href="#update-image" title="Permanent link">&para;</a></h3>
+<p>Deployment images can be changed simply by changing the image tag in the deployment configuration.</p>
+<p>Images are built from each PR to <code>main</code>, as well as pushes to <code>main</code>. To deploy a specific PR, simply change the image tag to the PR number.</p>
+<div class="highlight"><span class="filename">Change backend image to PR#123</span><pre><span></span><code>      image: ghcr.io/wgbh-mla/ov-wag:pr-123
+</code></pre></div>
+<p>To use the latest production image, change the image tag to <code>main</code>.</p>
+<div class="highlight"><span class="filename">Change backend image to main</span><pre><span></span><code>      image: ghcr.io/wgbh-mla/ov-wag:main
+</code></pre></div>
+<div class="admonition kube">
+<p class="admonition-title">Change image using <code>kubectl</code></p>
+<p>This can also be done directly with <code>kubectl</code>:</p>
+<div class="highlight"><span class="filename">set backend version to PR#123</span><pre><span></span><code>kubectl<span class="w"> </span><span class="nb">set</span><span class="w"> </span>image<span class="w"> </span>deployment.apps/ov-wag<span class="w"> </span>ov-wag<span class="o">=</span>ghcr.io/wgbh-mla/ov-wag:pr-123
+</code></pre></div>
+</div>
+<h3 id="scale-deployment">Scale deployment<a class="headerlink" href="#scale-deployment" title="Permanent link">&para;</a></h3>
+<p>To scale a deployment, simply change the <code>replicas</code> value in the deployment configuration.</p>
+<div class="highlight"><span class="filename">Scale backend to 3 replicas</span><pre><span></span><code>  replicas: 3
+</code></pre></div>
+<h3 id="update-configuration">Update configuration<a class="headerlink" href="#update-configuration" title="Permanent link">&para;</a></h3>
+<p>To update the configuration of a deployment, simply change the value in the deployment configuration.</p>
+<div class="highlight"><span class="filename">Change backend configuration</span><pre><span></span><code>        - name: OV_DB_PASSWORD
+          value: NEW POSTGRES PASSWORD HERE
 </code></pre></div>
 
   <hr>
@@ -816,7 +763,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-20T16:33:40+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-20</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-20T21:18:37+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-20</span>
       
         <br>
         Created:

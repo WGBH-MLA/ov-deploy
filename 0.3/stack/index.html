@@ -60,6 +60,8 @@
     
       <link rel="stylesheet" href="../style/kube.css">
     
+      <link rel="stylesheet" href="../style/traefik.css">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -293,23 +295,6 @@
   
   
     <li class="md-tabs__item">
-      <a href="../dev/" class="md-tabs__link">
-        
-  
-    
-  
-  Develop
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-    <li class="md-tabs__item">
       <a href="../deploy/" class="md-tabs__link">
         
   
@@ -333,23 +318,6 @@
     
   
   Database
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../manual/" class="md-tabs__link">
-        
-  
-    
-  
-  Manual
 
       </a>
     </li>
@@ -575,24 +543,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#ov-nginx" class="md-nav__link">
-    <span class="md-ellipsis">
-      ov-nginx
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#jumpbox" class="md-nav__link">
-    <span class="md-ellipsis">
-      jumpbox
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -640,25 +590,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../dev/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Develop
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../deploy/" class="md-nav__link">
         
   
@@ -691,25 +622,6 @@
   
 
     
-      
-      
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../manual/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Manual
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
   </ul>
 </nav>
                   </div>
@@ -730,23 +642,17 @@
 
 <h1 id="about-the-stack">About the Stack<a class="headerlink" href="#about-the-stack" title="Permanent link">&para;</a></h1>
 <p>Open Vault is deployed as a number of separate services, built into <code>docker</code> images.</p>
-<p><a href="../dev/">Development</a> is done with <code>docker compose</code></p>
-<p><a href="../deploy/">Deployment</a> is orchestrated through <code>kubernetes</code>, using <code>Rancher</code>.</p>
-<details class="abstract" open="open">
-<summary>Microservices vs macro application</summary>
-<p>While it is possible to run all services combined on a single physical or virtual instance, it is <strong>strongly</strong> recommended to run as a series of micro-services, which can be versioned and scaled independently.</p>
-<p>All documentation here will describe deployment through <code>docker</code> and <code>kubernetes</code>.</p>
-</details>
 <h2 id="concepts">Concepts<a class="headerlink" href="#concepts" title="Permanent link">&para;</a></h2>
 <p>The following are some definitions for some of the terms used below:</p>
 <h3 id="production">Production<a class="headerlink" href="#production" title="Permanent link">&para;</a></h3>
 <dl>
 <dd>The fully deployed stack, publicly available to all clients</dd>
+<dd><a href="../deploy/">Deployment</a> is orchestrated through <code>kubernetes</code>.</dd>
 </dl>
 <h3 id="demo-staging">Demo / Staging<a class="headerlink" href="#demo-staging" title="Permanent link">&para;</a></h3>
 <dl>
 <dd>A separate production stack, used to test changes and maintain a live working backup.</dd>
-<dd>This will be available on a different domain than the production stack</dd>
+<dd>This will be available on a different domain than the production stack, running in a separate namespcae.</dd>
 </dl>
 <h3 id="image">Image<a class="headerlink" href="#image" title="Permanent link">&para;</a></h3>
 <dl>
@@ -754,18 +660,18 @@
 </dl>
 <h3 id="pod">Pod<a class="headerlink" href="#pod" title="Permanent link">&para;</a></h3>
 <dl>
-<dd>A single instance of a running docker image.</dd>
+<dd>A single instance of a running docker image. Pods are managed by <code>kubernetes</code> deployments, and designed to be ephemeral, and easily scaled up or down.</dd>
 </dl>
 <h3 id="namespace">Namespace<a class="headerlink" href="#namespace" title="Permanent link">&para;</a></h3>
 <dl>
-<dd>The name of the Kubernetes context.</dd>
+<dd>The name of the Kubernetes context. This keeps resources separate from other deployments.</dd>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Valid namespaces</p>
 <p>Currently, this must be one of:</p>
 <ul>
-<li><code>openvault</code></li>
-<li><code>ov-demo</code></li>
+<li><code>ov</code> - Production</li>
+<li><code>ov-demo</code> - Demo</li>
 </ul>
 </div>
 <h2 id="services">Services<a class="headerlink" href="#services" title="Permanent link">&para;</a></h2>
@@ -773,26 +679,15 @@
 <h3 id="ov-frontend"><code>ov-frontend</code><a class="headerlink" href="#ov-frontend" title="Permanent link">&para;</a></h3>
 <p>Javascript frontend, built with <a href="https://remix.run/">remix</a></p>
 <p>Source: <a href="https://github.com/WGBH-MLA/ov-frontend/">github.com/WGBH-MLA/ov-frontend/</a></p>
-<p>Docker: <a href="https://hub.docker.com/r/wgbhmla/ov-frontend">wgbhmla/ov-frontend</a></p>
+<p>Docker: <a href="https://github.com/WGBH-MLA/ov-frontend/pkgs/container/ov-frontend">ghcr.io/wgbh-mla/ov-frontend</a></p>
 <h3 id="ov-wag"><code>ov-wag</code><a class="headerlink" href="#ov-wag" title="Permanent link">&para;</a></h3>
 <p>Python backend and API, built with <a href="https://wagtail.org/">wagtail</a></p>
 <p>Source: <a href="https://github.com/WGBH-MLA/ov-wag">github.com/WGBH-MLA/ov-wag</a></p>
-<p>Docker: <a href="https://hub.docker.com/r/wgbhmla/ov-wag">wgbhmla/ov-wag</a></p>
+<p>Docker: <a href="https://github.com/WGBH-MLA/ov-frontend/pkgs/container/ov-wag">ghcr.io/wgbh-mla/ov-wag</a></p>
 <h3 id="db"><code>db</code><a class="headerlink" href="#db" title="Permanent link">&para;</a></h3>
 <p>Database. Built with <a href="https://www.postgresql.org/">PostgreSQL</a></p>
-<div class="highlight"><pre><span></span><code>image: postgres:14.2-alpine
+<div class="highlight"><pre><span></span><code>image: postgres:16-alpine
 </code></pre></div>
-<h3 id="ov-nginx"><code>ov-nginx</code><a class="headerlink" href="#ov-nginx" title="Permanent link">&para;</a></h3>
-<p>Proxy image, using <a href="https://www.nginx.com/">nginx</a></p>
-<div class="highlight"><pre><span></span><code>image: ov-nginx:v0.1.0
-</code></pre></div>
-<h3 id="jumpbox"><code>jumpbox</code><a class="headerlink" href="#jumpbox" title="Permanent link">&para;</a></h3>
-<p>Optional utility kit, based on <a href="https://ubuntu.com/">ubuntu</a> with command line helpers such as:</p>
-<ul>
-<li><code>curl</code></li>
-<li><code>postgres</code></li>
-<li><code>python</code></li>
-</ul>
 <h2 id="call-sequence">Call sequence<a class="headerlink" href="#call-sequence" title="Permanent link">&para;</a></h2>
 <p>The following diagram describes the call sequence for incoming requests:</p>
 <pre class="mermaid"><code>sequenceDiagram
@@ -810,7 +705,7 @@ Proxy -&gt;&gt; Client: return page</code></pre>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-20T16:33:40+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-20</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-20T21:18:37+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-20</span>
       
         <br>
         Created:

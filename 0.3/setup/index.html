@@ -16,7 +16,7 @@
         <link rel="prev" href="../stack/">
       
       
-        <link rel="next" href="../dev/">
+        <link rel="next" href="../deploy/">
       
       
       <link rel="icon" href="../assets/ov-favicon.png">
@@ -59,6 +59,8 @@
       <link rel="stylesheet" href="../style/todo.css">
     
       <link rel="stylesheet" href="../style/kube.css">
+    
+      <link rel="stylesheet" href="../style/traefik.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -293,23 +295,6 @@
   
   
     <li class="md-tabs__item">
-      <a href="../dev/" class="md-tabs__link">
-        
-  
-    
-  
-  Develop
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-    <li class="md-tabs__item">
       <a href="../deploy/" class="md-tabs__link">
         
   
@@ -333,23 +318,6 @@
     
   
   Database
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../manual/" class="md-tabs__link">
-        
-  
-    
-  
-  Manual
 
       </a>
     </li>
@@ -498,64 +466,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#development" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
-      Development
+      Prerequisites
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Development">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#0-checkout-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      0. Checkout code
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#1-create-the-database-secrets-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Create the database secrets file
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-create-the-backend-secrets-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Create the backend secrets file
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-run-initialization-script" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Run initialization script
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#production" class="md-nav__link">
+  <a href="#namespaces" class="md-nav__link">
     <span class="md-ellipsis">
-      Production
+      Namespaces
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Production">
+    <nav class="md-nav" aria-label="Namespaces">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -567,87 +493,36 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#create-workloads" class="md-nav__link">
-    <span class="md-ellipsis">
-      Create workloads
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Create workloads">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#for-each-workload" class="md-nav__link">
-    <span class="md-ellipsis">
-      For each workload:
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#workloads" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#database" class="md-nav__link">
     <span class="md-ellipsis">
-      Workloads
+      Database
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Workloads">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Secrets
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Secrets">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#db" class="md-nav__link">
+  <a href="#create-the-backend-secrets-file" class="md-nav__link">
     <span class="md-ellipsis">
-      db
+      Create the Backend secrets file
     </span>
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ov-wag-backend" class="md-nav__link">
-    <span class="md-ellipsis">
-      ov-wag (backend)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ov-frontend" class="md-nav__link">
-    <span class="md-ellipsis">
-      ov-frontend
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ov-nginx" class="md-nav__link">
-    <span class="md-ellipsis">
-      ov-nginx
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#jumpbox" class="md-nav__link">
-    <span class="md-ellipsis">
-      jumpbox
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -660,25 +535,6 @@
   
 </nav>
       
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../dev/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Develop
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -721,25 +577,6 @@
   
 
     
-      
-      
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../manual/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Manual
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
   </ul>
 </nav>
                   </div>
@@ -759,287 +596,59 @@
 
 
 <h1 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h1>
-<h2 id="development">Development<a class="headerlink" href="#development" title="Permanent link">&para;</a></h2>
-<p>The following steps describe the setup process for local development. For production setup, see <a href="#production">Production</a></p>
-<h3 id="0-checkout-code">0. Checkout code<a class="headerlink" href="#0-checkout-code" title="Permanent link">&para;</a></h3>
-<p>Clone the source code from github, including submodules:</p>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>--recurse-submodules<span class="w"> </span>https://github.com/WGBH-MLA/ov-deploy.git
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p>These instructions assume you have the following:</p>
+<ul>
+<li>A working Kubernetes cluster</li>
+<li><code>kubectl</code>, configured to connect to your cluster</li>
+<li>Argo-CD installed and configured</li>
+<li>Traefik installed and configured as an ingress controller</li>
+<li>A running PostgreSQL database</li>
+</ul>
+<h2 id="namespaces">Namespaces<a class="headerlink" href="#namespaces" title="Permanent link">&para;</a></h2>
+<h3 id="create-namespace">Create namespace<a class="headerlink" href="#create-namespace" title="Permanent link">&para;</a></h3>
+<p>Create a new namespace called <code>ov</code>:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>namespace<span class="w"> </span>ov
 </code></pre></div>
-<p>Change into the new <code>ov-deploy</code> directory</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>ov-deploy
-</code></pre></div>
-<details class="abstract" open="open">
-<summary>Initialize and update submodules</summary>
-<p>If the repository was cloned without the submodules, they will need to be initialized first.
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>submodule<span class="w"> </span>init
-git<span class="w"> </span>submodule<span class="w"> </span>update
+<p>Set the current context to the new namespace:
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>config<span class="w"> </span>set-context<span class="w"> </span>--current<span class="w"> </span>--namespace<span class="o">=</span>ov
+
+<span class="c1"># Verify the current context</span>
+kubectl<span class="w"> </span>config<span class="w"> </span>view<span class="w"> </span>--minify<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>namespace:
 </code></pre></div></p>
-</details>
-<details class="abstract" open="open">
-<summary>Checkout code</summary>
-<p>If running a version other than the <code>main</code> branch, you will need to checkout the code first, and update the git submodules.</p>
-<p>Usually this will be a tag or a branch. For example, if checking out <code>v0.2.0</code>:</p>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>v0.2.0
-git<span class="w"> </span>submodule<span class="w"> </span>update
-</code></pre></div>
-</details>
-<h3 id="1-create-the-database-secrets-file">1. Create the database secrets file<a class="headerlink" href="#1-create-the-database-secrets-file" title="Permanent link">&para;</a></h3>
-<p>In <code>ov-wag</code>, create a file called <code>.db</code> with the following contents:</p>
-<div class="highlight"><span class="filename">ov-wag/.db</span><pre><span></span><code><span class="nv">POSTGRES_PASSWORD</span><span class="o">=</span><span class="s2">&quot;YOUR POSTGRES PASSWORD HERE&quot;</span>
+<h2 id="database">Database<a class="headerlink" href="#database" title="Permanent link">&para;</a></h2>
+<p>Create a new database called <code>ov</code> and a new user called <code>postgres</code> and a secure password.</p>
+<div class="highlight"><span class="filename">Database configuration</span><pre><span></span><code><span class="nv">POSTGRES_USER</span><span class="o">=</span>postgres
+<span class="nv">POSTGRES_PASSWORD</span><span class="o">=</span><span class="s2">&quot;YOUR POSTGRES PASSWORD HERE&quot;</span>
+<span class="nv">POSTGRES_DB</span><span class="o">=</span>ov
 </code></pre></div>
 <details class="note">
 <summary>Generating a password</summary>
-<p>This command will generate a new password config file and save it to <code>ov-wag/.db</code></p>
-<h5 id="warning-this-will-overwrite-any-existing-password-stored-in-the-db-file"><strong><img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/26a0.svg" title=":warning:" /> WARNING:</strong> This will overwrite any existing password stored in the <code>.db</code> file! <strong><img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/26a0.svg" title=":warning:" /></strong><a class="headerlink" href="#warning-this-will-overwrite-any-existing-password-stored-in-the-db-file" title="Permanent link">&para;</a></h5>
-<p>Run this command from the top level <code>ov-deploy/</code> directory.
-<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;POSTGRES_PASSWORD=</span><span class="k">$(</span>openssl<span class="w"> </span>rand<span class="w"> </span>-base64<span class="w"> </span><span class="m">24</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>ov-wag/.db
-</code></pre></div></p>
+<p>This command will generate a new secure password:</p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>rand<span class="w"> </span>-base64<span class="w"> </span><span class="m">24</span>
+</code></pre></div>
+<p>Increace the final number to increase the length and strength of the password.</p>
 </details>
-<h3 id="2-create-the-backend-secrets-file">2. Create the backend secrets file<a class="headerlink" href="#2-create-the-backend-secrets-file" title="Permanent link">&para;</a></h3>
-<p>In <code>ov-wag</code>, create a file called <code>.env</code> with the following contents:</p>
-<div class="highlight"><span class="filename">ov-wag/.env</span><pre><span></span><code><span class="nv">OV_DB_ENGINE</span><span class="o">=</span>django.db.backends.postgresql
-<span class="nv">OV_DB_PORT</span><span class="o">=</span><span class="m">5432</span>
-<span class="nv">OV_DB_NAME</span><span class="o">=</span>postgres
-<span class="nv">OV_DB_USER</span><span class="o">=</span>postgres
-<span class="nv">OV_DB_PASSWORD</span><span class="o">=</span><span class="s2">&quot;YOUR POSTGRES PASSWORD HERE&quot;</span>
-
-<span class="nv">OV_BASE_URL</span><span class="o">=</span>http://localhost:3000
-<span class="nv">OV_ADMIN_BASE_URL</span><span class="o">=</span>http://localhost:8000
+<h2 id="secrets">Secrets<a class="headerlink" href="#secrets" title="Permanent link">&para;</a></h2>
+<h3 id="create-the-backend-secrets-file">Create the Backend secrets file<a class="headerlink" href="#create-the-backend-secrets-file" title="Permanent link">&para;</a></h3>
+<div class="highlight"><span class="filename">ov-wag/secret.yaml</span><pre><span></span><code>apiVersion:<span class="w"> </span>v1
+kind:<span class="w"> </span>Secret
+metadata:
+<span class="w">  </span>name:<span class="w"> </span>ov-wag-secret
+<span class="w">  </span>namespace:<span class="w"> </span>ov
+stringData:
+<span class="w">  </span>OV_DB_PASSWORD:<span class="w"> </span>YOUR<span class="w"> </span>POSTGRES<span class="w"> </span>PASSWORD<span class="w"> </span>HERE
+<span class="w">  </span>OV_SECRET_KEY:<span class="w"> </span>RanDOmSeCrEtKeY_fOr_sESsion_cOOkies
+<span class="w">  </span>AWS_ACCESS_KEY_ID<span class="w"> </span>:<span class="w"> </span><span class="c1"># AWS IAM user access key</span>
+<span class="w">  </span>AWS_SECRET_ACCESS_KEY:<span class="w"> </span><span class="c1"># AWS IAM user secret key</span>
 </code></pre></div>
-<h3 id="3-run-initialization-script">3. Run initialization script<a class="headerlink" href="#3-run-initialization-script" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>./ov<span class="w"> </span>init
-</code></pre></div>
-<details class="abstract" open="open">
-<summary><code>./ov init</code> script</summary>
-<p>This is the equivalent of running:</p>
-<div class="highlight"><pre><span></span><code>./ov<span class="w"> </span>build<span class="w"> </span><span class="c1"># (1)</span>
-
-./ov<span class="w"> </span>c<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>front<span class="w"> </span>npm<span class="w"> </span>install<span class="w"> </span><span class="c1"># (2)</span>
-</code></pre></div>
-<ol>
-<li>build docker files</li>
-<li>install npm requirements</li>
-</ol>
-</details>
-<h2 id="production">Production<a class="headerlink" href="#production" title="Permanent link">&para;</a></h2>
-<p>If deploying for the first time, Kubernetes must be configured to receive deployments. If this has already been done, you can skip this section.</p>
-<div class="admonition auth">
-<p class="admonition-title">Rancher Login</p>
-<ol>
-<li>Login to VPN</li>
-<li><a href="https://rancherext.wgbh.org/login">Login to Rancher</a> ("Log in with Azure ID")</li>
-<li><a href="https://rancherext.wgbh.org/p/c-7qk7g:p-lpkts/workloads">Go to MLA project</a></li>
-</ol>
-</div>
-<details class="kube">
-<summary>Setting up kubectl context</summary>
-<p>To facilitate easy context switching between production and demo instances, the deployment tools define the kubectl context as follows:</p>
-<div class="highlight"><span class="filename">~/.kube/config</span><pre><span></span><code>apiVersion: v1
-clusters:
-- cluster:
-    server: [RANCHER SERVER URL]
-name: digital-eks-dev
-contexts:
-- context:
-    cluster: digital-eks-dev
-    namespace: openvault
-    user: digital-eks-dev
-name: openvault
-current-context: openvault
-kind: Config
-preferences: {}
-users:
-- name: digital-eks-dev
-user:
-    token: [TOKEN]
-</code></pre></div>
-</details>
-<h3 id="create-namespace">Create namespace<a class="headerlink" href="#create-namespace" title="Permanent link">&para;</a></h3>
-<div class="admonition todo">
-<p class="admonition-title">TODO: elaborate</p>
-</div>
-<h3 id="create-workloads">Create workloads<a class="headerlink" href="#create-workloads" title="Permanent link">&para;</a></h3>
-<h4 id="for-each-workload">For each workload:<a class="headerlink" href="#for-each-workload" title="Permanent link">&para;</a></h4>
-<ol>
-<li>From the Workloads tab of the project, Click <code>Deploy</code></li>
-<li>
-<p>Enter the name of the service</p>
-<div class="admonition note">
-<p class="admonition-title">Service name</p>
-<p>If using the automatic <code>deploy</code> script, the name of the service must exactly match the name of the docker hub image</p>
-</div>
-</li>
-<li>
-<p>Set the Docker image to: <code>[DOCKERHUB ACCOUNT NAME]/[DOCKER IMAGE NAME]:[TAG]</code></p>
-<ul>
-<li>For example: <code>wgbhmla/ov-wag:latest</code></li>
-</ul>
-</li>
-<li>
-<p>Set environment variables</p>
-<p>Create a new config map and set the values from the config files below.</p>
-<p>Under <code>Environment Variables</code> Click <code>Add From Source</code> and set <code>type: Config Map</code></p>
-<p>Set the name of the config map and save the settings.</p>
-<p>Restart any running container using that config.</p>
-</li>
-<li>
-<p>Mount volumes</p>
-<p>If needed, create an external volume under the <code>Volumes</code> tab and mount it to the specified location.</p>
-</li>
-<li>
-<p>Add secrets</p>
-<p>Add a new secret with any secrets that need to be available.</p>
-<p>Click <code>Add From Source</code> and set <code>type: Secret</code></p>
-</li>
-</ol>
-<div class="admonition todo">
-<p class="admonition-title">TODO: Enumerate kube steps</p>
-<p>Enumerate the minimum steps required to get Kubernetes setup up in Rancher to handle deployments.</p>
-</div>
-<h3 id="workloads">Workloads<a class="headerlink" href="#workloads" title="Permanent link">&para;</a></h3>
-<p>The following services are needed to run the stack:</p>
-<h4 id="db">db<a class="headerlink" href="#db" title="Permanent link">&para;</a></h4>
-<ul>
-<li>
-<p>image: <code>postgres:14.2-alpine</code></p>
-</li>
-<li>
-<p>volumes:</p>
-<ul>
-<li><code>ov-db</code>: <code>/var/lib/postgresql/data</code><ul>
-<li><code>Read-Only=False</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>secrets:</p>
-<div class="highlight"><span class="filename">db secrets</span><pre><span></span><code><span class="nv">POSTGRES_PASSWORD</span><span class="o">=</span>p@ssW0rd!
-</code></pre></div>
-</li>
-</ul>
-<h4 id="ov-wag-backend">ov-wag (backend)<a class="headerlink" href="#ov-wag-backend" title="Permanent link">&para;</a></h4>
-<ul>
-<li>image: <code>wgbhmla/ov-wag</code></li>
-<li>
-<p>volumes:</p>
-<ul>
-<li><code>ov-static</code>: <code>/app/static/</code>: <code>rw</code></li>
-<li><code>ov-media</code>: <code>/app/media/</code>: <code>rw</code></li>
-</ul>
-</li>
-<li>
-<p>config:</p>
-<div class="highlight"><span class="filename">ov-wag-config</span><pre><span></span><code><span class="nv">DJANGO_SETTINGS_MODULE</span><span class="o">=</span>ov_wag.settings.production
-
-<span class="nv">OV_DB_ENGINE</span><span class="o">=</span>django.db.backends.postgresql
-<span class="nv">OV_DB_HOST</span><span class="o">=</span>db
-<span class="nv">OV_DB_PORT</span><span class="o">=</span><span class="m">5432</span>
-<span class="nv">OV_DB_NAME</span><span class="o">=</span>postgres
-<span class="nv">OV_DB_USER</span><span class="o">=</span>postgres
-
-<span class="nv">OV_BASE_URL</span><span class="o">=</span>http://ovfrontend.k8s.wgbhdigital.org
-<span class="nv">OV_ADMIN_BASE_URL</span><span class="o">=</span>http://ov-admin.k8s.wgbhdigital.org
-<span class="nv">OV_TRUSTED_ORIGINS</span><span class="o">=</span>http://ov-admin.k8s.wgbhdigital.org
-<span class="nv">OV_ALLOWED_HOSTS</span><span class="o">=</span>ov-wag
-</code></pre></div>
-</li>
-<li>
-<p>secrets:</p>
-<div class="highlight"><span class="filename">ov-wag-secrets</span><pre><span></span><code><span class="nv">OV_DB_PASSWORD</span><span class="o">=</span>p@ssW0rd!
-</code></pre></div>
-</li>
-</ul>
-<h4 id="ov-frontend">ov-frontend<a class="headerlink" href="#ov-frontend" title="Permanent link">&para;</a></h4>
-<ul>
-<li>image: <code>wgbhmla/ov-frontend</code></li>
-<li>
-<p>config:</p>
-<div class="highlight"><span class="filename">ov-frontend environment</span><pre><span></span><code><span class="nv">OV_API_URL</span><span class="o">=</span>ov-wag
-</code></pre></div>
-</li>
-</ul>
-<h4 id="ov-nginx">ov-nginx<a class="headerlink" href="#ov-nginx" title="Permanent link">&para;</a></h4>
-<ul>
-<li>
-<p>image: <code>wgbhmla/ov-nginx</code></p>
-<ul>
-<li>preconfigured with <code>nginx.conf</code></li>
-</ul>
-</li>
-<li>
-<p>Admin site: <a href="https://ov-admin.k8s.wgbhdigital.org/">ov-admin.k8s.wgbhdigital.org</a></p>
-<ul>
-<li>proxy pass to <code>http://ov-wag</code></li>
-</ul>
-</li>
-<li>
-<p><code>/static</code> served from <code>/static/</code> mounted volume</p>
-</li>
-<li>
-<p><code>/media</code> served from <code>/media/</code> mounted volume</p>
-</li>
-<li>
-<p>Frontend: <a href="http://ovfrontend.k8s.wgbhdigital.org/">ovfrontend.k8s.wgbhdigital.org</a></p>
-<ul>
-<li>proxy pass to <code>http://ov-frontend:3000</code></li>
-</ul>
-</li>
-</ul>
-<div class="admonition todo">
-<p class="admonition-title">external <code>/media</code> host</p>
-<p>We will  need to change this configuration when we switch to using an s3 bucket, or other external media host.</p>
-</div>
-<ul>
-<li>
-<p>volumes:</p>
-<ul>
-<li><code>ov-static</code>: <code>/static/</code>: <code>r</code></li>
-<li><code>ov-media</code>: <code>/media/</code>: <code>r</code></li>
-</ul>
-</li>
-<li>
-<p>endpoints:</p>
-<ul>
-<li><code>443/http</code></li>
-<li>Secured with SSL cert from IT certbot</li>
-</ul>
-</li>
-<li>
-<p>Load Balancing:</p>
-<ul>
-<li>
-<p><code>ov-admin</code></p>
-<ul>
-<li>Hostname: <code>http://ov-admin.k8s.wgbhdigital.org</code></li>
-<li>Path: <code>/</code></li>
-<li>Target: <code>ov-nginx</code></li>
-<li>Port: 80</li>
-</ul>
-</li>
-<li>
-<p><code>ov-front</code></p>
-<ul>
-<li>Hostname: <code>http://ovfrontend.k8s.wgbhdigital.org</code></li>
-<li>Path: <code>/</code></li>
-<li>Target: <code>ov-nginx</code></li>
-<li>Port: 80</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="jumpbox">jumpbox<a class="headerlink" href="#jumpbox" title="Permanent link">&para;</a></h4>
-<ul>
-<li>image: <code>wgbhmla/jumpbox</code></li>
-</ul>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-17T20:58:47+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-17</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-20T21:18:37+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-20</span>
       
         <br>
         Created:

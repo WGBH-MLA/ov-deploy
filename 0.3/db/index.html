@@ -16,8 +16,6 @@
         <link rel="prev" href="../deploy/">
       
       
-        <link rel="next" href="../manual/">
-      
       
       <link rel="icon" href="../assets/ov-favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.10">
@@ -60,6 +58,8 @@
     
       <link rel="stylesheet" href="../style/kube.css">
     
+      <link rel="stylesheet" href="../style/traefik.css">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -89,7 +89,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#database" class="md-skip">
+        <a href="#database-maintenance" class="md-skip">
           Skip to content
         </a>
       
@@ -291,23 +291,6 @@
   
   
     <li class="md-tabs__item">
-      <a href="../dev/" class="md-tabs__link">
-        
-  
-    
-  
-  Develop
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-    <li class="md-tabs__item">
       <a href="../deploy/" class="md-tabs__link">
         
   
@@ -333,23 +316,6 @@
     
   
   Database
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../manual/" class="md-tabs__link">
-        
-  
-    
-  
-  Manual
 
       </a>
     </li>
@@ -471,25 +437,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../dev/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Develop
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../deploy/" class="md-nav__link">
         
   
@@ -555,74 +502,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#db" class="md-nav__link">
-    <span class="md-ellipsis">
-      ./db
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="./db">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#options" class="md-nav__link">
-    <span class="md-ellipsis">
-      Options
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Options">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#context" class="md-nav__link">
-    <span class="md-ellipsis">
-      Context
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      Commands
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Commands">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#backup" class="md-nav__link">
     <span class="md-ellipsis">
-      backup
+      Backup
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#restore" class="md-nav__link">
     <span class="md-ellipsis">
-      restore
+      Restore
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#migrate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Migrate
+    </span>
+  </a>
   
 </li>
       
@@ -630,25 +532,6 @@
   
 </nav>
       
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../manual/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Manual
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -671,32 +554,17 @@
   
 
 
-<h1 id="database">Database<a class="headerlink" href="#database" title="Permanent link">&para;</a></h1>
-<p>Data is stored in a PostGreSQL database, with a single worker node running in kubernetes. This page describes the backup and restore process of data management.</p>
-<p>See <a href="../setup/#db">setup/#db</a> for more details about creating and configuring the database.</p>
-<h2 id="db"><code>./db</code><a class="headerlink" href="#db" title="Permanent link">&para;</a></h2>
-<p>Some basic database maintenance commands can be performed with the <code>./db</code> tool.</p>
-<h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
-<h4 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h4>
-<dl>
-<dd><strong>Required</strong> - The kubernetes namespace to execute the command.</dd>
-</dl>
-<p>Must be one of:</p>
-<ul>
-<li><code>openvault</code></li>
-<li><code>openvault-demo</code></li>
-</ul>
-<div class="admonition kube">
-<p class="admonition-title">Setting up kubectl context</p>
-<p>The following commands assume a properly configured kubectl context. See <a href="../setup/#production">production setup</a> for details.</p>
-</div>
-<h3 id="commands">Commands<a class="headerlink" href="#commands" title="Permanent link">&para;</a></h3>
-<h4 id="backup">backup<a class="headerlink" href="#backup" title="Permanent link">&para;</a></h4>
-<p>Backup the database and save to a local file named <code>db_{TIMESTAMP}.sql</code></p>
-<h4 id="restore">restore<a class="headerlink" href="#restore" title="Permanent link">&para;</a></h4>
-<p>Restore the database from a file.</p>
-<p>Example:</p>
-<div class="highlight"><span class="filename">Restore the demo instance from a local backup copy</span><pre><span></span><code>./db<span class="w"> </span>-c<span class="w"> </span>openvault-demo<span class="w"> </span>restore<span class="w"> </span>db_2022-10-26T11.11.11.sql
+<h1 id="database-maintenance">Database Maintenance<a class="headerlink" href="#database-maintenance" title="Permanent link">&para;</a></h1>
+<p>Data is stored in a PostGreSQL database, hosted in AWS RDS. This page describes common maintenance tasks for the database.</p>
+<p>For more details about creating and configuring the database, see <a href="../setup/#db">setup#db</a>.</p>
+<h2 id="backup">Backup<a class="headerlink" href="#backup" title="Permanent link">&para;</a></h2>
+<p>Backups are created automatically by AWS RDS. To create a manual backup, use the AWS console.</p>
+<h2 id="restore">Restore<a class="headerlink" href="#restore" title="Permanent link">&para;</a></h2>
+<p>Restore the database by creating a new RDS instance from a backup instance in the AWS console. </p>
+<p>Then, update the <code>OV_DB_HOST</code> environment variable in the backend deployment to point to the new database instance.</p>
+<h2 id="migrate">Migrate<a class="headerlink" href="#migrate" title="Permanent link">&para;</a></h2>
+<p>If the Wagtail models have changed, the database must be migrated to reflect the changes. This can be done by running the following command:</p>
+<div class="highlight"><pre><span></span><code>ov<span class="w"> </span>migrate
 </code></pre></div>
 
   <hr>
@@ -704,7 +572,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-20T16:33:40+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-20</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-20T21:18:37+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-20</span>
       
         <br>
         Created:

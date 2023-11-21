@@ -42,7 +42,6 @@ To update the configuration of a deployment, simply change the value in the depl
           value: NEW POSTGRES PASSWORD HERE
 ```
 
-
 ## Database
 Data is stored in a PostGreSQL database, hosted in AWS RDS. This page describes common maintenance tasks for the database.
 
@@ -56,7 +55,7 @@ Restore the database by creating a new RDS instance from a backup instance in th
 
 Then, update the `OV_DB_HOST` environment variable in the backend deployment to point to the new database instance.
 
-### Migrate
+## # Migrate
 If the Wagtail models have changed, the database must be migrated to reflect the changes. This can be done by running the following command:
 
 ```bash

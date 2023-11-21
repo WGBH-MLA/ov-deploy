@@ -52,13 +52,15 @@
     
       <link rel="stylesheet" href="../css/timeago.css">
     
-      <link rel="stylesheet" href="../style/gbh.css">
-    
       <link rel="stylesheet" href="../style/auth.css">
     
-      <link rel="stylesheet" href="../style/todo.css">
+      <link rel="stylesheet" href="../style/gbh.css">
+    
+      <link rel="stylesheet" href="../style/github.css">
     
       <link rel="stylesheet" href="../style/kube.css">
+    
+      <link rel="stylesheet" href="../style/todo.css">
     
       <link rel="stylesheet" href="../style/traefik.css">
     
@@ -463,6 +465,16 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#node" class="md-nav__link">
+    <span class="md-ellipsis">
+      Node
+    </span>
+  </a>
+  
 </li>
         
           <li class="md-nav__item">
@@ -472,8 +484,7 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Image">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#pod" class="md-nav__link">
@@ -529,17 +540,17 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-        
           <li class="md-nav__item">
   <a href="#namespace" class="md-nav__link">
     <span class="md-ellipsis">
       Namespace
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -577,6 +588,24 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      CI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cd" class="md-nav__link">
+    <span class="md-ellipsis">
+      CD
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#frontend" class="md-nav__link">
     <span class="md-ellipsis">
       Frontend
@@ -597,7 +626,16 @@
           <li class="md-nav__item">
   <a href="#db" class="md-nav__link">
     <span class="md-ellipsis">
-      db
+      DB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proxy
     </span>
   </a>
   
@@ -705,28 +743,31 @@
 <h2 id="kubernetes">Kubernetes<a class="headerlink" href="#kubernetes" title="Permanent link">&para;</a></h2>
 <p>Production deployments are run in a Kubernetes cluster, using images built by our CI/CD pipeline. </p>
 <p>Deployment <code>yaml</code>s are stored in this repository in subfolders by service.</p>
-<p>Deployments are managed by <a href="https://argoproj.github.io/argo-cd/">Argo-CD</a>, which is configured to watch for changes in the  <code>main</code> branch. When a change is detected, Argo-CD will pull the latest configuration from the repository, and apply it to the cluster.</p>
 <h3 id="resources">Resources<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h3>
 <p>Each component of the stack is deployed as a set of Kubernetes resources. They consist of:</p>
-<h3 id="image">Image<a class="headerlink" href="#image" title="Permanent link">&para;</a></h3>
+<h4 id="node">Node<a class="headerlink" href="#node" title="Permanent link">&para;</a></h4>
 <dl>
-<dd>A docker container containing all the code needed to run a single service.</dd>
+<dd>A <code>node</code> is a physical or virtual machine that the cluster is running on. The cluster is made up of a number of nodes, which are managed by the cluster.</dd>
+</dl>
+<h4 id="image">Image<a class="headerlink" href="#image" title="Permanent link">&para;</a></h4>
+<dl>
+<dd>An <code>image</code> is a docker container containing all the code needed to run a single service.</dd>
 </dl>
 <h4 id="pod">Pod<a class="headerlink" href="#pod" title="Permanent link">&para;</a></h4>
 <dl>
-<dd>A pod is the smallest unit of deployment in Kubernetes. It is a single running container (Docker image), which is managed by a deployment. They are designed to be ephemeral, and easily scaled up or down.</dd>
+<dd>A <code>pod</code> is the smallest unit of deployment in Kubernetes. It is a single running container (Docker image), which is managed by a deployment. They are designed to be ephemeral, and easily scaled up or down.</dd>
 </dl>
 <h4 id="deployment">Deployment<a class="headerlink" href="#deployment" title="Permanent link">&para;</a></h4>
 <dl>
-<dd>A deployment is a set of pods (the running containers). The deployment manages the pods, and ensures that the desired number of pods are running at all times.</dd>
+<dd>A <code>deployment</code> is a set of pods (the running containers). The deployment manages the pods, and ensures that the desired number of pods are running at all times.</dd>
 </dl>
 <h4 id="service">Service<a class="headerlink" href="#service" title="Permanent link">&para;</a></h4>
 <dl>
-<dd>A service is a network endpoint that can be accessed by other pods. It is used to expose a deployment as a named endpoint, which can be accessed by other pods in the cluster.</dd>
+<dd>A <code>service</code> is a network endpoint that can be accessed by other pods. It is used to expose a deployment as a named endpoint, which can be accessed by other pods in the cluster, e.g: <code>http://ov-wag/</code>.</dd>
 </dl>
 <h4 id="ingress">Ingress<a class="headerlink" href="#ingress" title="Permanent link">&para;</a></h4>
 <dl>
-<dd>An ingress is a network endpoint that can be accessed by external clients. It is used to expose a service as a named endpoint, which can be accessed by clients outside the cluster.</dd>
+<dd>An <code>ingress</code> is a network endpoint that can be accessed by external clients. It is used to expose a service as a named endpoint, which can be accessed by clients outside the cluster.</dd>
 </dl>
 <div class="admonition kube">
 <p class="admonition-title">Traefik</p>
@@ -734,26 +775,26 @@
 </div>
 <h4 id="configmap">ConfigMap<a class="headerlink" href="#configmap" title="Permanent link">&para;</a></h4>
 <dl>
-<dd>A config map is a set of key-value pairs that can be accessed by pods. It is used to store configuration values that are needed by the pods.</dd>
+<dd>A <code>configmap</code> is a set of key-value pairs that can be accessed by pods. It is used to store configuration values that are needed by the pods.</dd>
 </dl>
 <h4 id="secret">Secret<a class="headerlink" href="#secret" title="Permanent link">&para;</a></h4>
 <dl>
-<dd>A secret is a secure set of key-value pairs that can be accessed by pods. It is used to store sensitive configuration values that are needed by the pods.</dd>
+<dd>A <code>secret</code> is a secure set of key-value pairs that can be accessed by pods. It is used to store sensitive configuration values that are needed by the pods.</dd>
 </dl>
-<h3 id="namespace">Namespace<a class="headerlink" href="#namespace" title="Permanent link">&para;</a></h3>
+<h4 id="namespace">Namespace<a class="headerlink" href="#namespace" title="Permanent link">&para;</a></h4>
 <dl>
-<dd>A group of resources that are deployed together. Namespaces are used to separate different deployments, like production and demo.</dd>
+<dd>A <code>namespace</code> is a group of resources that are deployed together. Namespaces are used to separate different deployments, like production and demo.</dd>
 </dl>
-<div class="admonition note">
+<div class="admonition kube">
 <p class="admonition-title">Namespacess</p>
-<p>Currently, we are deploying two namespaces:</p>
+<p>Currently, we deploy two namespaces:</p>
 <ul>
-<li><code>ov</code> - Production</li>
-<li><code>ov-demo</code> - Demo</li>
+<li><code>ov</code> Production</li>
+<li><code>ov-demo</code> Demo</li>
 </ul>
 </div>
 <h2 id="terms">Terms<a class="headerlink" href="#terms" title="Permanent link">&para;</a></h2>
-<p>The following are some definitions for some of the terms used below:</p>
+<p>The following are some definitions for some of the terms used in this guide:</p>
 <h3 id="production">Production<a class="headerlink" href="#production" title="Permanent link">&para;</a></h3>
 <dl>
 <dd>The fully deployed stack, publicly available to all clients</dd>
@@ -764,6 +805,24 @@
 <dd>A separate production stack, used to test changes and maintain a live working backup.</dd>
 <dd>This will be available on a different domain than the production stack, running in a separate namespcae.</dd>
 </dl>
+<h3 id="ci">CI<a class="headerlink" href="#ci" title="Permanent link">&para;</a></h3>
+<dl>
+<dd>Continuous Integration. The process of automatically building and testing code changes. </dd>
+</dl>
+<div class="admonition github">
+<p class="admonition-title">GitHub Actions</p>
+<p>This is done with GitHub Actions workflows defined in the <code>.github/workflows</code> folder of the <code>ov-wag</code> and <code>ov-frontend</code> repositories.</p>
+<p>Builds are performed automatically on every push to the <code>main</code> branch, and on every pull request, tagged with <code>pr-&lt;number&gt;</code>.</p>
+<p>Builds are performed regardless of tests passing or failing.</p>
+</div>
+<h3 id="cd">CD<a class="headerlink" href="#cd" title="Permanent link">&para;</a></h3>
+<dl>
+<dd>Continuous Deployment. The process of automatically deploying code changes to the production environment.</dd>
+</dl>
+<div class="admonition kube">
+<p class="admonition-title">Argo-CD</p>
+<p>Deployments are managed by <a href="https://argoproj.github.io/argo-cd/">Argo-CD</a>, which is configured to watch for changes in the  <code>main</code> branch. When a change is detected, Argo-CD will pull the latest configuration from the repository, compare it against the running system, and if necessary, apply changes to the cluster.</p>
+</div>
 <h3 id="frontend">Frontend<a class="headerlink" href="#frontend" title="Permanent link">&para;</a></h3>
 <dl>
 <dd><a href="https://remix.run/">Remix</a> server delivering the HTML + Javascript code to the user. </dd>
@@ -776,30 +835,34 @@
 </dl>
 <p>Source: <a href="https://github.com/WGBH-MLA/ov-wag">github.com/WGBH-MLA/ov-wag</a></p>
 <p>Docker: <a href="https://github.com/WGBH-MLA/ov-frontend/pkgs/container/ov-wag">ghcr.io/wgbh-mla/ov-wag</a></p>
-<h3 id="db"><code>db</code><a class="headerlink" href="#db" title="Permanent link">&para;</a></h3>
+<h3 id="db">DB<a class="headerlink" href="#db" title="Permanent link">&para;</a></h3>
 <dl>
-<dd>Database. Built with <a href="https://www.postgresql.org/">PostgreSQL</a></dd>
+<dd>Database. Using <a href="https://www.postgresql.org/">PostgreSQL</a></dd>
 </dl>
-<div class="highlight"><pre><span></span><code>image: postgres:16-alpine
+<div class="highlight"><span class="filename">Database image</span><pre><span></span><code>  image: postgres:16-alpine
 </code></pre></div>
+<h3 id="proxy">Proxy<a class="headerlink" href="#proxy" title="Permanent link">&para;</a></h3>
+<dl>
+<dd><a href="https://traefik.io/solutions/kubernetes-ingress/">Traefik</a> Reverse Proxy. Handles routing of incoming requests to the appropriate service. Also handles SSL termination, redirects HTTP requests to HTTPS, and allows for custom routing rules.</dd>
+</dl>
 <h2 id="call-sequence">Call sequence<a class="headerlink" href="#call-sequence" title="Permanent link">&para;</a></h2>
 <p>The following diagram describes the call sequence for incoming requests:</p>
 <pre class="mermaid"><code>sequenceDiagram
 Client -&gt;&gt; Proxy: requests page
-Proxy --&gt;&gt; Frontend: nginx proxies request
-Frontend -&gt;&gt; Backend: fetches latest data from API
-Backend -&gt;&gt; DB: polls the database
+Proxy --&gt;&gt; Frontend: Traefik proxies request
+Frontend -&gt;&gt; Backend: Frontend  fetches latest data from API
+Backend -&gt;&gt; DB: Backend polls the database
 DB -&gt;&gt; Backend: return database results
 Backend -&gt;&gt; Frontend: return API results
-Frontend --&gt;&gt; Proxy: build page with latest results
-Proxy -&gt;&gt; Client: return page</code></pre>
+Frontend -&gt;&gt; Proxy: return built page with latest results
+Proxy --&gt;&gt; Client: return response</code></pre>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-21T17:02:40+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-21</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-21T20:19:41+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-21</span>
       
         <br>
         Created:

@@ -11,7 +11,7 @@
 }
 .md-typeset .kube > .admonition-title::before,
 .md-typeset .kube > summary::before {
-  background-color: rgb(50, 108, 229);
+  background-color: rgb(129, 174, 248);
   -webkit-mask-image: var(--md-admonition-icon--kube);
   mask-image: var(--md-admonition-icon--kube);
 }

@@ -8,49 +8,50 @@ Production deployments are run in a Kubernetes cluster, using images built by ou
 
 Deployment `yaml`s are stored in this repository in subfolders by service.
 
-Deployments are managed by [Argo-CD](https://argoproj.github.io/argo-cd/), which is configured to watch for changes in the  `main` branch. When a change is detected, Argo-CD will pull the latest configuration from the repository, and apply it to the cluster.
-
 ### Resources
 Each component of the stack is deployed as a set of Kubernetes resources. They consist of:
 
-### Image
+#### Node
+: A `node` is a physical or virtual machine that the cluster is running on. The cluster is made up of a number of nodes, which are managed by the cluster.
 
-: A docker container containing all the code needed to run a single service.
+#### Image
+
+: An `image` is a docker container containing all the code needed to run a single service.
 
 #### Pod
-: A pod is the smallest unit of deployment in Kubernetes. It is a single running container (Docker image), which is managed by a deployment. They are designed to be ephemeral, and easily scaled up or down.
+: A `pod` is the smallest unit of deployment in Kubernetes. It is a single running container (Docker image), which is managed by a deployment. They are designed to be ephemeral, and easily scaled up or down.
 
 #### Deployment
-: A deployment is a set of pods (the running containers). The deployment manages the pods, and ensures that the desired number of pods are running at all times.
+: A `deployment` is a set of pods (the running containers). The deployment manages the pods, and ensures that the desired number of pods are running at all times.
 
 #### Service
-: A service is a network endpoint that can be accessed by other pods. It is used to expose a deployment as a named endpoint, which can be accessed by other pods in the cluster.
+: A `service` is a network endpoint that can be accessed by other pods. It is used to expose a deployment as a named endpoint, which can be accessed by other pods in the cluster, e.g: `http://ov-wag/`.
 
 #### Ingress
-: An ingress is a network endpoint that can be accessed by external clients. It is used to expose a service as a named endpoint, which can be accessed by clients outside the cluster.
+: An `ingress` is a network endpoint that can be accessed by external clients. It is used to expose a service as a named endpoint, which can be accessed by clients outside the cluster.
 
 !!! kube "Traefik"
     We use [Traefik](https://traefik.io/solutions/kubernetes-ingress/) as our ingress controller, which is configured to route incoming requests to the appropriate service. It also handles SSL termination, redirects HTTP requests to HTTPS, and allows for custom routing rules.
 
 #### ConfigMap
-: A config map is a set of key-value pairs that can be accessed by pods. It is used to store configuration values that are needed by the pods.
+: A `configmap` is a set of key-value pairs that can be accessed by pods. It is used to store configuration values that are needed by the pods.
 
 #### Secret
-: A secret is a secure set of key-value pairs that can be accessed by pods. It is used to store sensitive configuration values that are needed by the pods.
+: A `secret` is a secure set of key-value pairs that can be accessed by pods. It is used to store sensitive configuration values that are needed by the pods.
 
-### Namespace
+#### Namespace
 
-: A group of resources that are deployed together. Namespaces are used to separate different deployments, like production and demo.
+: A `namespace` is a group of resources that are deployed together. Namespaces are used to separate different deployments, like production and demo.
 
-!!! note "Namespacess"
+!!! kube "Namespacess"
 
-    Currently, we are deploying two namespaces:
+    Currently, we deploy two namespaces:
 
-    - `ov` - Production
-    - `ov-demo` - Demo
+    - `ov` Production
+    - `ov-demo` Demo
 
 ## Terms 
-The following are some definitions for some of the terms used below:
+The following are some definitions for some of the terms used in this guide:
 
 ### Production
 : The fully deployed stack, publicly available to all clients
@@ -62,6 +63,23 @@ The following are some definitions for some of the terms used below:
 : A separate production stack, used to test changes and maintain a live working backup.
 
 : This will be available on a different domain than the production stack, running in a separate namespcae.
+
+### CI
+: Continuous Integration. The process of automatically building and testing code changes. 
+
+!!! github "GitHub Actions"
+    This is done with GitHub Actions workflows defined in the `.github/workflows` folder of the `ov-wag` and `ov-frontend` repositories.
+
+    Builds are performed automatically on every push to the `main` branch, and on every pull request, tagged with `pr-<number>`.
+
+    Builds are performed regardless of tests passing or failing.
+
+### CD
+
+: Continuous Deployment. The process of automatically deploying code changes to the production environment.
+
+!!! kube "Argo-CD"
+    Deployments are managed by [Argo-CD](https://argoproj.github.io/argo-cd/), which is configured to watch for changes in the  `main` branch. When a change is detected, Argo-CD will pull the latest configuration from the repository, compare it against the running system, and if necessary, apply changes to the cluster.
 
 ### Frontend
 
@@ -79,13 +97,17 @@ Source: [github.com/WGBH-MLA/ov-wag](https://github.com/WGBH-MLA/ov-wag)
 
 Docker: [ghcr.io/wgbh-mla/ov-wag](https://github.com/WGBH-MLA/ov-frontend/pkgs/container/ov-wag)
 
-### `db`
+### DB
 
-: Database. Built with [PostgreSQL](https://www.postgresql.org/)
+: Database. Using [PostgreSQL](https://www.postgresql.org/)
 
-```yml
-image: postgres:16-alpine
+```yml title="Database image"
+  image: postgres:16-alpine
 ```
+### Proxy
+
+: [Traefik](https://traefik.io/solutions/kubernetes-ingress/) Reverse Proxy. Handles routing of incoming requests to the appropriate service. Also handles SSL termination, redirects HTTP requests to HTTPS, and allows for custom routing rules.
+
 
 ## Call sequence
 
@@ -94,11 +116,11 @@ The following diagram describes the call sequence for incoming requests:
 ```mermaid
 sequenceDiagram
 Client ->> Proxy: requests page
-Proxy -->> Frontend: nginx proxies request
-Frontend ->> Backend: fetches latest data from API
-Backend ->> DB: polls the database
+Proxy -->> Frontend: Traefik proxies request
+Frontend ->> Backend: Frontend  fetches latest data from API
+Backend ->> DB: Backend polls the database
 DB ->> Backend: return database results
 Backend ->> Frontend: return API results
-Frontend -->> Proxy: build page with latest results
-Proxy ->> Client: return page
+Frontend ->> Proxy: return built page with latest results
+Proxy -->> Client: return response
 ```

@@ -472,33 +472,19 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#namespaces" class="md-nav__link">
-    <span class="md-ellipsis">
-      Namespaces
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Namespaces">
+    <nav class="md-nav" aria-label="Prerequisites">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#create-namespace" class="md-nav__link">
+  <a href="#namespace" class="md-nav__link">
     <span class="md-ellipsis">
-      Create namespace
+      Namespace
     </span>
   </a>
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
+          <li class="md-nav__item">
   <a href="#database" class="md-nav__link">
     <span class="md-ellipsis">
       Database
@@ -506,21 +492,11 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#secrets" class="md-nav__link">
     <span class="md-ellipsis">
       Secrets
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Secrets">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#create-the-backend-secrets-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      Create the Backend secrets file
     </span>
   </a>
   
@@ -605,9 +581,8 @@
 <li>Traefik installed and configured as an ingress controller</li>
 <li>A running PostgreSQL database</li>
 </ul>
-<h2 id="namespaces">Namespaces<a class="headerlink" href="#namespaces" title="Permanent link">&para;</a></h2>
-<h3 id="create-namespace">Create namespace<a class="headerlink" href="#create-namespace" title="Permanent link">&para;</a></h3>
-<p>Create a new namespace called <code>ov</code>:</p>
+<h3 id="namespace">Namespace<a class="headerlink" href="#namespace" title="Permanent link">&para;</a></h3>
+<p>Create a new production namespace called <code>ov</code>:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>namespace<span class="w"> </span>ov
 </code></pre></div>
 <p>Set the current context to the new namespace:
@@ -616,7 +591,7 @@
 <span class="c1"># Verify the current context</span>
 kubectl<span class="w"> </span>config<span class="w"> </span>view<span class="w"> </span>--minify<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>namespace:
 </code></pre></div></p>
-<h2 id="database">Database<a class="headerlink" href="#database" title="Permanent link">&para;</a></h2>
+<h3 id="database">Database<a class="headerlink" href="#database" title="Permanent link">&para;</a></h3>
 <p>Create a new database called <code>ov</code> and a new user called <code>postgres</code> and a secure password.</p>
 <div class="highlight"><span class="filename">Database configuration</span><pre><span></span><code><span class="nv">POSTGRES_USER</span><span class="o">=</span>postgres
 <span class="nv">POSTGRES_PASSWORD</span><span class="o">=</span><span class="s2">&quot;YOUR POSTGRES PASSWORD HERE&quot;</span>
@@ -629,8 +604,8 @@ kubectl<span class="w"> </span>config<span class="w"> </span>view<span class="w"
 </code></pre></div>
 <p>Increace the final number to increase the length and strength of the password.</p>
 </details>
-<h2 id="secrets">Secrets<a class="headerlink" href="#secrets" title="Permanent link">&para;</a></h2>
-<h3 id="create-the-backend-secrets-file">Create the Backend secrets file<a class="headerlink" href="#create-the-backend-secrets-file" title="Permanent link">&para;</a></h3>
+<h3 id="secrets">Secrets<a class="headerlink" href="#secrets" title="Permanent link">&para;</a></h3>
+<p>Create the Backend secrets file</p>
 <div class="highlight"><span class="filename">ov-wag/secret.yaml</span><pre><span></span><code>apiVersion:<span class="w"> </span>v1
 kind:<span class="w"> </span>Secret
 metadata:
@@ -642,13 +617,16 @@ stringData:
 <span class="w">  </span>AWS_ACCESS_KEY_ID<span class="w"> </span>:<span class="w"> </span><span class="c1"># AWS IAM user access key</span>
 <span class="w">  </span>AWS_SECRET_ACCESS_KEY:<span class="w"> </span><span class="c1"># AWS IAM user secret key</span>
 </code></pre></div>
+<p>Apply this to the cluster:</p>
+<div class="highlight"><span class="filename">Apply secrets</span><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>ov-wag/secret.yaml
+</code></pre></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-20T21:18:37+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-20</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-21T17:02:40+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-21</span>
       
         <br>
         Created:

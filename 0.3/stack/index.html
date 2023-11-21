@@ -447,13 +447,115 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#concepts" class="md-nav__link">
+  <a href="#kubernetes" class="md-nav__link">
     <span class="md-ellipsis">
-      Concepts
+      Kubernetes
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Concepts">
+    <nav class="md-nav" aria-label="Kubernetes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resources
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#image" class="md-nav__link">
+    <span class="md-ellipsis">
+      Image
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Image">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pod
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service" class="md-nav__link">
+    <span class="md-ellipsis">
+      Service
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ingress" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ingress
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      ConfigMap
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secret" class="md-nav__link">
+    <span class="md-ellipsis">
+      Secret
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#namespace" class="md-nav__link">
+    <span class="md-ellipsis">
+      Namespace
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Terms
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Terms">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -475,60 +577,18 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#image" class="md-nav__link">
+  <a href="#frontend" class="md-nav__link">
     <span class="md-ellipsis">
-      Image
+      Frontend
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#pod" class="md-nav__link">
+  <a href="#backend" class="md-nav__link">
     <span class="md-ellipsis">
-      Pod
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#namespace" class="md-nav__link">
-    <span class="md-ellipsis">
-      Namespace
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#services" class="md-nav__link">
-    <span class="md-ellipsis">
-      Services
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Services">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ov-frontend" class="md-nav__link">
-    <span class="md-ellipsis">
-      ov-frontend
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ov-wag" class="md-nav__link">
-    <span class="md-ellipsis">
-      ov-wag
+      Backend
     </span>
   </a>
   
@@ -641,8 +701,58 @@
 
 
 <h1 id="about-the-stack">About the Stack<a class="headerlink" href="#about-the-stack" title="Permanent link">&para;</a></h1>
-<p>Open Vault is deployed as a number of separate services, built into <code>docker</code> images.</p>
-<h2 id="concepts">Concepts<a class="headerlink" href="#concepts" title="Permanent link">&para;</a></h2>
+<p>Open Vault is deployed as a number of separate services, built and deployed in a <code>kubernetes</code> cluster.</p>
+<h2 id="kubernetes">Kubernetes<a class="headerlink" href="#kubernetes" title="Permanent link">&para;</a></h2>
+<p>Production deployments are run in a Kubernetes cluster, using images built by our CI/CD pipeline. </p>
+<p>Deployment <code>yaml</code>s are stored in this repository in subfolders by service.</p>
+<p>Deployments are managed by <a href="https://argoproj.github.io/argo-cd/">Argo-CD</a>, which is configured to watch for changes in the  <code>main</code> branch. When a change is detected, Argo-CD will pull the latest configuration from the repository, and apply it to the cluster.</p>
+<h3 id="resources">Resources<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h3>
+<p>Each component of the stack is deployed as a set of Kubernetes resources. They consist of:</p>
+<h3 id="image">Image<a class="headerlink" href="#image" title="Permanent link">&para;</a></h3>
+<dl>
+<dd>A docker container containing all the code needed to run a single service.</dd>
+</dl>
+<h4 id="pod">Pod<a class="headerlink" href="#pod" title="Permanent link">&para;</a></h4>
+<dl>
+<dd>A pod is the smallest unit of deployment in Kubernetes. It is a single running container (Docker image), which is managed by a deployment. They are designed to be ephemeral, and easily scaled up or down.</dd>
+</dl>
+<h4 id="deployment">Deployment<a class="headerlink" href="#deployment" title="Permanent link">&para;</a></h4>
+<dl>
+<dd>A deployment is a set of pods (the running containers). The deployment manages the pods, and ensures that the desired number of pods are running at all times.</dd>
+</dl>
+<h4 id="service">Service<a class="headerlink" href="#service" title="Permanent link">&para;</a></h4>
+<dl>
+<dd>A service is a network endpoint that can be accessed by other pods. It is used to expose a deployment as a named endpoint, which can be accessed by other pods in the cluster.</dd>
+</dl>
+<h4 id="ingress">Ingress<a class="headerlink" href="#ingress" title="Permanent link">&para;</a></h4>
+<dl>
+<dd>An ingress is a network endpoint that can be accessed by external clients. It is used to expose a service as a named endpoint, which can be accessed by clients outside the cluster.</dd>
+</dl>
+<div class="admonition kube">
+<p class="admonition-title">Traefik</p>
+<p>We use <a href="https://traefik.io/solutions/kubernetes-ingress/">Traefik</a> as our ingress controller, which is configured to route incoming requests to the appropriate service. It also handles SSL termination, redirects HTTP requests to HTTPS, and allows for custom routing rules.</p>
+</div>
+<h4 id="configmap">ConfigMap<a class="headerlink" href="#configmap" title="Permanent link">&para;</a></h4>
+<dl>
+<dd>A config map is a set of key-value pairs that can be accessed by pods. It is used to store configuration values that are needed by the pods.</dd>
+</dl>
+<h4 id="secret">Secret<a class="headerlink" href="#secret" title="Permanent link">&para;</a></h4>
+<dl>
+<dd>A secret is a secure set of key-value pairs that can be accessed by pods. It is used to store sensitive configuration values that are needed by the pods.</dd>
+</dl>
+<h3 id="namespace">Namespace<a class="headerlink" href="#namespace" title="Permanent link">&para;</a></h3>
+<dl>
+<dd>A group of resources that are deployed together. Namespaces are used to separate different deployments, like production and demo.</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Namespacess</p>
+<p>Currently, we are deploying two namespaces:</p>
+<ul>
+<li><code>ov</code> - Production</li>
+<li><code>ov-demo</code> - Demo</li>
+</ul>
+</div>
+<h2 id="terms">Terms<a class="headerlink" href="#terms" title="Permanent link">&para;</a></h2>
 <p>The following are some definitions for some of the terms used below:</p>
 <h3 id="production">Production<a class="headerlink" href="#production" title="Permanent link">&para;</a></h3>
 <dl>
@@ -654,38 +764,22 @@
 <dd>A separate production stack, used to test changes and maintain a live working backup.</dd>
 <dd>This will be available on a different domain than the production stack, running in a separate namespcae.</dd>
 </dl>
-<h3 id="image">Image<a class="headerlink" href="#image" title="Permanent link">&para;</a></h3>
+<h3 id="frontend">Frontend<a class="headerlink" href="#frontend" title="Permanent link">&para;</a></h3>
 <dl>
-<dd>A docker container containing all the code needed to run a single service.</dd>
+<dd><a href="https://remix.run/">Remix</a> server delivering the HTML + Javascript code to the user. </dd>
 </dl>
-<h3 id="pod">Pod<a class="headerlink" href="#pod" title="Permanent link">&para;</a></h3>
-<dl>
-<dd>A single instance of a running docker image. Pods are managed by <code>kubernetes</code> deployments, and designed to be ephemeral, and easily scaled up or down.</dd>
-</dl>
-<h3 id="namespace">Namespace<a class="headerlink" href="#namespace" title="Permanent link">&para;</a></h3>
-<dl>
-<dd>The name of the Kubernetes context. This keeps resources separate from other deployments.</dd>
-</dl>
-<div class="admonition note">
-<p class="admonition-title">Valid namespaces</p>
-<p>Currently, this must be one of:</p>
-<ul>
-<li><code>ov</code> - Production</li>
-<li><code>ov-demo</code> - Demo</li>
-</ul>
-</div>
-<h2 id="services">Services<a class="headerlink" href="#services" title="Permanent link">&para;</a></h2>
-<p>These are the pre-built docker images to deploy various microservices:</p>
-<h3 id="ov-frontend"><code>ov-frontend</code><a class="headerlink" href="#ov-frontend" title="Permanent link">&para;</a></h3>
-<p>Javascript frontend, built with <a href="https://remix.run/">remix</a></p>
 <p>Source: <a href="https://github.com/WGBH-MLA/ov-frontend/">github.com/WGBH-MLA/ov-frontend/</a></p>
 <p>Docker: <a href="https://github.com/WGBH-MLA/ov-frontend/pkgs/container/ov-frontend">ghcr.io/wgbh-mla/ov-frontend</a></p>
-<h3 id="ov-wag"><code>ov-wag</code><a class="headerlink" href="#ov-wag" title="Permanent link">&para;</a></h3>
-<p>Python backend and API, built with <a href="https://wagtail.org/">wagtail</a></p>
+<h3 id="backend">Backend<a class="headerlink" href="#backend" title="Permanent link">&para;</a></h3>
+<dl>
+<dd><a href="https://wagtail.org/">Wagtail</a> (Django) Headless CMS for admin content creation and management, and API to serve the frontend with content.</dd>
+</dl>
 <p>Source: <a href="https://github.com/WGBH-MLA/ov-wag">github.com/WGBH-MLA/ov-wag</a></p>
 <p>Docker: <a href="https://github.com/WGBH-MLA/ov-frontend/pkgs/container/ov-wag">ghcr.io/wgbh-mla/ov-wag</a></p>
 <h3 id="db"><code>db</code><a class="headerlink" href="#db" title="Permanent link">&para;</a></h3>
-<p>Database. Built with <a href="https://www.postgresql.org/">PostgreSQL</a></p>
+<dl>
+<dd>Database. Built with <a href="https://www.postgresql.org/">PostgreSQL</a></dd>
+</dl>
 <div class="highlight"><pre><span></span><code>image: postgres:16-alpine
 </code></pre></div>
 <h2 id="call-sequence">Call sequence<a class="headerlink" href="#call-sequence" title="Permanent link">&para;</a></h2>
@@ -705,7 +799,7 @@ Proxy -&gt;&gt; Client: return page</code></pre>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-20T21:18:37+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-20</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-21T17:02:40+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-21</span>
       
         <br>
         Created:

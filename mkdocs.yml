@@ -7,10 +7,8 @@ nav:
   - Home: index.md
   - Stack: stack.md
   - Setup: setup.md
-  - Develop: dev.md
   - Deploy: deploy.md
-  - Database: db.md
-  - Manual: manual.md
+  - Manage: manage.md
 
 markdown_extensions:
   - admonition
@@ -20,9 +18,10 @@ markdown_extensions:
   - meta
   - pymdownx.caret
   - pymdownx.details
+  - attr_list
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.highlight
   - pymdownx.inlinehilite
   - pymdownx.keys
@@ -92,7 +91,9 @@ extra:
     provider: mike
 
 extra_css:
-  - style/gbh.css
   - style/auth.css
-  - style/todo.css
+  - style/gbh.css
+  - style/github.css
   - style/kube.css
+  - style/todo.css
+  - style/traefik.css

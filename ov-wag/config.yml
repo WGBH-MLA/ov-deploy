@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ov-wag-config
+data:
+  DJANGO_SETTINGS_MODULE: ov_wag.settings.production
+  OV_DB_HOST: postgres
+  OV_DB_PORT: '5432'
+  OV_DB_USER: postgres
+  OV_DB_NAME: ov
+  OV_ALLOWED_HOSTS: '*'
+  OV_TRUSTED_ORIGINS: https://admin.ov.wgbh-mla.org,http://localhost:8000
+  OV_DEBUG: 'true'
+  OV_CSRF_COOKIE_SECURE: 'false'
+  OV_ADMIN_BASE_URL: https://admin.ov.wgbh-mla.org
+  OV_BASE_URL: https://ov.wgbh-mla.org
+  OV_PREVIEW_URL: https://ov.wgbh-mla.org/preview
+  AWS_STORAGE_BUCKET_NAME: media.openvault.wgbh.org

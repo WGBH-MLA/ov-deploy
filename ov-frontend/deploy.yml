@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  labels:
+    app: ov-frontend
+  name: ov-frontend
+
+spec:
+  selector:
+    matchLabels:
+      app: ov-frontend
+
+  template:
+    metadata:
+      labels:
+        app: ov-frontend
+
+    spec:
+      containers:
+        - image: ghcr.io/wgbh-mla/ov-frontend:pr-11
+          imagePullPolicy: Always
+          name: ov-frontend
+          resources:
+            limits:
+              cpu: '1'
+              memory: '2Gi'
+            requests:
+              cpu: '100m'
+              memory: '100Mi'
+          envFrom:
+            - configMapRef:
+                name: ov-frontend-config

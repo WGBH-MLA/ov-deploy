@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  labels:
+    app: ov-wag
+  name: ov-wag
+
+spec:
+  selector:
+    matchLabels:
+      app: ov-wag
+
+  template:
+    metadata:
+      labels:
+        app: ov-wag
+
+    spec:
+      containers:
+        - image: ghcr.io/wgbh-mla/ov-wag:pr-101
+          imagePullPolicy: Always
+          name: ov-wag
+          resources:
+            limits:
+              cpu: '1'
+              memory: 2Gi
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          envFrom:
+            - configMapRef:
+                name: ov-wag-config
+            - secretRef:
+                name: ov-wag-secret

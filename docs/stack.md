@@ -1,6 +1,6 @@
 # About the Stack
 
-Open Vault is deployed as a number of separate services, built and deployed in a `kubernetes` cluster.
+Open Vault is deployed as a number of separate services, built as docker images with GitHub Actions, deployed in a [kubernetes](#kubernetes) cluster, and managed by [Argo-CD](#argo-cd).
 
 ## Kubernetes
 
@@ -49,6 +49,31 @@ Each component of the stack is deployed as a set of Kubernetes resources. They c
 
     - `ov` Production
     - `ov-demo` Demo
+
+## Argo-CD
+[Argo-CD](https://argo-cd.readthedocs.io/en/stable/) is a declarative, GitOps continuous delivery tool for Kubernetes. 
+
+It is configured to watch for changes in the `main` branch of this repository, and automatically deploy changes to the cluster.
+
+### Deployments
+Argo-CD is configured to deploy the following deployments:
+
+#### ov-wag
+: The backend service, running the Wagtail CMS and API.
+
+#### ov-frontend
+: The frontend service, running the Remix server.
+
+#### postgres
+: A non-production database service, running PostgreSQL.
+
+!!! example "Production Database"
+    The production database is managed by AWS RDS, and is not deployed by Argo-CD.
+
+!!! info "Multiple Deployments"
+    A deployment can be deployed multiple times to the same cluster, in different namespaces, with different configurations (e.g. different branches)
+    
+    The two primary deployments go to the `ov` and `ov-demo` namespaces, but more could be added without affecting these.
 
 ## Terms 
 The following are some definitions for some of the terms used in this guide:

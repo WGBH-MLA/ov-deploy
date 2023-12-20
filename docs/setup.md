@@ -46,6 +46,8 @@ POSTGRES_DB=ov
 ### Secrets
 Create the Backend secrets file
 
+##### Example
+
 ```bash title="ov-wag/secret.yaml"
 apiVersion: v1
 kind: Secret
@@ -63,4 +65,43 @@ Apply this to the cluster:
 
 ```bash title="Apply secrets"
 kubectl apply -f ov-wag/secret.yaml
+```
+
+### Ingress
+If necessary, modify the ingress file with the correct domain name:
+
+Applies to frontend or backend.
+
+##### Example
+The following frontend example:
+
+- Routes incoming traffic that matches `Host: ov.wgbh-mla.org` to the frontend service
+- Redirects HTTP to HTTPS
+- Terminates the TLS connection
+- Automatically manages the SSL certificate with LetsEncrypt
+
+```bash title="ov-frontend/ingress.yaml"
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ov-frontend-ingress
+
+spec:
+  rules:
+    - host: ov.wgbh-mla.org
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ov-frontend
+                port:
+                  number: 80
+
+  tls:
+    - hosts:
+        - ov.wgbh-mla.org
+      secretName: ov-frontend-tls
+
 ```

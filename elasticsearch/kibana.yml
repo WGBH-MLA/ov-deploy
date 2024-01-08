@@ -7,3 +7,11 @@ spec:
   count: 1
   elasticsearchRef:
     name: quickstart
+  config:
+    server.publicBaseUrl: https://search.wgbh-mla.org
+  http:
+    tls:
+      selfSignedCertificate:
+        disabled: true
+      certificate:
+        secretName: kibana-certs

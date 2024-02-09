@@ -10,7 +10,7 @@ spec:
       count: 1
       config:
         node.store.allow_mmap: false
-        http.cors.allow-origin: '*'
+        http.cors.allow-origin: /(^https?:\/\/localhost(:[0-9]+)?)|(^https:\/\/(((admin.)?(ov.)?)|(elastic.))wgbh-mla.org)/
         http.cors.enabled: true
         http.cors.allow-credentials: true
         http.cors.allow-methods: OPTIONS, HEAD, GET, POST, PUT, DELETE

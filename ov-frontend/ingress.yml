@@ -15,8 +15,3 @@ spec:
                 name: ov-frontend
                 port:
                   number: 80
-
-  tls:
-    - hosts:
-        - ov.wgbh-mla.org
-      secretName: ov-frontend-tls

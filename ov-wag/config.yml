@@ -4,10 +4,6 @@ metadata:
   name: ov-wag-config
 data:
   DJANGO_SETTINGS_MODULE: ov_wag.settings.production
-  OV_DB_HOST: postgres
-  OV_DB_PORT: '5432'
-  OV_DB_USER: postgres
-  OV_DB_NAME: ov
   OV_ALLOWED_HOSTS: '*'
   OV_TRUSTED_ORIGINS: https://admin.ov.wgbh-mla.org,http://localhost:8000
   OV_DEBUG: 'true'

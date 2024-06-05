@@ -6,26 +6,49 @@ spec:
   entryPoints:
     - websecure
   routes:
+  # Allow only access to predefined paths
     - kind: Rule
-      match: Host(`admin.ov.wgbh-mla.org`) && PathPrefix(`/static`) || Host(`admin.ov.wgbh-mla.org`) && PathPrefix(`/admin`)
+      match: Host(`admin.ov.wgbh-mla.org`) && PathPrefix(`/admin`)
       services:
         - kind: Service
           name: ov-wag
           port: 80
     - kind: Rule
-      match: Host(`admin.ov.wgbh-mla.org`) && !PathPrefix(`/admin`) && !PathPrefix(`/static`)
+      match: Host(`admin.ov.wgbh-mla.org`) && PathPrefix(`/static`)
+      services:
+        - kind: Service
+          name: ov-wag
+          port: 80
+    - kind: Rule
+      match: Host(`admin.ov.wgbh-mla.org`) && PathPrefix(`/accounts`)
+      services:
+        - kind: Service
+          name: ov-wag
+          port: 80
+    - kind: Rule
+      match: Host(`admin.ov.wgbh-mla.org`) && PathPrefix(`/search`)
+      services:
+        - kind: Service
+          name: ov-wag
+          port: 80
+    - kind: Rule
+      match: Host(`admin.ov.wgbh-mla.org`) && PathPrefix(`/footnotes`)
+      services:
+        - kind: Service
+          name: ov-wag
+          port: 80
+
+  # Redirect other paths to /admin, since Wagtail serves the admin site at /admin
+    - kind: Rule
+      match: Host(`admin.ov.wgbh-mla.org`) && !PathPrefix(`/admin`) && !PathPrefix(`/static`) && !PathPrefix(`/accounts`) && !PathPrefix(`/search`) && !PathPrefix(`/footnotes`)
       middlewares:
         - name: add-admin-prefix
       services:
         - kind: Service
           name: ov-wag
           port: 80
-  tls:
-    secretName: ov-wag-tls
-    domains:
-      - main: admin.ov.wgbh-mla.org
 ---
-# Add prefix /admin
+# Add prefix /admin to the request path
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:

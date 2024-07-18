@@ -1,0 +1,23 @@
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: quickstart
+  namespace: elastic
+spec:
+  version: 8.14.3
+  nodeSets:
+    - name: default
+      count: 1
+      config:
+        node.store.allow_mmap: false
+        http.cors.allow-origin: /(^https?:\/\/localhost(:[0-9]+)?)|(^https:\/\/(((admin.)?(ov.)?)|(elastic.))wgbh-mla.org)/
+        http.cors.enabled: true
+        http.cors.allow-credentials: true
+        http.cors.allow-methods: OPTIONS, HEAD, GET, POST, PUT, DELETE
+        http.cors.allow-headers: X-Requested-With, X-Auth-Token, Content-Type, Content-Length, Authorization, Access-Control-Allow-Headers, Accept, x-elastic-client-meta
+  http:
+    tls:
+      selfSignedCertificate:
+        disabled: true
+      certificate:
+        secretName: elastic-certs

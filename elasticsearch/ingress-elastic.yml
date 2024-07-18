@@ -1,0 +1,14 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: elastic-ingress
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: HostSNI(`elastic.wgbh-mla.org`)
+      services:
+        - name: quickstart-es-default
+          port: 9200
+  tls:
+    passthrough: true

@@ -6,3 +6,4 @@ data:
   OV_API_URL: http://ov-wag
   NODE_ENV: production
   AAPB_HOST: https://americanarchive.org
+  ORGAN_URL: http://organ.organ

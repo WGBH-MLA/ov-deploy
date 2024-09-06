@@ -9,4 +9,4 @@ on:
 jobs:
   update:
     name: 🦿 Update dependencies
-    uses: WGBH-MLA/.github/.github/workflows/update.yml@dependabot/github_actions/dot-github/workflows/peter-evans/create-pull-request-7
+    uses: WGBH-MLA/.github/.github/workflows/update.yml@main

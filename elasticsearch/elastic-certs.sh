@@ -7,7 +7,6 @@ help() {
     echo This script gets the latest certificate from Traefik
     echo and updates the Elasticsearch or Kibana k8s secret
     echo
-    exit 1
 }
 
 get-traefik() {
@@ -47,4 +46,4 @@ update-kibana() {
     kubectl -n elastic patch secret kibana-certs -p "{\"data\":{\"tls.crt\":\"$CERT\"}}"
 }
 
-"$@" || help
+"$@" || (help && exit 1)

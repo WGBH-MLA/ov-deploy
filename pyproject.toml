@@ -20,10 +20,10 @@ build-backend = "pdm.backend"
 
 [tool.pdm.dev-dependencies]
 docs = [
-    "mkdocs>=1.5.3",
-    "mkdocs-material>=9.4.7",
-    "mike>=2.0.0",
-    "mkdocstrings[python]>=0.23.0",
-    "mkdocs-git-revision-date-localized-plugin>=1.2.1",
-    "mkdocs-jupyter>=0.24.6"
+    "mkdocs~=1.6",
+    "mkdocs-material~=9.5",
+    "mike~=2.1",
+    "mkdocstrings[python]~=0.26",
+    "mkdocs-git-revision-date-localized-plugin~=1.2",
+    "mkdocs-jupyter~=0.25",
 ]

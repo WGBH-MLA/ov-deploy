@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: update-elastic-index
+  namespace: ov
+spec:
+  concurrencyPolicy: Forbid
+  schedule: 0 8 * * 1
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 600
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: update-elastic-index
+              imagePullPolicy: Always
+              image: ghcr.io/wgbh-mla/ov-wag:main
+              envFrom:
+                - configMapRef:
+                    name: ov-wag-config
+                - secretRef:
+                    name: ov-wag-secret
+              command:
+                - python
+                - manage.py
+                - update_index
+  

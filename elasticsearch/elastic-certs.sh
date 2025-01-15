@@ -46,4 +46,6 @@ update-kibana() {
     kubectl -n elastic patch secret kibana-certs -p "{\"data\":{\"tls.crt\":\"$CERT\"}}"
 }
 
+if [ -z $1 ]; then help; fi
+
 "$@" || (help && exit 1)

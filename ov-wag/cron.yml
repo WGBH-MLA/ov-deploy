@@ -5,7 +5,7 @@ metadata:
   namespace: ov
 spec:
   concurrencyPolicy: Forbid
-  schedule: '0 8 * * *' # cron spec of time, here, 8 o'clock
+  schedule: 0 8 * * * # cron spec of time, here, 8 o'clock
   jobTemplate:
     spec:
       backoffLimit: 2 # this has very low chance of failing, as all this does
@@ -26,7 +26,7 @@ spec:
                                      # version of kubectl is new enough to
                                      # have `rollout restart`
               command:
-                - 'kubectl'
-                - 'rollout'
-                - 'restart'
-                - 'deployment/ov-wag'
+                - kubectl
+                - rollout
+                - restart
+                - deployment/ov-wag

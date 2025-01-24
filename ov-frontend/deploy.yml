@@ -31,3 +31,5 @@ spec:
           envFrom:
             - configMapRef:
                 name: ov-frontend-config
+            - secretRef:
+                name: ov-frontend-secret

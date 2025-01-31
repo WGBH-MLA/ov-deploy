@@ -10,13 +10,11 @@ Deployment documentation for the Open Vault project
 - Documentation: [wgbh-mla.github.io/ov-deploy](https://wgbh-mla.github.io/ov-deploy/)
 - Github: [github.com/WGBH-MLA/ov-deploy](https://github.com/WGBH-MLA/ov-deploy)
 
-## Install
+## Deploy
 
-Clone this repository, including submodules.
+### Argo-CD
 
-```bash title="clone with submodules"
-git clone --recurse-submodules https://github.com/WGBH-MLA/ov-deploy.git
-```
+#### TODO: Add deployment instructions
 
 ## Credits
 

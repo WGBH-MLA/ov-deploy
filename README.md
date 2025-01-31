@@ -6,7 +6,7 @@ Deployment documentation for the Open Vault project
 
 ## Links
 
-- Site: [ovfrontend.k8s.wgbhdigital.org](https://ov.wgbh-mla.org/)
+- Site: [ovfrontend.k8s.wgbhdigital.org](https://openvault.wgbh.org/)
 - Documentation: [wgbh-mla.github.io/ov-deploy](https://wgbh-mla.github.io/ov-deploy/)
 - Github: [github.com/WGBH-MLA/ov-deploy](https://github.com/WGBH-MLA/ov-deploy)
 

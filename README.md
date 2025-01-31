@@ -2,7 +2,7 @@
 
 ## About
 
-Deployment documentation for the Open Vault project
+Kubernetes Deployment files and documentation for the Open Vault project
 
 ## Links
 

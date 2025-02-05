@@ -36,9 +36,15 @@ spec:
           ports:
             - containerPort: 8000
               name: http
+          startupProbe:
+            httpGet:
+              path: /api/v2/exhibits/
+              port: http
+            failureThreshold: 30
+            periodSeconds: 3
           livenessProbe:
               httpGet:
                 path: /api/v2/exhibits/
                 port: http
-              initialDelaySeconds: 3
-              periodSeconds: 3
+              periodSeconds: 30
+              failureThreshold: 3

@@ -18,7 +18,7 @@ spec:
 
     spec:
       containers:
-        - image: ghcr.io/wgbh-mla/ov-frontend:main
+        - image: ghcr.io/wgbh-mla/ov-frontend:pr-193
           imagePullPolicy: Always
           name: ov-frontend
           resources:
@@ -38,13 +38,13 @@ spec:
               name: http
           startupProbe:
             httpGet:
-              path: /api/v2/exhibits/
+              path: /health
               port: http
             failureThreshold: 20
             periodSeconds: 3
           livenessProbe:
               httpGet:
-                path: /api/v2/exhibits/
+                path: /health
                 port: http
               failureThreshold: 3
               periodSeconds: 30

@@ -36,3 +36,9 @@ spec:
           ports:
             - containerPort: 8000
               name: http
+          livenessProbe:
+              httpGet:
+                path: /api/v2/exhibits/
+                port: http
+              initialDelaySeconds: 3
+              periodSeconds: 3

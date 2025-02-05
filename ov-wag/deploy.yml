@@ -26,8 +26,8 @@ spec:
               cpu: '1'
               memory: 2Gi
             requests:
-              cpu: 100m
-              memory: 100Mi
+              cpu: 50m
+              memory: 10Mi
           envFrom:
             - configMapRef:
                 name: ov-wag-config
@@ -40,11 +40,11 @@ spec:
             httpGet:
               path: /api/v2/exhibits/
               port: http
-            failureThreshold: 30
+            failureThreshold: 20
             periodSeconds: 3
           livenessProbe:
               httpGet:
                 path: /api/v2/exhibits/
                 port: http
-              periodSeconds: 30
               failureThreshold: 3
+              periodSeconds: 30

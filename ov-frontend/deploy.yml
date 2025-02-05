@@ -26,10 +26,25 @@ spec:
               cpu: '1'
               memory: 2Gi
             requests:
-              cpu: 100m
-              memory: 100Mi
+              cpu: 50m
+              memory: 10Mi
           envFrom:
             - configMapRef:
                 name: ov-frontend-config
             - secretRef:
                 name: ov-frontend-secret
+          ports:
+            - containerPort: 3000
+              name: http
+          startupProbe:
+            httpGet:
+              path: /api/v2/exhibits/
+              port: http
+            failureThreshold: 20
+            periodSeconds: 3
+          livenessProbe:
+              httpGet:
+                path: /api/v2/exhibits/
+                port: http
+              failureThreshold: 3
+              periodSeconds: 30

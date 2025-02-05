@@ -33,3 +33,6 @@ spec:
                 name: ov-wag-config
             - secretRef:
                 name: ov-wag-secret
+          ports:
+            - containerPort: 8000
+              name: http

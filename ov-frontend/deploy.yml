@@ -18,7 +18,7 @@ spec:
 
     spec:
       containers:
-        - image: ghcr.io/wgbh-mla/ov-frontend:pr-11
+        - image: ghcr.io/wgbh-mla/ov-frontend:main
           imagePullPolicy: Always
           name: ov-frontend
           resources:

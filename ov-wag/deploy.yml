@@ -18,7 +18,7 @@ spec:
 
     spec:
       containers:
-        - image: ghcr.io/wgbh-mla/ov-wag:main
+        - image: ghcr.io/wgbh-mla/ov-wag:pr-237
           imagePullPolicy: Always
           name: ov-wag
           resources:

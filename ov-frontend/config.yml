@@ -7,4 +7,4 @@ data:
   OV_API_URL: http://ov-wag
   AAPB_HOST: https://americanarchive.org
   ORGAN_URL: http://organ.organ
-  ES_URL: https://elastic.wgbh-mla.org
+  ES_URL: https://quickstart-es-http.ov-demo:9200

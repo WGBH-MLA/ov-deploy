@@ -5,6 +5,6 @@ metadata:
 data:
   NODE_ENV: production
   OV_API_URL: http://ov-wag
-  AAPB_HOST: https://americanarchive.org
+  AAPB_HOST: https://demo.aapb.wgbh-mla.org/
   ORGAN_URL: http://organ.organ
   ES_URL: https://quickstart-es-http.ov-demo:9200

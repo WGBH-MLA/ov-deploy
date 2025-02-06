@@ -18,13 +18,13 @@ spec:
 
     spec:
       containers:
-        - image: ghcr.io/wgbh-mla/ov-frontend:pr-191
+        - image: ghcr.io/wgbh-mla/ov-frontend:pr-195
           imagePullPolicy: Always
           name: ov-frontend
           resources:
             limits:
               cpu: '1'
-              memory: 2Gi
+              memory: 1Gi
             requests:
               cpu: 50m
               memory: 10Mi
@@ -38,13 +38,13 @@ spec:
               name: http
           startupProbe:
             httpGet:
-              path: / # health
+              path: /about # health
               port: http
             failureThreshold: 20
             periodSeconds: 3
           livenessProbe:
               httpGet:
-                path: / # health
+                path: /about # health
                 port: http
               failureThreshold: 3
               periodSeconds: 30

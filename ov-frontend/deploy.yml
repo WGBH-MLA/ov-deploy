@@ -38,13 +38,13 @@ spec:
               name: http
           startupProbe:
             httpGet:
-              path: /health
+              path: / # health
               port: http
             failureThreshold: 20
             periodSeconds: 3
           livenessProbe:
               httpGet:
-                path: /health
+                path: / # health
                 port: http
               failureThreshold: 3
               periodSeconds: 30

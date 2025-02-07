@@ -9,12 +9,12 @@ data:
   OV_DEBUG: 'true'
   OV_CSRF_COOKIE_SECURE: 'false'
   OV_API_URL: http://ov-wag/api/v2
-  OV_BASE_URL: https://ov.wgbh-mla.org
+  OV_BASE_URL: https://openvault.wgbh.org
   OV_ADMIN_BASE_URL: https://admin.ov.wgbh-mla.org
   OV_HOST: '0.0.0.0:8000'
   OV_WORKERS: '1'
   OV_FORWARDED_ALLOW_IPS: '*'
   OV_ACCESS_LOGFILE: '-'
   OV_ERROR_LOGFILE: '-'
-  OV_PREVIEW_URL: https://ov.wgbh-mla.org/preview
+  OV_PREVIEW_URL: https://openvault.wgbh.org/preview
   AWS_STORAGE_BUCKET_NAME: media.openvault.wgbh.org

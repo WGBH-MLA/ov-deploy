@@ -8,31 +8,31 @@ spec:
   routes:
   # Allow only access to predefined paths
     - kind: Rule
-      match: Host(`admin.demo.ov.wgbh-mla.org`) && PathPrefix(`/admin`)
+      match: Host(`admin.ov.wgbh-mla.org`) && PathPrefix(`/admin`)
       services:
         - kind: Service
           name: ov-wag
           port: 80
     - kind: Rule
-      match: Host(`admin.demo.ov.wgbh-mla.org`) && PathPrefix(`/static`)
+      match: Host(`admin.ov.wgbh-mla.org`) && PathPrefix(`/static`)
       services:
         - kind: Service
           name: ov-wag
           port: 80
     - kind: Rule
-      match: Host(`admin.demo.ov.wgbh-mla.org`) && PathPrefix(`/accounts`)
+      match: Host(`admin.ov.wgbh-mla.org`) && PathPrefix(`/accounts`)
       services:
         - kind: Service
           name: ov-wag
           port: 80
     - kind: Rule
-      match: Host(`admin.demo.ov.wgbh-mla.org`) && PathPrefix(`/search`)
+      match: Host(`admin.ov.wgbh-mla.org`) && PathPrefix(`/search`)
       services:
         - kind: Service
           name: ov-wag
           port: 80
     - kind: Rule
-      match: Host(`admin.demo.ov.wgbh-mla.org`) && PathPrefix(`/footnotes`)
+      match: Host(`admin.ov.wgbh-mla.org`) && PathPrefix(`/footnotes`)
       services:
         - kind: Service
           name: ov-wag
@@ -40,7 +40,7 @@ spec:
 
   # Redirect other paths to /admin, since Wagtail serves the admin site at /admin
     - kind: Rule
-      match: Host(`admin.demo.ov.wgbh-mla.org`) && !PathPrefix(`/admin`) && !PathPrefix(`/static`) && !PathPrefix(`/accounts`) && !PathPrefix(`/search`) && !PathPrefix(`/footnotes`)
+      match: Host(`admin.ov.wgbh-mla.org`) && !PathPrefix(`/admin`) && !PathPrefix(`/static`) && !PathPrefix(`/accounts`) && !PathPrefix(`/search`) && !PathPrefix(`/footnotes`)
       middlewares:
         - name: add-admin-prefix
       services:

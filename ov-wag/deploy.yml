@@ -18,7 +18,7 @@ spec:
 
     spec:
       containers:
-        - image: ghcr.io/wgbh-mla/ov-wag:main
+        - image: ghcr.io/wgbh-mla/ov-wag:pr-240
           imagePullPolicy: Always
           name: ov-wag
           resources:
@@ -38,13 +38,13 @@ spec:
               name: http
           startupProbe:
             httpGet:
-              path: /api/v2/exhibits/
+              path: /api/v2/health/
               port: http
             failureThreshold: 20
             periodSeconds: 3
           livenessProbe:
               httpGet:
-                path: /api/v2/exhibits/
+                path: /api/v2/health/
                 port: http
               failureThreshold: 3
               periodSeconds: 30

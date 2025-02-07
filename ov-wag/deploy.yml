@@ -27,7 +27,7 @@ spec:
               memory: 1Gi
             requests:
               cpu: 50m
-              memory: 10Mi
+              memory: 50Mi
           envFrom:
             - configMapRef:
                 name: ov-wag-config

@@ -2,7 +2,6 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: ov-wag-restart
-  namespace: ov
 spec:
   concurrencyPolicy: Forbid
   schedule: 0 8 * * * # cron spec of time, here, 8 o'clock

@@ -8,14 +8,6 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`ov.wgbh-mla.org`)
-      services:
-        - kind: Service
-          name: ov-frontend
-          port: 80
-      middlewares:
-        - name: public-ratelimit
-    - kind: Rule
       match: Host(`openvault.wgbh.org`)
       services:
         - kind: Service

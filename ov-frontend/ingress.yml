@@ -8,7 +8,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`demo.ov.wgbh-mla.org`)
+      match: Host(`openvault.wgbh.org`)
       services:
         - kind: Service
           name: ov-frontend

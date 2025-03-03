@@ -6,7 +6,6 @@ kind: ServiceAccount
 apiVersion: v1
 metadata:
   name: ov-wag-restart
-  # namespace: ov
 ---
 # allow getting status and patching only the one deployment you want
 # to restart
@@ -14,7 +13,6 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: ov-wag-restart
-  # namespace: ov
 rules:
   - apiGroups: ["apps", "extensions"]
     resources: ["deployments"]
@@ -27,7 +25,6 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: ov-wag-restart
-  # namespace: ov
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -35,4 +32,4 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: ov-wag-restart
-    namespace: ov-demo
+    namespace: ov

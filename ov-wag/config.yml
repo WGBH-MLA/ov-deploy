@@ -6,7 +6,7 @@ data:
   DJANGO_SETTINGS_MODULE: ov_wag.settings.production
   OV_ALLOWED_HOSTS: '*'
   OV_TRUSTED_ORIGINS: https://admin.ov.wgbh-mla.org,http://localhost:8000
-  OV_DEBUG: 'true'
+  OV_DEBUG: 'false'
   OV_CSRF_COOKIE_SECURE: 'false'
   OV_API_URL: http://ov-wag/api/v2
   OV_BASE_URL: https://openvault.wgbh.org

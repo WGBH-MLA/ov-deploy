@@ -15,3 +15,5 @@ spec:
           port: 80
       middlewares:
         - name: public-ratelimit
+  tls:
+    secretName: ov-frontend-tls

@@ -5,6 +5,8 @@ metadata:
 spec:
   entryPoints:
     - websecure
+  tls:
+    secretName: ov-wag-tls
   routes:
   # Allow only access to predefined paths
     - kind: Rule

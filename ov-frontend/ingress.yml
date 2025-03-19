@@ -16,4 +16,4 @@ spec:
       middlewares:
         - name: public-ratelimit
   tls:
-    secretName: ov-frontend-tls
+    secretName: ov-frontend-production-tls

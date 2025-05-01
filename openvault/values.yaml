@@ -1,0 +1,42 @@
+# OpenVault Helm Chart Values
+
+# name of the deployed application
+name: openvault
+
+
+frontend:
+  # name of the frontend deployment
+  name: ov-frontend
+  
+  # enable the frontend deployment
+  enabled: true
+
+  # image to use for the frontend
+  image:
+    # repository to use for the frontend image
+    repository: ghcr.io/WGBH-MLA/ov-frontend
+    # tag to use for the frontend image
+    tag: v1.0.0
+    # pullPolicy for the frontend image
+    pullPolicy: Always
+  
+  # service resources for the frontend
+  service:
+    # enable the frontend service
+    enabled: true
+    # type of service to create
+    type: ClusterIP
+    # port number for the service
+    port: 80
+    # annotations for the service
+    annotations: {}
+
+  # ingress resources for the frontend
+  ingress:
+    # enable the frontend ingress
+    enabled: true
+    # annotations for the ingress
+    annotations: {}
+    # name of the ingress
+    name: ov-frontend-ingress
+

@@ -3,24 +3,24 @@ kind: Deployment
 
 metadata:
   labels:
-    app: ov-frontend
-  name: ov-frontend
+    app: {{ .Values.frontend.name }}
+  name: {{ .Values.frontend.name }}
 
 spec:
   selector:
     matchLabels:
-      app: ov-frontend
+      app: {{ .Values.frontend.name }}
 
   template:
     metadata:
       labels:
-        app: ov-frontend
+        app: {{ .Values.frontend.name }}
 
     spec:
       containers:
         - image: ghcr.io/wgbh-mla/ov-frontend:main
           imagePullPolicy: Always
-          name: ov-frontend
+          name: {{ .Values.frontend.name }}
           resources:
             limits:
               cpu: '1'
@@ -30,9 +30,9 @@ spec:
               memory: 50Mi
           envFrom:
             - configMapRef:
-                name: ov-frontend-config
+                name: {{ .Values.frontend.name }}-config
             - secretRef:
-                name: ov-frontend-secret
+                name: {{ .Values.frontend.name }}-secret
           ports:
             - containerPort: 3000
               name: http

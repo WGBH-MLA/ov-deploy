@@ -18,7 +18,7 @@ spec:
 
     spec:
       containers:
-        - image: ghcr.io/wgbh-mla/ov-frontend:main
+        - image: {{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}
           imagePullPolicy: Always
           name: {{ .Values.frontend.name }}
           resources:
@@ -30,9 +30,9 @@ spec:
               memory: 50Mi
           envFrom:
             - configMapRef:
-                name: {{ .Values.frontend.name }}-config
+                name: "{{ .Values.frontend.name }}-config"
             - secretRef:
-                name: {{ .Values.frontend.name }}-secret
+                name: "{{ .Values.frontend.name }}-secret"
           ports:
             - containerPort: 3000
               name: http

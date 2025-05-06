@@ -1,6 +1,7 @@
 # OpenVault Helm Chart Values
 
 # name of the deployed application
+# name: "{{ .Release.Name }}-app"
 name: openvault
 
 
@@ -24,19 +25,51 @@ frontend:
   service:
     # enable the frontend service
     enabled: true
-    # type of service to create
-    type: ClusterIP
     # port number for the service
     port: 80
+    # target port for the service
+    targetPort: 3000
     # annotations for the service
     annotations: {}
+    # name of the service
+    name: frontend
 
   # ingress resources for the frontend
   ingress:
     # enable the frontend ingress
     enabled: true
     # annotations for the ingress
-    annotations: {}
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production
     # name of the ingress
-    name: ov-frontend-ingress
+    name: frontend-ingress
+    # host for the ingress
+    host: openvault.wgbh.org
+    # port number or name for the ingress
+    port: web
 
+backend:
+  # enable the backend deployment
+  enabled: true
+  # name of the backend deployment
+  name: wagtail
+  # image to use for the backend
+  image:
+    # repository to use for the backend image
+    repository: ghcr.io/WGBH-MLA/ov-wag
+    # tag to use for the backend image
+    tag: v1.0.0
+    # pullPolicy for the backend image
+    pullPolicy: Always
+  # service resources for the backend
+  service:
+    # enable the backend service
+    enabled: true
+    # port number for the service
+    port: 80
+    # target port for the service
+    targetPort: 8000
+    # annotations for the service
+    annotations: {}
+    # name of the service
+    name: wagtail

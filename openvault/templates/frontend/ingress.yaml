@@ -1,19 +1,33 @@
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: ov-frontend-ingress
-
+  name: {{ .Release.Name }}-{{ .Values.frontend.ingress.name | default "frontend-ingress" }}
+{{- if .Values.frontend.ingress.annotations }}
+  annotations:
+  {{- range $key, $value := .Values.frontend.ingress.annotations }}
+    {{ $key }}: {{ $value | quote }} 
+  {{- end }}
+{{- end }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.name }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/version: {{ .Chart.Version | replace "+" "_" }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/component: frontend-ingress
+    app.kubernetes.io/part-of: {{ .Values.name }}
 spec:
-  entryPoints:
-    - websecure
-  routes:
-    - kind: Rule
-      match: Host(`openvault.wgbh.org`)
-      services:
-        - kind: Service
-          name: ov-frontend
-          port: 80
-      middlewares:
-        - name: public-ratelimit
   tls:
-    secretName: ov-frontend-production-tls
+  - hosts:
+    - {{ .Values.frontend.ingress.host }}
+    secretName: {{ .Values.frontend.ingress.secretName }}
+  rules:
+  - host: {{ .Values.frontend.ingress.host }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Values.frontend.service.name }}
+            port:
+              name: {{ .Values.frontend.service.portName }}

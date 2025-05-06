@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ov-wag-config
+  name: "{{ .Release.Name }}-{{ .Values.backend.name }}-config"
 data:
   DJANGO_SETTINGS_MODULE: ov_wag.settings.production
   OV_ALLOWED_HOSTS: '*'

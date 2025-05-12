@@ -51,3 +51,16 @@ app-template:
             tag: main
           envFrom:
             - configMap: frontend-config
+  service:
+    backend:
+      controller: backend
+      ports:
+        http:
+          port: 80
+          targetPort: 8000
+    frontend:
+      controller: frontend
+      ports:
+        http:
+          port: 80
+          targetPort: 3000

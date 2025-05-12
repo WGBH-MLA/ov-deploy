@@ -41,7 +41,7 @@ app-template:
             tag: v1.0.0
           envFrom:
             - secretRef:
-                name: backend-secret
+                name: "{{ .Release.Name }}-backend-secret"
             - configMap: backend-config
     frontend:
       containers:
@@ -64,3 +64,32 @@ app-template:
         http:
           port: 80
           targetPort: 3000
+  ingress:
+    backend:
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-staging
+      hosts:
+        - host: "backend.{{ .Release.Name }}.dev.wgbh-mla.org"
+          paths:
+            - path: /
+              service:
+                name: "{{ .Release.Name }}-backend"
+                port: 80
+      tls:
+        - secretName: "{{ .Release.Name }}-backend-tls"
+          hosts:
+            - "backend.{{ .Release.Name }}.dev.wgbh-mla.org"
+    frontend:
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-staging
+      hosts:
+        - host: "{{ .Release.Name }}.dev.wgbh-mla.org"
+          paths:
+            - path: /
+              service:
+                name: "{{ .Release.Name }}-frontend"
+                port: 80
+      tls:
+        - secretName: "{{ .Release.Name }}-frontend-tls"
+          hosts:
+            - "{{ .Release.Name }}.dev.wgbh-mla.org"

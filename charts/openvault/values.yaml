@@ -1,0 +1,18 @@
+app-template:
+  persistence:
+    config:
+      type: configMap
+      name: backend-config
+
+  controllers:
+    backend:
+      containers:
+        backend:
+          image:
+            repository: ghcr.io/wgbh-mla/ov-wag
+            tag: v1.0.0
+          envFrom:
+            - configMapRef:
+                name: backend-config
+            - secretRef:
+                name: backend-secret

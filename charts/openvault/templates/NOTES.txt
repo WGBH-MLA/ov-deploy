@@ -1,6 +1,6 @@
-🎉 Successfully installed {{ .Chart.Name }} 🎊
+🎊 Thank you for installing {{ .Chart.Name }} 🎉
 
-Your release is named {{ .Release.Name }}.
+Your release is named: {{ .Release.Name }}
 
 To learn more about the release, try:
 

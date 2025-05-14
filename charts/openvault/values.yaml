@@ -1,39 +1,31 @@
+global:
+  # Domain name to generate URLs for the application. This is only used if URLs are not provided.
+  domain: dev.wgbh-mla.org
+  backend:
+    name: wagtail
+    # URL override for the backend service, otherwise it will be generated from the release name
+    url: null
+  frontend:
+    name: remix
+    # URL override for the frontend service, otherwise it will be generated from the release name
+    url: null
+  # S3 bucket for media
+  s3:
+    name: dev.media.openvault.wgbh.org
+
 app-template:
-  configMaps:
-    backend-config:
-      data:
-        DJANGO_SETTINGS_MODULE: ov_wag.settings.production
-        OV_ALLOWED_HOSTS: '*'
-        OV_TRUSTED_ORIGINS: https://admin.ov.wgbh-mla.org,http://localhost:8000
-        OV_DEBUG: 'false'
-        OV_CSRF_COOKIE_SECURE: 'false'
-        OV_API_URL: http://ov-wag/api/v2
-        OV_BASE_URL: https://openvault.wgbh.org
-        OV_ADMIN_BASE_URL: https://admin.ov.wgbh-mla.org
-        OV_HOST: '0.0.0.0:8000'
-        OV_WORKERS: '1'
-        OV_FORWARDED_ALLOW_IPS: '*'
-        OV_ACCESS_LOGFILE: '-'
-        OV_ERROR_LOGFILE: '-'
-        OV_PREVIEW_URL: https://openvault.wgbh.org/preview
-        AWS_STORAGE_BUCKET_NAME: media.openvault.wgbh.org
-    frontend-config:
-      data:
-        NODE_ENV: production
-        OV_API_URL: http://ov-wag
-        AAPB_HOST: https://americanarchive.org
-        ORGAN_URL: http://organ.organ
-        ES_URL: https://elastic.wgbh-mla.org
   persistence:
     backend-config:
       type: configMap
-      identifier: backend-config
+      name: '{{ template "openvault.backend.fullname" . }}-config'
+
     frontend-config:
       type: configMap
-      identifier: frontend-config
+      name: '{{ template "openvault.frontend.fullname" . }}-config'
 
   controllers:
     backend:
+      nameOverride: '{{ .Values.global.backend.name }}'
       containers:
         backend:
           image:
@@ -41,24 +33,27 @@ app-template:
             tag: v1.0.0
           envFrom:
             - secretRef:
-                name: "{{ .Release.Name }}-backend-secret"
-            - configMap: backend-config
+                name: '{{ template "openvault.backend.fullname" . }}-secret'
+            - configMap: '{{ template "openvault.backend.fullname" . }}-config'
     frontend:
+      nameOverride: '{{ .Values.global.frontend.name }}'
       containers:
         frontend:
           image:
             repository: ghcr.io/wgbh-mla/ov-frontend
             tag: main
           envFrom:
-            - configMap: frontend-config
+            - configMap: '{{ template "openvault.frontend.fullname" . }}-config'
   service:
     backend:
+      nameOverride: '{{ .Values.global.backend.name }}'
       controller: backend
       ports:
         http:
           port: 80
           targetPort: 8000
     frontend:
+      nameOverride: '{{ .Values.global.frontend.name }}'
       controller: frontend
       ports:
         http:
@@ -66,30 +61,32 @@ app-template:
           targetPort: 3000
   ingress:
     backend:
+      nameOverride: '{{ .Values.global.backend.name }}'
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-staging
       hosts:
-        - host: "backend.{{ .Release.Name }}.dev.wgbh-mla.org"
+        - host: '{{ template "openvault.backend.url" . }}'
           paths:
             - path: /
               service:
-                name: "{{ .Release.Name }}-backend"
+                name: '{{ template "openvault.backend.fullname" . }}'
                 port: 80
       tls:
-        - secretName: "{{ .Release.Name }}-backend-tls"
+        - secretName: '{{ template "openvault.backend.fullname" . }}-tls'
           hosts:
-            - "backend.{{ .Release.Name }}.dev.wgbh-mla.org"
+            - '{{ template "openvault.backend.url" . }}'
     frontend:
+      nameOverride: '{{ .Values.global.frontend.name }}'
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-staging
       hosts:
-        - host: "{{ .Release.Name }}.dev.wgbh-mla.org"
+        - host: '{{ template "openvault.frontend.url" . }}'
           paths:
             - path: /
               service:
-                name: "{{ .Release.Name }}-frontend"
+                name: '{{ template "openvault.frontend.fullname" . }}'
                 port: 80
       tls:
-        - secretName: "{{ .Release.Name }}-frontend-tls"
+        - secretName: '{{ template "openvault.frontend.fullname" . }}-tls'
           hosts:
-            - "{{ .Release.Name }}.dev.wgbh-mla.org"
+            - '{{ template "openvault.frontend.url" . }}'

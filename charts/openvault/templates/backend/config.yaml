@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "openvault.backend.fullname" . }}-config
+  # labels:
+  #   app.kubernetes.io/instance: {{ .Release.Name }}
+  #   app.kubernetes.io/managed-by: {{ .Release.Service }}
+  #   app.kubernetes.io/name: {{ template "openvault.backend.fullname" . }}
+data:
+  DJANGO_SETTINGS_MODULE: ov_wag.settings.production
+  OV_ALLOWED_HOSTS: '*'
+  OV_TRUSTED_ORIGINS: https://{{ template "openvault.backend.url" . }},http://localhost:8000
+  OV_DEBUG: 'false'
+  OV_CSRF_COOKIE_SECURE: 'false'
+  OV_API_URL: http://{{ template "openvault.backend.fullname" . }}/api/v2
+  OV_BASE_URL: https://{{ template "openvault.frontend.url" . }}
+  OV_ADMIN_BASE_URL: https://{{ template "openvault.backend.url" . }}
+  OV_HOST: '0.0.0.0:8000'
+  OV_WORKERS: '1'
+  OV_FORWARDED_ALLOW_IPS: '*'
+  OV_ACCESS_LOGFILE: '-'
+  OV_ERROR_LOGFILE: '-'
+  OV_PREVIEW_URL: https://{{ template "openvault.frontend.url" . }}/preview
+  AWS_STORAGE_BUCKET_NAME: {{ .Values.global.s3.name | quote }}

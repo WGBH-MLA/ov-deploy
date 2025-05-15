@@ -7,7 +7,6 @@ metadata:
 data:
   NODE_ENV: production
   OV_API_URL: 'http://{{ template "openvault.backend.fullname" . }}'
-  # AAPB_HOST: https://americanarchive.org
-  AAPB_HOST: https://demo.aapb.wgbh-mla.org
-  ORGAN_URL: http://organ.organ
-  ES_URL: http://quickstart-es-http.es-demo:9200
+  AAPB_HOST: {{ .Values.global.aapb.url }}
+  ORGAN_URL: {{ .Values.global.organ.url }}
+  ES_URL: {{ .Values.global.elasticsearch.url }}

@@ -9,6 +9,14 @@ global:
     name: remix
     # URL override for the frontend service, otherwise it will be generated from the release name
     url: null
+    elasticApiKey: null
+    elasticIndex: wagtail__wagtailcore_page
+  aapb:
+    url: https://demo.aapb.wgbh-mla.org
+  elasticsearch:
+    url: https://elastic.dev.wgbh-mla.org
+  organ:
+    url: http://organ.organ
   # S3 bucket for media
   s3:
     name: dev.media.openvault.wgbh.org
@@ -32,9 +40,9 @@ app-template:
             repository: ghcr.io/wgbh-mla/ov-wag
             tag: v1.0.0
           envFrom:
+            - configMap: '{{ template "openvault.backend.fullname" . }}-config'
             - secretRef:
                 name: '{{ template "openvault.backend.fullname" . }}-secret'
-            - configMap: '{{ template "openvault.backend.fullname" . }}-config'
     frontend:
       nameOverride: '{{ .Values.global.frontend.name }}'
       containers:
@@ -44,6 +52,8 @@ app-template:
             tag: main
           envFrom:
             - configMap: '{{ template "openvault.frontend.fullname" . }}-config'
+            - secretRef:
+                name: '{{ template "openvault.frontend.fullname" . }}-secret'
   service:
     backend:
       nameOverride: '{{ .Values.global.backend.name }}'

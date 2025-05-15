@@ -20,3 +20,4 @@ data:
   OV_ERROR_LOGFILE: '-'
   OV_PREVIEW_URL: https://{{ template "openvault.frontend.url" . }}/preview
   AWS_STORAGE_BUCKET_NAME: {{ .Values.global.s3.name | quote }}
+  ES_URL: {{ .Values.global.elasticsearch.url }}

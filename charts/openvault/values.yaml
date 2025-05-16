@@ -70,21 +70,6 @@ app-template:
           port: 80
           targetPort: 3000
   ingress:
-    backend:
-      nameOverride: '{{ .Values.global.backend.name }}'
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-staging
-      hosts:
-        - host: '{{ template "openvault.backend.url" . }}'
-          paths:
-            - path: /
-              service:
-                name: '{{ template "openvault.backend.fullname" . }}'
-                port: 80
-      tls:
-        - secretName: '{{ template "openvault.backend.fullname" . }}-tls'
-          hosts:
-            - '{{ template "openvault.backend.url" . }}'
     frontend:
       nameOverride: '{{ .Values.global.frontend.name }}'
       annotations:
@@ -94,8 +79,19 @@ app-template:
           paths:
             - path: /
               service:
-                name: '{{ template "openvault.frontend.fullname" . }}'
-                port: 80
+                identifier: frontend
+            - path: /accounts
+              service:
+                identifier: backend
+            - path: /admin
+              service:
+                identifier: backend
+            - path: /login
+              service:
+                identifier: backend
+            - path: /logout
+              service:
+                identifier: backend
       tls:
         - secretName: '{{ template "openvault.frontend.fullname" . }}-tls'
           hosts:

@@ -7,12 +7,12 @@ metadata:
 data:
   DJANGO_SETTINGS_MODULE: ov_wag.settings.production
   OV_ALLOWED_HOSTS: '*'
-  OV_TRUSTED_ORIGINS: https://{{ template "openvault.backend.url" . }},http://localhost:8000
+  OV_TRUSTED_ORIGINS: https://{{ template "openvault.frontend.url" . }},http://localhost:8000
   OV_DEBUG: 'false'
   OV_CSRF_COOKIE_SECURE: 'false'
   OV_API_URL: http://{{ template "openvault.backend.fullname" . }}/api/v2
   OV_BASE_URL: https://{{ template "openvault.frontend.url" . }}
-  OV_ADMIN_BASE_URL: https://{{ template "openvault.backend.url" . }}
+  OV_ADMIN_BASE_URL: https://{{ template "openvault.frontend.url" . }}
   OV_HOST: '0.0.0.0:8000'
   OV_WORKERS: '1'
   OV_FORWARDED_ALLOW_IPS: '*'

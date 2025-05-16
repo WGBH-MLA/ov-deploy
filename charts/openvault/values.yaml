@@ -1,15 +1,13 @@
 global:
   # Domain name to generate URLs for the application. This is only used if URLs are not provided.
   domain: dev.wgbh-mla.org
+  # URL override, otherwise it will be generated from the release name and domain
+  url: null
   backend:
     name: wagtail
-    # URL override for the backend service, otherwise it will be generated from the release name
-    url: null
   frontend:
     name: remix
-    # URL override for the frontend service, otherwise it will be generated from the release name
-    url: null
-    elasticApiKey: null
+    # elasticApiKey: null
     elasticIndex: wagtail__wagtailcore_page
   aapb:
     url: https://demo.aapb.wgbh-mla.org
@@ -159,7 +157,7 @@ app-template:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-staging
       hosts:
-        - host: '{{ template "openvault.frontend.url" . }}'
+        - host: '{{ template "openvault.url" . }}'
           paths:
             - path: /
               service:
@@ -179,7 +177,7 @@ app-template:
       tls:
         - secretName: '{{ template "openvault.frontend.fullname" . }}-tls'
           hosts:
-            - '{{ template "openvault.frontend.url" . }}'
+            - '{{ template "openvault.url" . }}'
 
   serviceAccount:
     extraServiceAccounts:
@@ -206,7 +204,6 @@ app-template:
         roleRef:
           apiGroup: rbac.authorization.k8s.io
           kind: Role
-          # name: ov-wag-restart
           identifier: backend-restart
         subjects:
           - identifier: backend-restart

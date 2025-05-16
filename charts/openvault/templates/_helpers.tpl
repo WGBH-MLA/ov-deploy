@@ -6,35 +6,26 @@ Create the name of the chart: ReleaseName or nameOverride
 {{- end -}}
 
 {{/*
-Create the frontend name: ReleaseName-frontendName
-*/}}
-{{- define "openvault.frontend.fullname" -}}
-{{- printf "%s-%s" .Release.Name .Values.global.frontend.name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-{{/*
-Create the frontend url: ReleaseName.domain
-*/}}
-{{- define "openvault.frontend.url" -}}
-{{- if .Values.global.frontend.url -}}
-{{- .Values.global.frontend.url -}}
-{{- else -}}
-{{- printf "%s.%s" .Release.Name .Values.global.domain -}}
-{{- end -}}
-{{- end -}}
-
-{{/*
 Create the backend name: ReleaseName-backendName
 */}}
 {{- define "openvault.backend.fullname" -}}
 {{- printf "%s-%s" .Release.Name .Values.global.backend.name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
 {{/*
-Create the backend url: backend.release.domain
+Create the frontend name: ReleaseName-frontendName
 */}}
-{{- define "openvault.backend.url" -}}
-{{- if .Values.global.backend.url -}}
-{{- .Values.global.backend.url -}}
+{{- define "openvault.frontend.fullname" -}}
+{{- printf "%s-%s" .Release.Name .Values.global.frontend.name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
+Create the frontend url: ReleaseName.domain
+*/}}
+{{- define "openvault.url" -}}
+{{- if .Values.global.url -}}
+{{- .Values.global.url -}}
 {{- else -}}
-{{- printf "%s.%s.%s" .Values.global.backend.name .Release.Name .Values.global.domain -}}
+{{- printf "%s.%s" .Release.Name .Values.global.domain -}}
 {{- end -}}
 {{- end -}}

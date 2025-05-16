@@ -43,6 +43,16 @@ app-template:
             - configMap: '{{ template "openvault.backend.fullname" . }}-config'
             - secretRef:
                 name: '{{ template "openvault.backend.fullname" . }}-secret'
+      defaultContainerOptions:
+        image:
+          pullPolicy: Always
+        resources:
+          limits:
+            cpu: '1'
+            memory: 1Gi
+          requests:
+            cpu: 50m
+            memory: 50Mi
     frontend:
       nameOverride: '{{ .Values.global.frontend.name }}'
       containers:
@@ -54,6 +64,16 @@ app-template:
             - configMap: '{{ template "openvault.frontend.fullname" . }}-config'
             - secretRef:
                 name: '{{ template "openvault.frontend.fullname" . }}-secret'
+      defaultContainerOptions:
+        image:
+          pullPolicy: Always
+        resources:
+          limits:
+            cpu: '1'
+            memory: 1Gi
+          requests:
+            cpu: 50m
+            memory: 50Mi
   service:
     backend:
       nameOverride: '{{ .Values.global.backend.name }}'

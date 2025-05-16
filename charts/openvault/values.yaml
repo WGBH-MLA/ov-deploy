@@ -22,15 +22,6 @@ global:
     name: dev.media.openvault.wgbh.org
 
 app-template:
-  persistence:
-    backend-config:
-      type: configMap
-      name: '{{ template "openvault.backend.fullname" . }}-config'
-
-    frontend-config:
-      type: configMap
-      name: '{{ template "openvault.frontend.fullname" . }}-config'
-
   controllers:
     backend:
       nameOverride: '{{ .Values.global.backend.name }}'
@@ -130,7 +121,23 @@ app-template:
             - python
             - manage.py
             - update_index
-  
+    restart-backend:
+      type: cronjob
+      cronjob:
+        schedule: 0 8 * * *
+      serviceAccount:
+        identifier: backend-restart
+      containers:
+        restart-backend:
+          image:
+            repository: bitnami/kubectl
+            tag: latest
+          command:
+            - kubectl
+            - rollout
+            - restart
+            - deployment
+            - --selector=app.kubernetes.io/component=backend
   service:
     backend:
       nameOverride: '{{ .Values.global.backend.name }}'
@@ -173,3 +180,33 @@ app-template:
         - secretName: '{{ template "openvault.frontend.fullname" . }}-tls'
           hosts:
             - '{{ template "openvault.frontend.url" . }}'
+
+  serviceAccount:
+    extraServiceAccounts:
+      backend-restart:
+        create: true
+        # name: '{{ template "openvault.backend.fullname" . }}-restart'
+
+  rbac:
+    roles:
+      backend-restart:
+        create: true
+        type: Role
+        rules:
+          - apiGroups:
+              - apps
+            resources:
+              - deployments
+            verbs:
+              - list
+              - patch
+    bindings:
+      backend-restart:
+        type: RoleBinding
+        roleRef:
+          apiGroup: rbac.authorization.k8s.io
+          kind: Role
+          # name: ov-wag-restart
+          identifier: backend-restart
+        subjects:
+          - identifier: backend-restart

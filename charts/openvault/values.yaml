@@ -68,7 +68,7 @@ app-template:
         frontend:
           image:
             repository: ghcr.io/wgbh-mla/ov-frontend
-            tag: main
+            tag: v1.0.0
           envFrom:
             - configMap: '{{ template "openvault.frontend.fullname" . }}-config'
             - secretRef:

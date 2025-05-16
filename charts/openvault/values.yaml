@@ -43,6 +43,26 @@ app-template:
             - configMap: '{{ template "openvault.backend.fullname" . }}-config'
             - secretRef:
                 name: '{{ template "openvault.backend.fullname" . }}-secret'
+          probes:
+            liveness:
+              enabled: true
+              custom: true
+              type: HTTP
+              spec:
+                periodSeconds: 30
+                httpGet:
+                  path: /api/v2/health/
+                  port: 8000
+            startup:
+              enabled: true
+              custom: true
+              spec:
+                initialDelaySeconds: 5
+                periodSeconds: 3
+                failureThreshold: 20
+                httpGet:
+                  path: /api/v2/health/
+                  port: 8000
       defaultContainerOptions:
         image:
           pullPolicy: Always
@@ -64,6 +84,25 @@ app-template:
             - configMap: '{{ template "openvault.frontend.fullname" . }}-config'
             - secretRef:
                 name: '{{ template "openvault.frontend.fullname" . }}-secret'
+          probes:
+            liveness:
+              enabled: true
+              custom: true
+              spec:
+                periodSeconds: 30
+                httpGet:
+                  path: /health
+                  port: 3000
+            startup:
+              enabled: true
+              custom: true
+              spec:
+                initialDelaySeconds: 3
+                periodSeconds: 3
+                failureThreshold: 10
+                httpGet:
+                  path: /health
+                  port: 3000
       defaultContainerOptions:
         image:
           pullPolicy: Always

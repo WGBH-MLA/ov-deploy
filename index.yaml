@@ -1,0 +1,17 @@
+apiVersion: v1
+entries:
+  openvault:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-05-20T20:16:25.456389089Z"
+    dependencies:
+    - name: app-template
+      repository: https://bjw-s-labs.github.io/helm-charts/
+      version: 3.7.3
+    description: A Helm chart for Open Vault
+    digest: 3d06572e55ec63a0aa11518c1ab4f8858a380f5a7959d7cb88e09a695d8bb184
+    name: openvault
+    urls:
+    - https://github.com/WGBH-MLA/ov-deploy/releases/download/openvault-0.3.0/openvault-0.3.0.tgz
+    version: 0.3.0
+generated: "2025-05-20T20:16:25.456399439Z"

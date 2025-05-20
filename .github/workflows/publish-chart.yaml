@@ -21,10 +21,13 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
+      - name: 👪 Add repo dependencies
+        run: |
+          helm repo add bjw-s https://bjw-s-labs.github.io/helm-charts
+
       - name: 🕊 Release Chart
         uses: helm/chart-releaser-action@v1
         env:
           CR_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
           CR_OWNER: wgbh-mla
           CR_GIT_REPO: ov-deploy
-          CR_PACKAGE_PATH: .charts/openvault

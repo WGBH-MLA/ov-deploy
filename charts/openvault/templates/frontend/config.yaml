@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "openvault.frontend.fullname" . }}-config
+  labels:
+{{ include "bjw-s.common.lib.metadata.allLabels" . | indent 4 }}
+data:
+  NODE_ENV: production
+  OV_API_URL: 'http://{{ template "openvault.backend.fullname" . }}'
+  AAPB_HOST: {{ .Values.global.aapb.url }}
+  ORGAN_URL: {{ .Values.global.organ.url }}
+  ES_URL: {{ .Values.global.elasticsearch.url }}

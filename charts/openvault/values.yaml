@@ -1,0 +1,216 @@
+global:
+  # Domain name to generate URLs for the application. This is only used if URLs are not provided.
+  domain: dev.wgbh-mla.org
+  # URL override, otherwise it will be generated from the release name and domain
+  url: null
+  backend:
+    # Name of the backend service
+    name: wagtail
+  frontend:
+    # Name of the frontend service
+    name: remix
+    # ElasticSearch API key for the frontend
+    elasticApiKey: null
+    # ElasticSearch index name
+    elasticIndex: wagtail__wagtailcore_page
+  aapb:
+    # URL for the American Archive instance
+    url: https://demo.aapb.wgbh-mla.org
+  elasticsearch:
+    # URL for the Elasticsearch instance
+    url: https://elastic.dev.wgbh-mla.org
+  organ:
+    # URL for the Organ service
+    url: http://organ.organ
+  s3:
+    # S3 bucket for media
+    name: dev.media.openvault.wgbh.org
+
+app-template:
+  controllers:
+    backend:
+      nameOverride: '{{ .Values.global.backend.name }}'
+      containers:
+        backend:
+          image:
+            repository: ghcr.io/wgbh-mla/ov-wag
+            tag: v1.0.0
+          envFrom:
+            - configMap: '{{ template "openvault.backend.fullname" . }}-config'
+            - secretRef:
+                name: '{{ template "openvault.backend.fullname" . }}-secret'
+          probes:
+            liveness:
+              enabled: true
+              custom: true
+              type: HTTP
+              spec:
+                periodSeconds: 30
+                httpGet:
+                  path: /api/v2/health/
+                  port: 8000
+            startup:
+              enabled: true
+              custom: true
+              spec:
+                initialDelaySeconds: 5
+                periodSeconds: 3
+                failureThreshold: 20
+                httpGet:
+                  path: /api/v2/health/
+                  port: 8000
+      defaultContainerOptions:
+        image:
+          pullPolicy: Always
+        resources:
+          limits:
+            cpu: '1'
+            memory: 1Gi
+          requests:
+            cpu: 50m
+            memory: 50Mi
+    frontend:
+      nameOverride: '{{ .Values.global.frontend.name }}'
+      containers:
+        frontend:
+          image:
+            repository: ghcr.io/wgbh-mla/ov-frontend
+            tag: v1.0.0
+          envFrom:
+            - configMap: '{{ template "openvault.frontend.fullname" . }}-config'
+            - secretRef:
+                name: '{{ template "openvault.frontend.fullname" . }}-secret'
+          probes:
+            liveness:
+              enabled: true
+              custom: true
+              spec:
+                periodSeconds: 30
+                httpGet:
+                  path: /health
+                  port: 3000
+            startup:
+              enabled: true
+              custom: true
+              spec:
+                initialDelaySeconds: 3
+                periodSeconds: 3
+                failureThreshold: 10
+                httpGet:
+                  path: /health
+                  port: 3000
+      defaultContainerOptions:
+        image:
+          pullPolicy: Always
+        resources:
+          limits:
+            cpu: '1'
+            memory: 1Gi
+          requests:
+            cpu: 50m
+            memory: 50Mi
+    update-index:
+      type: cronjob
+      cronjob:
+        schedule: 0 8 * * *
+      containers:
+        update-index:
+          image:
+            repository: ghcr.io/wgbh-mla/ov-wag
+            tag: v1.0.0
+          envFrom:
+            - configMap: '{{ template "openvault.backend.fullname" . }}-config'
+            - secretRef:
+                name: '{{ template "openvault.backend.fullname" . }}-secret'
+          command:
+            - python
+            - manage.py
+            - update_index
+    restart-backend:
+      type: cronjob
+      cronjob:
+        schedule: 0 8 * * *
+      serviceAccount:
+        identifier: backend-restart
+      containers:
+        restart-backend:
+          image:
+            repository: bitnami/kubectl
+            tag: latest
+          command:
+            - kubectl
+            - rollout
+            - restart
+            - deployment
+            - --selector=app.kubernetes.io/component=backend
+  service:
+    backend:
+      nameOverride: '{{ .Values.global.backend.name }}'
+      controller: backend
+      ports:
+        http:
+          port: 80
+          targetPort: 8000
+    frontend:
+      nameOverride: '{{ .Values.global.frontend.name }}'
+      controller: frontend
+      ports:
+        http:
+          port: 80
+          targetPort: 3000
+  ingress:
+    frontend:
+      nameOverride: '{{ .Values.global.frontend.name }}'
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+      hosts:
+        - host: '{{ template "openvault.url" . }}'
+          paths:
+            - path: /
+              service:
+                identifier: frontend
+            - path: /accounts
+              service:
+                identifier: backend
+            - path: /admin
+              service:
+                identifier: backend
+            - path: /login
+              service:
+                identifier: backend
+            - path: /logout
+              service:
+                identifier: backend
+      tls:
+        - secretName: '{{ template "openvault.frontend.fullname" . }}-tls'
+          hosts:
+            - '{{ template "openvault.url" . }}'
+
+  serviceAccount:
+    extraServiceAccounts:
+      backend-restart:
+        create: true
+        # name: '{{ template "openvault.backend.fullname" . }}-restart'
+
+  rbac:
+    roles:
+      backend-restart:
+        create: true
+        type: Role
+        rules:
+          - apiGroups:
+              - apps
+            resources:
+              - deployments
+            verbs:
+              - list
+              - patch
+    bindings:
+      backend-restart:
+        type: RoleBinding
+        roleRef:
+          apiGroup: rbac.authorization.k8s.io
+          kind: Role
+          identifier: backend-restart
+        subjects:
+          - identifier: backend-restart

@@ -4,19 +4,26 @@ global:
   # URL override, otherwise it will be generated from the release name and domain
   url: null
   backend:
+    # Name of the backend service
     name: wagtail
   frontend:
+    # Name of the frontend service
     name: remix
-    # elasticApiKey: null
+    # ElasticSearch API key for the frontend
+    elasticApiKey: null
+    # ElasticSearch index name
     elasticIndex: wagtail__wagtailcore_page
   aapb:
+    # URL for the American Archive instance
     url: https://demo.aapb.wgbh-mla.org
   elasticsearch:
+    # URL for the Elasticsearch instance
     url: https://elastic.dev.wgbh-mla.org
   organ:
+    # URL for the Organ service
     url: http://organ.organ
-  # S3 bucket for media
   s3:
+    # S3 bucket for media
     name: dev.media.openvault.wgbh.org
 
 app-template:
@@ -155,7 +162,7 @@ app-template:
     frontend:
       nameOverride: '{{ .Values.global.frontend.name }}'
       annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-staging
+        cert-manager.io/cluster-issuer: letsencrypt-production
       hosts:
         - host: '{{ template "openvault.url" . }}'
           paths:

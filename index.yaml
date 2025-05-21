@@ -25,10 +25,10 @@ entries:
     version: 0.3.2
   - annotations:
       artifacthub.io/changes: |
-        - added: Chart Readme
-        - added: Chart maintainers
-        - added: Home page URL
-        - fixed: GitHub release tag
+        - added Chart Readme
+        - added Chart maintainers
+        - added Home page URL
+        - fixed GitHub release tag
     apiVersion: v2
     appVersion: 1.0.0
     created: "2025-05-21T16:29:50.447982495Z"

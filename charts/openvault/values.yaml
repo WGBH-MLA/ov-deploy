@@ -3,9 +3,11 @@ global:
   domain: dev.wgbh-mla.org
   # URL override, otherwise it will be generated from the release name and domain
   url: null
+  # backend configuration
   backend:
     # Name of the backend service
     name: wagtail
+  # frontend configuration
   frontend:
     # Name of the frontend service
     name: remix
@@ -13,15 +15,19 @@ global:
     elasticApiKey: null
     # ElasticSearch index name
     elasticIndex: wagtail__wagtailcore_page
+  # American Archive configuration
   aapb:
     # URL for the American Archive instance
     url: https://demo.aapb.wgbh-mla.org
+  # ElasticSearch configuration
   elasticsearch:
     # URL for the Elasticsearch instance
     url: https://elastic.dev.wgbh-mla.org
+  # Organ configuration
   organ:
     # URL for the Organ service
     url: http://organ.organ
+  # S3 configuration
   s3:
     # S3 bucket for media
     name: dev.media.openvault.wgbh.org

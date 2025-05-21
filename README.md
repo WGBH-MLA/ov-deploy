@@ -14,12 +14,8 @@ Deployment documentation for the Open Vault project
 ## Deploy
 
 ### Helm
-The recommended way to deploy Open Vault is using Helm. This allows for easy upgrades and rollbacks, as well as a consistent deployment process.
+The recommended way to deploy Open Vault is using the Helm Chart at [charts/openvault](/charts/openvault/). This allows for easy upgrades and rollbacks, as well as a consistent deployment process.
 
-```sh
-helm repo add ov https://wgbh-mla.github.io/ov-deploy/
-helm install ov ov/openvault
-```
 
 ### docker-compose
 

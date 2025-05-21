@@ -3,6 +3,28 @@ entries:
   openvault:
   - annotations:
       artifacthub.io/changes: |
+        - fixed changes annotation format
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-05-21T19:08:16.182508444Z"
+    dependencies:
+    - name: app-template
+      repository: https://bjw-s-labs.github.io/helm-charts/
+      version: 3.7.3
+    description: A Helm chart for Open Vault
+    digest: c4bf1a339218b9564619e791ffc4efef0a00a18b6f5a6d4c262462432c944271
+    home: https://wgbh-mla.github.io/ov-deploy/
+    maintainers:
+    - email: ryan_harbert@wgbh.org
+      name: Harpo
+    name: openvault
+    sources:
+    - https://github.com/WGBH-MLA/ov-deploy
+    urls:
+    - https://github.com/WGBH-MLA/ov-deploy/releases/download/openvault-0.3.2/openvault-0.3.2.tgz
+    version: 0.3.2
+  - annotations:
+      artifacthub.io/changes: |
         - added: Chart Readme
         - added: Chart maintainers
         - added: Home page URL
@@ -39,4 +61,4 @@ entries:
     urls:
     - https://github.com/WGBH-MLA/ov-deploy/releases/download/openvault-0.3.0/openvault-0.3.0.tgz
     version: 0.3.0
-generated: "2025-05-21T16:29:50.447998636Z"
+generated: "2025-05-21T19:08:16.182525115Z"

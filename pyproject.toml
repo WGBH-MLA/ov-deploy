@@ -18,12 +18,13 @@ repository = 'https://github.com/WGBH-MLA/ov-deploy'
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
 
-[tool.pdm.dev-dependencies]
+
+[dependency-groups]
 docs = [
     "mkdocs~=1.6",
-    "mkdocs-material~=9.5",
+    "mkdocs-material~=9.6",
     "mike~=2.1",
-    "mkdocstrings[python]~=0.26",
-    "mkdocs-git-revision-date-localized-plugin~=1.2",
+    "mkdocstrings[python]~=0.29",
+    "mkdocs-git-revision-date-localized-plugin~=1.4",
     "mkdocs-jupyter~=0.25",
 ]

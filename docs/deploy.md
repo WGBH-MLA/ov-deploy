@@ -1,35 +1,37 @@
 # Deployments
 
-Using Argo-CD, create the following deployments:
-
 !!! kube "Setup"
 
     If you haven't set up a production environment, follow the steps in [Setup](setup.md#production) first.
 
-### Backend
-Deploy the backend to the cluster
+## Helm
+The recommended way to deploy Open Vault is using the Helm Chart.
 
-```yml title="Backend deployment"
-Namespce: ov
-Repo_Url: https://github.com/WGBH-MLA/ov-deploy
-Path: ov-wag
-Branch: main
+### Install
+Add the Helm repository:
+```sh
+helm repo add ov https://wgbh-mla.github.io/ov-deploy
 ```
 
-#### Initial Migration
-
-With a new database and user configured, SSH into the `ov-wag` pod and run the initial migration:
-
-```bash title="Apply database migrations"
-ov m migrate
+Update the charts:
+```sh
+helm repo update
 ```
 
-### Frontend
-Deploy the frontend to the cluster
+Customize the values in `values.yaml` to your needs. You can also use `--set` to override values on the command line.
+```yaml
+global:
+  backend:
+    image:
+      tag: latest
+```
 
-```yml title="Frontend deployment"
-Namespce: ov
-Repo_Url: https://github.com/WGBH-MLA/ov-frontend
-Path: ov-frontend
-Branch: main
+Install the Helm chart:
+```sh
+helm install ov ov/openvault
+```
+
+### Upgrade
+```sh
+helm upgrade ov ov/openvault
 ```

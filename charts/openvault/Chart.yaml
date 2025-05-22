@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openvault
 description: A Helm chart for Open Vault
-version: 0.3.3
+version: 0.3.4
 appVersion: 1.0.0
 home: https://wgbh-mla.github.io/ov-deploy/
 sources:
@@ -16,4 +16,6 @@ maintainers:
 
 annotations:
   artifacthub.io/changes: |
-    - actually adds Readme file
+    - Adds image values for backend and frontend containers
+    - Adds action for documentation generation back to workflows
+    - Updates documentation for helm install

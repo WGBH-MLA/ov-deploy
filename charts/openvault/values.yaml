@@ -7,10 +7,22 @@ global:
   backend:
     # Name of the backend service
     name: wagtail
+    # image for the backend
+    image:
+      # repository for the backend image
+      repository: ghcr.io/wgbh-mla/ov-wag
+      # tag for the backend image
+      tag: v1.0.0
   # frontend configuration
   frontend:
     # Name of the frontend service
     name: remix
+    # image for the frontend
+    image:
+      # repository for the frontend image
+      repository: ghcr.io/wgbh-mla/ov-frontend
+      # tag for the frontend image
+      tag: v1.0.0
     # ElasticSearch API key for the frontend
     elasticApiKey: null
     # ElasticSearch index name
@@ -39,8 +51,10 @@ app-template:
       containers:
         backend:
           image:
+            # #FIXME: this should be a templatable value like the image tag, but it isn't working
+            # repository: '{{ .Values.global.backend.image.repository }}'
             repository: ghcr.io/wgbh-mla/ov-wag
-            tag: v1.0.0
+            tag: '{{ .Values.global.backend.image.tag }}'
           envFrom:
             - configMap: '{{ template "openvault.backend.fullname" . }}-config'
             - secretRef:
@@ -80,8 +94,10 @@ app-template:
       containers:
         frontend:
           image:
+            # #FIXME see above templating error
+            # repository: '{{ .Values.global.frontend.image.repository }}'
             repository: ghcr.io/wgbh-mla/ov-frontend
-            tag: v1.0.0
+            tag: '{{ .Values.global.frontend.image.tag }}'
           envFrom:
             - configMap: '{{ template "openvault.frontend.fullname" . }}-config'
             - secretRef:
@@ -122,8 +138,10 @@ app-template:
       containers:
         update-index:
           image:
+            # #FIXME see above templating error
+            # repository: '{{ .Values.global.backend.image.repository }}'
             repository: ghcr.io/wgbh-mla/ov-wag
-            tag: v1.0.0
+            tag: '{{ .Values.global.backend.image.tag }}'
           envFrom:
             - configMap: '{{ template "openvault.backend.fullname" . }}-config'
             - secretRef:

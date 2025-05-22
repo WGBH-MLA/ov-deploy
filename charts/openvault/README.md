@@ -6,8 +6,7 @@ This Helm chart deploys Open Vault on Kubernetes.
 ## Install
 Add the Helm repository:
 ```sh
-helm repo add ov https://wgbh-mla.github.io/ov-deploy/
-
+helm repo add ov https://wgbh-mla.github.io/ov-deploy
 ```
 
 Update the charts:
@@ -23,4 +22,3 @@ Optional: Change `ov` to the name of your release.
 ```sh
 helm install ov ov/openvault
 ```
-

@@ -22,3 +22,6 @@ Optional: Change `ov` to the name of your release.
 ```sh
 helm install ov ov/openvault
 ```
+
+## Docs
+For more information on using this Helm chart, please refer to the [documentation](https://wgbh-mla.github.io/ov-deploy/latest/)

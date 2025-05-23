@@ -1,2 +1,0 @@
-# Ignore backend secrets for now
-templates/backend/secret.yaml

@@ -1,3 +1,53 @@
+# American Archive configuration
+aapb:
+  # URL for the American Archive instance
+  url: https://demo.aapb.wgbh-mla.org
+
+# Auth0 configuration
+auth:
+  # Auth0 clientId
+  clientId: null
+  # Auth0 clientSecret
+  clientSecret: null
+  # Auth0 URL
+  url: null
+
+# AWS configuration
+aws:
+  # AWS access key ID
+  accessKeyId: null
+  # AWS secret access key
+  secretAccessKey: null
+
+# Database configuration
+db:
+  # Database host
+  host: postgres-postgresql.postgres
+  # Database name override. default {{ .Release.Name }}
+  name: null
+  # Database password
+  password: null
+  # Database port
+  port: '5432'
+  # Database user
+  user: postgres
+
+# ElasticSearch configuration
+elasticsearch:
+  # API key for the frontend
+  apiKey: null
+  # index name
+  index: wagtail__wagtailcore_page
+  # username for the backend
+  username: null
+  # password for the backend
+  password: null
+  # URL for the Elasticsearch instance
+  url: https://elastic.dev.wgbh-mla.org
+
+# global configuration
+# These values are available in all parent chart dependencies.
+# They can also be templated in (most of) the app-template values below.
 global:
   # Domain name to generate URLs for the application. This is only used if URLs are not provided.
   domain: dev.wgbh-mla.org
@@ -23,26 +73,24 @@ global:
       repository: ghcr.io/wgbh-mla/ov-frontend
       # tag for the frontend image
       tag: v1.0.0
-    # ElasticSearch API key for the frontend
-    elasticApiKey: null
-    # ElasticSearch index name
-    elasticIndex: wagtail__wagtailcore_page
-  # American Archive configuration
-  aapb:
-    # URL for the American Archive instance
-    url: https://demo.aapb.wgbh-mla.org
-  # ElasticSearch configuration
-  elasticsearch:
-    # URL for the Elasticsearch instance
-    url: https://elastic.dev.wgbh-mla.org
-  # Organ configuration
-  organ:
-    # URL for the Organ service
-    url: http://organ.organ
-  # S3 configuration
-  s3:
-    # S3 bucket for media
-    name: dev.media.openvault.wgbh.org
+
+# Google configuration
+google:
+  # Google client ID
+  clientId: null
+
+# Override the name generator for object in the release. default {{ .Release.Name }}
+nameOverride: bb
+
+# Organ configuration
+organ:
+  # URL for the Organ service
+  url: http://organ.organ
+
+# S3 configuration
+s3:
+  # S3 bucket for media
+  name: dev.media.openvault.wgbh.org
 
 app-template:
   controllers:

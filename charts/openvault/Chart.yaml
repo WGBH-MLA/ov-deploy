@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openvault
-description: Archives presentation and curation application, from the GBH Archives
-version: 0.3.5
+description: Archives presentation website, built with Wagtail and Remix.
+version: 0.4.0
 appVersion: 1.0.0
 dependencies:
 - name: app-template
@@ -25,6 +25,7 @@ sources:
 
 annotations:
   artifacthub.io/changes: |
-    - Adds logo
-    - Adds keywords
-    - Adds Actions concurrency groups. This allows Actions to safely publish charts and docs with separate workflows.
+    - Moved most global values to component sections
+    - Added backend secret config
+    - Adds default values for configs
+    - Use `nameOverride` if present to generate names for all objects

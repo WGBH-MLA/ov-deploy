@@ -514,19 +514,28 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#backend" class="md-nav__link">
+  <a href="#helm" class="md-nav__link">
     <span class="md-ellipsis">
-      Backend
+      Helm
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Backend">
+    <nav class="md-nav" aria-label="Helm">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#initial-migration" class="md-nav__link">
+  <a href="#install" class="md-nav__link">
     <span class="md-ellipsis">
-      Initial Migration
+      Install
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upgrade" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrade
     </span>
   </a>
   
@@ -534,15 +543,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#frontend" class="md-nav__link">
-    <span class="md-ellipsis">
-      Frontend
-    </span>
-  </a>
   
 </li>
       
@@ -596,28 +596,30 @@
 
 
 <h1 id="deployments">Deployments<a class="headerlink" href="#deployments" title="Permanent link">&para;</a></h1>
-<p>Using Argo-CD, create the following deployments:</p>
 <div class="admonition kube">
 <p class="admonition-title">Setup</p>
 <p>If you haven't set up a production environment, follow the steps in <a href="../setup/#production">Setup</a> first.</p>
 </div>
-<h3 id="backend">Backend<a class="headerlink" href="#backend" title="Permanent link">&para;</a></h3>
-<p>Deploy the backend to the cluster</p>
-<div class="highlight"><span class="filename">Backend deployment</span><pre><span></span><code>Namespce: ov
-Repo_Url: https://github.com/WGBH-MLA/ov-deploy
-Path: ov-wag
-Branch: main
-</code></pre></div>
-<h4 id="initial-migration">Initial Migration<a class="headerlink" href="#initial-migration" title="Permanent link">&para;</a></h4>
-<p>With a new database and user configured, SSH into the <code>ov-wag</code> pod and run the initial migration:</p>
-<div class="highlight"><span class="filename">Apply database migrations</span><pre><span></span><code>ov<span class="w"> </span>m<span class="w"> </span>migrate
-</code></pre></div>
-<h3 id="frontend">Frontend<a class="headerlink" href="#frontend" title="Permanent link">&para;</a></h3>
-<p>Deploy the frontend to the cluster</p>
-<div class="highlight"><span class="filename">Frontend deployment</span><pre><span></span><code>Namespce: ov
-Repo_Url: https://github.com/WGBH-MLA/ov-frontend
-Path: ov-frontend
-Branch: main
+<h2 id="helm">Helm<a class="headerlink" href="#helm" title="Permanent link">&para;</a></h2>
+<p>The recommended way to deploy Open Vault is using the Helm Chart.</p>
+<h3 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h3>
+<p>Add the Helm repository:
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>repo<span class="w"> </span>add<span class="w"> </span>ov<span class="w"> </span>https://wgbh-mla.github.io/ov-deploy
+</code></pre></div></p>
+<p>Update the charts:
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>repo<span class="w"> </span>update
+</code></pre></div></p>
+<p>Customize the values in <code>values.yaml</code> to your needs. You can also use <code>--set</code> to override values on the command line.
+<div class="highlight"><pre><span></span><code><span class="nt">global</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">backend</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
+</code></pre></div></p>
+<p>Install the Helm chart:
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>ov<span class="w"> </span>ov/openvault
+</code></pre></div></p>
+<h3 id="upgrade">Upgrade<a class="headerlink" href="#upgrade" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>upgrade<span class="w"> </span>ov<span class="w"> </span>ov/openvault
 </code></pre></div>
 
 
@@ -641,7 +643,7 @@ Branch: main
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 22, 2023 17:02:01"><span class="timeago" datetime="2023-11-22T17:02:01+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 22, 2023 17:02:01">2023-11-22</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="May 22, 2025 23:04:43"><span class="timeago" datetime="2025-05-22T23:04:43+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="May 22, 2025 23:04:43">2025-05-22</span>
   </span>
 
     

@@ -3,6 +3,39 @@ entries:
   openvault:
   - annotations:
       artifacthub.io/changes: |
+        - Adds logo
+        - Adds keywords
+        - Adds Actions concurrency groups. This allows Actions to safely publish charts and docs with separate workflows.
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-05-23T16:46:01.234352894Z"
+    dependencies:
+    - name: app-template
+      repository: https://bjw-s-labs.github.io/helm-charts/
+      version: 3.7.3
+    description: Archives presentation and curation application, from the GBH Archives
+    digest: d154273e1deb7dd6cc7f1c28c4234a02b5652014ca8f7fc729737b9d03dbc3da
+    home: https://wgbh-mla.github.io/ov-deploy/
+    icon: https://wgbh-mla.github.io/ov-deploy/latest/assets/ov-logo-purple.png
+    keywords:
+    - wagtail
+    - remix
+    - postgres
+    - elasticsearch
+    - s3
+    - archive
+    - cms
+    maintainers:
+    - email: ryan_harbert@wgbh.org
+      name: Harpo
+    name: openvault
+    sources:
+    - https://github.com/WGBH-MLA/ov-deploy
+    urls:
+    - https://github.com/WGBH-MLA/ov-deploy/releases/download/openvault-0.3.5/openvault-0.3.5.tgz
+    version: 0.3.5
+  - annotations:
+      artifacthub.io/changes: |
         - Adds image values for backend and frontend containers
         - Adds action for documentation generation back to workflows
         - Updates documentation for helm install
@@ -107,4 +140,4 @@ entries:
     urls:
     - https://github.com/WGBH-MLA/ov-deploy/releases/download/openvault-0.3.0/openvault-0.3.0.tgz
     version: 0.3.0
-generated: "2025-05-22T23:05:08.394706252Z"
+generated: "2025-05-23T16:46:01.234380806Z"

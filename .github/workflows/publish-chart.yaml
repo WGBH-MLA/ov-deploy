@@ -5,7 +5,10 @@ on:
     branches:
       - main
     paths:
-      - 'charts/**/Chart.yaml'
+      - charts/**/Chart.yaml
+
+concurrency:
+  group: publish-pages
 
 jobs:
   release:

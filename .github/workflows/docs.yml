@@ -4,6 +4,15 @@ on:
     branches:
       - main
       - docs
+    paths:
+      - docs/**
+      - pyproject.toml
+      - pdm.lock
+      - mkdocs.yml
+
+concurrency:
+  group: publish-pages
+
 jobs:
   deploy:
     runs-on: ubuntu-latest

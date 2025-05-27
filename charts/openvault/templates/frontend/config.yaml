@@ -7,6 +7,6 @@ metadata:
 data:
   NODE_ENV: production
   OV_API_URL: 'http://{{ template "openvault.backend.fullname" . }}'
-  AAPB_HOST: {{ .Values.global.aapb.url }}
-  ORGAN_URL: {{ .Values.global.organ.url }}
-  ES_URL: {{ .Values.global.elasticsearch.url }}
+  AAPB_HOST: {{ .Values.aapb.url }}
+  ORGAN_URL: {{ .Values.organ.url }}
+  ES_URL: {{ .Values.elasticsearch.url }}

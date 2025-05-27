@@ -1,30 +1,96 @@
+# American Archive configuration
+aapb:
+  # URL for the American Archive instance
+  url: https://demo.aapb.wgbh-mla.org
+
+# Auth0 configuration
+auth:
+  # Auth0 clientId
+  clientId: null
+  # Auth0 clientSecret
+  clientSecret: null
+  # Auth0 URL
+  url: null
+
+# AWS configuration
+aws:
+  # AWS access key ID
+  accessKeyId: null
+  # AWS secret access key
+  secretAccessKey: null
+
+# Database configuration
+db:
+  # Database host
+  host: postgres-postgresql.postgres
+  # Database name override. default {{ .Release.Name }}
+  name: null
+  # Database password
+  password: null
+  # Database port
+  port: '5432'
+  # Database user
+  user: postgres
+
+# ElasticSearch configuration
+elasticsearch:
+  # API key for the frontend
+  apiKey: null
+  # index name
+  index: wagtail__wagtailcore_page
+  # username for the backend
+  username: null
+  # password for the backend
+  password: null
+  # URL for the Elasticsearch instance
+  url: https://elastic.dev.wgbh-mla.org
+
+# global configuration
+# These values are available in all parent chart dependencies.
+# They can also be templated in (most of) the app-template values below.
 global:
   # Domain name to generate URLs for the application. This is only used if URLs are not provided.
   domain: dev.wgbh-mla.org
   # URL override, otherwise it will be generated from the release name and domain
   url: null
+  # backend configuration
   backend:
     # Name of the backend service
     name: wagtail
+    # image for the backend
+    image:
+      # repository for the backend image
+      repository: ghcr.io/wgbh-mla/ov-wag
+      # tag for the backend image
+      tag: v1.0.0
+  # frontend configuration
   frontend:
     # Name of the frontend service
     name: remix
-    # ElasticSearch API key for the frontend
-    elasticApiKey: null
-    # ElasticSearch index name
-    elasticIndex: wagtail__wagtailcore_page
-  aapb:
-    # URL for the American Archive instance
-    url: https://demo.aapb.wgbh-mla.org
-  elasticsearch:
-    # URL for the Elasticsearch instance
-    url: https://elastic.dev.wgbh-mla.org
-  organ:
-    # URL for the Organ service
-    url: http://organ.organ
-  s3:
-    # S3 bucket for media
-    name: dev.media.openvault.wgbh.org
+    # image for the frontend
+    image:
+      # repository for the frontend image
+      repository: ghcr.io/wgbh-mla/ov-frontend
+      # tag for the frontend image
+      tag: v1.0.0
+
+# Google configuration
+google:
+  # Google client ID
+  clientId: null
+
+# Override the name generator for object in the release. default {{ .Release.Name }}
+nameOverride: bb
+
+# Organ configuration
+organ:
+  # URL for the Organ service
+  url: http://organ.organ
+
+# S3 configuration
+s3:
+  # S3 bucket for media
+  name: dev.media.openvault.wgbh.org
 
 app-template:
   controllers:
@@ -33,8 +99,10 @@ app-template:
       containers:
         backend:
           image:
+            # #FIXME: this should be a templatable value like the image tag, but it isn't working
+            # repository: '{{ .Values.global.backend.image.repository }}'
             repository: ghcr.io/wgbh-mla/ov-wag
-            tag: v1.0.0
+            tag: '{{ .Values.global.backend.image.tag }}'
           envFrom:
             - configMap: '{{ template "openvault.backend.fullname" . }}-config'
             - secretRef:
@@ -74,8 +142,10 @@ app-template:
       containers:
         frontend:
           image:
+            # #FIXME see above templating error
+            # repository: '{{ .Values.global.frontend.image.repository }}'
             repository: ghcr.io/wgbh-mla/ov-frontend
-            tag: v1.0.0
+            tag: '{{ .Values.global.frontend.image.tag }}'
           envFrom:
             - configMap: '{{ template "openvault.frontend.fullname" . }}-config'
             - secretRef:
@@ -116,8 +186,10 @@ app-template:
       containers:
         update-index:
           image:
+            # #FIXME see above templating error
+            # repository: '{{ .Values.global.backend.image.repository }}'
             repository: ghcr.io/wgbh-mla/ov-wag
-            tag: v1.0.0
+            tag: '{{ .Values.global.backend.image.tag }}'
           envFrom:
             - configMap: '{{ template "openvault.backend.fullname" . }}-config'
             - secretRef:

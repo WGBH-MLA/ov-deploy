@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main
+    paths:
+      - charts/**/Chart.yaml
+
+concurrency:
+  group: publish-pages
 
 jobs:
   release:
@@ -29,5 +34,3 @@ jobs:
         uses: helm/chart-releaser-action@v1
         env:
           CR_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-          CR_OWNER: wgbh-mla
-          CR_GIT_REPO: ov-deploy

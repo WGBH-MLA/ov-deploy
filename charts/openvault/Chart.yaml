@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openvault
 description: Archives presentation website, built with Wagtail and Remix.
-version: 0.4.0
+version: 0.4.1
 appVersion: 1.0.0
 dependencies:
 - name: app-template
@@ -25,7 +25,8 @@ sources:
 
 annotations:
   artifacthub.io/changes: |
-    - Moved most global values to component sections
-    - Added backend secret config
-    - Adds default values for configs
-    - Use `nameOverride` if present to generate names for all objects
+    - Added certIssuer config
+    - Added frontend nodeEnv config
+    - Added backend settingsModule config
+    - Fixed nameOverride value
+    - Added quotes to various values

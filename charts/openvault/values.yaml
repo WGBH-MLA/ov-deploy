@@ -49,10 +49,13 @@ elasticsearch:
 # These values are available in all parent chart dependencies.
 # They can also be templated in (most of) the app-template values below.
 global:
-  # Domain name to generate URLs for the application. This is only used if URLs are not provided.
+  # Domain name to generate URLs for the application. This is only used if a URL is not provided.
   domain: dev.wgbh-mla.org
   # URL override, otherwise it will be generated from the release name and domain
   url: null
+  # cert-manager cluster issuer to use for TLS certificates
+  # certIssuer: letsencrypt-production
+  certIssuer: null
   # backend configuration
   backend:
     # Name of the backend service
@@ -63,10 +66,14 @@ global:
       repository: ghcr.io/wgbh-mla/ov-wag
       # tag for the backend image
       tag: v1.0.0
+    # settings module for the backend
+    settingsModule: ov_wag.settings.production
   # frontend configuration
   frontend:
     # Name of the frontend service
     name: remix
+    # node environment for the frontend
+    nodeEnv: production
     # image for the frontend
     image:
       # repository for the frontend image
@@ -80,7 +87,7 @@ google:
   clientId: null
 
 # Override the name generator for object in the release. default {{ .Release.Name }}
-nameOverride: bb
+nameOverride: null
 
 # Organ configuration
 organ:
@@ -234,7 +241,7 @@ app-template:
     frontend:
       nameOverride: '{{ .Values.global.frontend.name }}'
       annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-production
+        cert-manager.io/cluster-issuer: '{{ .Values.global.certIssuer }}'
       hosts:
         - host: '{{ template "openvault.url" . }}'
           paths:

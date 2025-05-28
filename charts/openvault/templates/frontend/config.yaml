@@ -5,8 +5,8 @@ metadata:
   labels:
 {{ include "bjw-s.common.lib.metadata.allLabels" . | indent 4 }}
 data:
-  NODE_ENV: production
+  NODE_ENV: {{ .Values.global.frontend.nodeEnv | default "production" | quote  }}
   OV_API_URL: 'http://{{ template "openvault.backend.fullname" . }}'
-  AAPB_HOST: {{ .Values.aapb.url }}
-  ORGAN_URL: {{ .Values.organ.url }}
-  ES_URL: {{ .Values.elasticsearch.url }}
+  AAPB_HOST: {{ .Values.aapb.url | quote }}
+  ORGAN_URL: {{ .Values.organ.url | quote }}
+  ES_URL: {{ .Values.elasticsearch.url | quote }}

@@ -3,6 +3,41 @@ entries:
   openvault:
   - annotations:
       artifacthub.io/changes: |
+        - Added certIssuer config
+        - Added frontend nodeEnv config
+        - Added backend settingsModule config
+        - Fixed nameOverride value
+        - Added quotes to various values
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-05-28T16:27:47.153601687Z"
+    dependencies:
+    - name: app-template
+      repository: https://bjw-s-labs.github.io/helm-charts/
+      version: 3.7.3
+    description: Archives presentation website, built with Wagtail and Remix.
+    digest: 4944d078a155b01b861a40c14ff35fea9b6464a0a406fa0c3d9a859f659e05b5
+    home: https://wgbh-mla.github.io/ov-deploy/
+    icon: https://wgbh-mla.github.io/ov-deploy/latest/assets/ov-logo-purple.png
+    keywords:
+    - wagtail
+    - remix
+    - postgres
+    - elasticsearch
+    - s3
+    - archive
+    - cms
+    maintainers:
+    - email: ryan_harbert@wgbh.org
+      name: Harpo
+    name: openvault
+    sources:
+    - https://github.com/WGBH-MLA/ov-deploy
+    urls:
+    - https://github.com/WGBH-MLA/ov-deploy/releases/download/openvault-0.4.1/openvault-0.4.1.tgz
+    version: 0.4.1
+  - annotations:
+      artifacthub.io/changes: |
         - Moved most global values to component sections
         - Added backend secret config
         - Adds default values for configs
@@ -174,4 +209,4 @@ entries:
     urls:
     - https://github.com/WGBH-MLA/ov-deploy/releases/download/openvault-0.3.0/openvault-0.3.0.tgz
     version: 0.3.0
-generated: "2025-05-23T19:51:46.541700388Z"
+generated: "2025-05-28T16:27:47.153637083Z"

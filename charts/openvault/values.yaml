@@ -60,6 +60,10 @@ global:
   backend:
     # Name of the backend service
     name: wagtail
+    # debug mode for the backend
+    debug: 'false'
+    # host for the backend
+    host: '0.0.0.0:8000'
     # image for the backend
     image:
       # repository for the backend image
@@ -68,6 +72,8 @@ global:
       tag: v1.0.0
     # settings module for the backend
     settingsModule: ov_wag.settings.production
+    # number of workers for the backend
+    workers: '1'
   # frontend configuration
   frontend:
     # Name of the frontend service

@@ -3,6 +3,38 @@ entries:
   openvault:
   - annotations:
       artifacthub.io/changes: |
+        - Adds backend config options for debug, host, workers
+        - Removes /authorize endpoint
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-05-29T14:30:59.343859618Z"
+    dependencies:
+    - name: app-template
+      repository: https://bjw-s-labs.github.io/helm-charts/
+      version: 3.7.3
+    description: Archives presentation website, built with Wagtail and Remix.
+    digest: e5592cac52dec96a8c8272008eb324883a41e07d9c7c42e9e512aa792d21b9ea
+    home: https://wgbh-mla.github.io/ov-deploy/
+    icon: https://wgbh-mla.github.io/ov-deploy/latest/assets/ov-logo-purple.png
+    keywords:
+    - wagtail
+    - remix
+    - postgres
+    - elasticsearch
+    - s3
+    - archive
+    - cms
+    maintainers:
+    - email: ryan_harbert@wgbh.org
+      name: Harpo
+    name: openvault
+    sources:
+    - https://github.com/WGBH-MLA/ov-deploy
+    urls:
+    - https://github.com/WGBH-MLA/ov-deploy/releases/download/openvault-0.4.3/openvault-0.4.3.tgz
+    version: 0.4.3
+  - annotations:
+      artifacthub.io/changes: |
         - Added /authorize endpoint to the backend service
     apiVersion: v2
     appVersion: 1.0.0
@@ -240,4 +272,4 @@ entries:
     urls:
     - https://github.com/WGBH-MLA/ov-deploy/releases/download/openvault-0.3.0/openvault-0.3.0.tgz
     version: 0.3.0
-generated: "2025-05-29T13:52:19.492529234Z"
+generated: "2025-05-29T14:30:59.343901086Z"

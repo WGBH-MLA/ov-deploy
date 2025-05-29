@@ -251,6 +251,9 @@ app-template:
             - path: /accounts
               service:
                 identifier: backend
+            - path: /authorize
+              service:
+                identifier: backend
             - path: /admin
               service:
                 identifier: backend

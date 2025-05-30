@@ -3,6 +3,38 @@ entries:
   openvault:
   - annotations:
       artifacthub.io/changes: |
+        - Updates name of ingress object and tls secret
+        - Adds docstrings for controllers
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-05-30T18:22:44.393161188Z"
+    dependencies:
+    - name: app-template
+      repository: https://bjw-s-labs.github.io/helm-charts/
+      version: 3.7.3
+    description: Archives presentation website, built with Wagtail and Remix.
+    digest: ef8b5da4562388de9d529a41e1d7e9c6b6eab47f0d09a34d9641820c3e17cb1a
+    home: https://wgbh-mla.github.io/ov-deploy/
+    icon: https://wgbh-mla.github.io/ov-deploy/latest/assets/ov-logo-purple.png
+    keywords:
+    - wagtail
+    - remix
+    - postgres
+    - elasticsearch
+    - s3
+    - archive
+    - cms
+    maintainers:
+    - email: ryan_harbert@wgbh.org
+      name: Harpo
+    name: openvault
+    sources:
+    - https://github.com/WGBH-MLA/ov-deploy
+    urls:
+    - https://github.com/WGBH-MLA/ov-deploy/releases/download/openvault-0.4.4/openvault-0.4.4.tgz
+    version: 0.4.4
+  - annotations:
+      artifacthub.io/changes: |
         - Adds backend config options for debug, host, workers
         - Removes /authorize endpoint
     apiVersion: v2
@@ -272,4 +304,4 @@ entries:
     urls:
     - https://github.com/WGBH-MLA/ov-deploy/releases/download/openvault-0.3.0/openvault-0.3.0.tgz
     version: 0.3.0
-generated: "2025-05-29T14:30:59.343901086Z"
+generated: "2025-05-30T18:22:44.393207995Z"

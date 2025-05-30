@@ -107,6 +107,7 @@ s3:
 
 app-template:
   controllers:
+    # backend deployment: Wagtail CMS + API
     backend:
       nameOverride: '{{ .Values.global.backend.name }}'
       containers:
@@ -150,6 +151,7 @@ app-template:
           requests:
             cpu: 50m
             memory: 50Mi
+    # frontend deployment: Remix web application
     frontend:
       nameOverride: '{{ .Values.global.frontend.name }}'
       containers:
@@ -192,6 +194,10 @@ app-template:
           requests:
             cpu: 50m
             memory: 50Mi
+    
+    ### jobs ###
+
+    # update-index updates the Elasticsearch index weekly
     update-index:
       type: cronjob
       cronjob:
@@ -211,6 +217,8 @@ app-template:
             - python
             - manage.py
             - update_index
+    
+    # restart-backend restarts the backend deployment daily            
     restart-backend:
       type: cronjob
       cronjob:
@@ -245,7 +253,7 @@ app-template:
           targetPort: 3000
   ingress:
     frontend:
-      nameOverride: '{{ .Values.global.frontend.name }}'
+      nameOverride: '{{ template "openvault.name" . }}'
       annotations:
         cert-manager.io/cluster-issuer: '{{ .Values.global.certIssuer }}'
       hosts:
@@ -270,7 +278,7 @@ app-template:
               service:
                 identifier: backend
       tls:
-        - secretName: '{{ template "openvault.frontend.fullname" . }}-tls'
+        - secretName: '{{ template "openvault.name" . }}-tls'
           hosts:
             - '{{ template "openvault.url" . }}'
 

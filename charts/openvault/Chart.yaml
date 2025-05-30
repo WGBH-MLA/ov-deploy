@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openvault
 description: Archives presentation website, built with Wagtail and Remix.
-version: 0.4.3
+version: 0.4.4
 appVersion: 1.0.0
 dependencies:
 - name: app-template
@@ -25,5 +25,5 @@ sources:
 
 annotations:
   artifacthub.io/changes: |
-    - Adds backend config options for debug, host, workers
-    - Removes /authorize endpoint
+    - Updates name of ingress object and tls secret
+    - Adds docstrings for controllers

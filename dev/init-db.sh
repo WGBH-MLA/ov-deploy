@@ -13,26 +13,26 @@ until pg_isready -h "$OV_DB_HOST" -p "$OV_DB_PORT" -U "$OV_DB_USER"; do
 done
 
 # Check if the database exists by attempting to connect
-MESSAGE=$(psql "$DB_URL/$OV_DB_NAME" -c '\q' 2>&1 > /dev/null)
+MESSAGE=$(psql "$DB_URL/$INIT_DB_NAME" -c '\q' 2>&1 > /dev/null)
 
 if [ $? -eq 0 ]; then
-  echo "Database $OV_DB_NAME already exists. Exiting..."
+  echo "Database $INIT_DB_NAME already exists. Exiting..."
   exit 0
 fi
 
 # Check for the right error message
-if ! echo "$MESSAGE" | grep "database \"$OV_DB_NAME\" does not exist"; then
+if ! echo "$MESSAGE" | grep "database \"$INIT_DB_NAME\" does not exist"; then
   echo "Uh oh!... we got a different error than expected: $MESSAGE"
   echo "Exiting without making any changes."
   exit 1
 fi
-echo "Database $OV_DB_NAME does not exist, creating..."
-psql "$DB_URL" -c "CREATE DATABASE $OV_DB_NAME;" &&\
-echo "Created db $OV_DB_NAME. Dumping the existing database..." &&\
-pg_dump "$DB_URL/ov" > /tmp/dump.sql &&\
+echo "Database $INIT_DB_NAME does not exist, creating..."
+psql "$DB_URL" -c "CREATE DATABASE \"$INIT_DB_NAME\";" &&\
+echo "Created db $INIT_DB_NAME. Dumping the existing $OV_DB_NAME database..." &&\
+pg_dump "$DB_URL/$OV_DB_NAME" > /tmp/dump.sql &&\
 echo "Restoring the dump into the new database..." &&\
-psql "$DB_URL/$OV_DB_NAME" -f /tmp/dump.sql &&\
-echo "Database $OV_DB_NAME created and restored successfully!" &&\
+psql "$DB_URL/$INIT_DB_NAME" -f /tmp/dump.sql &&\
+echo "Database $INIT_DB_NAME created and restored successfully!" &&\
 exit 0 || {
   echo "Failed to create or restore the database."
   exit 1

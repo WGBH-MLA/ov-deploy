@@ -11,12 +11,17 @@ spec:
       github:
         owner: wgbh-mla
         repo: ov-wag
-        # labels:
-        # - preview
-      requeueAfterSeconds: 1800
+      values:
+        repo: ov-wag
+  - pullRequest:
+      github:
+        owner: wgbh-mla
+        repo: ov-frontend
+      values:
+        repo: ov-frontend
   template:
     metadata:
-      name: ov-pr-{{ .number }}
+      name: '{{ .values.repo }}-pr-{{ .number }}'
     spec:
       project: ov
       source:
@@ -29,10 +34,10 @@ spec:
               certIssuer: letsencrypt-production
               backend:
                 image:
-                  tag: pr-{{ .number }}
-              # frontend:
-              #   image:
-              #     tag: main
+                  tag: '{{ if eq .values.repo "ov-wag" }}pr-{{ .number }}{{ else }}main{{ end }}'
+              frontend:
+                image:
+                  tag: '{{ if eq .values.repo "ov-frontend" }}pr-{{ .number }}{{ else }}main{{ end }}'
             app-template:
               controllers:
                 # initialize the database if it does not exist
@@ -51,7 +56,7 @@ spec:
                           name: ov-wagtail-secret
                       env:
                       - name: INIT_DB_NAME
-                        value: ov-pr-{{ .number }}
+                        value: '{{ .values.repo }}-pr-{{ .number }}'
 
                       command:
                       - /bin/bash

@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openvault
 description: Archives presentation website, built with Wagtail and Remix.
-version: 0.4.4
+version: 0.5.0
 appVersion: 1.0.0
 dependencies:
 - name: app-template
@@ -25,5 +25,5 @@ sources:
 
 annotations:
   artifacthub.io/changes: |
-    - Updates name of ingress object and tls secret
-    - Adds docstrings for controllers
+    - Adds defaultContainerOptionsStrategy: merge to combine default container options
+    - Fixes missing imagePullPolicy in defaultContainerOptions

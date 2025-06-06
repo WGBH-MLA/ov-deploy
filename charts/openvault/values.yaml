@@ -141,6 +141,7 @@ app-template:
                 httpGet:
                   path: /api/v2/health/
                   port: 8000
+      defaultContainerOptionsStrategy: merge
       defaultContainerOptions:
         image:
           pullPolicy: Always
@@ -184,6 +185,7 @@ app-template:
                 httpGet:
                   path: /health
                   port: 3000
+      defaultContainerOptionsStrategy: merge
       defaultContainerOptions:
         image:
           pullPolicy: Always

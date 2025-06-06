@@ -3,6 +3,38 @@ entries:
   openvault:
   - annotations:
       artifacthub.io/changes: |
+        - Adds defaultContainerOptionsStrategy: merge to combine default container options
+        - Fixes missing imagePullPolicy in defaultContainerOptions
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-06-06T19:00:57.648921519Z"
+    dependencies:
+    - name: app-template
+      repository: https://bjw-s-labs.github.io/helm-charts/
+      version: 3.7.3
+    description: Archives presentation website, built with Wagtail and Remix.
+    digest: add85c5d5cfd47de9ee951a56f775597aefc9dafb06777851c65890ad2fd1bf8
+    home: https://wgbh-mla.github.io/ov-deploy/
+    icon: https://wgbh-mla.github.io/ov-deploy/latest/assets/ov-logo-purple.png
+    keywords:
+    - wagtail
+    - remix
+    - postgres
+    - elasticsearch
+    - s3
+    - archive
+    - cms
+    maintainers:
+    - email: ryan_harbert@wgbh.org
+      name: Harpo
+    name: openvault
+    sources:
+    - https://github.com/WGBH-MLA/ov-deploy
+    urls:
+    - https://github.com/WGBH-MLA/ov-deploy/releases/download/openvault-0.5.0/openvault-0.5.0.tgz
+    version: 0.5.0
+  - annotations:
+      artifacthub.io/changes: |
         - Updates name of ingress object and tls secret
         - Adds docstrings for controllers
     apiVersion: v2
@@ -304,4 +336,4 @@ entries:
     urls:
     - https://github.com/WGBH-MLA/ov-deploy/releases/download/openvault-0.3.0/openvault-0.3.0.tgz
     version: 0.3.0
-generated: "2025-05-30T18:22:44.393207995Z"
+generated: "2025-06-06T19:00:57.648978876Z"

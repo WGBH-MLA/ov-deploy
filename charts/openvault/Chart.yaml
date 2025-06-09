@@ -25,5 +25,5 @@ sources:
 
 annotations:
   artifacthub.io/changes: |
-    - Adds defaultContainerOptionsStrategy: merge to combine default container options
+    - Adds defaultContainerOptionsStrategy merge to combine default container options
     - Fixes missing imagePullPolicy in defaultContainerOptions

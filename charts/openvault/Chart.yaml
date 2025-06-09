@@ -25,5 +25,5 @@ sources:
 
 annotations:
   artifacthub.io/changes: |
-    - Upgrades app-template to v4
-    - Removes custom name overrides for v4 defaults
+    - 'Upgrades app-template to v4'
+    - Better custom name overrides for backend and frontend containers

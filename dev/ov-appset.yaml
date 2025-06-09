@@ -27,7 +27,7 @@ spec:
       source:
         repoURL: https://wgbh-mla.github.io/ov-deploy
         chart: openvault
-        targetRevision: 0.4.4
+        targetRevision: 0.5.0
         helm:
           valuesObject:
             global:

@@ -59,7 +59,7 @@ global:
   # backend configuration
   backend:
     # Name of the backend service
-    name: wagtail
+    name: backend
     # debug mode for the backend
     debug: 'false'
     # host for the backend
@@ -77,7 +77,7 @@ global:
   # frontend configuration
   frontend:
     # Name of the frontend service
-    name: remix
+    name: frontend
     # node environment for the frontend
     nodeEnv: production
     # image for the frontend
@@ -109,7 +109,6 @@ app-template:
   controllers:
     # backend deployment: Wagtail CMS + API
     backend:
-      nameOverride: '{{ .Values.global.backend.name }}'
       containers:
         backend:
           image:
@@ -154,7 +153,6 @@ app-template:
             memory: 50Mi
     # frontend deployment: Remix web application
     frontend:
-      nameOverride: '{{ .Values.global.frontend.name }}'
       containers:
         frontend:
           image:
@@ -240,14 +238,12 @@ app-template:
             - --selector=app.kubernetes.io/component=backend
   service:
     backend:
-      nameOverride: '{{ .Values.global.backend.name }}'
       controller: backend
       ports:
         http:
           port: 80
           targetPort: 8000
     frontend:
-      nameOverride: '{{ .Values.global.frontend.name }}'
       controller: frontend
       ports:
         http:
@@ -255,7 +251,6 @@ app-template:
           targetPort: 3000
   ingress:
     frontend:
-      nameOverride: '{{ template "openvault.name" . }}'
       annotations:
         cert-manager.io/cluster-issuer: '{{ .Values.global.certIssuer }}'
       hosts:
@@ -285,15 +280,12 @@ app-template:
             - '{{ template "openvault.url" . }}'
 
   serviceAccount:
-    extraServiceAccounts:
-      backend-restart:
-        create: true
-        # name: '{{ template "openvault.backend.fullname" . }}-restart'
+    backend-restart: {}
+      # name: '{{ template "openvault.backend.fullname" . }}-restart'
 
   rbac:
     roles:
       backend-restart:
-        create: true
         type: Role
         rules:
           - apiGroups:

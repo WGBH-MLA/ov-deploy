@@ -3,6 +3,38 @@ entries:
   openvault:
   - annotations:
       artifacthub.io/changes: |
+        - 'Upgrades app-template to v4'
+        - Better custom name overrides for backend and frontend containers
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-06-10T15:54:20.441667085Z"
+    dependencies:
+    - name: app-template
+      repository: https://bjw-s-labs.github.io/helm-charts/
+      version: 4.0.1
+    description: Archives presentation website, built with Wagtail and Remix.
+    digest: 3b078bf45162140dd79c5e67e36a60e387ba8d1edba046cf86c3808bed408f24
+    home: https://wgbh-mla.github.io/ov-deploy/
+    icon: https://wgbh-mla.github.io/ov-deploy/latest/assets/ov-logo-purple.png
+    keywords:
+    - wagtail
+    - remix
+    - postgres
+    - elasticsearch
+    - s3
+    - archive
+    - cms
+    maintainers:
+    - email: ryan_harbert@wgbh.org
+      name: Harpo
+    name: openvault
+    sources:
+    - https://github.com/WGBH-MLA/ov-deploy
+    urls:
+    - https://github.com/WGBH-MLA/ov-deploy/releases/download/openvault-0.6.0/openvault-0.6.0.tgz
+    version: 0.6.0
+  - annotations:
+      artifacthub.io/changes: |
         - 'Adds defaultContainerOptionsStrategy: merge to combine default container options'
         - Fixes missing imagePullPolicy in defaultContainerOptions
     apiVersion: v2
@@ -336,4 +368,4 @@ entries:
     urls:
     - https://github.com/WGBH-MLA/ov-deploy/releases/download/openvault-0.3.0/openvault-0.3.0.tgz
     version: 0.3.0
-generated: "2025-06-06T19:00:57.648978876Z"
+generated: "2025-06-10T15:54:20.441763485Z"

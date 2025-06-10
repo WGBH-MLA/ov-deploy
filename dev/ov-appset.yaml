@@ -1,8 +1,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: ov-dev
-  namespace: argo-cd
+  name: ov-stage
+  namespace: ov
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]

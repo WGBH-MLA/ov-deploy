@@ -1,8 +1,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ov
-  namespace: argo-cd
+  name: ov-dev
+  namespace: ov
 spec:
   project: ov
   source:

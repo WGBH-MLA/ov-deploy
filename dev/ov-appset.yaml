@@ -53,7 +53,7 @@ spec:
                       envFrom:
                       - secretRef:
                           # name: '{{ template "openvault.backend.fullname" . }}-secret'
-                          name: ov-backend-secret
+                          name: ov-dev-backend-secret
                       env:
                       - name: INIT_DB_NAME
                         value: '{{ .values.repo }}-pr-{{ .number }}'

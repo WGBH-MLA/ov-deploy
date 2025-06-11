@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ov-dev
+  namespace: argo-cd
+spec:
+  project: ov
+  source:
+    repoURL: https://wgbh-mla.github.io/ov-deploy
+    chart: openvault
+    targetRevision: 0.6.0
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ov
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true

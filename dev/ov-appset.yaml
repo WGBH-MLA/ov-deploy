@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: ov-dev
+  name: ov-stage
   namespace: argo-cd
 spec:
   goTemplate: true
@@ -27,7 +27,7 @@ spec:
       source:
         repoURL: https://wgbh-mla.github.io/ov-deploy
         chart: openvault
-        targetRevision: 0.5.0
+        targetRevision: 0.6.0
         helm:
           valuesObject:
             global:
@@ -53,7 +53,7 @@ spec:
                       envFrom:
                       - secretRef:
                           # name: '{{ template "openvault.backend.fullname" . }}-secret'
-                          name: ov-wagtail-secret
+                          name: ov-dev-backend-secret
                       env:
                       - name: INIT_DB_NAME
                         value: '{{ .values.repo }}-pr-{{ .number }}'

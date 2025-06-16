@@ -101,7 +101,8 @@ spec:
                           echo "Failed to create or restore the database."
                           exit 1
                         }
-
+            organ:
+              url: https://organ.wgbh-mla.org
       destination:
         server: https://kubernetes.default.svc
         namespace: ov

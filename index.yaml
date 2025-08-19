@@ -3,6 +3,37 @@ entries:
   openvault:
   - annotations:
       artifacthub.io/changes: |
+        - Fixes issue with default service account after app-template upgrade
+    apiVersion: v2
+    appVersion: v1.1.0
+    created: "2025-08-19T19:54:32.189991646Z"
+    dependencies:
+    - name: app-template
+      repository: https://bjw-s-labs.github.io/helm-charts/
+      version: 4.2.0
+    description: Archives presentation website, built with Wagtail and Remix.
+    digest: 36b4b235b23e4600bddd9e629526eb65d249b8576ca0c500d1d53a60763eb709
+    home: https://wgbh-mla.github.io/ov-deploy/
+    icon: https://wgbh-mla.github.io/ov-deploy/latest/assets/ov-logo-purple.png
+    keywords:
+    - wagtail
+    - remix
+    - postgres
+    - elasticsearch
+    - s3
+    - archive
+    - cms
+    maintainers:
+    - email: ryan_harbert@wgbh.org
+      name: Harpo
+    name: openvault
+    sources:
+    - https://github.com/WGBH-MLA/ov-deploy
+    urls:
+    - https://github.com/WGBH-MLA/ov-deploy/releases/download/openvault-0.7.2/openvault-0.7.2.tgz
+    version: 0.7.2
+  - annotations:
+      artifacthub.io/changes: |
         - Bumps app-template to v4.2.0
     apiVersion: v2
     appVersion: v1.1.0
@@ -431,4 +462,4 @@ entries:
     urls:
     - https://github.com/WGBH-MLA/ov-deploy/releases/download/openvault-0.3.0/openvault-0.3.0.tgz
     version: 0.3.0
-generated: "2025-08-19T19:11:52.814255862Z"
+generated: "2025-08-19T19:54:32.190102865Z"

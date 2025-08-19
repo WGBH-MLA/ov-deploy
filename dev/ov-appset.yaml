@@ -39,6 +39,8 @@ spec:
                 image:
                   tag: '{{ if eq .values.repo "ov-frontend" }}pr-{{ .number }}{{ else }}main{{ end }}'
             app-template:
+              serviceAccount:
+                db: {}
               controllers:
                 # initialize the database if it does not exist
                 init-db:
@@ -46,7 +48,7 @@ spec:
                   annotations:
                     argocd.argoproj.io/hook: Sync
                   serviceAccount:
-                    identifier: default
+                    identifier: db
                   containers:
                     init-db:
                       image:

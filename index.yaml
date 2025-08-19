@@ -3,6 +3,37 @@ entries:
   openvault:
   - annotations:
       artifacthub.io/changes: |
+        - Bumps app-template to v4.2.0
+    apiVersion: v2
+    appVersion: v1.1.0
+    created: "2025-08-19T19:11:52.814163218Z"
+    dependencies:
+    - name: app-template
+      repository: https://bjw-s-labs.github.io/helm-charts/
+      version: 4.2.0
+    description: Archives presentation website, built with Wagtail and Remix.
+    digest: 3600ccbc925b5b5f7a5604a808b6e255bf919274dedc5ca941f394817a8d52a1
+    home: https://wgbh-mla.github.io/ov-deploy/
+    icon: https://wgbh-mla.github.io/ov-deploy/latest/assets/ov-logo-purple.png
+    keywords:
+    - wagtail
+    - remix
+    - postgres
+    - elasticsearch
+    - s3
+    - archive
+    - cms
+    maintainers:
+    - email: ryan_harbert@wgbh.org
+      name: Harpo
+    name: openvault
+    sources:
+    - https://github.com/WGBH-MLA/ov-deploy
+    urls:
+    - https://github.com/WGBH-MLA/ov-deploy/releases/download/openvault-0.7.1/openvault-0.7.1.tgz
+    version: 0.7.1
+  - annotations:
+      artifacthub.io/changes: |
         - Adds Cookie Consent ID parameter
         - Bumps frontend and backend versions to v1.1.0
     apiVersion: v2
@@ -400,4 +431,4 @@ entries:
     urls:
     - https://github.com/WGBH-MLA/ov-deploy/releases/download/openvault-0.3.0/openvault-0.3.0.tgz
     version: 0.3.0
-generated: "2025-08-19T18:15:08.292683335Z"
+generated: "2025-08-19T19:11:52.814255862Z"

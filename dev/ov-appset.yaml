@@ -45,6 +45,8 @@ spec:
                   type: job
                   annotations:
                     argocd.argoproj.io/hook: Sync
+                  serviceAccount:
+                    identifier: default
                   containers:
                     init-db:
                       image:

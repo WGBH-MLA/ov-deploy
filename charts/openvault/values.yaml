@@ -114,6 +114,8 @@ app-template:
   controllers:
     # backend deployment: Wagtail CMS + API
     backend:
+      serviceAccount:
+        identifier: default
       containers:
         backend:
           image:
@@ -158,6 +160,8 @@ app-template:
             memory: 50Mi
     # frontend deployment: Remix web application
     frontend:
+      serviceAccount:
+        identifier: default
       containers:
         frontend:
           image:
@@ -205,6 +209,8 @@ app-template:
     # update-index updates the Elasticsearch index weekly
     update-index:
       type: cronjob
+      serviceAccount:
+        identifier: default
       cronjob:
         schedule: 0 8 * * *
       containers:
@@ -285,6 +291,7 @@ app-template:
             - '{{ template "openvault.url" . }}'
 
   serviceAccount:
+    default: {}
     backend-restart: {}
       # name: '{{ template "openvault.backend.fullname" . }}-restart'
 

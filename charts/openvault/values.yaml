@@ -19,6 +19,11 @@ aws:
   # AWS secret access key
   secretAccessKey: null
 
+# Cookies configuration
+cookies:
+  # Cookie consent ID
+  id: null
+
 # Database configuration
 db:
   # Database host
@@ -69,7 +74,7 @@ global:
       # repository for the backend image
       repository: ghcr.io/wgbh-mla/ov-wag
       # tag for the backend image
-      tag: v1.0.0
+      tag: v1.1.0
     # settings module for the backend
     settingsModule: ov_wag.settings.production
     # number of workers for the backend
@@ -85,7 +90,7 @@ global:
       # repository for the frontend image
       repository: ghcr.io/wgbh-mla/ov-frontend
       # tag for the frontend image
-      tag: v1.0.0
+      tag: v1.1.0
 
 # Google configuration
 google:

@@ -41,8 +41,8 @@ db:
 elasticsearch:
   # API key for the frontend
   apiKey: null
-  # index name
-  index: wagtail__wagtailcore_page
+  # index name. default <release-name>
+  index: null
   # username for the backend
   username: null
   # password for the backend

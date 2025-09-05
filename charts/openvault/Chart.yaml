@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openvault
 description: Archives presentation website, built with Wagtail and Remix.
-version: 0.7.2
+version: 0.7.3
 appVersion: v1.1.0
 dependencies:
 - name: app-template
@@ -25,4 +25,4 @@ sources:
 
 annotations:
   artifacthub.io/changes: |
-    - Fixes issue with default service account after app-template upgrade
+    - Default ES_INDEX to .Release.Name in frontend and backend config maps

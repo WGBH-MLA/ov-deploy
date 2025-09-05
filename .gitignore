@@ -3,6 +3,7 @@ __pycache__
 
 # PDM
 .pdm-python
+.python-version
 
 # Database
 db/
@@ -13,3 +14,6 @@ db/
 
 # docs
 site/
+
+# chart deps
+*.tgz

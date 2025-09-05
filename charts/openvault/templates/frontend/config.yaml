@@ -5,8 +5,9 @@ metadata:
   labels:
 {{ include "bjw-s.common.lib.metadata.allLabels" . | indent 4 }}
 data:
-  NODE_ENV: {{ .Values.global.frontend.nodeEnv | default "production" | quote  }}
-  OV_API_URL: 'http://{{ template "openvault.backend.fullname" . }}'
   AAPB_HOST: {{ .Values.aapb.url | quote }}
-  ORGAN_URL: {{ .Values.organ.url | quote }}
+  ES_INDEX: {{ printf "%s__wagtailcore_page" (.Values.elasticsearch.index | default .Release.Name) | quote }}
   ES_URL: {{ .Values.elasticsearch.url | quote }}
+  NODE_ENV: {{ .Values.global.frontend.nodeEnv | default "production" | quote  }}
+  ORGAN_URL: {{ .Values.organ.url | quote }}
+  OV_API_URL: 'http://{{ template "openvault.backend.fullname" . }}'

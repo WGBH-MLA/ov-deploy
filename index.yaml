@@ -3,6 +3,37 @@ entries:
   openvault:
   - annotations:
       artifacthub.io/changes: |
+        - Default ES_INDEX to .Release.Name in frontend and backend config maps
+    apiVersion: v2
+    appVersion: v1.1.0
+    created: "2025-09-05T18:13:43.970323892Z"
+    dependencies:
+    - name: app-template
+      repository: https://bjw-s-labs.github.io/helm-charts/
+      version: 4.2.0
+    description: Archives presentation website, built with Wagtail and Remix.
+    digest: 23eebccbd6d39af464058959bbe26bf7f38a1fa71948899c750e64229c936e0a
+    home: https://wgbh-mla.github.io/ov-deploy/
+    icon: https://wgbh-mla.github.io/ov-deploy/latest/assets/ov-logo-purple.png
+    keywords:
+    - wagtail
+    - remix
+    - postgres
+    - elasticsearch
+    - s3
+    - archive
+    - cms
+    maintainers:
+    - email: ryan_harbert@wgbh.org
+      name: Harpo
+    name: openvault
+    sources:
+    - https://github.com/WGBH-MLA/ov-deploy
+    urls:
+    - https://github.com/WGBH-MLA/ov-deploy/releases/download/openvault-0.7.3/openvault-0.7.3.tgz
+    version: 0.7.3
+  - annotations:
+      artifacthub.io/changes: |
         - Fixes issue with default service account after app-template upgrade
     apiVersion: v2
     appVersion: v1.1.0
@@ -462,4 +493,4 @@ entries:
     urls:
     - https://github.com/WGBH-MLA/ov-deploy/releases/download/openvault-0.3.0/openvault-0.3.0.tgz
     version: 0.3.0
-generated: "2025-08-19T19:54:32.190102865Z"
+generated: "2025-09-05T18:13:43.970448586Z"

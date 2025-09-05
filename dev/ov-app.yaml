@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://wgbh-mla.github.io/ov-deploy
     chart: openvault
-    targetRevision: 0.7.2
+    targetRevision: 0.7.3
     helm:
       valuesObject:
         organ:

@@ -5,10 +5,10 @@ repo_url: https://github.com/WGBH-MLA/ov-deploy/
 
 nav:
   - Home: index.md
-  - Stack: stack.md
   - Setup: setup.md
   - Deploy: deploy.md
-  - Manage: manage.md
+  - Guides: guides/index.md
+  - Reference: reference.md
 
 markdown_extensions:
   - admonition
@@ -71,14 +71,14 @@ theme:
     - toc.integrate # Nav bar is always rendered on the left
     - search.highlight # Highlight occurances in result when searching for a term
     - search.suggest # Suggest results in search
-  custom_dir: docs/overrides
+  custom_dir: overrides
 
 plugins:
   - search
   - git-revision-date-localized:
       type: timeago
       enable_creation_date: true
-
+  - privacy
 extra:
   social:
     - name: Open Vault - Demo

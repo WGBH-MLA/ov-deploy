@@ -13,6 +13,8 @@ dependencies = [
     "mkdocstrings[python]~=0.29",
     "mkdocs-git-revision-date-localized-plugin~=1.4",
     "mkdocs-jupyter~=0.25",
+    "mkdocs-awesome-nav>=3.1.2",
+    "mkdocs-glightbox>=0.5.1",
 ]
 requires-python = '>=3.10,<4.0'
 

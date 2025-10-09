@@ -12,13 +12,14 @@ nav:
 
 markdown_extensions:
   - admonition
+  - attr_list
   - def_list
   - footnotes
   - md_in_html
   - meta
+  - pymdownx.blocks.caption
   - pymdownx.caret
   - pymdownx.details
-  - attr_list
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
@@ -51,16 +52,19 @@ theme:
     - media: '(prefers-color-scheme: dark)'
       scheme: slate
       toggle:
-        icon: material/toggle-switch
+        icon: material/lightbulb-outline
         name: Switch to light mode
     - media: '(prefers-color-scheme: light)'
       scheme: default
       toggle:
-        icon: material/toggle-switch-off-outline
+        icon: material/lightbulb-on
         name: Switch to dark mode
   features:
     - content.code.annotate # Enable code annotations for a specific block
     - header.autohide # Hide header when scrolling
+    - navigation.expanded # Expand all sections in sidebar by default
+    - navigation.footer # Footer with navigation links
+    - navigation.indexes # Combine index page with nav sidebar
     - navigation.instant # Load requests with XHR without reloading page
     - navigation.sections # Top level sections rendered as group in sidebar
     - navigation.tabs # Top level sections rendered as navbar
@@ -68,16 +72,20 @@ theme:
     - navigation.top # Back to top button
     - navigation.tracking # Adds url#anchor to address bar
     - navigation.expand # Expand all collapsed sections by default
-    - toc.integrate # Nav bar is always rendered on the left
+    - navigation.path # Show current path in nav bar
+    - toc.follow # Highlight current section in table of contents
+    # - toc.integrate # Nav bar is always rendered on the left
     - search.highlight # Highlight occurances in result when searching for a term
     - search.suggest # Suggest results in search
   custom_dir: overrides
 
 plugins:
+  - awesome-nav
   - search
   - git-revision-date-localized:
       type: timeago
       enable_creation_date: true
+  - glightbox
   - privacy
 extra:
   social:

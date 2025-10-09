@@ -5,15 +5,11 @@
          <lastmod>2025-10-09</lastmod>
     </url>
     <url>
-         <loc>https://wgbh-mla.github.io/ov-deploy/0.7/deploy/</loc>
+         <loc>https://wgbh-mla.github.io/ov-deploy/0.7/about/</loc>
          <lastmod>2025-10-09</lastmod>
     </url>
     <url>
-         <loc>https://wgbh-mla.github.io/ov-deploy/0.7/reference/</loc>
-         <lastmod>2025-10-09</lastmod>
-    </url>
-    <url>
-         <loc>https://wgbh-mla.github.io/ov-deploy/0.7/setup/</loc>
+         <loc>https://wgbh-mla.github.io/ov-deploy/0.7/architecture/</loc>
          <lastmod>2025-10-09</lastmod>
     </url>
     <url>
@@ -21,7 +17,19 @@
          <lastmod>2025-10-09</lastmod>
     </url>
     <url>
+         <loc>https://wgbh-mla.github.io/ov-deploy/0.7/guides/deploy/</loc>
+         <lastmod>2025-10-09</lastmod>
+    </url>
+    <url>
          <loc>https://wgbh-mla.github.io/ov-deploy/0.7/guides/manage/</loc>
+         <lastmod>2025-10-09</lastmod>
+    </url>
+    <url>
+         <loc>https://wgbh-mla.github.io/ov-deploy/0.7/ref/</loc>
+         <lastmod>2025-10-09</lastmod>
+    </url>
+    <url>
+         <loc>https://wgbh-mla.github.io/ov-deploy/0.7/tutorials/quickstart/</loc>
          <lastmod>2025-10-09</lastmod>
     </url>
 </urlset>

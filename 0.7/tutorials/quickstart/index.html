@@ -7,28 +7,28 @@
       
       
       
-        <link rel="canonical" href="https://wgbh-mla.github.io/ov-deploy/0.7/guides/">
+        <link rel="canonical" href="https://wgbh-mla.github.io/ov-deploy/0.7/tutorials/quickstart/">
       
       
-        <link rel="prev" href="../tutorials/quickstart/">
+        <link rel="prev" href="../../architecture/">
       
       
-        <link rel="next" href="deploy/">
+        <link rel="next" href="../../guides/">
       
       
-      <link rel="icon" href="../assets/ov-favicon.png">
+      <link rel="icon" href="../../assets/ov-favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
     
     
       
-        <title>Guides - Open Vault: Deploy</title>
+        <title>Quickstart - Open Vault: Deploy</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.2a3383ac.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2a3383ac.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -42,33 +42,33 @@
         
         
         
-        <link rel="stylesheet" href="../assets/external/fonts.googleapis.com/css.49ea35f2.css">
+        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.49ea35f2.css">
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
     
-      <link rel="stylesheet" href="../css/timeago.css">
+      <link rel="stylesheet" href="../../css/timeago.css">
     
-      <link rel="stylesheet" href="../style/auth.css">
+      <link rel="stylesheet" href="../../style/auth.css">
     
-      <link rel="stylesheet" href="../style/gbh.css">
+      <link rel="stylesheet" href="../../style/gbh.css">
     
-      <link rel="stylesheet" href="../style/github.css">
+      <link rel="stylesheet" href="../../style/github.css">
     
-      <link rel="stylesheet" href="../style/kube.css">
+      <link rel="stylesheet" href="../../style/kube.css">
     
-      <link rel="stylesheet" href="../style/todo.css">
+      <link rel="stylesheet" href="../../style/todo.css">
     
-      <link rel="stylesheet" href="../style/traefik.css">
+      <link rel="stylesheet" href="../../style/traefik.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
     
     
-  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -97,7 +97,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#guides" class="md-skip">
+        <a href="#quickstart" class="md-skip">
           Skip to content
         </a>
       
@@ -112,12 +112,12 @@
             <div class="md-banner__inner md-grid md-typeset">
               
   You're not viewing the latest version.
-  <a href="../..">
+  <a href="../../..">
     <strong>Click here to go to latest.</strong>
   </a>
 
             </div>
-            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL(".."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
           </aside>
         
       </div>
@@ -129,9 +129,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Open Vault: Deploy" class="md-header__button md-logo" aria-label="Open Vault: Deploy" data-md-component="logo">
+    <a href="../.." title="Open Vault: Deploy" class="md-header__button md-logo" aria-label="Open Vault: Deploy" data-md-component="logo">
       
-  <img src="../assets/ov-logo.png" alt="logo">
+  <img src="../../assets/ov-logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -148,7 +148,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Guides
+              Quickstart
             
           </span>
         </div>
@@ -257,35 +257,13 @@
     
     
       <li class="md-tabs__item">
-        <a href=".." class="md-tabs__link">
+        <a href="../.." class="md-tabs__link">
           
   
   
     
   
   Home
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../tutorials/quickstart/" class="md-tabs__link">
-          
-  
-  
-    
-  
-  Tutorials
 
         </a>
       </li>
@@ -309,6 +287,28 @@
   
     
   
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../guides/" class="md-tabs__link">
+          
+  
+  
+    
+  
   Guides
 
         </a>
@@ -325,7 +325,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../ref/" class="md-tabs__link">
+        <a href="../../ref/" class="md-tabs__link">
           
   
   
@@ -367,9 +367,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Open Vault: Deploy" class="md-nav__button md-logo" aria-label="Open Vault: Deploy" data-md-component="logo">
+    <a href="../.." title="Open Vault: Deploy" class="md-nav__button md-logo" aria-label="Open Vault: Deploy" data-md-component="logo">
       
-  <img src="../assets/ov-logo.png" alt="logo">
+  <img src="../../assets/ov-logo.png" alt="logo">
 
     </a>
     Open Vault: Deploy
@@ -425,7 +425,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href=".." class="md-nav__link ">
+            <a href="../.." class="md-nav__link ">
               
   
   
@@ -460,7 +460,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../about/" class="md-nav__link">
+      <a href="../../about/" class="md-nav__link">
         
   
   
@@ -508,7 +508,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../architecture/" class="md-nav__link ">
+            <a href="../../architecture/" class="md-nav__link ">
               
   
   
@@ -550,97 +550,12 @@
       
   
   
-  
-  
-    
-    
-      
-        
-      
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2">
-        
-          
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    Tutorials
-    
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2">
-            <span class="md-nav__icon md-icon"></span>
-            Tutorials
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../tutorials/quickstart/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Quickstart
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
   
     
     
-      
-        
-          
-        
-      
-        
       
         
       
@@ -660,11 +575,189 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Quickstart
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quickstart
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#namespace" class="md-nav__link">
+    <span class="md-ellipsis">
+      Namespace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Secrets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ingress" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ingress
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3">
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="./" class="md-nav__link md-nav__link--active">
+            <a href="../../guides/" class="md-nav__link ">
               
   
   
@@ -677,13 +770,13 @@
             </a>
             
               
-              <label class="md-nav__link md-nav__link--active" for="__nav_3" id="__nav_3_label" tabindex="">
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Guides
@@ -699,7 +792,7 @@
   
   
     <li class="md-nav__item">
-      <a href="deploy/" class="md-nav__link">
+      <a href="../../guides/deploy/" class="md-nav__link">
         
   
   
@@ -722,7 +815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="manage/" class="md-nav__link">
+      <a href="../../guides/manage/" class="md-nav__link">
         
   
   
@@ -777,7 +870,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../ref/" class="md-nav__link ">
+            <a href="../../ref/" class="md-nav__link ">
               
   
   
@@ -834,20 +927,53 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#management" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
-      Management
+      Prerequisites
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#namespace" class="md-nav__link">
+    <span class="md-ellipsis">
+      Namespace
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#deployment" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#database" class="md-nav__link">
     <span class="md-ellipsis">
-      Deployment
+      Database
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Secrets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ingress" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ingress
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -870,12 +996,90 @@
   
 
 
-<h1 id="guides">Guides<a class="headerlink" href="#guides" title="Permanent link">¶</a></h1>
-<p>Management, maintenance and deployment guides for the Open Vault project</p>
-<h2 id="management">Management<a class="headerlink" href="#management" title="Permanent link">¶</a></h2>
-<p>See the <a href="manage/">Management Guide</a> for maintenance and management tasks, such as updating the backend image, scaling the deployment, and managing the database (backup, restore, and migrate).</p>
-<h2 id="deployment">Deployment<a class="headerlink" href="#deployment" title="Permanent link">¶</a></h2>
-<p>See the <a href="deploy/">Deployment Guide</a> for instructions on deploying Open Vault with Helm and updating existing deployments.</p>
+<h1 id="quickstart">Quickstart<a class="headerlink" href="#quickstart" title="Permanent link">¶</a></h1>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
+<p>These instructions assume you have the following:</p>
+<ul>
+<li>A working Kubernetes cluster</li>
+<li><code>kubectl</code>, configured to connect to your cluster</li>
+<li>Argo-CD installed and configured</li>
+<li>Traefik installed and configured as an ingress controller</li>
+<li>A running PostgreSQL database</li>
+</ul>
+<h3 id="namespace">Namespace<a class="headerlink" href="#namespace" title="Permanent link">¶</a></h3>
+<p>Create a new production namespace called <code>ov</code>:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>namespace<span class="w"> </span>ov
+</code></pre></div>
+<p>Set the current context to the new namespace:
+</p><div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>config<span class="w"> </span>set-context<span class="w"> </span>--current<span class="w"> </span>--namespace<span class="o">=</span>ov
+
+<span class="c1"># Verify the current context</span>
+kubectl<span class="w"> </span>config<span class="w"> </span>view<span class="w"> </span>--minify<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>namespace:
+</code></pre></div><p></p>
+<h3 id="database">Database<a class="headerlink" href="#database" title="Permanent link">¶</a></h3>
+<p>Create a new database called <code>ov</code> and a new user called <code>postgres</code> and a secure password.</p>
+<div class="highlight"><span class="filename">Database configuration</span><pre><span></span><code><span class="nv">POSTGRES_USER</span><span class="o">=</span>postgres
+<span class="nv">POSTGRES_PASSWORD</span><span class="o">=</span><span class="s2">"YOUR POSTGRES PASSWORD HERE"</span>
+<span class="nv">POSTGRES_DB</span><span class="o">=</span>ov
+</code></pre></div>
+<details class="note">
+<summary>Generating a password</summary>
+<p>This command will generate a new secure password:</p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>rand<span class="w"> </span>-base64<span class="w"> </span><span class="m">24</span>
+</code></pre></div>
+<p>Increace the final number to increase the length and strength of the password.</p>
+</details>
+<h3 id="secrets">Secrets<a class="headerlink" href="#secrets" title="Permanent link">¶</a></h3>
+<p>Create the Backend secrets file</p>
+<h5 id="example">Example<a class="headerlink" href="#example" title="Permanent link">¶</a></h5>
+<div class="highlight"><span class="filename">ov-wag/secret.yaml</span><pre><span></span><code>apiVersion:<span class="w"> </span>v1
+kind:<span class="w"> </span>Secret
+metadata:
+<span class="w">  </span>name:<span class="w"> </span>ov-wag-secret
+<span class="w">  </span>namespace:<span class="w"> </span>ov
+stringData:
+<span class="w">  </span>OV_DB_PASSWORD:<span class="w"> </span>YOUR<span class="w"> </span>POSTGRES<span class="w"> </span>PASSWORD<span class="w"> </span>HERE
+<span class="w">  </span>OV_SECRET_KEY:<span class="w"> </span>RanDOmSeCrEtKeY_fOr_sESsion_cOOkies
+<span class="w">  </span>AWS_ACCESS_KEY_ID<span class="w"> </span>:<span class="w"> </span><span class="c1"># AWS IAM user access key</span>
+<span class="w">  </span>AWS_SECRET_ACCESS_KEY:<span class="w"> </span><span class="c1"># AWS IAM user secret key</span>
+</code></pre></div>
+<p>Apply this to the cluster:</p>
+<div class="highlight"><span class="filename">Apply secrets</span><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>ov-wag/secret.yaml
+</code></pre></div>
+<h3 id="ingress">Ingress<a class="headerlink" href="#ingress" title="Permanent link">¶</a></h3>
+<p>If necessary, modify the ingress file with the correct domain name:</p>
+<p>Applies to frontend or backend.</p>
+<h5 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">¶</a></h5>
+<p>The following frontend example:</p>
+<ul>
+<li>Routes incoming traffic that matches <code>Host: ov.wgbh-mla.org</code> to the frontend service</li>
+<li>Redirects HTTP to HTTPS</li>
+<li>Terminates the TLS connection</li>
+<li>Automatically manages the SSL certificate with LetsEncrypt</li>
+</ul>
+<div class="highlight"><span class="filename">ov-frontend/ingress.yaml</span><pre><span></span><code>apiVersion:<span class="w"> </span>networking.k8s.io/v1
+kind:<span class="w"> </span>Ingress
+metadata:
+<span class="w">  </span>name:<span class="w"> </span>ov-frontend-ingress
+
+spec:
+<span class="w">  </span>rules:
+<span class="w">    </span>-<span class="w"> </span>host:<span class="w"> </span>ov.wgbh-mla.org
+<span class="w">      </span>http:
+<span class="w">        </span>paths:
+<span class="w">          </span>-<span class="w"> </span>path:<span class="w"> </span>/
+<span class="w">            </span>pathType:<span class="w"> </span>Prefix
+<span class="w">            </span>backend:
+<span class="w">              </span>service:
+<span class="w">                </span>name:<span class="w"> </span>ov-frontend
+<span class="w">                </span>port:
+<span class="w">                  </span>number:<span class="w"> </span><span class="m">80</span>
+
+<span class="w">  </span>tls:
+<span class="w">    </span>-<span class="w"> </span>hosts:
+<span class="w">        </span>-<span class="w"> </span>ov.wgbh-mla.org
+<span class="w">      </span>secretName:<span class="w"> </span>ov-frontend-tls
+</code></pre></div>
 
 
 
@@ -908,7 +1112,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 9, 2025 18:02:13 UTC"><span class="timeago" datetime="2025-10-09T18:02:13+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 9, 2025 18:02:13 UTC">2025-10-09</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="August 24, 2022 19:14:09 UTC"><span class="timeago" datetime="2022-08-24T19:14:09+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="August 24, 2022 19:14:09 UTC">2022-08-24</span>
   </span>
 
     
@@ -943,7 +1147,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer">
         
           
-          <a href="../tutorials/quickstart/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Quickstart">
+          <a href="../../architecture/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Architecture">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
@@ -953,20 +1157,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Quickstart
+                Architecture
               </div>
             </div>
           </a>
         
         
           
-          <a href="deploy/" class="md-footer__link md-footer__link--next" aria-label="Next: Deployments">
+          <a href="../../guides/" class="md-footer__link md-footer__link--next" aria-label="Next: Guides">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Deployments
+                Guides
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -1023,14 +1227,14 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate", "header.autohide", "navigation.expanded", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.sections", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "navigation.expand", "navigation.path", "toc.follow", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "header.autohide", "navigation.expanded", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.sections", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "navigation.expand", "navigation.path", "toc.follow", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
-        <script src="../js/timeago.min.js"></script>
+        <script src="../../js/timeago.min.js"></script>
       
-        <script src="../js/timeago_mkdocs_material.js"></script>
+        <script src="../../js/timeago_mkdocs_material.js"></script>
       
     
   

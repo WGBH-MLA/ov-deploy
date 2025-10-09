@@ -27,7 +27,7 @@ cookies:
 # Database configuration
 db:
   # Database host
-  host: postgres-postgresql.postgres
+  host: postgres-cluster-rw.pg
   # Database name override. default {{ .Release.Name }}
   name: null
   # Database password
@@ -35,7 +35,7 @@ db:
   # Database port
   port: '5432'
   # Database user
-  user: postgres
+  user: app
 
 # ElasticSearch configuration
 elasticsearch:
@@ -239,8 +239,8 @@ app-template:
       containers:
         restart-backend:
           image:
-            repository: bitnami/kubectl
-            tag: latest
+            repository: alpine/kubectl
+            tag: 1.34.1
           command:
             - kubectl
             - rollout

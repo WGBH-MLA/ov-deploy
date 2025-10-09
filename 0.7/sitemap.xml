@@ -2,22 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://wgbh-mla.github.io/ov-deploy/0.7/</loc>
-         <lastmod>2025-09-05</lastmod>
+         <lastmod>2025-10-09</lastmod>
     </url>
     <url>
          <loc>https://wgbh-mla.github.io/ov-deploy/0.7/deploy/</loc>
-         <lastmod>2025-09-05</lastmod>
+         <lastmod>2025-10-09</lastmod>
     </url>
     <url>
-         <loc>https://wgbh-mla.github.io/ov-deploy/0.7/manage/</loc>
-         <lastmod>2025-09-05</lastmod>
+         <loc>https://wgbh-mla.github.io/ov-deploy/0.7/reference/</loc>
+         <lastmod>2025-10-09</lastmod>
     </url>
     <url>
          <loc>https://wgbh-mla.github.io/ov-deploy/0.7/setup/</loc>
-         <lastmod>2025-09-05</lastmod>
+         <lastmod>2025-10-09</lastmod>
     </url>
     <url>
-         <loc>https://wgbh-mla.github.io/ov-deploy/0.7/stack/</loc>
-         <lastmod>2025-09-05</lastmod>
+         <loc>https://wgbh-mla.github.io/ov-deploy/0.7/guides/</loc>
+         <lastmod>2025-10-09</lastmod>
+    </url>
+    <url>
+         <loc>https://wgbh-mla.github.io/ov-deploy/0.7/guides/manage/</loc>
+         <lastmod>2025-10-09</lastmod>
     </url>
 </urlset>

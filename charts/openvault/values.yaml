@@ -321,7 +321,7 @@ app-template:
       apiVersion: postgresql.cnpg.io/v1
       kind: Database
       spec:
-        name: '{{ template "openvault.name" . }}'
-        owner: app
-        cluster:
-          name: postgres-cluster
+        spec:
+          owner: app
+          cluster:
+            name: postgres-cluster

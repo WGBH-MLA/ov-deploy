@@ -1,19 +1,13 @@
-# Python
-__pycache__
-
-# PDM
-.pdm-python
-.python-version
-
-# Database
-db/
-
 # Environment files
 .db
 .env
 
-# docs
-site/
+# Virtual environments
+.venv/
 
-# chart deps
-*.tgz
+# Helm charts
+charts/**/charts/
+
+# docs
+.cache/
+site/

@@ -1,11 +1,21 @@
+
 [project]
 name = 'ov-deploy'
 description = 'Open Vault: Deployment Tools'
 authors = [{ name = 'WGBH-MLA', email = 'ryan_harbert@wgbh.org' }]
-version = '0.5.0'
+version = '0.4.0'
 readme = 'README.md'
 license = { text = 'MIT' }
-dependencies = []
+dependencies = [
+    "mkdocs~=1.6",
+    "mkdocs-material~=9.6",
+    "mike~=2.1",
+    "mkdocstrings[python]~=0.29",
+    "mkdocs-git-revision-date-localized-plugin~=1.4",
+    "mkdocs-jupyter~=0.25",
+    "mkdocs-awesome-nav>=3.1.2",
+    "mkdocs-glightbox>=0.5.1",
+]
 requires-python = '>=3.10,<4.0'
 
 [project.urls]
@@ -13,12 +23,6 @@ documentation = 'https://wgbh-mla.github.io/ov-deploy/'
 homepage = 'https://github.com/WGBH-MLA/ov-deploy'
 repository = 'https://github.com/WGBH-MLA/ov-deploy'
 
-[dependency-groups]
-docs = [
-  "mkdocs~=1.6",
-  "mkdocs-material~=9.6",
-  "mike~=2.1",
-  "mkdocstrings[python]~=0.29",
-  "mkdocs-git-revision-date-localized-plugin~=1.4",
-  "mkdocs-jupyter~=0.25",
-]
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"

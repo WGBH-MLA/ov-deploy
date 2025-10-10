@@ -63,7 +63,7 @@ spec:
                         value: '{{ .values.repo }}-pr-{{ .number }}'
 
                       command:
-                      - /bin/bash
+                      - /bin/sh
                       - -c
                       - |
                         DB_URL="postgresql://$OV_DB_USER:$OV_DB_PASSWORD@$OV_DB_HOST:$OV_DB_PORT"

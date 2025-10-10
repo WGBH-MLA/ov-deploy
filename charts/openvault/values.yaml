@@ -324,4 +324,4 @@ app-template:
         name: '{{ template "openvault.name" . }}'
         owner: app
         cluster:
-          name: cluster
+          name: postgres-cluster

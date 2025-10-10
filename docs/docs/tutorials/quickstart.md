@@ -1,4 +1,4 @@
-# Setup
+# Quickstart
 
 ## Prerequisites
 These instructions assume you have the following:

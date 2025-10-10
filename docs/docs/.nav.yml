@@ -1,0 +1,8 @@
+nav:
+- Home:
+  - index.md
+  - about.md
+  - architecture
+- tutorials
+- guides
+- Reference: ref

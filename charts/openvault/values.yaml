@@ -322,6 +322,7 @@ app-template:
       kind: Database
       spec:
         spec:
+          name: '{{ template "openvault.name" . }}'
           owner: app
           cluster:
             name: postgres-cluster

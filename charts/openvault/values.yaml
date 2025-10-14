@@ -27,7 +27,7 @@ cookies:
 # Database configuration
 db:
   # Database host
-  host: postgres-cluster-rw.pg
+  host: ov-db-cluster-rw
   # Database name override. default {{ .Release.Name }}
   name: null
   # Database password
@@ -35,7 +35,7 @@ db:
   # Database port
   port: '5432'
   # Database user
-  user: app
+  user: wagtail
 
 # ElasticSearch configuration
 elasticsearch:

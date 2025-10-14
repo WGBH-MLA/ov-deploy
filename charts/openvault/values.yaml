@@ -35,7 +35,7 @@ db:
   # Database port
   port: '5432'
   # Database user
-  user: wagtail
+  user: app
 
 # ElasticSearch configuration
 elasticsearch:

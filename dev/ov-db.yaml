@@ -16,7 +16,7 @@ spec:
             instances: 1
             initdb:
               database: openvault
-              owner: wagtail
+              owner: app
   destination:
     server: https://kubernetes.default.svc
     namespace: ov

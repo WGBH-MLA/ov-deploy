@@ -21,7 +21,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Attempting to dump | restore into the new database..." &&\
-pg_dump -Fc "$DB_URL/$OV_DB_NAME" | pg_restore "$DB_URL/$INIT_DB_NAME" --verbose --clean --no-acl --no-owner &&\
+pg_dump "$DB_URL/$OV_DB_NAME" | psql "$DB_URL/$INIT_DB_NAME" &&\
 echo "Database $INIT_DB_NAME created and restored successfully!" &&\
 exit 0 || {
   >&2 echo "Failed to create or restore the database."

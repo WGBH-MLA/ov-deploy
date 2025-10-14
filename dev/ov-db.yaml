@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ov-db
+  namespace: argo-cd
+spec:
+  project: ov
+  source:
+    repoURL: https://github.com/WGBH-MLA/cluster-deploy
+    path: charts/postgres
+    targetRevision: pg
+    helm:
+      valuesObject:
+        cluster:
+          cluster:
+            instances: 1
+            initdb:
+              database: openvault
+              owner: wagtail
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ov
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true

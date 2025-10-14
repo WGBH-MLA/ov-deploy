@@ -15,26 +15,13 @@ done
 # Check if the database exists by attempting to connect
 MESSAGE=$(psql "$DB_URL/$INIT_DB_NAME" -c '\q' 2>&1 > /dev/null)
 
-if [ $? -eq 0 ]; then
-  echo "Database $INIT_DB_NAME already exists. Exiting..."
-  exit 0
-fi
-
-# Check for the right error message
-if ! echo "$MESSAGE" | grep "database \"$INIT_DB_NAME\" does not exist"; then
-  >&2 echo "Uh oh!... we got a different error than expected: $MESSAGE"
-  >&2 echo "Exiting without making any changes."
+if [ $? -ne 0 ]; then
+  echo "Error: Failed to connect to the database. Message: $MESSAGE"
   exit 1
 fi
 
-echo "Database $INIT_DB_NAME does not exist, creating..."
-psql "$DB_URL" -c "CREATE DATABASE \"$INIT_DB_NAME\";" &&\
-
-echo "Created db $INIT_DB_NAME. Dumping the existing $OV_DB_NAME database..." &&\
-pg_dump "$DB_URL/$OV_DB_NAME" > /tmp/dump.sql &&\
-
-echo "Restoring the dump into the new database..." &&\
-psql "$DB_URL/$INIT_DB_NAME" -f /tmp/dump.sql &&\
+echo "Attempting to dump | restore into the new database..." &&\
+pg_dump -Fc "$DB_URL/$OV_DB_NAME" | pg_restore "$DB_URL/$INIT_DB_NAME" --verbose --clean --no-acl --no-owner &&\
 echo "Database $INIT_DB_NAME created and restored successfully!" &&\
 exit 0 || {
   >&2 echo "Failed to create or restore the database."

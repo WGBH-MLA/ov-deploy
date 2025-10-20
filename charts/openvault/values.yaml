@@ -339,7 +339,7 @@ app-template:
             name: '{{ template "openvault.backend.fullname" . }}-secret'
             creationPolicy: Owner
           dataFrom:
-          - remoteRef:
+          - extract:
               key: dev/ov/backend
     frontend-secrets:
       apiVersion: external-secrets.io/v1
@@ -354,5 +354,5 @@ app-template:
             name: '{{ template "openvault.frontend.fullname" . }}-secret'
             creationPolicy: Owner
           dataFrom:
-          - remoteRef:
+          - extract:
               key: dev/ov/frontend

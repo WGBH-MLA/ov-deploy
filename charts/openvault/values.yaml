@@ -24,6 +24,25 @@ global:
     # AWS secret access key
     secretAccessKey: null
 
+  # backend configuration
+  backend:
+    # Name of the backend service
+    name: backend
+    # debug mode for the backend
+    debug: 'false'
+    # host for the backend
+    host: '0.0.0.0:8000'
+    # image for the backend
+    image:
+      # repository for the backend image
+      repository: ghcr.io/wgbh-mla/ov-wag
+      # tag for the backend image
+      tag: v1.1.0
+    # Django settings module location string for Wagtail
+    settingsModule: ov_wag.settings.production
+    # number of workers for the backend
+    workers: '1'
+
   # Cookies configuration
   cookies:
     # Cookie consent ID
@@ -50,25 +69,6 @@ global:
   # certIssuer: letsencrypt-production
   certIssuer: null
 
-  # backend configuration
-  backend:
-    # Name of the backend service
-    name: backend
-    # debug mode for the backend
-    debug: 'false'
-    # host for the backend
-    host: '0.0.0.0:8000'
-    # image for the backend
-    image:
-      # repository for the backend image
-      repository: ghcr.io/wgbh-mla/ov-wag
-      # tag for the backend image
-      tag: v1.1.0
-    # Django settings module location string for Wagtail
-    settingsModule: ov_wag.settings.production
-    # number of workers for the backend
-    workers: '1'
-
   # ElasticSearch configuration
   elasticsearch:
     # API key for the frontend
@@ -76,7 +76,7 @@ global:
     # index name. default <release-name>
     index: null
     # username for the backend
-    username: null
+    username: wagtail
     # password for the backend
     password: null
     # URL for the Elasticsearch instance
@@ -277,6 +277,7 @@ app-template:
 
         ES_INDEX: '{{ .Values.global.elasticsearch.index | default .Release.Name }}'
         ES_URL: '{{ .Values.global.elasticsearch.url }}'
+        ES_USER: '{{ .Values.global.elasticsearch.username }}'
 
     frontend:
       data:

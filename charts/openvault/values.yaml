@@ -326,3 +326,33 @@ app-template:
           owner: app
           cluster:
             name: ov-db-cluster
+    backend-secrets:
+      apiVersion: external-secrets.io/v1
+      kind: ExternalSecret
+      spec:
+        spec:
+          refreshInterval: 1h0m0s
+          secretStoreRef:
+            name: aws-secrets
+            kind: ClusterSecretStore
+          target:
+            name: '{{ template "openvault.backend.fullname" . }}-secret'
+            creationPolicy: Owner
+          dataFrom:
+          - remoteRef:
+              key: dev/ov/backend
+    frontend-secrets:
+      apiVersion: external-secrets.io/v1
+      kind: ExternalSecret
+      spec:
+        spec:
+          refreshInterval: 1h0m0s
+          secretStoreRef:
+            name: aws-secrets
+            kind: ClusterSecretStore
+          target:
+            name: '{{ template "openvault.frontend.fullname" . }}-secret'
+            creationPolicy: Owner
+          dataFrom:
+          - remoteRef:
+              key: dev/ov/frontend

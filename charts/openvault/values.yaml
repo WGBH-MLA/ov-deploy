@@ -1,36 +1,3 @@
-# Auth0 configuration
-auth:
-  # Auth0 clientId
-  clientId: null
-  # Auth0 clientSecret
-  clientSecret: null
-  # Auth0 URL
-  url: null
-
-# AWS configuration
-aws:
-  # AWS access key ID
-  accessKeyId: null
-  # AWS secret access key
-  secretAccessKey: null
-
-# Cookies configuration
-cookies:
-  # Cookie consent ID
-  id: null
-
-# Database configuration
-db:
-  # Database host
-  host: ov-db-cluster-rw
-  # Database name override. default {{ .Release.Name }}
-  name: null
-  # Database password
-  password: null
-  # Database port
-  port: '5432'
-  # Database user
-  user: app
 
 # global configuration
 # These values are available in all parent chart dependencies.
@@ -40,6 +7,41 @@ global:
   aapb:
     # URL for the American Archive instance
     url: https://demo.aapb.wgbh-mla.org
+  
+  # Auth0 configuration
+  auth:
+    # Auth0 clientId
+    clientId: null
+    # Auth0 clientSecret
+    clientSecret: null
+    # Auth0 URL
+    url: null
+
+  # AWS configuration
+  aws:
+    # AWS access key ID
+    accessKeyId: null
+    # AWS secret access key
+    secretAccessKey: null
+
+  # Cookies configuration
+  cookies:
+    # Cookie consent ID
+    id: null
+
+  # Database configuration
+  db:
+    # Database host
+    host: ov-db-cluster-rw
+    # Database name override. default {{ .Release.Name }}
+    name: null
+    # Database password
+    password: null
+    # Database port
+    port: '5432'
+    # Database user
+    user: app
+
   # Domain name to generate URLs for the application. This is only used if a URL is not provided.
   domain: dev.wgbh-mla.org
   # URL override, otherwise it will be generated from the release name and domain
@@ -47,6 +49,7 @@ global:
   # cert-manager cluster issuer to use for TLS certificates
   # certIssuer: letsencrypt-production
   certIssuer: null
+
   # backend configuration
   backend:
     # Name of the backend service
@@ -65,6 +68,7 @@ global:
     settingsModule: ov_wag.settings.production
     # number of workers for the backend
     workers: '1'
+
   # ElasticSearch configuration
   elasticsearch:
     # API key for the frontend
@@ -90,25 +94,23 @@ global:
       repository: ghcr.io/wgbh-mla/ov-frontend
       # tag for the frontend image
       tag: v1.1.0
-
+  # Google configuration
+  google:
+    # Google client ID
+    clientId: null
   # Organ configuration
   organ:
     # URL for the Organ service
     url: http://organ.organ
-
   # S3 configuration
   s3:
     # S3 bucket for media
     name: dev.media.openvault.wgbh.org
 
-# Google configuration
-google:
-  # Google client ID
-  clientId: null
-
 # Override the name generator for object in the release. default {{ .Release.Name }}
 nameOverride: null
 
+### Application template configuration ###
 app-template:
   controllers:
     # backend deployment: Wagtail CMS + API
@@ -253,21 +255,26 @@ app-template:
   configMaps:
     backend:
       data:
+        AWS_STORAGE_BUCKET_NAME: '{{ .Values.global.s3.name }}'
         DJANGO_SETTINGS_MODULE: '{{ .Values.global.backend.settingsModule }}'
-        OV_ALLOWED_HOSTS: '*'
-        OV_TRUSTED_ORIGINS: https://{{ template "openvault.url" . }},http://localhost:8000
-        OV_DEBUG: '{{ .Values.global.backend.debug }}'
-        OV_CSRF_COOKIE_SECURE: 'false'
-        OV_API_URL: http://{{ template "openvault.backend.fullname" . }}/api/v2
-        OV_BASE_URL: https://{{ template "openvault.url" . }}
         OV_ADMIN_BASE_URL: https://{{ template "openvault.url" . }}
-        OV_HOST: '{{ .Values.global.backend.host }}'
-        OV_WORKERS: '{{ .Values.global.backend.workers }}'
+        OV_API_URL: http://{{ template "openvault.backend.fullname" . }}/api/v2
+        OV_DB_HOST: '{{ .Values.global.db.host }}'
+        OV_DB_NAME: '{{ .Values.global.db.name | default .Release.Name }}'
+        OV_DB_USER: '{{ .Values.global.db.user }}'
+        OV_DB_PORT: '{{ .Values.global.db.port }}'
+        OV_GOOGLE_CLIENT_ID: '{{ .Values.global.google.clientId }}'
+        OV_DEBUG: '{{ .Values.global.backend.debug }}'
+        OV_BASE_URL: https://{{ template "openvault.url" . }}
+        OV_ALLOWED_HOSTS: '*'
         OV_FORWARDED_ALLOW_IPS: '*'
+        OV_HOST: '{{ .Values.global.backend.host }}'
         OV_ACCESS_LOGFILE: '-'
         OV_ERROR_LOGFILE: '-'
         OV_PREVIEW_URL: https://{{ template "openvault.url" . }}/preview
-        AWS_STORAGE_BUCKET_NAME: '{{ .Values.global.s3.name }}'
+        OV_TRUSTED_ORIGINS: https://{{ template "openvault.url" . }},http://localhost:8000
+        OV_WORKERS: '{{ .Values.global.backend.workers }}'
+
         ES_INDEX: '{{ .Values.global.elasticsearch.index | default .Release.Name }}'
         ES_URL: '{{ .Values.global.elasticsearch.url }}'
 
@@ -278,7 +285,7 @@ app-template:
         ES_INDEX: '{{ printf "%s__wagtailcore_page" (.Values.global.elasticsearch.index | default .Release.Name) | quote }}'
         ES_URL: '{{ .Values.global.elasticsearch.url }}'
         ORGAN_URL: '{{ .Values.global.organ.url }}'
-        OV_API_URL: 'http://{{ template "openvault.backend.fullname" . }}'
+        OV_API_URL: http://{{ template "openvault.backend.fullname" . }}
 
   ### Services ###
   service:
@@ -326,11 +333,13 @@ app-template:
           hosts:
             - '{{ template "openvault.url" . }}'
 
+  ### Service Accounts ###
   serviceAccount:
     default: {}
     backend-restart: {}
       # name: '{{ template "openvault.backend.fullname" . }}-restart'
-
+  
+  ### RBAC ###
   rbac:
     roles:
       backend-restart:
@@ -352,6 +361,8 @@ app-template:
           identifier: backend-restart
         subjects:
           - identifier: backend-restart
+  
+  ### Raw Resources ###
   rawResources:
     database:
       apiVersion: postgresql.cnpg.io/v1

@@ -1,8 +1,3 @@
-# American Archive configuration
-aapb:
-  # URL for the American Archive instance
-  url: https://demo.aapb.wgbh-mla.org
-
 # Auth0 configuration
 auth:
   # Auth0 clientId
@@ -37,23 +32,14 @@ db:
   # Database user
   user: app
 
-# ElasticSearch configuration
-elasticsearch:
-  # API key for the frontend
-  apiKey: null
-  # index name. default <release-name>
-  index: null
-  # username for the backend
-  username: null
-  # password for the backend
-  password: null
-  # URL for the Elasticsearch instance
-  url: https://elastic.dev.wgbh-mla.org
-
 # global configuration
 # These values are available in all parent chart dependencies.
 # They can also be templated in (most of) the app-template values below.
 global:
+  # American Archive configuration
+  aapb:
+    # URL for the American Archive instance
+    url: https://demo.aapb.wgbh-mla.org
   # Domain name to generate URLs for the application. This is only used if a URL is not provided.
   domain: dev.wgbh-mla.org
   # URL override, otherwise it will be generated from the release name and domain
@@ -75,10 +61,23 @@ global:
       repository: ghcr.io/wgbh-mla/ov-wag
       # tag for the backend image
       tag: v1.1.0
-    # settings module for the backend
+    # Django settings module location string for Wagtail
     settingsModule: ov_wag.settings.production
     # number of workers for the backend
     workers: '1'
+  # ElasticSearch configuration
+  elasticsearch:
+    # API key for the frontend
+    apiKey: null
+    # index name. default <release-name>
+    index: null
+    # username for the backend
+    username: null
+    # password for the backend
+    password: null
+    # URL for the Elasticsearch instance
+    url: https://elastic.dev.wgbh-mla.org
+
   # frontend configuration
   frontend:
     # Name of the frontend service
@@ -92,6 +91,16 @@ global:
       # tag for the frontend image
       tag: v1.1.0
 
+  # Organ configuration
+  organ:
+    # URL for the Organ service
+    url: http://organ.organ
+
+  # S3 configuration
+  s3:
+    # S3 bucket for media
+    name: dev.media.openvault.wgbh.org
+
 # Google configuration
 google:
   # Google client ID
@@ -99,16 +108,6 @@ google:
 
 # Override the name generator for object in the release. default {{ .Release.Name }}
 nameOverride: null
-
-# Organ configuration
-organ:
-  # URL for the Organ service
-  url: http://organ.organ
-
-# S3 configuration
-s3:
-  # S3 bucket for media
-  name: dev.media.openvault.wgbh.org
 
 app-template:
   controllers:
@@ -124,9 +123,10 @@ app-template:
             repository: ghcr.io/wgbh-mla/ov-wag
             tag: '{{ .Values.global.backend.image.tag }}'
           envFrom:
-            - configMap: '{{ template "openvault.backend.fullname" . }}-config'
-            - secretRef:
-                name: '{{ template "openvault.backend.fullname" . }}-secret'
+          - configMapRef:
+              identifier: backend
+          - secretRef:
+              name: '{{ template "openvault.backend.fullname" . }}-secret'
           probes:
             liveness:
               enabled: true
@@ -170,9 +170,10 @@ app-template:
             repository: ghcr.io/wgbh-mla/ov-frontend
             tag: '{{ .Values.global.frontend.image.tag }}'
           envFrom:
-            - configMap: '{{ template "openvault.frontend.fullname" . }}-config'
-            - secretRef:
-                name: '{{ template "openvault.frontend.fullname" . }}-secret'
+          - configMapRef:
+              identifier: frontend
+          - secretRef:
+              name: '{{ template "openvault.frontend.fullname" . }}-secret'
           probes:
             liveness:
               enabled: true
@@ -247,6 +248,39 @@ app-template:
             - restart
             - deployment
             - --selector=app.kubernetes.io/component=backend
+  
+  ### ConfigMaps ###
+  configMaps:
+    backend:
+      data:
+        DJANGO_SETTINGS_MODULE: '{{ .Values.global.backend.settingsModule }}'
+        OV_ALLOWED_HOSTS: '*'
+        OV_TRUSTED_ORIGINS: https://{{ template "openvault.url" . }},http://localhost:8000
+        OV_DEBUG: '{{ .Values.global.backend.debug }}'
+        OV_CSRF_COOKIE_SECURE: 'false'
+        OV_API_URL: http://{{ template "openvault.backend.fullname" . }}/api/v2
+        OV_BASE_URL: https://{{ template "openvault.url" . }}
+        OV_ADMIN_BASE_URL: https://{{ template "openvault.url" . }}
+        OV_HOST: '{{ .Values.global.backend.host }}'
+        OV_WORKERS: '{{ .Values.global.backend.workers }}'
+        OV_FORWARDED_ALLOW_IPS: '*'
+        OV_ACCESS_LOGFILE: '-'
+        OV_ERROR_LOGFILE: '-'
+        OV_PREVIEW_URL: https://{{ template "openvault.url" . }}/preview
+        AWS_STORAGE_BUCKET_NAME: '{{ .Values.global.s3.name }}'
+        ES_INDEX: '{{ .Values.global.elasticsearch.index | default .Release.Name }}'
+        ES_URL: '{{ .Values.global.elasticsearch.url }}'
+
+    frontend:
+      data:
+        AAPB_HOST: '{{ .Values.global.aapb.url }}'
+        NODE_ENV: '{{ .Values.global.frontend.nodeEnv }}'
+        ES_INDEX: '{{ printf "%s__wagtailcore_page" (.Values.global.elasticsearch.index | default .Release.Name) | quote }}'
+        ES_URL: '{{ .Values.global.elasticsearch.url }}'
+        ORGAN_URL: '{{ .Values.global.organ.url }}'
+        OV_API_URL: 'http://{{ template "openvault.backend.fullname" . }}'
+
+  ### Services ###
   service:
     backend:
       controller: backend
@@ -260,6 +294,8 @@ app-template:
         http:
           port: 80
           targetPort: 3000
+  
+  ### Ingress ###
   ingress:
     frontend:
       annotations:

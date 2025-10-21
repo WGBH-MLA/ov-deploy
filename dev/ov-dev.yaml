@@ -1,0 +1,103 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ov-dev
+  namespace: argo-cd
+spec:
+  project: ov
+  source:
+    repoURL: https://github.com/WGBH-MLA/ov-deploy
+    path: charts/openvault
+    targetRevision: alpine
+    helm:
+      valuesObject:
+        global:
+          organ:
+            url: https://organ.wgbh-mla.org
+        app-template:
+          serviceAccount:
+            db: {}
+          controllers:
+            # Sync the production database to the dev database
+            sync-db:
+              type: job
+              annotations:
+                argocd.argoproj.io/hook: Sync
+              serviceAccount:
+                identifier: db
+              containers:
+                sync-db:
+                  image:
+                    repository: alpine/psql
+                    tag: 17.6
+                  envFrom:
+                  - secretRef:
+                      name: '{{ template "openvault.backend.fullname" . }}-secret'
+                  - secretRef:
+                      name: '{{ template "openvault.backend.fullname" . }}-db-secret'
+                  env:
+                  - name: SOURCE_DB_HOST
+                    value: openvault.cmrjt7rckp5r.us-east-1.rds.amazonaws.com
+
+                  command:
+                  - /bin/sh
+                  - -c
+                  - |
+                    SOURCE_DB_URL="postgresql://$SOURCE_DB_USER:$SOURCE_DB_PASSWORD@$SOURCE_DB_HOST:5432"
+                    DEST_DB_URL="postgresql://$OV_DB_USER:$OV_DB_PASSWORD@$OV_DB_HOST:$OV_DB_PORT"
+                    
+                    MAX_RETRIES=5
+                    # Check if the database is ready
+                    until pg_isready -h "$OV_DB_HOST" -p "$OV_DB_PORT" -U "$OV_DB_USER"; do
+                      if [ $((MAX_RETRIES--)) -eq 0 ]; then
+                        >&2 echo "Error: PostgreSQL is not ready after multiple attempts. Exiting..."
+                        exit 1
+                      fi
+                      echo "Waiting for PostgreSQL to be ready..."
+                      sleep 5
+                    done
+
+                    # Check if the database exists by attempting to connect
+                    MESSAGE=$(psql "$DEST_DB_URL/$OV_DB_NAME" -c '\q' 2>&1 > /dev/null)
+
+                    if [ $? -ne 0 ]; then
+                      echo "Error: Failed to connect to the database. Message: $MESSAGE"
+                      exit 1
+                    fi
+
+                    echo "Attempting to dump | restore into the new database..." &&\
+                    pg_dump "$SOURCE_DB_URL/$SOURCE_DB_NAME" | psql "$DEST_DB_URL/$OV_DB_NAME" &&\
+                    echo "Database $OV_DB_NAME created and restored successfully!" &&\
+                    exit 0 || {
+                      >&2 echo "Failed to create or restore the database."
+                      exit 1
+                    }
+
+          rawResources:
+            db-secrets:
+              apiVersion: external-secrets.io/v1
+              kind: ExternalSecret
+              spec:
+                spec:
+                  refreshInterval: 1h0m0s
+                  secretStoreRef:
+                    name: aws-secrets
+                    kind: ClusterSecretStore
+                  target:
+                    name: '{{ template "openvault.backend.fullname" . }}-db-secret'
+                    creationPolicy: Owner
+                  data:
+                  - secretKey: SOURCE_DB_USER
+                    key: rds!db-30ce1591-67a9-488b-a17d-20164754d9b3
+                    property: username
+                  - secretKey: SOURCE_DB_PASSWORD
+                    key: rds!db-30ce1591-67a9-488b-a17d-20164754d9b3
+                    property: password
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ov
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true

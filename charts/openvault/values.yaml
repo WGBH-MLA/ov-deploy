@@ -232,8 +232,9 @@ app-template:
             - manage.py
             - update_index
     
-    # restart-backend restarts the backend deployment daily            
+    # restart-backend restarts the backend deployment daily
     restart-backend:
+      enabled: false
       type: cronjob
       cronjob:
         schedule: 0 8 * * *

@@ -31,6 +31,8 @@ spec:
                     repository: alpine/psql
                     tag: 17.6
                   envFrom:
+                  - configMapRef:
+                      name: '{{ template "openvault.backend.fullname" . }}'
                   - secretRef:
                       name: '{{ template "openvault.backend.fullname" . }}-secret'
                   - secretRef:

@@ -35,12 +35,19 @@ spec:
                       name: '{{ template "openvault.backend.fullname" . }}'
                   - secretRef:
                       name: '{{ template "openvault.backend.fullname" . }}-secret'
-                  - secretRef:
-                      name: '{{ template "openvault.backend.fullname" . }}-db-secret'
                   env:
                   - name: SOURCE_DB_HOST
                     value: openvault.cmrjt7rckp5r.us-east-1.rds.amazonaws.com
-
+                  - name: SOURCE_DB_USER
+                    valueFrom:
+                      secretKeyRef:
+                        name: '{{ template "openvault.backend.fullname" . }}-db-secret'
+                        key: username
+                  - name: SOURCE_DB_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        name: '{{ template "openvault.backend.fullname" . }}-db-secret'
+                        key: password
                   command:
                   - /bin/sh
                   - -c
@@ -88,13 +95,9 @@ spec:
                   target:
                     name: '{{ template "openvault.backend.fullname" . }}-db-secret'
                     creationPolicy: Owner
-                  data:
-                  - secretKey: SOURCE_DB_USER
-                    key: rds!db-30ce1591-67a9-488b-a17d-20164754d9b3
-                    property: username
-                  - secretKey: SOURCE_DB_PASSWORD
-                    key: rds!db-30ce1591-67a9-488b-a17d-20164754d9b3
-                    property: password
+                  dataFrom:
+                  - extract:
+                      key: rds!db-30ce1591-67a9-488b-a17d-20164754d9b3
 
   destination:
     server: https://kubernetes.default.svc

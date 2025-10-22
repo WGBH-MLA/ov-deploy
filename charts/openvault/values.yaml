@@ -129,6 +129,8 @@ app-template:
               identifier: backend
           - secretRef:
               name: '{{ template "openvault.backend.fullname" . }}-secret'
+          - secretRef:
+              identifier: backend-secret-key
           probes:
             liveness:
               enabled: true
@@ -288,6 +290,12 @@ app-template:
         ES_URL: '{{ .Values.global.elasticsearch.url }}'
         ORGAN_URL: '{{ .Values.global.organ.url }}'
         OV_API_URL: http://{{ template "openvault.backend.fullname" . }}
+
+  ### Secrets ###
+  secrets:
+    backend-secret-key:
+      stringData:
+        OV_SECRET_KEY: '{{ randBytes 32 }}'
 
   ### Services ###
   service:

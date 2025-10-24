@@ -73,8 +73,10 @@ global:
   elasticsearch:
     # API key for the frontend
     apiKey: null
-    # index name. default <release-name>
-    index: null
+    # GBH Vault index name. default gbh-series
+    gbhIndex: gbh-series
+    # Open Vault index name. default <release-name>
+    ovIndex: null
     # username for the backend
     username: wagtail
     # password for the backend
@@ -286,9 +288,10 @@ app-template:
       data:
         AAPB_HOST: '{{ .Values.global.aapb.url }}'
         NODE_ENV: '{{ .Values.global.frontend.nodeEnv }}'
-        ES_INDEX: '{{ printf "%s__wagtailcore_page" (.Values.global.elasticsearch.index | default .Release.Name) | quote }}'
         ES_URL: '{{ .Values.global.elasticsearch.url }}'
+        ES_GBH_INDEX: '{{ .Values.global.elasticsearch.gbhIndex | default .Release.Name }}'
         ORGAN_URL: '{{ .Values.global.organ.url }}'
+        ES_OV_INDEX: '{{ printf "%s__wagtailcore_page" (.Values.global.elasticsearch.ovIndex | default .Release.Name) | quote }}'
         OV_API_URL: http://{{ template "openvault.backend.fullname" . }}
 
   ### Secrets ###

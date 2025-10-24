@@ -56,7 +56,7 @@ spec:
                         tag: 17.6
                       envFrom:
                       - configMapRef:
-                          identifier: backend
+                          name: '{{ template "openvault.backend.fullname" . }}'
                       - secretRef:
                           name: '{{ template "openvault.backend.fullname" . }}-secret'
                       env:

@@ -55,13 +55,13 @@ spec:
                         repository: alpine/psql
                         tag: 17.6
                       envFrom:
+                      - configMapRef:
+                          identifier: backend
                       - secretRef:
-                          # name: '{{ template "openvault.backend.fullname" . }}-secret'
-                          name: ov-dev-backend-secret
+                          name: '{{ template "openvault.backend.fullname" . }}-secret'
                       env:
                       - name: INIT_DB_NAME
                         value: '{{ .values.repo }}-pr-{{ .number }}'
-
                       command:
                       - /bin/sh
                       - -c

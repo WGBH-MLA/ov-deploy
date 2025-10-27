@@ -56,9 +56,9 @@ spec:
                         tag: 17.6
                       envFrom:
                       - configMapRef:
-                          name: '{{ template "openvault.backend.fullname" . }}'
+                          name: '{{ .values.repo }}-pr-{{ .number }}-backend'
                       - secretRef:
-                          name: '{{ template "openvault.backend.fullname" . }}-secret'
+                          name: '{{ .values.repo }}-pr-{{ .number }}-backend-secret'
                       env:
                       - name: INIT_DB_NAME
                         value: '{{ .values.repo }}-pr-{{ .number }}'

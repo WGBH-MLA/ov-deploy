@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openvault
 description: Archives presentation website, built with Wagtail and Remix.
-version: 0.8.0
+version: 0.8.1
 appVersion: v1.1.0
 dependencies:
 - name: app-template

@@ -291,7 +291,7 @@ app-template:
         ES_URL: '{{ .Values.global.elasticsearch.url }}'
         ES_GBH_INDEX: '{{ .Values.global.elasticsearch.gbhIndex | default .Release.Name }}'
         ORGAN_URL: '{{ .Values.global.organ.url }}'
-        ES_OV_INDEX: '{{ printf "%s__wagtailcore_page" (.Values.global.elasticsearch.ovIndex | default .Release.Name) | quote }}'
+        ES_OV_INDEX: '{{ printf "%s__wagtailcore_page" (.Values.global.elasticsearch.ovIndex | default .Release.Name) }}'
         OV_API_URL: http://{{ template "openvault.backend.fullname" . }}
 
   ### Secrets ###

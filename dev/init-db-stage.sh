@@ -13,7 +13,7 @@ until pg_isready -h "$OV_DB_HOST" -p "$OV_DB_PORT" -U "$OV_DB_USER"; do
 done
 
 # Check if the database exists by attempting to connect
-MESSAGE=$(psql "$DB_URL/$INIT_DB_NAME" -c '\q' 2>&1 > /dev/null)
+MESSAGE=$(psql "$DB_URL/$OV_DB_NAME" -c '\q' 2>&1 > /dev/null)
 
 if [ $? -ne 0 ]; then
   echo "Error: Failed to connect to the database. Message: $MESSAGE"
@@ -21,8 +21,8 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Attempting to dump | restore into the new database..." &&\
-pg_dump "$DB_URL/$OV_DB_NAME" | psql "$DB_URL/$INIT_DB_NAME" &&\
-echo "Database $INIT_DB_NAME created and restored successfully!" &&\
+pg_dump "$DB_URL/$SOURCE_DB_NAME" | psql "$DB_URL/$OV_DB_NAME" &&\
+echo "Database $OV_DB_NAME created and restored successfully!" &&\
 exit 0 || {
   >&2 echo "Failed to create or restore the database."
   exit 1

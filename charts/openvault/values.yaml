@@ -164,6 +164,11 @@ app-template:
           requests:
             cpu: 50m
             memory: 50Mi
+      replicas: null
+      strategy: RollingUpdate
+      rollingUpdate:
+        unavailable: 0
+        surge: 50%
     # frontend deployment: Remix web application
     frontend:
       serviceAccount:
@@ -210,7 +215,11 @@ app-template:
           requests:
             cpu: 50m
             memory: 50Mi
-    
+      replicas: null
+      strategy: RollingUpdate
+      rollingUpdate:
+        unavailable: 0
+        surge: 50%
     ### jobs ###
 
     # update-index updates the Elasticsearch index weekly

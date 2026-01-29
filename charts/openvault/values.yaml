@@ -286,10 +286,9 @@ app-template:
         OV_HOST: '{{ .Values.global.backend.host }}'
         OV_ACCESS_LOGFILE: '-'
         OV_ERROR_LOGFILE: '-'
-        OV_PREVIEW_URL: https://{{ template "openvault.url" . }}/preview
         OV_TRUSTED_ORIGINS: https://{{ template "openvault.url" . }},http://localhost:8000
         OV_WORKERS: '{{ .Values.global.backend.workers }}'
-
+        PREVIEW_CLIENT_URLS: '{ "ov": "https://{{ template "openvault.url" . }}", "aapb": "{{ .Values.global.aapb.url }}" }'
         ES_INDEX: '{{ .Values.global.elasticsearch.index | default .Release.Name }}'
         ES_URL: '{{ .Values.global.elasticsearch.url }}'
         ES_USER: '{{ .Values.global.elasticsearch.username }}'

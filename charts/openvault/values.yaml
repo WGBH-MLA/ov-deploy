@@ -65,6 +65,7 @@ global:
   domain: dev.wgbh-mla.org
   # URL override, otherwise it will be generated from the release name and domain
   url: null
+
   # cert-manager cluster issuer to use for TLS certificates
   # certIssuer: letsencrypt-production
   certIssuer: null
@@ -288,7 +289,7 @@ app-template:
         OV_ERROR_LOGFILE: '-'
         OV_TRUSTED_ORIGINS: https://{{ template "openvault.url" . }},http://localhost:8000
         OV_WORKERS: '{{ .Values.global.backend.workers }}'
-        PREVIEW_CLIENT_URLS: '{ "ov": "https://{{ template "openvault.url" . }}", "aapb": "{{ .Values.global.aapb.url }}" }'
+        PREVIEW_CLIENT_URLS: '{ "ov": "https://{{ template "openvault.url" . }}/preview", "aapb": "{{ .Values.global.aapb.url }}/preview" }'
         ES_INDEX: '{{ .Values.global.elasticsearch.index | default .Release.Name }}'
         ES_URL: '{{ .Values.global.elasticsearch.url }}'
         ES_USER: '{{ .Values.global.elasticsearch.username }}'

@@ -297,6 +297,7 @@ app-template:
     frontend:
       data:
         AAPB_HOST: '{{ .Values.global.aapb.url }}'
+        COOKIE_CONSENT_ID: '{{ .Values.global.cookies.id }}'
         NODE_ENV: '{{ .Values.global.frontend.nodeEnv }}'
         ES_URL: '{{ .Values.global.elasticsearch.url }}'
         ES_GBH_INDEX: '{{ .Values.global.elasticsearch.gbhIndex | default .Release.Name }}'

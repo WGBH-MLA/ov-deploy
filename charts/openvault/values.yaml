@@ -30,6 +30,8 @@ global:
     name: backend
     # debug mode for the backend
     debug: 'false'
+    # External Secrets key for the backend secrets. default dev/ov/backend
+    externalSecretsKey: null
     # host for the backend
     host: '0.0.0.0:8000'
     # image for the backend
@@ -87,6 +89,8 @@ global:
 
   # frontend configuration
   frontend:
+    # External Secrets key for the frontend secrets. default dev/ov/frontend
+    externalSecretsKey: null
     # Name of the frontend service
     name: frontend
     # node environment for the frontend
@@ -411,7 +415,7 @@ app-template:
             creationPolicy: Owner
           dataFrom:
           - extract:
-              key: dev/ov/backend
+              key: '{{ .Values.global.backend.externalSecretsKey | default "dev/ov/backend" }}'
     frontend-secrets:
       apiVersion: external-secrets.io/v1
       kind: ExternalSecret
@@ -426,4 +430,4 @@ app-template:
             creationPolicy: Owner
           dataFrom:
           - extract:
-              key: dev/ov/frontend
+              key: '{{ .Values.global.frontend.externalSecretsKey | default "dev/ov/frontend" }}'

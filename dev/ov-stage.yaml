@@ -27,7 +27,6 @@ spec:
       source:
         repoURL: https://github.com/WGBH-MLA/ov-deploy
         path: charts/openvault
-        targetRevision: alpine
         helm:
           valuesObject:
             global:

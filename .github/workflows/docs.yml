@@ -3,15 +3,15 @@ name: 📚 docs
 on:
   pull_request:
     branches:
-      - main
+    - main
     paths:
-      - docs/**
+    - docs/**
   push:
     branches:
-      - main
-      - docs
+    - main
+    - docs
     paths:
-      - docs/**
+    - docs/**
   workflow_dispatch:
 
 concurrency:
@@ -19,29 +19,28 @@ concurrency:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./docs
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: 📰 Checkout
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
+    - name: 📰 Checkout
+      uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
 
-      - name: 😎 Install uv
-        uses: astral-sh/setup-uv@v6
+    - name: 😎 Install uv
+      uses: astral-sh/setup-uv@v7
 
-      - name: 🚧 Install dependencies
-        run: uv sync --locked
+    - name: 🛠 Configure Git
+      run: |
+        git config user.name "$GITHUB_ACTOR"
+        git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-      - name: 🛠 Configure Git
-        run: |
-          git config user.name "$GITHUB_ACTOR"
-          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+    - name: 🧵 Get current version string
+      run: echo VERSION_NAME=$(uv run mike list latest) >> $GITHUB_ENV
 
-      - name: 🧵 Get current version string
-        run: echo VERSION_NAME=$(uv run mike list latest) >> $GITHUB_ENV
-
-      - name: 🏗️ Deploy
-        run: uv run mike deploy --push --update-aliases "${VERSION_NAME% \[latest\]}" latest
+    - name: 🏗️ Deploy
+      run: uv run mike deploy --push --update-aliases "${VERSION_NAME% \[latest\]}" latest

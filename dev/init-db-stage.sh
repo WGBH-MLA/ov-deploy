@@ -20,6 +20,14 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# Check if the database is already initialized by looking for a page
+PAGE_CHECK=$(psql "$DB_URL/$OV_DB_NAME" -t -c "SELECT EXISTS(SELECT 1 FROM wagtailcore_page);")
+
+if [[ "$PAGE_CHECK" =~ "t" ]]; then
+  echo "Database $OV_DB_NAME is already initialized."
+  exit 0
+fi
+
 echo "Attempting to dump | restore into the new database..." &&\
 pg_dump "$DB_URL/$SOURCE_DB_NAME" | psql "$DB_URL/$OV_DB_NAME" &&\
 echo "Database $OV_DB_NAME created and restored successfully!" &&\

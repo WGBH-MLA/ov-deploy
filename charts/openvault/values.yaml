@@ -30,6 +30,8 @@ global:
     name: backend
     # debug mode for the backend
     debug: 'false'
+    # External Secrets key for the backend secrets. default dev/ov/backend
+    externalSecretsKey: null
     # host for the backend
     host: '0.0.0.0:8000'
     # image for the backend
@@ -65,6 +67,7 @@ global:
   domain: dev.wgbh-mla.org
   # URL override, otherwise it will be generated from the release name and domain
   url: null
+
   # cert-manager cluster issuer to use for TLS certificates
   # certIssuer: letsencrypt-production
   certIssuer: null
@@ -86,6 +89,8 @@ global:
 
   # frontend configuration
   frontend:
+    # External Secrets key for the frontend secrets. default dev/ov/frontend
+    externalSecretsKey: null
     # Name of the frontend service
     name: frontend
     # node environment for the frontend
@@ -286,10 +291,9 @@ app-template:
         OV_HOST: '{{ .Values.global.backend.host }}'
         OV_ACCESS_LOGFILE: '-'
         OV_ERROR_LOGFILE: '-'
-        OV_PREVIEW_URL: https://{{ template "openvault.url" . }}/preview
         OV_TRUSTED_ORIGINS: https://{{ template "openvault.url" . }},http://localhost:8000
         OV_WORKERS: '{{ .Values.global.backend.workers }}'
-
+        PREVIEW_CLIENT_URLS: '{ "ov": "https://{{ template "openvault.url" . }}/preview", "aapb": "{{ .Values.global.aapb.url }}/preview" }'
         ES_INDEX: '{{ .Values.global.elasticsearch.index | default .Release.Name }}'
         ES_URL: '{{ .Values.global.elasticsearch.url }}'
         ES_USER: '{{ .Values.global.elasticsearch.username }}'
@@ -297,6 +301,7 @@ app-template:
     frontend:
       data:
         AAPB_HOST: '{{ .Values.global.aapb.url }}'
+        COOKIE_CONSENT_ID: '{{ .Values.global.cookies.id }}'
         NODE_ENV: '{{ .Values.global.frontend.nodeEnv }}'
         ES_URL: '{{ .Values.global.elasticsearch.url }}'
         ES_GBH_INDEX: '{{ .Values.global.elasticsearch.gbhIndex | default .Release.Name }}'
@@ -384,8 +389,8 @@ app-template:
           identifier: backend-restart
         subjects:
           - identifier: backend-restart
-  
-  ### Raw Resources ###
+
+ ### Raw Resources ###
   rawResources:
     database:
       apiVersion: postgresql.cnpg.io/v1
@@ -410,7 +415,7 @@ app-template:
             creationPolicy: Owner
           dataFrom:
           - extract:
-              key: dev/ov/backend
+              key: '{{ .Values.global.backend.externalSecretsKey | default "dev/ov/backend" }}'
     frontend-secrets:
       apiVersion: external-secrets.io/v1
       kind: ExternalSecret
@@ -425,4 +430,4 @@ app-template:
             creationPolicy: Owner
           dataFrom:
           - extract:
-              key: dev/ov/frontend
+              key: '{{ .Values.global.frontend.externalSecretsKey | default "dev/ov/frontend" }}'

@@ -23,7 +23,7 @@ fi
 # Check if the database is already initialized by looking for a page
 PAGE_CHECK=$(psql "$DB_URL/$OV_DB_NAME" -t -c "SELECT EXISTS(SELECT 1 FROM wagtailcore_page);")
 
-if [ "$PAGE_CHECK" = "t" ]; then
+if [[ "$PAGE_CHECK" =~ "t" ]]; then
   echo "Database $OV_DB_NAME is already initialized."
   exit 0
 fi

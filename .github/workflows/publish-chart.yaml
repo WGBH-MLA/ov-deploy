@@ -3,9 +3,9 @@ name: 🗺 Publish Charts
 on:
   push:
     branches:
-      - main
+    - main
     paths:
-      - charts/**/Chart.yaml
+    - charts/**/Chart.yaml
 
 concurrency:
   group: publish-pages
@@ -16,21 +16,21 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
-      - name: 📰 Checkout
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
+    - name: 📰 Checkout
+      uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
 
-      - name: 🛠 Configure Git
-        run: |
-          git config user.name "$GITHUB_ACTOR"
-          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+    - name: 🛠 Configure Git
+      run: |
+        git config user.name "$GITHUB_ACTOR"
+        git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-      - name: 👪 Add repo dependencies
-        run: |
-          helm repo add bjw-s https://bjw-s-labs.github.io/helm-charts
+    - name: 👪 Add repo dependencies
+      run: |
+        helm repo add bjw-s https://bjw-s-labs.github.io/helm-charts
 
-      - name: 🕊 Release Chart
-        uses: helm/chart-releaser-action@v1
-        env:
-          CR_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+    - name: 🕊 Release Chart
+      uses: helm/chart-releaser-action@v1
+      env:
+        CR_TOKEN: '${{ secrets.GITHUB_TOKEN }}'

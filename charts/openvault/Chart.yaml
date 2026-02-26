@@ -1,11 +1,11 @@
 apiVersion: v2
 name: openvault
 description: Archives presentation website, built with Wagtail and Remix.
-version: 0.7.3
+version: 0.8.1
 appVersion: v1.1.0
 dependencies:
 - name: app-template
-  version: 4.2.0
+  version: 4.3.0
   repository: https://bjw-s-labs.github.io/helm-charts/
 home: https://wgbh-mla.github.io/ov-deploy/
 icon: https://wgbh-mla.github.io/ov-deploy/latest/assets/ov-logo-purple.png
@@ -25,4 +25,9 @@ sources:
 
 annotations:
   artifacthub.io/changes: |
-    - Default ES_INDEX to .Release.Name in frontend and backend config maps
+    - kind: added
+      description: Added support for creating a PostgreSQL database using the
+        CloudNativePG operator. See the `rawResources` section of `values.yaml` for
+        details.
+    - kind: changed
+      description: Updated `app-template` dependency to v4.3.0.

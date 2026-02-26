@@ -1,44 +1,48 @@
 version: 2
 updates:
-  # GitHub Actions
-  - package-ecosystem: github-actions
-    directory: .github/workflows
-    schedule:
-      interval: weekly
-      day: wednesday
-      time: '06:00'
-      timezone: US/Eastern
-    commit-message:
-      prefix: ⬆
-    labels:
-      - maintenance 🔧
-      - CI 🦾
+# GitHub Actions
+- package-ecosystem: github-actions
+  directory: .github/workflows
+  schedule:
+    interval: weekly
+    day: wednesday
+    time: '06:00'
+    timezone: US/Eastern
+  commit-message:
+    prefix: ⬆
+  labels:
+    - maintenance 🔧
+    - CI 🦾
 
-  # Helm charts
-  - package-ecosystem: helm
-    directories: 
-    - charts
-    schedule:
-      interval: weekly
-      day: wednesday
-      time: '06:00'
-      timezone: US/Eastern
-    commit-message:
-      prefix: ⬆
-    labels:
-      - maintenance 🔧
-      - CD 🏗️
+# Helm charts
+- package-ecosystem: helm
+  directories: 
+  - charts
+  schedule:
+    interval: weekly
+    day: wednesday
+    time: '06:00'
+    timezone: US/Eastern
+  commit-message:
+    prefix: ⬆
+  labels:
+    - maintenance 🔧
+    - CD 🏗️
 
-  # uv
-  - package-ecosystem: uv
-    directory: docs
-    schedule:
-      interval: weekly
-      day: wednesday
-      time: '06:00'
-      timezone: US/Eastern
-    commit-message:
-      prefix: ⬆
-    labels:
-      - maintenance 🔧
-      - documentation 📜
+# uv
+- package-ecosystem: uv
+  directory: docs
+  schedule:
+    interval: weekly
+    day: wednesday
+    time: '06:00'
+    timezone: US/Eastern
+  commit-message:
+    prefix: ⬆
+  labels:
+    - maintenance 🔧
+    - documentation 📜
+  groups:
+    mkdocs:
+      patterns:
+        - mkdocs*

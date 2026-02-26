@@ -1,18 +1,22 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ov-dev
+  name: ov-db
   namespace: argo-cd
 spec:
   project: ov
   source:
-    repoURL: https://wgbh-mla.github.io/ov-deploy
-    chart: openvault
-    targetRevision: 0.7.3
+    repoURL: https://github.com/WGBH-MLA/cluster-deploy
+    path: charts/postgres
+    targetRevision: pg
     helm:
       valuesObject:
-        organ:
-          url: https://organ.wgbh-mla.org
+        cluster:
+          cluster:
+            instances: 1
+            initdb:
+              database: openvault
+              owner: app
   destination:
     server: https://kubernetes.default.svc
     namespace: ov

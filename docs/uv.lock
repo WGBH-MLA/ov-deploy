@@ -888,7 +888,7 @@ wheels = [
 
 [[package]]
 name = "mkdocs-git-revision-date-localized-plugin"
-version = "1.5.1"
+version = "1.5.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "babel" },
@@ -896,9 +896,9 @@ dependencies = [
     { name = "mkdocs" },
     { name = "tzdata", marker = "sys_platform == 'win32'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/aa/16/25d7b1b930a802bf8b0c6ee64a9b34ea6e7d0a34c6bc69adbbb59b9d2f4b/mkdocs_git_revision_date_localized_plugin-1.5.1.tar.gz", hash = "sha256:2b0239455cd84784dd87ac8dfc9253fe4b2dd35e102696f21b5d34e2175981c6", size = 449557, upload-time = "2026-01-26T13:34:30.912Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/3d/5c/098e733fc8aa9371d21ff56aa97b587ffb5e28803cb9cb58ae1e7da7e3c6/mkdocs_git_revision_date_localized_plugin-1.5.2.tar.gz", hash = "sha256:0b3d65abdb8b82591d724c1d5ece6af7bb3cd305bdd47e2fadd430886a9a2513", size = 451991, upload-time = "2026-05-13T07:13:51.428Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/4b/3f/4f663fb7e889fbb2fabef7a67ddd96f8355edca917aa724c6c6cda352d01/mkdocs_git_revision_date_localized_plugin-1.5.1-py3-none-any.whl", hash = "sha256:b00fd36ed0f9b2326b1488fd8fa31bf2ce64e68c4aa60a9ce857f10719571903", size = 26150, upload-time = "2026-01-26T13:34:28.768Z" },
+    { url = "https://files.pythonhosted.org/packages/03/c8/64c36918723be26d866cd2cc3e8a38a353f8966734ffde268f8490626e96/mkdocs_git_revision_date_localized_plugin-1.5.2-py3-none-any.whl", hash = "sha256:4f3175e039bc4fe0055cac97d295ce8d0d233a13d65986d42fd5324e4985acc2", size = 26151, upload-time = "2026-05-13T07:13:49.841Z" },
 ]
 
 [[package]]
@@ -915,7 +915,7 @@ wheels = [
 
 [[package]]
 name = "mkdocs-jupyter"
-version = "0.25.1"
+version = "0.26.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "ipykernel" },
@@ -925,14 +925,14 @@ dependencies = [
     { name = "nbconvert" },
     { name = "pygments" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/6c/23/6ffb8d2fd2117aa860a04c6fe2510b21bc3c3c085907ffdd851caba53152/mkdocs_jupyter-0.25.1.tar.gz", hash = "sha256:0e9272ff4947e0ec683c92423a4bfb42a26477c103ab1a6ab8277e2dcc8f7afe", size = 1626747, upload-time = "2024-10-15T14:56:32.373Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/00/aa/f8d15409a9a3112486994a80d5a975694c7d145c4f8b5b484aeb383420ef/mkdocs_jupyter-0.26.3.tar.gz", hash = "sha256:e1e8bd48a1b96542e84e3028e3066112bac7b94d95ab69f8b91305c84003ca26", size = 1628353, upload-time = "2026-04-17T18:56:31.517Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/08/37/5f1fd5c3f6954b3256f8126275e62af493b96fb6aef6c0dbc4ee326032ad/mkdocs_jupyter-0.25.1-py3-none-any.whl", hash = "sha256:3f679a857609885d322880e72533ef5255561bbfdb13cfee2a1e92ef4d4ad8d8", size = 1456197, upload-time = "2024-10-15T14:56:29.854Z" },
+    { url = "https://files.pythonhosted.org/packages/13/95/cf3f7fe4910cf0365fa8ea0c731f4b8a624d97cd76ea777913ac8d0868e2/mkdocs_jupyter-0.26.3-py3-none-any.whl", hash = "sha256:cd6644fb578131157194d750fd4d10fc2fd8f1e84e00036ee62df3b5b4b84c82", size = 1459740, upload-time = "2026-04-17T18:56:30.031Z" },
 ]
 
 [[package]]
 name = "mkdocs-material"
-version = "9.7.0"
+version = "9.7.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "babel" },
@@ -947,9 +947,9 @@ dependencies = [
     { name = "pymdown-extensions" },
     { name = "requests" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/9c/3b/111b84cd6ff28d9e955b5f799ef217a17bc1684ac346af333e6100e413cb/mkdocs_material-9.7.0.tar.gz", hash = "sha256:602b359844e906ee402b7ed9640340cf8a474420d02d8891451733b6b02314ec", size = 4094546, upload-time = "2025-11-11T08:49:09.73Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/45/29/6d2bcf41ae40802c4beda2432396fff97b8456fb496371d1bc7aad6512ec/mkdocs_material-9.7.6.tar.gz", hash = "sha256:00bdde50574f776d328b1862fe65daeaf581ec309bd150f7bff345a098c64a69", size = 4097959, upload-time = "2026-03-19T15:41:58.161Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/04/87/eefe8d5e764f4cf50ed91b943f8e8f96b5efd65489d8303b7a36e2e79834/mkdocs_material-9.7.0-py3-none-any.whl", hash = "sha256:da2866ea53601125ff5baa8aa06404c6e07af3c5ce3d5de95e3b52b80b442887", size = 9283770, upload-time = "2025-11-11T08:49:06.26Z" },
+    { url = "https://files.pythonhosted.org/packages/2c/01/bc663630c510822c95c47a66af9fa7a443c295b47d5f041e5e6ae62ef659/mkdocs_material-9.7.6-py3-none-any.whl", hash = "sha256:71b84353921b8ea1ba84fe11c50912cc512da8fe0881038fcc9a0761c0e635ba", size = 9305470, upload-time = "2026-03-19T15:41:55.217Z" },
 ]
 
 [[package]]
@@ -1091,10 +1091,10 @@ requires-dist = [
     { name = "mike", specifier = "~=2.1" },
     { name = "mkdocs", specifier = "~=1.6" },
     { name = "mkdocs-awesome-nav", specifier = ">=3.1.2" },
-    { name = "mkdocs-git-revision-date-localized-plugin", specifier = "~=1.4" },
+    { name = "mkdocs-git-revision-date-localized-plugin", specifier = "~=1.5" },
     { name = "mkdocs-glightbox", specifier = ">=0.5.1" },
-    { name = "mkdocs-jupyter", specifier = "~=0.25" },
-    { name = "mkdocs-material", specifier = "~=9.6" },
+    { name = "mkdocs-jupyter", specifier = "~=0.26" },
+    { name = "mkdocs-material", specifier = "~=9.7" },
     { name = "mkdocstrings", extras = ["python"], specifier = "~=1.0" },
 ]
 

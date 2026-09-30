@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openvault
 description: Archives presentation website, built with Wagtail and Remix.
-version: 0.8.1
+version: 0.9.0
 appVersion: v1.1.0
 dependencies:
 - name: app-template
@@ -26,8 +26,4 @@ sources:
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: Added support for creating a PostgreSQL database using the
-        CloudNativePG operator. See the `rawResources` section of `values.yaml` for
-        details.
-    - kind: changed
-      description: Updated `app-template` dependency to v4.3.0.
+      description: Added PREVIEW_CLIENT_URLS environment variable to OpenVault deployment for configuring multiple preview clients.

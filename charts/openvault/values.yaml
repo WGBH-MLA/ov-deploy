@@ -1,4 +1,3 @@
-
 # global configuration
 # These values are available in all parent chart dependencies.
 # They can also be templated in (most of) the app-template values below.
@@ -7,7 +6,7 @@ global:
   aapb:
     # URL for the American Archive instance
     url: https://demo.aapb.wgbh-mla.org
-  
+
   # Auth0 configuration
   auth:
     # Auth0 clientId
@@ -16,13 +15,6 @@ global:
     clientSecret: null
     # Auth0 URL
     url: null
-
-  # AWS configuration
-  aws:
-    # AWS access key ID
-    accessKeyId: null
-    # AWS secret access key
-    secretAccessKey: null
 
   # backend configuration
   backend:
@@ -44,11 +36,6 @@ global:
     settingsModule: ov_wag.settings.production
     # number of workers for the backend
     workers: '1'
-
-  # Cookies configuration
-  cookies:
-    # Cookie consent ID
-    id: null
 
   # Database configuration
   db:
@@ -247,10 +234,10 @@ app-template:
           - secretRef:
               name: '{{ template "openvault.backend.fullname" . }}-secret'
           command:
-            - python
-            - manage.py
-            - update_index
-    
+          - python
+          - manage.py
+          - update_index
+
     # restart-backend restarts the backend deployment daily
     restart-backend:
       enabled: false
@@ -265,12 +252,12 @@ app-template:
             repository: alpine/kubectl
             tag: 1.34.1
           command:
-            - kubectl
-            - rollout
-            - restart
-            - deployment
-            - --selector=app.kubernetes.io/component=backend
-  
+          - kubectl
+          - rollout
+          - restart
+          - deployment
+          - --selector=app.kubernetes.io/component=backend
+
   ### ConfigMaps ###
   configMaps:
     backend:
@@ -301,7 +288,6 @@ app-template:
     frontend:
       data:
         AAPB_HOST: '{{ .Values.global.aapb.url }}'
-        COOKIE_CONSENT_ID: '{{ .Values.global.cookies.id }}'
         NODE_ENV: '{{ .Values.global.frontend.nodeEnv }}'
         ES_URL: '{{ .Values.global.elasticsearch.url }}'
         ES_GBH_INDEX: '{{ .Values.global.elasticsearch.gbhIndex | default .Release.Name }}'
@@ -329,57 +315,56 @@ app-template:
         http:
           port: 80
           targetPort: 3000
-  
+
   ### Ingress ###
   ingress:
     frontend:
       annotations:
         cert-manager.io/cluster-issuer: '{{ .Values.global.certIssuer }}'
       hosts:
-        - host: '{{ template "openvault.url" . }}'
-          paths:
-            - path: /
-              service:
-                identifier: frontend
-            - path: /accounts
-              service:
-                identifier: backend
-            - path: /authorize
-              service:
-                identifier: backend
-            - path: /admin
-              service:
-                identifier: backend
-            - path: /login
-              service:
-                identifier: backend
-            - path: /logout
-              service:
-                identifier: backend
+      - host: '{{ template "openvault.url" . }}'
+        paths:
+        - path: /
+          service:
+            identifier: frontend
+        - path: /accounts
+          service:
+            identifier: backend
+        - path: /authorize
+          service:
+            identifier: backend
+        - path: /admin
+          service:
+            identifier: backend
+        - path: /login
+          service:
+            identifier: backend
+        - path: /logout
+          service:
+            identifier: backend
       tls:
-        - secretName: '{{ template "openvault.name" . }}-tls'
-          hosts:
-            - '{{ template "openvault.url" . }}'
+      - secretName: '{{ template "openvault.name" . }}-tls'
+        hosts:
+        - '{{ template "openvault.url" . }}'
 
   ### Service Accounts ###
   serviceAccount:
     default: {}
-    backend-restart: {}
-      # name: '{{ template "openvault.backend.fullname" . }}-restart'
-  
+    backend-restart: {} # name: '{{ template "openvault.backend.fullname" . }}-restart'
+
   ### RBAC ###
   rbac:
     roles:
       backend-restart:
         type: Role
         rules:
-          - apiGroups:
-              - apps
-            resources:
-              - deployments
-            verbs:
-              - list
-              - patch
+        - apiGroups:
+          - apps
+          resources:
+          - deployments
+          verbs:
+          - list
+          - patch
     bindings:
       backend-restart:
         type: RoleBinding
@@ -388,23 +373,15 @@ app-template:
           kind: Role
           identifier: backend-restart
         subjects:
-          - identifier: backend-restart
+        - identifier: backend-restart
 
- ### Raw Resources ###
+  ### Raw Resources ###
   rawResources:
-    database:
-      apiVersion: postgresql.cnpg.io/v1
-      kind: Database
-      spec:
-        spec:
-          name: '{{ template "openvault.name" . }}'
-          owner: app
-          cluster:
-            name: ov-db-cluster
     backend-secrets:
-      apiVersion: external-secrets.io/v1
-      kind: ExternalSecret
-      spec:
+      enabled: false
+      manifest:
+        apiVersion: external-secrets.io/v1
+        kind: ExternalSecret
         spec:
           refreshInterval: 1h0m0s
           secretStoreRef:
@@ -417,9 +394,10 @@ app-template:
           - extract:
               key: '{{ .Values.global.backend.externalSecretsKey | default "dev/ov/backend" }}'
     frontend-secrets:
-      apiVersion: external-secrets.io/v1
-      kind: ExternalSecret
-      spec:
+      enabled: false
+      manifest:
+        apiVersion: external-secrets.io/v1
+        kind: ExternalSecret
         spec:
           refreshInterval: 1h0m0s
           secretStoreRef:

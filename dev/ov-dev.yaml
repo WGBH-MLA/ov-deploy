@@ -11,6 +11,9 @@ spec:
     helm:
       valuesObject:
         global:
+          url: ov.dev.wgbh-mla.org
+          backend:
+            debug: true
           organ:
             url: https://organ.wgbh-mla.org
         app-template:
@@ -86,6 +89,27 @@ spec:
                     }
 
           rawResources:
+            backend-secrets:
+              manifest:
+                apiVersion: external-secrets.io/v1
+                kind: ExternalSecret
+                spec:
+                  refreshInterval: 1h0m0s
+                  secretStoreRef:
+                    name: aws-secrets
+                    kind: ClusterSecretStore
+                  target:
+                    name: '{{ template "openvault.backend.fullname" . }}-secret'
+                    creationPolicy: Owner
+                  dataFrom:
+                  - extract:
+                      key: dev/ov/backend
+                  - extract:
+                      key: dev/ov/wagtail-s3-media
+                  - extract:
+                      key: dev/ov/db
+                  - extract:
+                      key: dev/ov/auth
             db-secrets:
               manifest:
                 apiVersion: external-secrets.io/v1
@@ -101,6 +125,8 @@ spec:
                   dataFrom:
                   - extract:
                       key: rds!db-30ce1591-67a9-488b-a17d-20164754d9b3
+            frontend-secrets:
+              enabled: true
 
   destination:
     server: https://kubernetes.default.svc

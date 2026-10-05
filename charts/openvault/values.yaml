@@ -350,7 +350,7 @@ app-template:
   ### Service Accounts ###
   serviceAccount:
     default: {}
-    backend-restart: {} # name: '{{ template "openvault.backend.fullname" . }}-restart'
+    backend-restart: {}
 
   ### RBAC ###
   rbac:

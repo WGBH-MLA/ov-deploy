@@ -264,15 +264,15 @@ app-template:
       data:
         AWS_STORAGE_BUCKET_NAME: '{{ .Values.global.s3.name }}'
         DJANGO_SETTINGS_MODULE: '{{ .Values.global.backend.settingsModule }}'
-        OV_ADMIN_BASE_URL: https://{{ template "openvault.url" . }}
-        OV_API_URL: http://{{ template "openvault.backend.fullname" . }}/api/v2
+        WAGTAILADMIN_BASE_URL: https://{{ template "openvault.url" . }}
+        WAGTAILAPI_BASE_URL: http://{{ template "openvault.backend.fullname" . }}/api/v2
         OV_DB_HOST: '{{ .Values.global.db.host }}'
         OV_DB_NAME: '{{ .Values.global.db.name | default .Release.Name }}'
         OV_DB_USER: '{{ .Values.global.db.user }}'
         OV_DB_PORT: '{{ .Values.global.db.port }}'
         OV_GOOGLE_CLIENT_ID: '{{ .Values.global.google.clientId }}'
         OV_DEBUG: '{{ .Values.global.backend.debug }}'
-        OV_BASE_URL: https://{{ template "openvault.url" . }}
+        WAGTAIL_BASE_URL: https://{{ template "openvault.url" . }}
         OV_ALLOWED_HOSTS: '*'
         OV_FORWARDED_ALLOW_IPS: '*'
         OV_HOST: '{{ .Values.global.backend.host }}'

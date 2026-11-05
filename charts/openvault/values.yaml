@@ -7,13 +7,13 @@ global:
     # URL for the American Archive instance
     url: https://demo.aapb.wgbh-mla.org
 
-  # Auth0 configuration
+  # Auth configuration
   auth:
-    # Auth0 clientId
+    # Auth clientId
     clientId: null
-    # Auth0 clientSecret
+    # Auth clientSecret
     clientSecret: null
-    # Auth0 URL
+    # Auth URL
     url: null
 
   # backend configuration
@@ -63,6 +63,8 @@ global:
   elasticsearch:
     # API key for the frontend
     apiKey: null
+    # External Secrets key holding ES_PASSWORD for the backend user. default dev/ov/elasticsearch
+    externalSecretsKey: null
     # GBH Vault index name. default gbh-series
     gbhIndex: gbh-series
     # Open Vault index name. default <release-name>
@@ -123,6 +125,9 @@ app-template:
               identifier: backend
           - secretRef:
               name: '{{ template "openvault.backend.fullname" . }}-secret'
+          - secretRef:
+              name: '{{ template "openvault.name" . }}-es-secret'
+              optional: true
           - secretRef:
               identifier: backend-secret-key
           probes:
@@ -233,6 +238,9 @@ app-template:
               identifier: frontend
           - secretRef:
               name: '{{ template "openvault.backend.fullname" . }}-secret'
+          - secretRef:
+              name: '{{ template "openvault.name" . }}-es-secret'
+              optional: true
           command:
           - python
           - manage.py
@@ -393,6 +401,22 @@ app-template:
           dataFrom:
           - extract:
               key: '{{ .Values.global.backend.externalSecretsKey | default "dev/ov/backend" }}'
+    es-secrets:
+      enabled: false
+      manifest:
+        apiVersion: external-secrets.io/v1
+        kind: ExternalSecret
+        spec:
+          refreshInterval: 1h0m0s
+          secretStoreRef:
+            name: aws-secrets
+            kind: ClusterSecretStore
+          target:
+            name: '{{ template "openvault.name" . }}-es-secret'
+            creationPolicy: Owner
+          dataFrom:
+          - extract:
+              key: '{{ .Values.global.elasticsearch.externalSecretsKey | default "dev/ov/elasticsearch" }}'
     frontend-secrets:
       enabled: false
       manifest:

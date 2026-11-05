@@ -1,29 +1,24 @@
 apiVersion: v2
 name: openvault
 description: Archives presentation website, built with Wagtail and Remix.
-version: 0.9.0
+version: 1.0.0
 appVersion: v1.1.0
 dependencies:
 - name: app-template
-  version: 4.3.0
-  repository: https://bjw-s-labs.github.io/helm-charts/
+  version: 5.2.1
+  repository: https://bjw-s-labs.github.io/helm-charts
 home: https://wgbh-mla.github.io/ov-deploy/
 icon: https://wgbh-mla.github.io/ov-deploy/latest/assets/ov-logo-purple.png
 keywords:
-  - wagtail
-  - remix
-  - postgres
-  - elasticsearch
-  - s3
-  - archive
-  - cms
+- wagtail
+- remix
+- postgres
+- elasticsearch
+- s3
+- archive
+- cms
 maintainers:
-  - name: Harpo
-    email: ryan_harbert@wgbh.org
+- name: Harpo
+  email: ryan_harbert@wgbh.org
 sources:
-  - https://github.com/WGBH-MLA/ov-deploy
-
-annotations:
-  artifacthub.io/changes: |
-    - kind: added
-      description: Added PREVIEW_CLIENT_URLS environment variable to OpenVault deployment for configuring multiple preview clients.
+- https://github.com/WGBH-MLA/ov-deploy

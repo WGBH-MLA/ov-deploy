@@ -124,9 +124,9 @@ app-template:
           - configMapRef:
               identifier: backend
           - secretRef:
-              name: '{{ template "openvault.backend.fullname" . }}-secret'
+              name: '{{ template "openvault.backend.fullname" . }}-secrets'
           - secretRef:
-              name: '{{ template "openvault.name" . }}-es-secret'
+              name: '{{ template "openvault.name" . }}-es-secrets'
               optional: true
           - secretRef:
               identifier: backend-secret-key
@@ -181,7 +181,7 @@ app-template:
           - configMapRef:
               identifier: frontend
           - secretRef:
-              name: '{{ template "openvault.frontend.fullname" . }}-secret'
+              name: '{{ template "openvault.frontend.fullname" . }}-secrets'
           probes:
             liveness:
               enabled: true
@@ -237,9 +237,9 @@ app-template:
           - configMapRef:
               identifier: frontend
           - secretRef:
-              name: '{{ template "openvault.backend.fullname" . }}-secret'
+              name: '{{ template "openvault.backend.fullname" . }}-secrets'
           - secretRef:
-              name: '{{ template "openvault.name" . }}-es-secret'
+              name: '{{ template "openvault.name" . }}-es-secrets'
               optional: true
           command:
           - python
@@ -385,7 +385,7 @@ app-template:
 
   ### Raw Resources ###
   rawResources:
-    backend-secrets:
+    external-backend-secrets:
       enabled: false
       manifest:
         apiVersion: external-secrets.io/v1
@@ -396,12 +396,12 @@ app-template:
             name: aws-secrets
             kind: ClusterSecretStore
           target:
-            name: '{{ template "openvault.backend.fullname" . }}-secret'
+            name: '{{ template "openvault.backend.fullname" . }}-secrets'
             creationPolicy: Owner
           dataFrom:
           - extract:
               key: '{{ .Values.global.backend.externalSecretsKey | default "dev/ov/backend" }}'
-    es-secrets:
+    external-es-secrets:
       enabled: false
       manifest:
         apiVersion: external-secrets.io/v1
@@ -412,12 +412,12 @@ app-template:
             name: aws-secrets
             kind: ClusterSecretStore
           target:
-            name: '{{ template "openvault.name" . }}-es-secret'
+            name: '{{ template "openvault.name" . }}-es-secrets'
             creationPolicy: Owner
           dataFrom:
           - extract:
               key: '{{ .Values.global.elasticsearch.externalSecretsKey | default "dev/ov/elasticsearch" }}'
-    frontend-secrets:
+    external-frontend-secrets:
       enabled: false
       manifest:
         apiVersion: external-secrets.io/v1
@@ -428,7 +428,7 @@ app-template:
             name: aws-secrets
             kind: ClusterSecretStore
           target:
-            name: '{{ template "openvault.frontend.fullname" . }}-secret'
+            name: '{{ template "openvault.frontend.fullname" . }}-secrets'
             creationPolicy: Owner
           dataFrom:
           - extract:

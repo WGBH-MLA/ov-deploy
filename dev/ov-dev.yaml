@@ -43,12 +43,12 @@ spec:
                   - name: SOURCE_DB_USER
                     valueFrom:
                       secretKeyRef:
-                        name: '{{ template "openvault.backend.fullname" . }}-db-secret'
+                        name: '{{ template "openvault.backend.fullname" . }}-db-secrets'
                         key: username
                   - name: SOURCE_DB_PASSWORD
                     valueFrom:
                       secretKeyRef:
-                        name: '{{ template "openvault.backend.fullname" . }}-db-secret'
+                        name: '{{ template "openvault.backend.fullname" . }}-db-secrets'
                         key: password
                   - name: SOURCE_DB_NAME
                     value: openvault
@@ -89,7 +89,7 @@ spec:
                     }
 
           rawResources:
-            backend-secrets:
+            backend-external-secrets:
               manifest:
                 apiVersion: external-secrets.io/v1
                 kind: ExternalSecret
@@ -99,7 +99,7 @@ spec:
                     name: aws-secrets
                     kind: ClusterSecretStore
                   target:
-                    name: '{{ template "openvault.backend.fullname" . }}-secret'
+                    name: '{{ template "openvault.backend.fullname" . }}-secrets'
                     creationPolicy: Owner
                   dataFrom:
                   - extract:
@@ -120,7 +120,7 @@ spec:
                     name: aws-secrets
                     kind: ClusterSecretStore
                   target:
-                    name: '{{ template "openvault.backend.fullname" . }}-db-secret'
+                    name: '{{ template "openvault.backend.fullname" . }}-db-secrets'
                     creationPolicy: Owner
                   dataFrom:
                   - extract:

@@ -137,7 +137,7 @@ The password is read from AWS Secrets Manager by an `ExternalSecret`.
           enabled: true
     ```
 
-The `ExternalSecret` creates a secret named `<release>-es-secret`. The backend and the `update-index` job read it, and its `ES_PASSWORD` overrides any `ES_PASSWORD` in the backend secret.
+The `ExternalSecret` creates a secret named `<release>-es-secrets`. The backend and the `update-index` job read it, and its `ES_PASSWORD` overrides any `ES_PASSWORD` in the backend secret.
 
 ### Verify
 Check that the user can authenticate and see its indices:

@@ -136,7 +136,7 @@ app-template:
               custom: true
               type: HTTP
               spec:
-                periodSeconds: 30
+                periodSeconds: 60
                 httpGet:
                   path: /api/v2/health/
                   port: 8000
@@ -187,7 +187,7 @@ app-template:
               enabled: true
               custom: true
               spec:
-                periodSeconds: 30
+                periodSeconds: 60
                 httpGet:
                   path: /health
                   port: 3000

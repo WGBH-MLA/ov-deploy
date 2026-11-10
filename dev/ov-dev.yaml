@@ -43,12 +43,12 @@ spec:
                   - name: SOURCE_DB_USER
                     valueFrom:
                       secretKeyRef:
-                        name: '{{ template "openvault.backend.fullname" . }}-db-secrets'
+                        name: '{{ template "openvault.backend.fullname" . }}-source-db-secrets'
                         key: username
                   - name: SOURCE_DB_PASSWORD
                     valueFrom:
                       secretKeyRef:
-                        name: '{{ template "openvault.backend.fullname" . }}-db-secrets'
+                        name: '{{ template "openvault.backend.fullname" . }}-source-db-secrets'
                         key: password
                   - name: SOURCE_DB_NAME
                     value: openvault
@@ -89,7 +89,10 @@ spec:
                     }
 
           rawResources:
-            backend-external-secrets:
+            external-backend-secrets:
+              enabled: true
+            external-db-secrets:
+              enabled: true
               manifest:
                 apiVersion: external-secrets.io/v1
                 kind: ExternalSecret
@@ -99,33 +102,14 @@ spec:
                     name: aws-secrets
                     kind: ClusterSecretStore
                   target:
-                    name: '{{ template "openvault.backend.fullname" . }}-secrets'
-                    creationPolicy: Owner
-                  dataFrom:
-                  - extract:
-                      key: dev/ov/backend
-                  - extract:
-                      key: dev/ov/wagtail-s3-media
-                  - extract:
-                      key: dev/ov/db
-                  - extract:
-                      key: dev/ov/auth
-            db-secrets:
-              manifest:
-                apiVersion: external-secrets.io/v1
-                kind: ExternalSecret
-                spec:
-                  refreshInterval: 1h0m0s
-                  secretStoreRef:
-                    name: aws-secrets
-                    kind: ClusterSecretStore
-                  target:
-                    name: '{{ template "openvault.backend.fullname" . }}-db-secrets'
+                    name: '{{ template "openvault.backend.fullname" . }}-source-db-secrets'
                     creationPolicy: Owner
                   dataFrom:
                   - extract:
                       key: rds!db-30ce1591-67a9-488b-a17d-20164754d9b3
-            frontend-secrets:
+            external-es-secrets:
+              enabled: true
+            external-frontend-secrets:
               enabled: true
 
   destination:

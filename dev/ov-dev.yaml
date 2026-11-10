@@ -36,7 +36,7 @@ spec:
                   - configMapRef:
                       name: '{{ template "openvault.backend.fullname" . }}'
                   - secretRef:
-                      name: '{{ template "openvault.backend.fullname" . }}-secret'
+                      name: '{{ template "openvault.backend.fullname" . }}-secrets'
                   env:
                   - name: SOURCE_DB_HOST
                     value: openvault.cmrjt7rckp5r.us-east-1.rds.amazonaws.com

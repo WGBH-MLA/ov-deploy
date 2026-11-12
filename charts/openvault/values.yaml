@@ -31,7 +31,7 @@ global:
       # repository for the backend image
       repository: ghcr.io/wgbh-mla/ov-wag
       # tag for the backend image
-      tag: v1.1.0
+      tag: v1.1.5
     # Django settings module location string for Wagtail
     settingsModule: ov_wag.settings.production
     # number of workers for the backend
@@ -43,8 +43,6 @@ global:
     host: ov-db-cluster-rw
     # Database name override. default {{ .Release.Name }}
     name: null
-    # Database password
-    password: null
     # Database port
     port: '5432'
     # Database user
@@ -61,8 +59,6 @@ global:
 
   # ElasticSearch configuration
   elasticsearch:
-    # API key for the frontend
-    apiKey: null
     # External Secrets key holding ES_PASSWORD for the backend user. default dev/ov/elasticsearch
     externalSecretsKey: null
     # GBH Vault index name. default gbh-series
@@ -71,8 +67,6 @@ global:
     ovIndex: null
     # username for the backend
     username: wagtail
-    # password for the backend
-    password: null
     # URL for the Elasticsearch instance
     url: https://elastic.dev.wgbh-mla.org
 

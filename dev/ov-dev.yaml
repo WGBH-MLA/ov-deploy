@@ -24,7 +24,16 @@ spec:
           controllers:
             backend:
               containers:
-                backend:
+                main:
+                  env:
+                  - name: OV_DB_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        name: ov-db-cluster-app
+                        key: password
+            update-index:
+              containers:
+                main:
                   env:
                   - name: OV_DB_PASSWORD
                     valueFrom:
@@ -39,7 +48,7 @@ spec:
               serviceAccount:
                 identifier: db
               containers:
-                sync-db:
+                main:
                   image:
                     repository: alpine/psql
                     tag: 18.6

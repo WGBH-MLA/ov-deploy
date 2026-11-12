@@ -108,7 +108,7 @@ app-template:
       serviceAccount:
         identifier: default
       containers:
-        backend:
+        main:
           image:
             # #FIXME: this should be a templatable value like the image tag, but it isn't working
             # repository: '{{ .Values.global.backend.image.repository }}'
@@ -162,7 +162,7 @@ app-template:
       serviceAccount:
         identifier: default
       containers:
-        frontend:
+        main:
           image:
             # #FIXME see above templating error
             # repository: '{{ .Values.global.frontend.image.repository }}'
@@ -218,7 +218,7 @@ app-template:
       cronjob:
         schedule: 0 8 * * *
       containers:
-        update-index:
+        main:
           image:
             # #FIXME see above templating error
             # repository: '{{ .Values.global.backend.image.repository }}'
@@ -226,7 +226,7 @@ app-template:
             tag: '{{ .Values.global.backend.image.tag }}'
           envFrom:
           - configMapRef:
-              identifier: frontend
+              identifier: backend
           - secretRef:
               name: '{{ template "openvault.backend.fullname" . }}-secrets'
           command:
@@ -243,10 +243,10 @@ app-template:
       serviceAccount:
         identifier: backend-restart
       containers:
-        restart-backend:
+        main:
           image:
             repository: alpine/kubectl
-            tag: 1.34.1
+            tag: 1.37.2
           command:
           - kubectl
           - rollout

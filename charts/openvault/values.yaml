@@ -126,9 +126,6 @@ app-template:
           - secretRef:
               name: '{{ template "openvault.backend.fullname" . }}-secrets'
           - secretRef:
-              name: '{{ template "openvault.name" . }}-es-secrets'
-              optional: true
-          - secretRef:
               identifier: backend-secret-key
           probes:
             liveness:
@@ -238,9 +235,6 @@ app-template:
               identifier: frontend
           - secretRef:
               name: '{{ template "openvault.backend.fullname" . }}-secrets'
-          - secretRef:
-              name: '{{ template "openvault.name" . }}-es-secrets'
-              optional: true
           command:
           - python
           - manage.py
@@ -401,22 +395,6 @@ app-template:
           dataFrom:
           - extract:
               key: '{{ .Values.global.backend.externalSecretsKey | default "dev/ov/backend" }}'
-    external-es-secrets:
-      enabled: false
-      manifest:
-        apiVersion: external-secrets.io/v1
-        kind: ExternalSecret
-        spec:
-          refreshInterval: 1h0m0s
-          secretStoreRef:
-            name: aws-secrets
-            kind: ClusterSecretStore
-          target:
-            name: '{{ template "openvault.name" . }}-es-secrets'
-            creationPolicy: Owner
-          dataFrom:
-          - extract:
-              key: '{{ .Values.global.elasticsearch.externalSecretsKey | default "dev/ov/elasticsearch" }}'
     external-frontend-secrets:
       enabled: false
       manifest:

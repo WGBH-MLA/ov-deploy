@@ -11,6 +11,8 @@ spec:
     helm:
       valuesObject:
         global:
+          db:
+            name: openvault
           url: ov.dev.wgbh-mla.org
           backend:
             debug: true

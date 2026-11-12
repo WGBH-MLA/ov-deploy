@@ -107,8 +107,6 @@ spec:
                   dataFrom:
                   - extract:
                       key: rds!db-30ce1591-67a9-488b-a17d-20164754d9b3
-            external-es-secrets:
-              enabled: true
             external-frontend-secrets:
               enabled: true
 

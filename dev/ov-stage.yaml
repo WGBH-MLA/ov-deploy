@@ -5,7 +5,7 @@ metadata:
   namespace: argo-cd
 spec:
   goTemplate: true
-  goTemplateOptions: ["missingkey=error"]
+  goTemplateOptions: [ "missingkey=error" ]
   generators:
   - pullRequest:
       github:
@@ -27,6 +27,7 @@ spec:
       source:
         repoURL: https://github.com/WGBH-MLA/ov-deploy
         path: charts/openvault
+        targetRevision: openvault-v1
         helm:
           valuesObject:
             global:
@@ -49,18 +50,18 @@ spec:
                   serviceAccount:
                     identifier: db
                   containers:
-                    init-db:
+                    main:
                       image:
                         repository: alpine/psql
-                        tag: 17.6
+                        tag: 18.6
                       envFrom:
                       - configMapRef:
                           name: '{{ .values.repo }}-pr-{{ .number }}-backend'
                       - secretRef:
-                          name: '{{ .values.repo }}-pr-{{ .number }}-backend-secret'
+                          name: '{{ .values.repo }}-pr-{{ .number }}-backend-secrets'
                       env:
                       - name: SOURCE_DB_NAME
-                        value: ov-dev
+                        value: openvault
                       command:
                       - /bin/sh
                       - -c

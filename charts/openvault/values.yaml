@@ -1,4 +1,3 @@
-
 # global configuration
 # These values are available in all parent chart dependencies.
 # They can also be templated in (most of) the app-template values below.
@@ -7,22 +6,15 @@ global:
   aapb:
     # URL for the American Archive instance
     url: https://demo.aapb.wgbh-mla.org
-  
-  # Auth0 configuration
-  auth:
-    # Auth0 clientId
-    clientId: null
-    # Auth0 clientSecret
-    clientSecret: null
-    # Auth0 URL
-    url: null
 
-  # AWS configuration
-  aws:
-    # AWS access key ID
-    accessKeyId: null
-    # AWS secret access key
-    secretAccessKey: null
+  # Auth configuration
+  auth:
+    # Auth clientId
+    clientId: null
+    # Auth clientSecret
+    clientSecret: null
+    # Auth URL
+    url: null
 
   # backend configuration
   backend:
@@ -39,16 +31,11 @@ global:
       # repository for the backend image
       repository: ghcr.io/wgbh-mla/ov-wag
       # tag for the backend image
-      tag: v1.1.0
+      tag: v1.1.5
     # Django settings module location string for Wagtail
     settingsModule: ov_wag.settings.production
     # number of workers for the backend
     workers: '1'
-
-  # Cookies configuration
-  cookies:
-    # Cookie consent ID
-    id: null
 
   # Database configuration
   db:
@@ -56,8 +43,6 @@ global:
     host: ov-db-cluster-rw
     # Database name override. default {{ .Release.Name }}
     name: null
-    # Database password
-    password: null
     # Database port
     port: '5432'
     # Database user
@@ -74,16 +59,14 @@ global:
 
   # ElasticSearch configuration
   elasticsearch:
-    # API key for the frontend
-    apiKey: null
+    # External Secrets key holding ES_PASSWORD for the backend user. default dev/ov/elasticsearch
+    externalSecretsKey: null
     # GBH Vault index name. default gbh-series
     gbhIndex: gbh-series
     # Open Vault index name. default <release-name>
     ovIndex: null
     # username for the backend
     username: wagtail
-    # password for the backend
-    password: null
     # URL for the Elasticsearch instance
     url: https://elastic.dev.wgbh-mla.org
 
@@ -125,7 +108,7 @@ app-template:
       serviceAccount:
         identifier: default
       containers:
-        backend:
+        main:
           image:
             # #FIXME: this should be a templatable value like the image tag, but it isn't working
             # repository: '{{ .Values.global.backend.image.repository }}'
@@ -135,7 +118,7 @@ app-template:
           - configMapRef:
               identifier: backend
           - secretRef:
-              name: '{{ template "openvault.backend.fullname" . }}-secret'
+              name: '{{ template "openvault.backend.fullname" . }}-secrets'
           - secretRef:
               identifier: backend-secret-key
           probes:
@@ -144,7 +127,7 @@ app-template:
               custom: true
               type: HTTP
               spec:
-                periodSeconds: 30
+                periodSeconds: 60
                 httpGet:
                   path: /api/v2/health/
                   port: 8000
@@ -179,7 +162,7 @@ app-template:
       serviceAccount:
         identifier: default
       containers:
-        frontend:
+        main:
           image:
             # #FIXME see above templating error
             # repository: '{{ .Values.global.frontend.image.repository }}'
@@ -189,13 +172,13 @@ app-template:
           - configMapRef:
               identifier: frontend
           - secretRef:
-              name: '{{ template "openvault.frontend.fullname" . }}-secret'
+              name: '{{ template "openvault.frontend.fullname" . }}-secrets'
           probes:
             liveness:
               enabled: true
               custom: true
               spec:
-                periodSeconds: 30
+                periodSeconds: 60
                 httpGet:
                   path: /health
                   port: 3000
@@ -235,7 +218,7 @@ app-template:
       cronjob:
         schedule: 0 8 * * *
       containers:
-        update-index:
+        main:
           image:
             # #FIXME see above templating error
             # repository: '{{ .Values.global.backend.image.repository }}'
@@ -243,14 +226,14 @@ app-template:
             tag: '{{ .Values.global.backend.image.tag }}'
           envFrom:
           - configMapRef:
-              identifier: frontend
+              identifier: backend
           - secretRef:
-              name: '{{ template "openvault.backend.fullname" . }}-secret'
+              name: '{{ template "openvault.backend.fullname" . }}-secrets'
           command:
-            - python
-            - manage.py
-            - update_index
-    
+          - python
+          - manage.py
+          - update_index
+
     # restart-backend restarts the backend deployment daily
     restart-backend:
       enabled: false
@@ -260,32 +243,32 @@ app-template:
       serviceAccount:
         identifier: backend-restart
       containers:
-        restart-backend:
+        main:
           image:
             repository: alpine/kubectl
-            tag: 1.34.1
+            tag: 1.37.2
           command:
-            - kubectl
-            - rollout
-            - restart
-            - deployment
-            - --selector=app.kubernetes.io/component=backend
-  
+          - kubectl
+          - rollout
+          - restart
+          - deployment
+          - --selector=app.kubernetes.io/component=backend
+
   ### ConfigMaps ###
   configMaps:
     backend:
       data:
         AWS_STORAGE_BUCKET_NAME: '{{ .Values.global.s3.name }}'
         DJANGO_SETTINGS_MODULE: '{{ .Values.global.backend.settingsModule }}'
-        OV_ADMIN_BASE_URL: https://{{ template "openvault.url" . }}
-        OV_API_URL: http://{{ template "openvault.backend.fullname" . }}/api/v2
+        WAGTAILADMIN_BASE_URL: https://{{ template "openvault.url" . }}
+        WAGTAILAPI_BASE_URL: http://{{ template "openvault.backend.fullname" . }}/api/v2
         OV_DB_HOST: '{{ .Values.global.db.host }}'
         OV_DB_NAME: '{{ .Values.global.db.name | default .Release.Name }}'
         OV_DB_USER: '{{ .Values.global.db.user }}'
         OV_DB_PORT: '{{ .Values.global.db.port }}'
         OV_GOOGLE_CLIENT_ID: '{{ .Values.global.google.clientId }}'
         OV_DEBUG: '{{ .Values.global.backend.debug }}'
-        OV_BASE_URL: https://{{ template "openvault.url" . }}
+        WAGTAIL_BASE_URL: https://{{ template "openvault.url" . }}
         OV_ALLOWED_HOSTS: '*'
         OV_FORWARDED_ALLOW_IPS: '*'
         OV_HOST: '{{ .Values.global.backend.host }}'
@@ -301,7 +284,6 @@ app-template:
     frontend:
       data:
         AAPB_HOST: '{{ .Values.global.aapb.url }}'
-        COOKIE_CONSENT_ID: '{{ .Values.global.cookies.id }}'
         NODE_ENV: '{{ .Values.global.frontend.nodeEnv }}'
         ES_URL: '{{ .Values.global.elasticsearch.url }}'
         ES_GBH_INDEX: '{{ .Values.global.elasticsearch.gbhIndex | default .Release.Name }}'
@@ -329,57 +311,56 @@ app-template:
         http:
           port: 80
           targetPort: 3000
-  
+
   ### Ingress ###
   ingress:
     frontend:
       annotations:
         cert-manager.io/cluster-issuer: '{{ .Values.global.certIssuer }}'
       hosts:
-        - host: '{{ template "openvault.url" . }}'
-          paths:
-            - path: /
-              service:
-                identifier: frontend
-            - path: /accounts
-              service:
-                identifier: backend
-            - path: /authorize
-              service:
-                identifier: backend
-            - path: /admin
-              service:
-                identifier: backend
-            - path: /login
-              service:
-                identifier: backend
-            - path: /logout
-              service:
-                identifier: backend
+      - host: '{{ template "openvault.url" . }}'
+        paths:
+        - path: /
+          service:
+            identifier: frontend
+        - path: /accounts
+          service:
+            identifier: backend
+        - path: /authorize
+          service:
+            identifier: backend
+        - path: /admin
+          service:
+            identifier: backend
+        - path: /login
+          service:
+            identifier: backend
+        - path: /logout
+          service:
+            identifier: backend
       tls:
-        - secretName: '{{ template "openvault.name" . }}-tls'
-          hosts:
-            - '{{ template "openvault.url" . }}'
+      - secretName: '{{ template "openvault.name" . }}-tls'
+        hosts:
+        - '{{ template "openvault.url" . }}'
 
   ### Service Accounts ###
   serviceAccount:
     default: {}
     backend-restart: {}
-      # name: '{{ template "openvault.backend.fullname" . }}-restart'
-  
+
   ### RBAC ###
   rbac:
     roles:
       backend-restart:
         type: Role
         rules:
-          - apiGroups:
-              - apps
-            resources:
-              - deployments
-            verbs:
-              - list
-              - patch
+        - apiGroups:
+          - apps
+          resources:
+          - deployments
+          verbs:
+          - list
+          - patch
     bindings:
       backend-restart:
         type: RoleBinding
@@ -388,45 +369,38 @@ app-template:
           kind: Role
           identifier: backend-restart
         subjects:
-          - identifier: backend-restart
+        - identifier: backend-restart
 
- ### Raw Resources ###
+  ### Raw Resources ###
   rawResources:
-    database:
-      apiVersion: postgresql.cnpg.io/v1
-      kind: Database
-      spec:
-        spec:
-          name: '{{ template "openvault.name" . }}'
-          owner: app
-          cluster:
-            name: ov-db-cluster
-    backend-secrets:
-      apiVersion: external-secrets.io/v1
-      kind: ExternalSecret
-      spec:
+    external-backend-secrets:
+      enabled: false
+      manifest:
+        apiVersion: external-secrets.io/v1
+        kind: ExternalSecret
         spec:
           refreshInterval: 1h0m0s
           secretStoreRef:
             name: aws-secrets
             kind: ClusterSecretStore
           target:
-            name: '{{ template "openvault.backend.fullname" . }}-secret'
+            name: '{{ template "openvault.backend.fullname" . }}-secrets'
             creationPolicy: Owner
           dataFrom:
           - extract:
               key: '{{ .Values.global.backend.externalSecretsKey | default "dev/ov/backend" }}'
-    frontend-secrets:
-      apiVersion: external-secrets.io/v1
-      kind: ExternalSecret
-      spec:
+    external-frontend-secrets:
+      enabled: false
+      manifest:
+        apiVersion: external-secrets.io/v1
+        kind: ExternalSecret
         spec:
           refreshInterval: 1h0m0s
           secretStoreRef:
             name: aws-secrets
             kind: ClusterSecretStore
           target:
-            name: '{{ template "openvault.frontend.fullname" . }}-secret'
+            name: '{{ template "openvault.frontend.fullname" . }}-secrets'
             creationPolicy: Owner
           dataFrom:
           - extract:

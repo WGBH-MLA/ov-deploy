@@ -49,10 +49,10 @@ spec:
                   serviceAccount:
                     identifier: db
                   containers:
-                    init-db:
+                    main:
                       image:
                         repository: alpine/psql
-                        tag: 17.6
+                        tag: 18.6
                       envFrom:
                       - configMapRef:
                           name: '{{ .values.repo }}-pr-{{ .number }}-backend'
@@ -60,7 +60,7 @@ spec:
                           name: '{{ .values.repo }}-pr-{{ .number }}-backend-secrets'
                       env:
                       - name: SOURCE_DB_NAME
-                        value: ov-dev
+                        value: openvault
                       command:
                       - /bin/sh
                       - -c

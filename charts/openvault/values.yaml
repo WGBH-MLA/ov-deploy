@@ -7,14 +7,14 @@ global:
     # URL for the American Archive instance
     url: https://demo.aapb.wgbh-mla.org
 
-  # Auth configuration
+  # Auth configuration: sign in with Authentik (OpenID Connect)
   auth:
-    # Auth clientId
-    clientId: null
-    # Auth clientSecret
-    clientSecret: null
-    # Auth URL
-    url: null
+    # Authentik OAuth client ID. The client secret is OIDC_CLIENT_SECRET in the backend external secret.
+    clientId: openvault
+    # Authentik application slug. The OpenID issuer is <url>/application/o/<slug>/
+    slug: openvault
+    # Authentik URL
+    url: https://auth.dev.wgbh-mla.org
 
   # backend configuration
   backend:
@@ -267,6 +267,8 @@ app-template:
         OV_DB_USER: '{{ .Values.global.db.user }}'
         OV_DB_PORT: '{{ .Values.global.db.port }}'
         OV_GOOGLE_CLIENT_ID: '{{ .Values.global.google.clientId }}'
+        OIDC_CLIENT_ID: '{{ .Values.global.auth.clientId }}'
+        OIDC_SERVER_URL: '{{ .Values.global.auth.url }}/application/o/{{ .Values.global.auth.slug }}/'
         OV_DEBUG: '{{ .Values.global.backend.debug }}'
         WAGTAIL_BASE_URL: https://{{ template "openvault.url" . }}
         OV_ALLOWED_HOSTS: '*'

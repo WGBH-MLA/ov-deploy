@@ -44,6 +44,15 @@ spec:
               serviceAccount:
                 db: {}
               controllers:
+                backend:
+                  containers:
+                    main:
+                      env:
+                      - name: OV_DB_PASSWORD
+                        valueFrom:
+                          secretKeyRef:
+                            name: ov-db-cluster-app
+                            key: password
                 # initialize the database if it does not exist
                 init-db:
                   type: job

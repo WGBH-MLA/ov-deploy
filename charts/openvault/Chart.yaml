@@ -5,7 +5,7 @@ version: 1.0.0
 appVersion: v1.1.5
 dependencies:
 - name: app-template
-  version: 5.2.1
+  version: 5.3.0
   repository: https://bjw-s-labs.github.io/helm-charts
 home: https://wgbh-mla.github.io/ov-deploy/
 icon: https://wgbh-mla.github.io/ov-deploy/latest/assets/ov-logo-purple.png

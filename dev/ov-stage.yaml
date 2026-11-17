@@ -103,9 +103,15 @@ spec:
                           >&2 echo "Failed to create or restore the database."
                           exit 1
                         }
+              rawResources:
+                external-backend-secrets:
+                  enabled: true
+                external-frontend-secrets:
+                  enabled: true
 
             organ:
               url: https://organ.wgbh-mla.org
+
       destination:
         server: https://kubernetes.default.svc
         namespace: ov

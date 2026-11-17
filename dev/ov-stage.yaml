@@ -122,7 +122,7 @@ spec:
                     spec:
                       cluster:
                         name: ov-db-cluster
-                      name: '{{ .Release.Name }}'
+                      name: '{{ .values.repo }}-pr-{{ .number }}'
                       owner: '{{ .Values.global.db.user }}'
             organ:
               url: https://organ.wgbh-mla.org

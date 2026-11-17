@@ -119,14 +119,11 @@ spec:
                   manifest:
                     apiVersion: postgresql.cnpg.io/v1
                     kind: Database
-                    # metadata:
-                    #   name: '{{ .values.repo }}-pr-{{ .number }}-db'
                     spec:
                       cluster:
                         name: ov-db-cluster
-                      name: '{{ .Values.global.db.name }}'
+                      name: '{{ .Release.Name }}'
                       owner: '{{ .Values.global.db.user }}'
-
             organ:
               url: https://organ.wgbh-mla.org
 

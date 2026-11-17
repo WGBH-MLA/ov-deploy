@@ -39,7 +39,7 @@ spec:
                 image:
                   tag: '{{ if eq .values.repo "ov-frontend" }}pr-{{ .number }}{{ else }}main{{ end }}'
               db:
-                name: '{{ .values.repo }}-pr-{{ .number }}-db'
+                name: '{{ .values.repo }}-pr-{{ .number }}'
             app-template:
               serviceAccount:
                 db: {}
@@ -122,8 +122,9 @@ spec:
                     spec:
                       cluster:
                         name: ov-db-cluster
-                      name: '{{ .values.repo }}-pr-{{ .number }}'
-                      owner: '{{ .Values.global.db.user }}'
+                      # Backticks escape the ApplicationSet go template so Helm renders these
+                      name: '{{ `{{ .Values.global.db.name }}` }}'
+                      owner: '{{ `{{ .Values.global.db.user }}` }}'
             organ:
               url: https://organ.wgbh-mla.org
 

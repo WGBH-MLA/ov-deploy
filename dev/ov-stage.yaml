@@ -54,6 +54,12 @@ spec:
                       image:
                         repository: alpine/psql
                         tag: 18.6
+                      env:
+                      - name: OV_DB_PASSWORD
+                        valueFrom:
+                          secretKeyRef:
+                            name: ov-db-cluster-app
+                            key: password
                       envFrom:
                       - configMapRef:
                           name: '{{ .values.repo }}-pr-{{ .number }}-backend'

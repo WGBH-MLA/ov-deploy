@@ -5,7 +5,7 @@ metadata:
   namespace: argo-cd
 spec:
   goTemplate: true
-  goTemplateOptions: ["missingkey=error"]
+  goTemplateOptions: [ "missingkey=error" ]
   generators:
   - pullRequest:
       github:
@@ -27,6 +27,7 @@ spec:
       source:
         repoURL: https://github.com/WGBH-MLA/ov-deploy
         path: charts/openvault
+        targetRevision: openvault-v1
         helm:
           valuesObject:
             global:
@@ -37,10 +38,21 @@ spec:
               frontend:
                 image:
                   tag: '{{ if eq .values.repo "ov-frontend" }}pr-{{ .number }}{{ else }}main{{ end }}'
+              db:
+                name: '{{ .values.repo }}-pr-{{ .number }}'
             app-template:
               serviceAccount:
                 db: {}
               controllers:
+                backend:
+                  containers:
+                    main:
+                      env:
+                      - name: OV_DB_PASSWORD
+                        valueFrom:
+                          secretKeyRef:
+                            name: ov-db-cluster-app
+                            key: password
                 # initialize the database if it does not exist
                 init-db:
                   type: job
@@ -49,18 +61,23 @@ spec:
                   serviceAccount:
                     identifier: db
                   containers:
-                    init-db:
+                    main:
                       image:
                         repository: alpine/psql
-                        tag: 17.6
+                        tag: 18.6
                       envFrom:
                       - configMapRef:
                           name: '{{ .values.repo }}-pr-{{ .number }}-backend'
                       - secretRef:
-                          name: '{{ .values.repo }}-pr-{{ .number }}-backend-secret'
+                          name: '{{ .values.repo }}-pr-{{ .number }}-backend-secrets'
                       env:
                       - name: SOURCE_DB_NAME
-                        value: ov-dev
+                        value: openvault
+                      - name: OV_DB_PASSWORD
+                        valueFrom:
+                          secretKeyRef:
+                            name: ov-db-cluster-app
+                            key: password
                       command:
                       - /bin/sh
                       - -c
@@ -102,9 +119,24 @@ spec:
                           >&2 echo "Failed to create or restore the database."
                           exit 1
                         }
-
+              rawResources:
+                external-backend-secrets:
+                  enabled: true
+                external-frontend-secrets:
+                  enabled: true
+                database:
+                  manifest:
+                    apiVersion: postgresql.cnpg.io/v1
+                    kind: Database
+                    spec:
+                      cluster:
+                        name: ov-db-cluster
+                      # Backticks escape the ApplicationSet go template so Helm renders these
+                      name: '{{ `{{ .Values.global.db.name }}` }}'
+                      owner: '{{ `{{ .Values.global.db.user }}` }}'
             organ:
               url: https://organ.wgbh-mla.org
+
       destination:
         server: https://kubernetes.default.svc
         namespace: ov

@@ -11,12 +11,35 @@ spec:
     helm:
       valuesObject:
         global:
+          db:
+            name: openvault
+          url: ov.dev.wgbh-mla.org
+          backend:
+            debug: true
           organ:
             url: https://organ.wgbh-mla.org
         app-template:
           serviceAccount:
             db: {}
           controllers:
+            backend:
+              containers:
+                main:
+                  env:
+                  - name: OV_DB_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        name: ov-db-cluster-app
+                        key: password
+            update-index:
+              containers:
+                main:
+                  env:
+                  - name: OV_DB_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        name: ov-db-cluster-app
+                        key: password
             # Sync the production database to the dev database
             sync-db:
               type: job
@@ -25,27 +48,32 @@ spec:
               serviceAccount:
                 identifier: db
               containers:
-                sync-db:
+                main:
                   image:
                     repository: alpine/psql
-                    tag: 17.6
+                    tag: 18.6
                   envFrom:
                   - configMapRef:
                       name: '{{ template "openvault.backend.fullname" . }}'
                   - secretRef:
-                      name: '{{ template "openvault.backend.fullname" . }}-secret'
+                      name: '{{ template "openvault.backend.fullname" . }}-secrets'
                   env:
+                  - name: OV_DB_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        name: ov-db-cluster-app
+                        key: password
                   - name: SOURCE_DB_HOST
                     value: openvault.cmrjt7rckp5r.us-east-1.rds.amazonaws.com
                   - name: SOURCE_DB_USER
                     valueFrom:
                       secretKeyRef:
-                        name: '{{ template "openvault.backend.fullname" . }}-db-secret'
+                        name: '{{ template "openvault.backend.fullname" . }}-source-db-secrets'
                         key: username
                   - name: SOURCE_DB_PASSWORD
                     valueFrom:
                       secretKeyRef:
-                        name: '{{ template "openvault.backend.fullname" . }}-db-secret'
+                        name: '{{ template "openvault.backend.fullname" . }}-source-db-secrets'
                         key: password
                   - name: SOURCE_DB_NAME
                     value: openvault
@@ -86,21 +114,26 @@ spec:
                     }
 
           rawResources:
-            db-secrets:
-              apiVersion: external-secrets.io/v1
-              kind: ExternalSecret
-              spec:
+            external-backend-secrets:
+              enabled: true
+            external-db-secrets:
+              enabled: true
+              manifest:
+                apiVersion: external-secrets.io/v1
+                kind: ExternalSecret
                 spec:
                   refreshInterval: 1h0m0s
                   secretStoreRef:
                     name: aws-secrets
                     kind: ClusterSecretStore
                   target:
-                    name: '{{ template "openvault.backend.fullname" . }}-db-secret'
+                    name: '{{ template "openvault.backend.fullname" . }}-source-db-secrets'
                     creationPolicy: Owner
                   dataFrom:
                   - extract:
                       key: rds!db-30ce1591-67a9-488b-a17d-20164754d9b3
+            external-frontend-secrets:
+              enabled: true
 
   destination:
     server: https://kubernetes.default.svc

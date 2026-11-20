@@ -1140,15 +1140,10 @@
 <script id="init-glightbox">document.querySelectorAll('.glightbox').forEach(function(element) {
     try {
         var img = element.querySelector('img');
-        if (img) {
-            const imageSrc = img.dataset.src || img.src;
-            if (imageSrc) {
-                element.setAttribute('href', imageSrc);
-            } else {
-                console.log('No img element with src or data-src attribute found');
-            }
+        if (img && img.src) {
+            element.setAttribute('href', img.src);
         } else {
-            console.log('No img element found');
+            console.log('No img element with src attribute found');
         }
     } catch (error) {
         console.log('Error:', error);

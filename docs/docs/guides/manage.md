@@ -154,7 +154,7 @@ kubectl exec deploy/RELEASE-backend -- python manage.py update_index
 ```
 
 ## Authentication
-Editors sign in to the Wagtail admin with [Authentik](https://goauthentik.io) over OpenID Connect. The Authentik application, provider, `ov-editors` group, and access rule are declared as a [blueprint](https://docs.goauthentik.io/customize/blueprints/) in the `authentik` chart of [cluster-deploy](https://github.com/WGBH-MLA/cluster-deploy), not in this chart.
+Editors, moderators, and admins sign in to the Wagtail admin with [Authentik](https://goauthentik.io) over OpenID Connect. The Authentik application, provider, groups, and access rules are declared as a [blueprint](https://docs.goauthentik.io/customize/blueprints/) in the `authentik` chart of [cluster-deploy](https://github.com/WGBH-MLA/cluster-deploy), not in this chart.
 
 ### Configure the deployment
 1. Add the client secret to the backend secret in AWS Secrets Manager (`dev/ov/backend`, or `global.backend.externalSecretsKey`). The Authentik blueprint reads the same entry, so both sides always agree:
@@ -176,7 +176,15 @@ Editors sign in to the Wagtail admin with [Authentik](https://goauthentik.io) ov
 The chart passes `OIDC_SERVER_URL` and `OIDC_CLIENT_ID` to the backend. The callback URL is `https://<host>/accounts/oidc/authentik/login/callback/`, and the Authentik blueprint must list it for each environment.
 
 ### Grant access
-Add the user to the `ov-editors` group in Authentik. Signing in only identifies the person: what they can do in Wagtail is still set by their Wagtail groups. A user who signs in with the same email as an existing Wagtail user is linked to that user.
+Add the user to one of these groups in Authentik. Only members of these groups can sign in, and the backend grants the matching Wagtail access each time they do:
+
+| Authentik group | Wagtail access                                                       |
+| --------------- | -------------------------------------------------------------------- |
+| `ov-editors`    | The built-in **Editors** group: add and edit pages                   |
+| `ov-moderators` | The built-in **Moderators** group: add, edit, and **publish** pages  |
+| `ov-admins`     | Superuser                                                            |
+
+Access is only ever granted at sign-in, never removed. Taking someone out of a group stops them signing in, but any Wagtail access they already have stays until you remove it in Wagtail. A user who signs in with the same email as an existing Wagtail user is linked to that user.
 
 ### Verify
 Open `/admin/login/`, choose **Sign in with Authentik**, and check that the browser returns to `/admin/`. In Authentik, **Customization > Blueprints** should show the `Open Vault` blueprint as successful.
